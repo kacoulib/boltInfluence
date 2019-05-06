@@ -1,0 +1,23 @@
+{
+  "name": "bolt-influence",
+  "private": true,
+  "license": "ISC",
+  "scripts": {
+    "dev": "nodemon server/index.js",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@material-ui/core": "latest",
+    "cross-fetch": "^3.0.1",
+    "express": "^4.16.4",
+    "graphql-react": "^8.0.2",
+    "jss": "latest",
+    "next": "^8.0.3",
+    "next-graphql-react": "^3.0.0",
+    "prop-types": "latest",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
+    "react-jss": "^8.1.0"
+  }
+}
