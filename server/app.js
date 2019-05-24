@@ -4,9 +4,9 @@ const mongoSessionStore = require('connect-mongo');
 const next = require('next');
 const mongoose = require('mongoose');
 
-const instagramAuth = require('./instagram');
-const googleAuth = require('./google');
-const { setupGithub } = require('./github');
+const instagramAuth = require('./auth/instagram');
+const googleAuth = require('./auth/google');
+const { setupGithub } = require('./auth/github');
 const api = require('./api');
 
 const logger = require('./logs');
@@ -70,8 +70,14 @@ app.prepare().then(async () => {
   api(server);
   routesWithSlug({ server, app });
 
+  server.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/login');
+  });
+
   server.get('*', (req, res) => {
     const url = URL_MAP[req.path];
+
     if (url) {
       app.render(req, res, url);
     } else {

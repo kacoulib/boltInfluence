@@ -10,7 +10,6 @@ const { Schema } = mongoose;
 const mongoSchema = new Schema({
   googleId: {
     type: String,
-    required: true,
     unique: true,
   },
   googleToken: {
@@ -41,7 +40,6 @@ const mongoSchema = new Schema({
   },
   email: {
     type: String,
-    required: true,
     unique: true,
   },
   isAdmin: {
@@ -73,25 +71,35 @@ class UserClass {
     return ['id', 'displayName', 'email', 'avatarUrl', 'slug', 'isAdmin', 'isGithubConnected'];
   }
 
-  static async signInOrSignUp({ googleId, email, googleToken, displayName, avatarUrl }) {
-    const user = await this.findOne({ googleId }).select(UserClass.publicFields().join(' '));
+  static async signInOrSignUp({ provider, socialUserId, email, token, displayName, avatarUrl }) {
+    const data = {};
+
+    if (provider == 'google') {
+      data.id = 'googleId'
+      data.token = 'googleToken'
+    } else if (provider == 'instagram') {
+      data.id = 'instagramId'
+      data.token = 'instagramToken'
+    }
+
+    const user = await this.findOne({ [data.id]: socialUserId }).select(UserClass.publicFields().join(' '));
 
     if (user) {
       const modifier = {};
 
-      if (googleToken.accessToken) {
-        modifier.access_token = googleToken.accessToken;
+      if (token.accessToken) {
+        modifier.access_token = token.accessToken;
       }
 
-      if (googleToken.refreshToken) {
-        modifier.refresh_token = googleToken.refreshToken;
+      if (token.refreshToken) {
+        modifier.refresh_token = token.refreshToken;
       }
 
       if (_.isEmpty(modifier)) {
         return user;
       }
 
-      await this.updateOne({ googleId }, { $set: modifier });
+      await this.updateOne({ [data.id]: socialUserId }, { $set: modifier });
 
       return user;
     }
@@ -101,9 +109,9 @@ class UserClass {
 
     const newUser = await this.create({
       createdAt: new Date(),
-      googleId,
+      [data.id]: socialUserId,
+      [data.token]: token,
       email,
-      googleToken,
       displayName,
       avatarUrl,
       slug,

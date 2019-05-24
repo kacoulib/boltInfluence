@@ -10,7 +10,7 @@ class Index extends React.Component {
   static propTypes = {
     user: PropTypes.shape({
       displayName: PropTypes.string,
-      email: PropTypes.string.isRequired,
+      avatarUrl: PropTypes.string.isRequired,
     }),
   }
 
@@ -19,7 +19,8 @@ class Index extends React.Component {
   }
 
   render() {
-    const { user } = this.props;
+    const { user: { displayName, avatarUrl } } = this.props;
+
     return (
       <div style={{ padding: '10px 45px' }}>
         <Head>
@@ -30,9 +31,10 @@ class Index extends React.Component {
           />
         </Head>
         <p>List of purchased books</p>
+        {displayName}
       </div>
     );
   }
 }
 
-export default withLayout(Index);
+export default withAuth(withLayout(Index));

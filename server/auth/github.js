@@ -2,7 +2,7 @@ const qs = require('qs');
 const request = require('request');
 const GithubAPI = require('@octokit/rest');
 
-const User = require('./models/User');
+const User = require('../models/User');
 
 const AUTHORIZE_URI = 'https://github.com/login/oauth/authorize';
 const TOKEN_URI = 'https://github.com/login/oauth/access_token';

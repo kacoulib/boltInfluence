@@ -1,7 +1,7 @@
 const express = require('express');
 const Book = require('../models/Book');
 const User = require('../models/User');
-const { getRepos } = require('../github');
+const { getRepos } = require('../auth/github');
 const logger = require('../logs');
 
 const router = express.Router();

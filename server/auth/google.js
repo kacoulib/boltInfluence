@@ -1,6 +1,6 @@
 const passport = require('passport');
 const Strategy = require('passport-google-oauth').OAuth2Strategy;
-const User = require('./models/User');
+const User = require('../models/User');
 
 function auth({ ROOT_URL, server }) {
   const verify = async (accessToken, refreshToken, profile, verified) => {
@@ -17,9 +17,10 @@ function auth({ ROOT_URL, server }) {
 
     try {
       const user = await User.signInOrSignUp({
-        googleId: profile.id,
+        provider: profile.provider,
+        socialUserId: profile.id,
         email,
-        googleToken: { accessToken, refreshToken },
+        token: { accessToken, refreshToken },
         displayName: profile.displayName,
         avatarUrl,
       });
@@ -74,11 +75,6 @@ function auth({ ROOT_URL, server }) {
       }
     },
   );
-
-  server.get('/logout', (req, res) => {
-    req.logout();
-    res.redirect('/login');
-  });
 }
 
 module.exports = auth;
