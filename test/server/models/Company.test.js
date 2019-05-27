@@ -1,7 +1,7 @@
 require('../../db')
 const mongoose = require('mongoose');
-const companyModel = require('../../../server/models/Company');
-const userModel = mongoose.model('User');
+const CompanyModel = require('../../../server/models/Company');
+const UserModel = require('../../../server/models/User');
 const { UserNotFound } = require('../../../utils/variables/error')
 
 const MockUser = {
@@ -15,13 +15,37 @@ const MockUser = {
     },
 };
 
+const MockCompany = [{
+    name: 'myName',
+    address: 'myAdress',
+    city: 'myCity',
+    zip: 1234,
+    country: 'myCountry'
+}]
+
 describe('Add', () => {
-    test('Create without userId', async () => {
+
+    test('Create with data', async () => {
         try {
-            await companyModel.add({});
+            const BeforeCompanies = await CompanyModel.find({})
+
+            const users = await UserModel.findById('5cebe81e8cc6086ee98e7f20').lean();
+            await CompanyModel.add(Object.assign({ userId: users._id }, MockCompany[0]));
+
+            const AfterCompanies = await CompanyModel.find({})
+
+            expect(BeforeCompanies.length).toBeLessThan(AfterCompanies.length)
         } catch (err) {
             expect(err).toBeTruthy();
             expect(err.message).toEqual(UserNotFound);
         }
-    });
+    })
+    // test('Create without userId', async () => {
+    //     try {
+    //         await CompanyModel.add({});
+    //     } catch (err) {
+    //         expect(err).toBeTruthy();
+    //         expect(err.message).toEqual(UserNotFound);
+    //     }
+    // });
 });

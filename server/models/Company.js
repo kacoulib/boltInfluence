@@ -51,9 +51,10 @@ class CompanyClass {
     if (!user) {
       throw new Error(UserNotFound);
     }
+    // return user
+
     const company = await this.create({ userId, name, logo, address, city, zip, country });
-    console.log(company)
-    return { company };
+    return company;
   }
 }
 
