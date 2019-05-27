@@ -23,9 +23,8 @@ const publicMenu = [
 
 const optionsMenuCustomer = [
     {
-        text: 'My books',
-        href: '/customer/my-books',
-        as: '/my-books',
+        text: 'Dashboard',
+        href: '/',
     },
     {
         text: 'Log out',
@@ -44,8 +43,29 @@ const optionsMenuAdmin = [
     },
 ];
 
+
+const influencerMenu = [
+    {
+        text: 'Inbox',
+        href: '/admin',
+    },
+    {
+        text: 'Starred',
+        href: '/logout',
+    },
+    {
+        text: 'Send email',
+        href: '/logout',
+    },
+    {
+        text: 'Drafts',
+        href: '/logout',
+    },
+];
+
 export {
     publicMenu,
     optionsMenuAdmin,
-    optionsMenuCustomer
+    optionsMenuCustomer,
+    influencerMenu
 }

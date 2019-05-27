@@ -27,11 +27,11 @@ class Index extends React.Component {
           <title>Settings</title>
           <meta
             name="description"
-            content="List of purchased books."
+            content="Welcome."
           />
         </Head>
-        <p>List of purchased books</p>
-        {displayName}
+        <p>Welcome {displayName}</p>
+
       </div>
     );
   }

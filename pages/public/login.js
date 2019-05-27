@@ -9,6 +9,16 @@ const styles = {
   buttonIcon: {
     marginRight: '10px'
   },
+  instagramButton: {
+    color: 'white',
+    background: "#f09433",
+    background: "-moz-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)",
+    background: "-webkit-linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)",
+    background: "linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)",
+    filter: "progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 ",
+  }
+}
+const test = {
 }
 
 const Login = () => (
@@ -36,12 +46,8 @@ const Login = () => (
       Log in with Google
     </Button>
     <br />
-    <Button variant="contained" style={styleLoginButton} href="/auth/instagram">
-      <img
-        src="https://storage.googleapis.com/builderbook/G.svg"
-        alt="Log in with Google"
-        style={styles.buttonIcon}
-      />
+    <Button variant="contained" style={styles.instagramButton} href="/auth/instagram">
+      <span className='fa fa-instagram' style={styles.buttonIcon}></span>
       Instagram
     </Button>
   </div>

@@ -13,9 +13,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuDrop from './MenuDrop';
 import { publicMenu, optionsMenuAdmin, optionsMenuCustomer } from './routes'
 import { styleToolbar } from '../SharedStyles';
+import logo from '../../static/img/logo.js'
 
 import Menu from '@material-ui/core/Menu';
-
 
 function Header({ user }) {
   return (
@@ -27,7 +27,7 @@ function Header({ user }) {
               <React.Fragment>
                 <Link prefetch href="/">
                   <Avatar
-                    src="https://storage.googleapis.com/builderbook/logo.svg"
+                    src={logo}
                     alt="Builder Book logo"
                     style={{ margin: '0px auto 0px 20px', cursor: 'pointer', textAlign: 'left' }}
                   />
