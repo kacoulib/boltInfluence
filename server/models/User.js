@@ -4,8 +4,9 @@ const generateSlug = require('../utils/slugify');
 const sendEmail = require('../aws');
 const { getEmailTemplate } = require('./EmailTemplate');
 const logger = require('../logs');
-
+const { Admin, Influencer, Enterprise } = require('../../utils/variables/user')
 const { Schema } = mongoose;
+const providerTokenType = { google: 'google', instagram: 'instagram' };
 
 const mongoSchema = new Schema({
   googleId: {
@@ -20,7 +21,6 @@ const mongoSchema = new Schema({
   },
   instagramId: {
     type: String,
-    required: true,
     unique: true,
   },
   instagramToken: {
@@ -37,47 +37,34 @@ const mongoSchema = new Schema({
   createdAt: {
     type: Date,
     required: true,
+    default: Date.now
   },
   email: {
     type: String,
     unique: true,
   },
-  isAdmin: {
-    type: Boolean,
-    default: false,
-  },
-  isInfluencer: {
-    type: Boolean,
-    default: false,
-  },
-  isAgence: {
-    type: Boolean,
-    default: false,
+  role: {
+    type: String,
+    enum: [Admin, Influencer, Enterprise],
+    default: Influencer,
+    required: true
   },
   displayName: String,
   avatarUrl: String,
-
-  isGithubConnected: {
-    type: Boolean,
-    default: false,
-  },
-  githubAccessToken: {
-    type: String,
-  },
 });
 
 class UserClass {
   static publicFields() {
-    return ['id', 'displayName', 'email', 'avatarUrl', 'slug', 'isAdmin', 'isGithubConnected'];
+    return ['id', 'displayName', 'email', 'avatarUrl', 'slug', 'role'];
   }
 
-  static async signInOrSignUp({ provider, socialUserId, email, token, displayName, avatarUrl }) {
+  static async signInOrSignUp({ provider, socialUserId, email, token, displayName, avatarUrl, role = Influencer }) {
     const data = {};
 
-    if (provider == 'google') {
+    if (provider == providerTokenType.google) {
       data.id = 'googleId'
       data.token = 'googleToken'
-    } else if (provider == 'instagram') {
+    } else if (provider == providerTokenType.instagram) {
       data.id = 'instagramId'
       data.token = 'instagramToken'
     }
@@ -105,7 +92,6 @@ class UserClass {
     }
 
     const slug = await generateSlug(this, displayName);
-    const userCount = await this.find().countDocuments();
 
     const newUser = await this.create({
       createdAt: new Date(),
@@ -115,23 +101,23 @@ class UserClass {
       displayName,
       avatarUrl,
       slug,
-      isAdmin: userCount === 0,
+      role
     });
 
     const template = await getEmailTemplate('welcome', {
       userName: displayName,
     });
 
-    try {
-      await sendEmail({
-        from: `Kelly from Builder Book <${process.env.EMAIL_SUPPORT_FROM_ADDRESS}>`,
-        to: [email],
-        subject: template.subject,
-        body: template.message,
-      });
-    } catch (err) {
-      logger.error('Email sending error:', err);
-    }
+    // try {
+    //   await sendEmail({
+    //     from: `Kelly from Builder Book <${process.env.EMAIL_SUPPORT_FROM_ADDRESS}>`,
+    //     to: [email],
+    //     subject: template.subject,
+    //     body: template.message,
+    //   });
+    // } catch (err) {
+    //   logger.error('Email sending error:', err);
+    // }
 
     return _.pick(newUser, UserClass.publicFields());
   }

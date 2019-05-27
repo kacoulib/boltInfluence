@@ -10,7 +10,6 @@ function auth({ ROOT_URL, server }) {
   const verify = async (accessToken, refreshToken, profile, verified) => {
     const { profile_picture, username } = profile._json.data;
 
-    console.log(profile._json.data.counts)
     try {
       const user = await User.signInOrSignUp({
         provider: profile.provider,

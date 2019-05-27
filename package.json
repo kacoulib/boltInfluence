@@ -7,16 +7,15 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint components pages lib server",
-    "test": "jest --coverage"
+    "test": "jest --watch --detectOpenHandles "
   },
-  "jest": {
-    "coverageDirectory": "./.coverage"
-  },
+  "jest": {},
   "dependencies": {
     "@material-ui/core": "3.9.3",
     "@material-ui/icons": "^4.0.0",
     "@material-ui/styles": "^4.0.0",
     "@octokit/rest": "16.25.0",
+    "@shelf/jest-mongodb": "^1.0.1",
     "aws-sdk": "2.441.0",
     "connect-mongo": "2.0.3",
     "dotenv": "7.0.0",

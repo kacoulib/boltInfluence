@@ -11,7 +11,7 @@ const api = require('./api');
 
 const logger = require('./logs');
 const { insertTemplates } = require('./models/EmailTemplate');
-const routesWithSlug = require('./routesWithSlug');
+// // const routesWithSlug = require('./routesWithSlug');
 
 require('dotenv').config();
 
@@ -68,7 +68,7 @@ app.prepare().then(async () => {
   instagramAuth({ server, ROOT_URL });
   setupGithub({ server });
   api(server);
-  routesWithSlug({ server, app });
+  // routesWithSlug({ server, app });
 
   server.get('/logout', (req, res) => {
     req.logout();
