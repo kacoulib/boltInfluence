@@ -1,6 +1,7 @@
 const passport = require('passport');
 const Strategy = require('passport-google-oauth').OAuth2Strategy;
 const User = require('../models/User');
+const { redirecAfterAuth } = require('./index')
 
 function auth({ ROOT_URL, server }) {
   const verify = async (accessToken, refreshToken, profile, verified) => {
@@ -67,13 +68,7 @@ function auth({ ROOT_URL, server }) {
     passport.authenticate('google', {
       failureRedirect: '/login',
     }),
-    (req, res) => {
-      if (req.user && req.user.isAdmin) {
-        res.redirect('/admin');
-      } else {
-        res.redirect('/my-books');
-      }
-    },
+    redirecAfterAuth,
   );
 }
 

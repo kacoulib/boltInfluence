@@ -14,6 +14,7 @@ const { Schema } = mongoose;
 const mongoSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
+    ref: 'User',
     required: true,
   },
   name: {
@@ -51,10 +52,12 @@ class CompanyClass {
     if (!user) {
       throw new Error(UserNotFound);
     }
-    // return user
 
-    const company = await this.create({ userId, name, logo, address, city, zip, country });
-    return company;
+    return await this.create({ userId, name, logo, address, city, zip, country });
+  }
+
+  static async getCompanyUser(id) {
+    return this.findById(id)
   }
 }
 

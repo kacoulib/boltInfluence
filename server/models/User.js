@@ -12,6 +12,8 @@ const mongoSchema = new Schema({
   googleId: {
     type: String,
     unique: true,
+    sparse: true
+
   },
   googleToken: {
     access_token: String,
@@ -22,6 +24,7 @@ const mongoSchema = new Schema({
   instagramId: {
     type: String,
     unique: true,
+    sparse: true
   },
   instagramToken: {
     access_token: String,

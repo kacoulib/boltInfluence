@@ -22,6 +22,7 @@
     "email-addresses": "3.0.3",
     "express": "4.16.4",
     "express-session": "1.16.1",
+    "faker": "^4.1.0",
     "front-matter": "3.0.2",
     "googleapis": "39.2.0",
     "handlebars": "4.1.2",

@@ -2,6 +2,7 @@ const User = require('../models/User');
 
 const InstagramStrategy = require('passport-instagram').Strategy
 const passport = require('passport')
+const { redirecAfterAuth } = require('./index')
 
 
 function auth({ ROOT_URL, server }) {
@@ -48,9 +49,7 @@ function auth({ ROOT_URL, server }) {
     res.redirect('/');
   });
 
-  server.get(uri, passport.authenticate('instagram', { failureRedirect: '/login' }), function (req, res) {
-    res.redirect('/');
-  })
+  server.get(uri, passport.authenticate('instagram', { failureRedirect: '/login' }), redirecAfterAuth)
 }
 
 module.exports = auth;

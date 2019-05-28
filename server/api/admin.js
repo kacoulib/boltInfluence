@@ -3,11 +3,12 @@ const Book = require('../models/Book');
 const User = require('../models/User');
 const { getRepos } = require('../auth/github');
 const logger = require('../logs');
+const { isAdmin } = require('../../utils/variables/user')
 
 const router = express.Router();
 
 router.use((req, res, next) => {
-  if (!req.user || !req.user.isAdmin) {
+  if (!req.user || isAdmin(isAdmin)) {
     res.status(401).json({ error: 'Unauthorized' });
     return;
   }
