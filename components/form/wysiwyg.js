@@ -4,14 +4,10 @@ import * as Showdown from "showdown";
 import "react-mde/lib/styles/css/react-mde-all.css";
 
 
-const wysiwyg = (props) => {
+const wysiwyg = ({ value, onChange }) => {
 
-    const [value, setValue] = useState('');
     const [tab, setTab] = useState('write');
 
-    useEffect(() => {
-        setValue(props.value)
-    })
 
     const converter = new Showdown.Converter({
         tables: true,
@@ -23,7 +19,7 @@ const wysiwyg = (props) => {
     return (
         <div className="container">
             <ReactMde
-                onChange={setValue}
+                onChange={(value) => onChange({ target: { value } })}
                 onTabChange={setTab}
                 value={value}
                 generateMarkdownPreview={markdown =>

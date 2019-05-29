@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from "react";
+
 import Head from 'next/head';
 import Button from '@material-ui/core/Button';
 
@@ -28,8 +30,8 @@ const fields = [
     width: 4
   },
   {
-    label: "First name",
-    name: "firstName",
+    label: "Last name",
+    name: "lastName",
     type: 'input',
     required: true,
     width: 4
@@ -64,45 +66,56 @@ const fields = [
   },
 ]
 
+const Login = () => {
+  const [form, setForm] = useState({
+    firstName: '',
+    lastName: 'coulibaly',
+    age: '22',
+    motivation: "**Hello my drop!!!**"
 
-const Login = () => (
-  <div style={{ textAlign: 'center', margin: '0 20px' }}>
-    <Head>
-      <title>
-        Log in to Builder Book
+  })
+
+  const handleChange = (name) => ({ target: { value } }) => setForm(Object.assign({}, form, { [name]: value }));
+
+  return (
+    <div style={{ textAlign: 'center', margin: '0 20px' }}>
+      <Head>
+        <title>
+          Log in to Builder Book
       </title>
-      <meta name="description" content="Login page for builderbook.org" />
-    </Head>
-    <br />
-    <p style={{ margin: '45px auto', fontSize: '44px', fontWeight: '400' }}>
-      Log in
+        <meta name="description" content="Login page for builderbook.org" />
+      </Head>
+      <br />
+      <p style={{ margin: '45px auto', fontSize: '44px', fontWeight: '400' }}>
+        Log in
     </p>
-    <p>
-      You’ll be logged in for 14 days unless you log out manually.
+      <p>
+        You’ll be logged in for 14 days unless you log out manually.
     </p>
-    <br />
-    <Button variant="contained" style={styleLoginButton} href="/auth/google">
-      <img
-        src="https://storage.googleapis.com/builderbook/G.svg"
-        alt="Log in with Google"
-        style={styles.buttonIcon}
-      />
-      Log in with Google
+      <br />
+      <Button variant="contained" style={styleLoginButton} href="/auth/google">
+        <img
+          src="https://storage.googleapis.com/builderbook/G.svg"
+          alt="Log in with Google"
+          style={styles.buttonIcon}
+        />
+        Log in with Google
     </Button>
-    <br />
-    <Button variant="contained" style={styles.instagramButton} href="/auth/instagram">
-      <span className='fa fa-instagram' style={styles.buttonIcon}></span>
-      Instagram
+      <br />
+      <Button variant="contained" style={styles.instagramButton} href="/auth/instagram">
+        <span className='fa fa-instagram' style={styles.buttonIcon}></span>
+        Instagram
     </Button>
 
-    <div>
-      <FormGenerator
-        fields={fields}
-        form= {[]}
-        handleChange={(field)=>console.log(field)}
-      />
+      <div>
+        <FormGenerator
+          fields={fields}
+          form={form}
+          handleChange={handleChange}
+        />
+      </div>
     </div>
-  </div>
-);
+  )
+};
 
 export default withLayout(Login);

@@ -66,9 +66,14 @@ const styles = theme => ({
 
 const FormGenerator = ({ fields, classes, form, handleChange }) => {
     const { set } = useState()
+
     useEffect(() => {
 
     })
+
+    const onWysiwygChange = (value) => {
+        console.log(value)
+    }
 
     const textTypes = ['input', 'password', 'email', 'number', 'textarea'],
         spacing = 16;
@@ -86,9 +91,11 @@ const FormGenerator = ({ fields, classes, form, handleChange }) => {
                                     required={elem.required}
                                     multiline={elem.type === 'textarea'}
                                     fullWidth
+                                    defaultValue={form[elem.name]}
+                                    onChange={handleChange(elem.name)}
                                     style={{ paddingRight: '15px' }}
                                 />
-                                || elem.type == 'wysiwyg' && <Wysiwyg value={"**Hello world!!!**"} />
+                                || elem.type == 'wysiwyg' && <Wysiwyg value={form[elem.name]} onChange={handleChange(elem.name)} />
                             }
                         </Grid>
                     )
@@ -101,8 +108,8 @@ const FormGenerator = ({ fields, classes, form, handleChange }) => {
 
 FormGenerator.propTypes = {
     fields: PropTypes.arrayOf(PropTypes.object).isRequired,
-    form: PropTypes.arrayOf(PropTypes.object).isRequired,
-    handleChange: PropTypes.func.required
+    form: PropTypes.object.isRequired,
+    handleChange: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(FormGenerator);
