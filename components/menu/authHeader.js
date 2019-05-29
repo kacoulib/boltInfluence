@@ -125,10 +125,9 @@ class MiniDrawer extends React.Component {
                             <MenuIcon />
                         </IconButton>
                         <Typography variant="h6" color="inherit" noWrap>
-                            <Link prefetch href="/">
+                            <Link prefetch href={'/' + user.role}>
                                 <a style={{ color: 'white' }}>BoltInfluence</a>
                             </Link>
-                            {/* {Ucfirst(user.displayName)} */}
                         </Typography>
 
                         <div style={{ whiteSpace: ' nowrap', }}>
@@ -162,10 +161,12 @@ class MiniDrawer extends React.Component {
                     <Divider />
                     <List>
                         {influencerMenu.map((menu, index) => (
-                            <ListItem button key={menu.text}>
-                                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                                <ListItemText primary={menu.text} />
-                            </ListItem>
+                            <Link key={menu.text} href={menu.href}>
+                                <ListItem button>
+                                    <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                                    <ListItemText primary={menu.text} />
+                                </ListItem>
+                            </Link>
                         ))}
                     </List>
                     <Divider />

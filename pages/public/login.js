@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import Button from '@material-ui/core/Button';
 
-import withAuth from '../../lib/withAuth';
 import withLayout from '../../lib/withLayout';
 import { styleLoginButton } from '../../components/SharedStyles';
+import FormGenerator from '../../components/form/generator'
 
 const styles = {
   buttonIcon: {
@@ -18,8 +18,34 @@ const styles = {
     filter: "progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 ",
   }
 }
-const test = {
-}
+
+const fields = [
+  {
+    label: "First name",
+    name: "firstName",
+    type: 'input',
+    required: true
+  },
+  {
+    label: "First name",
+    name: "firstName",
+    type: 'input',
+    required: true
+  },
+  {
+    label: "Last name",
+    name: "firstName",
+    type: 'wysiwyg',
+    required: true
+  },
+  {
+    label: "First name",
+    name: "firstName",
+    type: 'input',
+    required: true
+  },
+]
+
 
 const Login = () => (
   <div style={{ textAlign: 'center', margin: '0 20px' }}>
@@ -50,7 +76,11 @@ const Login = () => (
       <span className='fa fa-instagram' style={styles.buttonIcon}></span>
       Instagram
     </Button>
+
+    <div>
+      <FormGenerator fields={fields} />
+    </div>
   </div>
 );
 
-export default withAuth(withLayout(Login), { logoutRequired: true });
+export default withLayout(Login);

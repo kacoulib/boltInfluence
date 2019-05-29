@@ -1,3 +1,5 @@
+import { Influencer } from '../../utils/variables/user'
+
 const publicMenu = [
     {
         text: 'Marques / Agences',
@@ -23,8 +25,8 @@ const publicMenu = [
 
 const optionsMenuCustomer = [
     {
-        text: 'Dashboard',
-        href: '/',
+        text: 'Profile',
+        href: '/' + Influencer,
     },
     {
         text: 'Log out',
@@ -46,20 +48,12 @@ const optionsMenuAdmin = [
 
 const influencerMenu = [
     {
+        text: 'Dashboard',
+        href: `/dashboard`,
+    },
+    {
         text: 'Inbox',
-        href: '/admin',
-    },
-    {
-        text: 'Starred',
-        href: '/logout',
-    },
-    {
-        text: 'Send email',
-        href: '/logout',
-    },
-    {
-        text: 'Drafts',
-        href: '/logout',
+        href: `/messages`,
     },
 ];
 
