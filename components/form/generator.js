@@ -1,8 +1,11 @@
-import { Fragment } from 'react'
+import React, { useState, useEffect } from "react";
+
+import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Wysiwyg from './wysiwyg'
 import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles';
 
 /*
         Generate form
@@ -43,29 +46,63 @@ Autofocus on the first field
 
 */
 
+const styles = theme => ({
+    root: {
+        flexGrow: 1,
+    },
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    paper: {
+        height: 140,
+        width: 100,
+    },
+    control: {
+        padding: theme.spacing.unit,
+    },
+});
 
-const FormGenerator = ({ fields }) => {
 
+const FormGenerator = ({ fields, classes, form, handleChange }) => {
+    const { set } = useState()
+    useEffect(() => {
+
+    })
+
+    const textTypes = ['input', 'password', 'email', 'number', 'textarea'],
+        spacing = 16;
     return (
-        <FormControl>
-            {fields.map((elem, key) =>
-                (
-                    <Fragment key={key}>
-                        {
-                            elem.type == 'input' &&
-                            <TextField id={`${elem.name}-${key}`} label={elem.label} />
-                            || elem.type == 'wysiwyg' && <Wysiwyg value={"**Hello world!!!**"} />
-                        }
-                    </Fragment>
-                )
+        <FormControl className={classes.container}>
+            <Grid container className={classes.root} spacing={spacing} justify="center" alignItems="center">
+                {fields.map((elem, key) =>
+                    (
+                        <Grid key={key} item xs={elem.width}>
+                            {
+                                textTypes.includes(elem.type) &&
+                                <TextField
+                                    type={elem.type}
+                                    label={elem.label}
+                                    required={elem.required}
+                                    multiline={elem.type === 'textarea'}
+                                    fullWidth
+                                    style={{ paddingRight: '15px' }}
+                                />
+                                || elem.type == 'wysiwyg' && <Wysiwyg value={"**Hello world!!!**"} />
+                            }
+                        </Grid>
+                    )
 
-            )}
+                )}
+            </Grid>
         </FormControl>
     )
 }
 
 FormGenerator.propTypes = {
     fields: PropTypes.arrayOf(PropTypes.object).isRequired,
+    form: PropTypes.arrayOf(PropTypes.object).isRequired,
+    handleChange: PropTypes.func.required
 }
 
-export default FormGenerator;
+export default withStyles(styles)(FormGenerator);

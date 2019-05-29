@@ -24,25 +24,43 @@ const fields = [
     label: "First name",
     name: "firstName",
     type: 'input',
-    required: true
+    required: true,
+    width: 4
   },
   {
     label: "First name",
     name: "firstName",
     type: 'input',
-    required: true
+    required: true,
+    width: 4
   },
   {
-    label: "Last name",
-    name: "firstName",
+    label: "Email",
+    name: "email",
+    type: 'email',
+    required: true,
+    width: 4
+  },
+  {
+    label: "Password",
+    name: "password",
+    type: 'password',
+    required: true,
+    width: 12
+
+  },
+  {
+    label: "Age",
+    name: "age",
+    type: 'number',
+    required: true,
+    width: 12
+
+  },
+  {
+    label: "Motivation",
+    name: "motivation",
     type: 'wysiwyg',
-    required: true
-  },
-  {
-    label: "First name",
-    name: "firstName",
-    type: 'input',
-    required: true
   },
 ]
 
@@ -78,7 +96,11 @@ const Login = () => (
     </Button>
 
     <div>
-      <FormGenerator fields={fields} />
+      <FormGenerator
+        fields={fields}
+        form= {[]}
+        handleChange={(field)=>console.log(field)}
+      />
     </div>
   </div>
 );
