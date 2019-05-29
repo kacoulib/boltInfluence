@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 
 const instagramAuth = require('./auth/instagram');
 const googleAuth = require('./auth/google');
+const basicAuth = require('./auth/basic');
 const { setupGithub } = require('./auth/github');
 const api = require('./api');
 
@@ -61,11 +62,16 @@ app.prepare().then(async () => {
   };
 
   server.use(session(sess));
-
+  server.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
   await insertTemplates();
 
   googleAuth({ server, ROOT_URL });
   instagramAuth({ server, ROOT_URL });
+  basicAuth({ server, ROOT_URL })
   setupGithub({ server });
   api(server);
   // routesWithSlug({ server, app });

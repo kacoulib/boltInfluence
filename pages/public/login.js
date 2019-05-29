@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { basicAuth } from '../../lib/api/public'
 import Head from 'next/head';
 import Button from '@material-ui/core/Button';
 
@@ -114,6 +114,10 @@ const Login = () => {
           handleChange={handleChange}
         />
       </div>
+      <Button variant="contained" style={styles.instagramButton} onClick={() => basicAuth({ firstName: 'kar', lastName: 'cou' })}>
+        <span className='fa fa-instagram' style={styles.buttonIcon}></span>
+        Instagram
+    </Button>
     </div>
   )
 };

@@ -71,12 +71,9 @@ const FormGenerator = ({ fields, classes, form, handleChange }) => {
 
     })
 
-    const onWysiwygChange = (value) => {
-        console.log(value)
-    }
-
     const textTypes = ['input', 'password', 'email', 'number', 'textarea'],
         spacing = 16;
+
     return (
         <FormControl className={classes.container}>
             <Grid container className={classes.root} spacing={spacing} justify="center" alignItems="center">
