@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Wysiwyg from './wysiwyg'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 /*
         Generate form
@@ -64,7 +65,7 @@ const styles = theme => ({
 });
 
 
-const FormGenerator = ({ fields, classes, form, handleChange }) => {
+const FormGenerator = ({ fields, classes, form, onChange, onSubmit }) => {
     const { set } = useState()
 
     useEffect(() => {
@@ -72,41 +73,50 @@ const FormGenerator = ({ fields, classes, form, handleChange }) => {
     })
 
     const textTypes = ['input', 'password', 'email', 'number', 'textarea'],
-        spacing = 16;
+        spacing = 16,
+        defaultWidth = { xs: 12 };
 
     return (
-        <FormControl className={classes.container}>
-            <Grid container className={classes.root} spacing={spacing} justify="center" alignItems="center">
-                {fields.map((elem, key) =>
-                    (
-                        <Grid key={key} item xs={elem.width}>
-                            {
-                                textTypes.includes(elem.type) &&
-                                <TextField
-                                    type={elem.type}
-                                    label={elem.label}
-                                    required={elem.required}
-                                    multiline={elem.type === 'textarea'}
-                                    fullWidth
-                                    defaultValue={form[elem.name]}
-                                    onChange={handleChange(elem.name)}
-                                    style={{ paddingRight: '15px' }}
-                                />
-                                || elem.type == 'wysiwyg' && <Wysiwyg value={form[elem.name]} onChange={handleChange(elem.name)} />
-                            }
-                        </Grid>
-                    )
+        <form onSubmit={(e) => { e.preventDefault(); onSubmit() }}>
+            <FormControl className={classes.container} >
+                <Grid container className={classes.root} spacing={spacing} justify="center" alignItems="center">
+                    {fields.map((elem, key) =>
+                        (
+                            <Grid key={key} item xs={elem.width || defaultWidth.xs}>
+                                {
+                                    textTypes.includes(elem.type) &&
+                                    <TextField
+                                        type={elem.type}
+                                        label={elem.label}
+                                        required={elem.required}
+                                        multiline={elem.type === 'textarea'}
+                                        fullWidth
+                                        defaultValue={form[elem.name]}
+                                        onChange={onChange(elem.name)}
+                                        style={{ paddingRight: '15px' }}
+                                    />
+                                    || elem.type == 'wysiwyg' && <Wysiwyg value={form[elem.name]} onChange={onChange(elem.name)} />
+                                }
+                            </Grid>
+                        )
 
-                )}
-            </Grid>
-        </FormControl>
+                    )}
+                    <Grid item xs={12}>
+                        <Button variant="contained" className={classes.button} type="submit">
+                            Submit
+                    </Button>
+                    </Grid>
+                </Grid>
+            </FormControl>
+        </form>
     )
 }
 
 FormGenerator.propTypes = {
     fields: PropTypes.arrayOf(PropTypes.object).isRequired,
     form: PropTypes.object.isRequired,
-    handleChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(FormGenerator);

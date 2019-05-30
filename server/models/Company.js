@@ -24,23 +24,18 @@ const mongoSchema = new Schema({
   logo: String,
   address: {
     type: String,
-    required: true,
   },
   city: {
     type: String,
-    required: true,
   },
   zip: {
     type: Number,
-    required: true,
   },
   country: {
     type: String,
-    required: true
   },
   createdAt: {
     type: Date,
-    required: true,
     default: Date.now
   },
 });

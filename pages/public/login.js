@@ -21,61 +21,115 @@ const styles = {
   }
 }
 
+// const fields = [
+//   {
+//     label: "First name",
+//     name: "firstName",
+//     type: 'input',
+//     required: true,
+//     width: 4
+//   },
+//   {
+//     label: "Last name",
+//     name: "lastName",
+//     type: 'input',
+//     required: true,
+//     width: 4
+//   },
+//   {
+//     label: "Email",
+//     name: "email",
+//     type: 'email',
+//     required: true,
+//     width: 4
+//   },
+//   {
+//     label: "Password",
+//     name: "password",
+//     type: 'password',
+//     required: true,
+//     width: 12
+
+//   },
+//   {
+//     label: "Age",
+//     name: "age",
+//     type: 'number',
+//     required: true,
+//     width: 12
+
+//   },
+//   {
+//     label: "Motivation",
+//     name: "motivation",
+//     type: 'wysiwyg',
+//   },
+// ]
+
 const fields = [
   {
     label: "First name",
     name: "firstName",
     type: 'input',
     required: true,
-    width: 4
+    width: 6
   },
   {
     label: "Last name",
     name: "lastName",
     type: 'input',
     required: true,
-    width: 4
+    width: 6
   },
   {
     label: "Email",
     name: "email",
     type: 'email',
     required: true,
-    width: 4
+    width: 6
   },
   {
     label: "Password",
     name: "password",
     type: 'password',
     required: true,
-    width: 12
+    width: 6
 
   },
   {
-    label: "Age",
-    name: "age",
+    label: "Company name",
+    name: "companyName",
+    type: 'input',
+    required: true,
+    width: 6
+  },
+  {
+    label: "Phone",
+    name: "phone",
     type: 'number',
     required: true,
-    width: 12
+    width: 6
 
-  },
-  {
-    label: "Motivation",
-    name: "motivation",
-    type: 'wysiwyg',
   },
 ]
 
 const Login = () => {
   const [form, setForm] = useState({
-    firstName: '',
-    lastName: 'coulibaly',
-    age: '22',
-    motivation: "**Hello my drop!!!**"
 
+    firstName: "Karim",
+    lastName: "Coulibaly",
+    email: "kacoulib@gmail.com",
+    password: "Test123$",
+    companyName: "KacoulibINC",
+    phone: "0645100284",
   })
 
-  const handleChange = (name) => ({ target: { value } }) => setForm(Object.assign({}, form, { [name]: value }));
+  const onChange = (name) => ({ target: { value } }) => setForm(Object.assign({}, form, { [name]: value }));
+  const onSubmit = async () => {
+
+    const res = await basicAuth(form)
+    console.log(res)
+  };
 
   return (
     <div style={{ textAlign: 'center', margin: '0 20px' }}>
@@ -111,13 +165,10 @@ const Login = () => {
         <FormGenerator
           fields={fields}
           form={form}
-          handleChange={handleChange}
+          onChange={onChange}
+          onSubmit={onSubmit}
         />
       </div>
-      <Button variant="contained" style={styles.instagramButton} onClick={() => basicAuth({ firstName: 'kar', lastName: 'cou' })}>
-        <span className='fa fa-instagram' style={styles.buttonIcon}></span>
-        Instagram
-    </Button>
     </div>
   )
 };

@@ -22,7 +22,7 @@ import Ucfirst from '../../lib/ucfirst';
 import { influencerMenu, optionsMenuCustomer } from './routes'
 import MenuDrop from './MenuDrop';
 import Link from 'next/link';
-
+import dafaultAvatar from '../../static/img/logo'
 
 const drawerWidth = 240;
 
@@ -133,7 +133,7 @@ class MiniDrawer extends React.Component {
                         <div style={{ whiteSpace: ' nowrap', }}>
                             <MenuDrop
                                 options={optionsMenuCustomer}
-                                src={user.avatarUrl}
+                                src={user.avatarUrl || dafaultAvatar}
                                 alt={user.displayName}
                             />
                         </div>

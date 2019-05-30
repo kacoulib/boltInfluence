@@ -1,31 +1,46 @@
 var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
-const User = require('../models/User');
+const UserModel = require('../models/User');
+const CompanyModel = require('../models/Company');
 const { redirecAfterAuth } = require('./index')
 
 
-function auth({ ROOT_URL, server }) {
+const auth = ({ server }) => {
 
+    const verify = async (req, email, password, cb) => {
+        const { body: { firstName, lastName, companyName } } = req;
+
+        try {
+            const user = await UserModel.signInOrSignUp({
+                firstName,
+                lastName,
+                email
+            });
+            const company = await CompanyModel.findOne({ name: companyName });
+            if (!company)
+                await CompanyModel.add({
+                    userId: user._id,
+                    name: companyName
+                })
+            cb(null, user)
+        } catch (err) {
+            console.log(err); // eslint-disable-line
+        }
+    }
     passport.use(new Strategy(
         {
             usernameField: 'email',
             passwordField: 'password',
+            passReqToCallback: true
         },
-        function (email, password, cb) {
-            User.findByUsername(email, function (err, user) {
-                if (err) { return cb(err); }
-                if (!user) { return cb(null, false); }
-                if (user.password != password) { return cb(null, false); }
-                return cb(null, user);
-            });
-        }));
+        verify));
 
-    passport.serializeUser(function (user, cb) {
+    passport.serializeUser((user, cb) => {
         cb(null, user.id);
     });
 
-    passport.deserializeUser(function (id, cb) {
-        User.findById(id, function (err, user) {
+    passport.deserializeUser((id, cb) => {
+        UserModel.findById(id, (err, user) => {
             if (err) { return cb(err); }
             cb(null, user);
         });
@@ -34,24 +49,7 @@ function auth({ ROOT_URL, server }) {
     server.use(passport.initialize());
     server.use(passport.session());
 
-    // server.post('/auth/basic', passport.authenticate('local', { failureRedirect: '/login' }),
-    server.post('/auth/basic',
-        function (req, res, next) {
-            passport.authenticate('local', function (err, user, info) {
-                if (err)
-                    console.log(err)
-                console.log('ollalala', info)
-                res.redirect('/');
+    server.post('/auth/basic', passport.authenticate('local', { failureRedirect: '/login' }), redirecAfterAuth)
 
-            })(req, res, next);
-        });
-
-    server.get(
-        '/oauth2callback',
-        passport.authenticate('basic', {
-            failureRedirect: '/login',
-        }),
-        redirecAfterAuth,
-    );
 }
 module.exports = auth;

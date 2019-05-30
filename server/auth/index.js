@@ -4,7 +4,7 @@ module.exports = {
     redirecAfterAuth: (req, res) => {
         const user = req.user;
 
-        if (req.user) {
+        if (user) {
             if (RoleList.includes(user.role))
                 res.redirect('/dashboard')
             else

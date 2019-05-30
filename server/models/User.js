@@ -53,6 +53,8 @@ const mongoSchema = new Schema({
     required: true
   },
   displayName: String,
+  firstName: String,
+  lastName: String,
   avatarUrl: String,
 });
 
@@ -61,7 +63,7 @@ class UserClass {
     return ['id', 'displayName', 'email', 'avatarUrl', 'slug', 'role'];
   }
 
-  static async signInOrSignUp({ provider, socialUserId, email, token, displayName, avatarUrl, role = Influencer }) {
+  static async signInOrSignUp({ provider, socialUserId, email, token, displayName, avatarUrl, role = Influencer, firstName, lastName }) {
     const data = {};
 
     if (provider == providerTokenType.google) {
@@ -71,18 +73,26 @@ class UserClass {
       data.id = 'instagramId'
       data.token = 'instagramToken'
     }
+    const findQuery = {};
 
-    const user = await this.findOne({ [data.id]: socialUserId }).select(UserClass.publicFields().join(' '));
+    if (email)
+      findQuery.email = email;
+    else
+      findQuery[data.id] = socialUserId;
+
+    const user = await this.findOne(findQuery).select(UserClass.publicFields().join(' '));
 
     if (user) {
       const modifier = {};
 
-      if (token.accessToken) {
-        modifier.access_token = token.accessToken;
-      }
+      if (token) {
+        if (token.accessToken) {
+          modifier.access_token = token.accessToken;
+        }
 
-      if (token.refreshToken) {
-        modifier.refresh_token = token.refreshToken;
+        if (token.refreshToken) {
+          modifier.refresh_token = token.refreshToken;
+        }
       }
 
       if (_.isEmpty(modifier)) {
@@ -94,18 +104,24 @@ class UserClass {
       return user;
     }
 
-    const slug = await generateSlug(this, displayName);
-
-    const newUser = await this.create({
+    const slug = await generateSlug(this, displayName || firstName + lastName);
+    const newUser = {
       createdAt: new Date(),
-      [data.id]: socialUserId,
-      [data.token]: token,
       email,
       displayName,
       avatarUrl,
       slug,
-      role
-    });
+      role,
+      firstName,
+      lastName
+    }
+    if (!_.isEmpty(data)) {
+      newUser[data.id] = socialUserId;
+      newUser[data.token] = token;
+    }
+
+
+    newUser = await this.create(newUser);
 
     const template = await getEmailTemplate('welcome', {
       userName: displayName,

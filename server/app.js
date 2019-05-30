@@ -71,7 +71,7 @@ app.prepare().then(async () => {
 
   googleAuth({ server, ROOT_URL });
   instagramAuth({ server, ROOT_URL });
-  basicAuth({ server, ROOT_URL })
+  basicAuth({ server })
   setupGithub({ server });
   api(server);
   // routesWithSlug({ server, app });
