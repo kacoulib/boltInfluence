@@ -19,6 +19,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Ucfirst from '../../lib/ucfirst';
+import Badge from '@material-ui/core/Badge';
 import { influencerMenu, optionsMenuCustomer } from './routes'
 import MenuDrop from './MenuDrop';
 import Link from 'next/link';
@@ -163,7 +164,10 @@ class MiniDrawer extends React.Component {
                         {influencerMenu.map((menu, index) => (
                             <Link key={menu.text} href={menu.href}>
                                 <ListItem button>
-                                    <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                                    <ListItemIcon>
+                                        {index % 2 === 0 ? <InboxIcon /> : <Badge className={classes.margin} badgeContent={10} color="error">
+                                            <MailIcon />
+                                        </Badge>}</ListItemIcon>
                                     <ListItemText primary={menu.text} />
                                 </ListItem>
                             </Link>
@@ -182,8 +186,6 @@ class MiniDrawer extends React.Component {
                 <main className={classes.content}>
                     <div className={classes.toolbar} />
                     {this.props.children}
-                    <Typography paragraph>Welcome</Typography>
-                    <Typography paragraph>toto</Typography>
                 </main>
             </div>
         );

@@ -65,7 +65,7 @@ const styles = theme => ({
 });
 
 
-const FormGenerator = ({ fields, classes, form, onChange, onSubmit }) => {
+const FormGenerator = ({ fields, classes, form, onChange, onSubmit, align = 'center' }) => {
     const { set } = useState()
 
     useEffect(() => {
@@ -79,24 +79,30 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit }) => {
     return (
         <form onSubmit={(e) => { e.preventDefault(); onSubmit() }}>
             <FormControl className={classes.container} >
-                <Grid container className={classes.root} spacing={spacing} justify="center" alignItems="center">
+                <Grid container className={classes.root} spacing={spacing} alignItems="center">
                     {fields.map((elem, key) =>
                         (
                             <Grid key={key} item xs={elem.width || defaultWidth.xs}>
-                                {
-                                    textTypes.includes(elem.type) &&
-                                    <TextField
-                                        type={elem.type}
-                                        label={elem.label}
-                                        required={elem.required}
-                                        multiline={elem.type === 'textarea'}
-                                        fullWidth
-                                        defaultValue={form[elem.name]}
-                                        onChange={onChange(elem.name)}
-                                        style={{ paddingRight: '15px' }}
-                                    />
-                                    || elem.type == 'wysiwyg' && <Wysiwyg value={form[elem.name]} onChange={onChange(elem.name)} />
-                                }
+                                <div style={{ paddingBottom: '15px' }}>
+                                    {textTypes.includes(elem.type) &&
+                                        <TextField
+                                            type={elem.type}
+                                            label={elem.label}
+                                            required={elem.required}
+                                            multiline={elem.type === 'textarea'}
+                                            fullWidth
+                                            defaultValue={form[elem.name]}
+                                            onChange={onChange(elem.name)}
+                                            style={{ paddingRight: '15px' }}
+                                        />
+                                        || elem.type == 'wysiwyg' && (
+                                            <div>
+                                                {elem.helpText && <span >{elem.helpText}</span>}
+                                                <Wysiwyg value={form[elem.name]} onChange={onChange(elem.name)} />
+                                            </div>
+                                        )
+                                    }
+                                </div>
                             </Grid>
                         )
 
@@ -116,7 +122,8 @@ FormGenerator.propTypes = {
     fields: PropTypes.arrayOf(PropTypes.object).isRequired,
     form: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired
+    onSubmit: PropTypes.func.isRequired,
+    align: PropTypes.string
 }
 
 export default withStyles(styles)(FormGenerator);

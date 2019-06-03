@@ -53,7 +53,7 @@ const influencerMenu = [
     },
     {
         text: 'Inbox',
-        href: `/messages`,
+        href: `/dashboard/message`,
     },
 ];
 
