@@ -3,9 +3,10 @@ var Strategy = require('passport-local').Strategy;
 const UserModel = require('../models/User');
 const CompanyModel = require('../models/Company');
 const { redirecAfterAuth } = require('./index')
+var bodyParser = require('body-parser')
+var cookieParser = require('cookie-parser')
 
-
-const auth = ({ server }) => {
+const auth = ({ server, app }) => {
 
     const verify = async (req, email, password, cb) => {
         const { body: { firstName, lastName, companyName } } = req;
@@ -48,8 +49,18 @@ const auth = ({ server }) => {
 
     server.use(passport.initialize());
     server.use(passport.session());
+    server.use(bodyParser.json())
+    server.use(bodyParser.urlencoded({ extended: false }))
+    server.use(cookieParser())
 
-    server.post('/auth/basic', passport.authenticate('local', { failureRedirect: '/login' }), redirecAfterAuth)
+    server.post('/auth/basic', function (req, res, next) {
+        passport.authenticate('local', function (err, user, info) {
+            if (err) { return next(err) }
+            if (!user) { return res.json({ message: info.message }) }
+
+            res.redirect('/dashboard')
+        })(req, res, next);
+    });
 
 }
 module.exports = auth;

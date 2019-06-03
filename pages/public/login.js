@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { basicAuth } from '../../lib/api/public'
 import Head from 'next/head';
+import Router from "next/router";
 import Button from '@material-ui/core/Button';
 
 import withLayout from '../../lib/withLayout';
@@ -20,51 +21,6 @@ const styles = {
     filter: "progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 ",
   }
 }
-
-// const fields = [
-//   {
-//     label: "First name",
-//     name: "firstName",
-//     type: 'input',
-//     required: true,
-//     width: 4
-//   },
-//   {
-//     label: "Last name",
-//     name: "lastName",
-//     type: 'input',
-//     required: true,
-//     width: 4
-//   },
-//   {
-//     label: "Email",
-//     name: "email",
-//     type: 'email',
-//     required: true,
-//     width: 4
-//   },
-//   {
-//     label: "Password",
-//     name: "password",
-//     type: 'password',
-//     required: true,
-//     width: 12
-
-//   },
-//   {
-//     label: "Age",
-//     name: "age",
-//     type: 'number',
-//     required: true,
-//     width: 12
-
-//   },
-//   {
-//     label: "Motivation",
-//     name: "motivation",
-//     type: 'wysiwyg',
-//   },
-// ]
 
 const fields = [
   {
@@ -127,8 +83,9 @@ const Login = () => {
   const onChange = (name) => ({ target: { value } }) => setForm(Object.assign({}, form, { [name]: value }));
   const onSubmit = async () => {
 
-    const res = await basicAuth(form)
-    console.log(res)
+    const res = await basicAuth(form);
+    // Router.push("/dashboard");
+    // console.log(res)
   };
 
   return (

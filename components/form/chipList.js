@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
-import FaceIcon from '@material-ui/icons/Face';
 import DoneIcon from '@material-ui/icons/Done';
 import CancelIcon from '@material-ui/icons/Cancel';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
+
 
 const styles = theme => ({
     root: {
@@ -23,13 +23,13 @@ const ChipList = ({ list, onClick, onDelete, classes }) => (
             key={i}
             avatar={
                 <Avatar>
-                    <FaceIcon />
+                    <img src={elem.icon} />
                 </Avatar>
             }
             label={elem.label}
             onClick={() => onClick(i)}
             onDelete={() => onDelete(i)}
-            deleteIcon={elem.selected ? <CancelIcon />: <DoneIcon /> }
+            deleteIcon={elem.selected ? <CancelIcon /> : <DoneIcon />}
             className={classes.chip}
             style={{ opacity: elem.selected ? 1 : .5 }}
         />
@@ -40,7 +40,8 @@ const ChipList = ({ list, onClick, onDelete, classes }) => (
 ChipList.propTypes = {
     list: PropTypes.arrayOf(PropTypes.shape({
         label: PropTypes.string.isRequired,
-        selected: PropTypes.bool.isRequired
+        selected: PropTypes.bool.isRequired,
+        icon: PropTypes.string.isRequired,
     })).isRequired,
     onClick: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
