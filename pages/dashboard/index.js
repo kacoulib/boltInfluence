@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Router from 'next/router'
 import Head from 'next/head';
 
 import withLayout from '../../lib/withLayout';
@@ -35,7 +36,10 @@ const MyBooks = () => {
   const onChange = (name) => ({ target: { value } }) => setForm(Object.assign({}, form, { [name]: value }));
   const onSubmit = async () => {
 
-    const res = await basicAuth(form)
+    console.log('1')
+    const res = await basicAuth(form);
+    console.log('1')
+    Router.push('/dashboard')
     console.log(res)
   };
 

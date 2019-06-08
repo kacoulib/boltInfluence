@@ -110,7 +110,7 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, align = 'cen
                     <Grid item xs={12}>
                         <Button variant="contained" className={classes.button} type="submit">
                             Submit
-                    </Button>
+                        </Button>
                     </Grid>
                 </Grid>
             </FormControl>

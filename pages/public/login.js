@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { basicAuth } from '../../lib/api/public'
 import Head from 'next/head';
-import Router from "next/router";
 import Button from '@material-ui/core/Button';
 
 import withLayout from '../../lib/withLayout';
@@ -84,8 +83,7 @@ const Login = () => {
   const onSubmit = async () => {
 
     const res = await basicAuth(form);
-    // Router.push("/dashboard");
-    // console.log(res)
+    window.location = "/dashboard"
   };
 
   return (

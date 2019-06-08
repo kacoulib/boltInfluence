@@ -17,12 +17,13 @@ const auth = ({ server, app }) => {
                 lastName,
                 email
             });
-            const company = await CompanyModel.findOne({ name: companyName });
+            let company = await CompanyModel.findOne({ name: companyName });
             if (!company)
-                await CompanyModel.add({
+                company = await CompanyModel.add({
                     userId: user._id,
                     name: companyName
                 })
+            user.company = company;
             cb(null, user)
         } catch (err) {
             console.log(err); // eslint-disable-line
@@ -41,6 +42,7 @@ const auth = ({ server, app }) => {
     });
 
     passport.deserializeUser((id, cb) => {
+        console.log('id', id)
         UserModel.findById(id, (err, user) => {
             if (err) { return cb(err); }
             cb(null, user);
@@ -55,10 +57,17 @@ const auth = ({ server, app }) => {
 
     server.post('/auth/basic', function (req, res, next) {
         passport.authenticate('local', function (err, user, info) {
-            if (err) { return next(err) }
-            if (!user) { return res.json({ message: info.message }) }
+            if (err)
+                return next(err);
+            if (!user)
+                return res.json({ message: info.message });
 
-            res.redirect('/dashboard')
+            req.login(user, (err) => {
+                if (err)
+                    return next(err);
+
+                return res.json({ login: true })
+            });
         })(req, res, next);
     });
 
