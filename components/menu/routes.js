@@ -26,7 +26,7 @@ const publicMenu = [
 const optionsMenuCustomer = [
     {
         text: 'Profile',
-        href: '/' + Influencer,
+        href: '/dashboard/profile',
     },
     {
         text: 'Log out',

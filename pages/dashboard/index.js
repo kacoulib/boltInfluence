@@ -5,9 +5,15 @@ import Head from 'next/head';
 import withLayout from '../../lib/withLayout';
 import withAuth from '../../lib/withAuth';
 import FormGenerator from '../../components/form/generator';
-import ChipList from '../../components/form/chipList';
 import { plateformList } from '../../utils/variables/influencer'
+
 const fields = [
+  {
+    name: "plateform",
+    helpText: "Choose a platform:",
+    type: 'chipList',
+    list: plateformList
+  },
   {
     label: "Titre",
     name: "title",
@@ -36,10 +42,6 @@ const MyBooks = () => {
   const onChange = (name) => ({ target: { value } }) => setForm(Object.assign({}, form, { [name]: value }));
   const onSubmit = async () => {
 
-    console.log('1')
-    const res = await basicAuth(form);
-    console.log('1')
-    Router.push('/dashboard')
     console.log(res)
   };
 
@@ -64,12 +66,13 @@ const MyBooks = () => {
       <h1 style={{ textAlign: 'center' }}>Campagne</h1>
 
       <div style={{ textAlign: 'left' }}>
-        <ChipList list={list} onClick={toggleList} onDelete={toggleList} />
+
         <FormGenerator
           fields={fields}
           form={form}
           onChange={onChange}
           onSubmit={onSubmit}
+          toggleList={toggleList}
           align={'initial'}
         />
       </div>

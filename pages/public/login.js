@@ -82,8 +82,10 @@ const Login = () => {
   const onChange = (name) => ({ target: { value } }) => setForm(Object.assign({}, form, { [name]: value }));
   const onSubmit = async () => {
 
-    const res = await basicAuth(form);
-    window.location = "/dashboard"
+    const { login } = await basicAuth(form);
+
+    if (login)
+      window.location = "/dashboard"
   };
 
   return (

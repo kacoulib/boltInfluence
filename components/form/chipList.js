@@ -18,7 +18,7 @@ const styles = theme => ({
 });
 
 const ChipList = ({ list, onClick, onDelete, classes }) => (
-    list.map((elem, i) => (
+    list && list.map((elem, i) => (
         <Chip
             key={i}
             avatar={
@@ -33,8 +33,7 @@ const ChipList = ({ list, onClick, onDelete, classes }) => (
             className={classes.chip}
             style={{ opacity: elem.selected ? 1 : .5 }}
         />
-    )
-    )
+    )) || ''
 )
 
 ChipList.propTypes = {

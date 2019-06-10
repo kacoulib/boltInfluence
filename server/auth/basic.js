@@ -2,7 +2,6 @@ var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
 const UserModel = require('../models/User');
 const CompanyModel = require('../models/Company');
-const { redirecAfterAuth } = require('./index')
 var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser')
 

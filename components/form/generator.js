@@ -7,6 +7,12 @@ import Wysiwyg from './wysiwyg'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import ChipList from '../../components/form/chipList';
+import Select from '@material-ui/core/Select';
+import Checkbox from '@material-ui/core/Checkbox';
+import Chip from '@material-ui/core/Chip';
+import Input from '@material-ui/core/Input';
+import MenuItem from '@material-ui/core/MenuItem';
 
 /*
         Generate form
@@ -64,15 +70,33 @@ const styles = theme => ({
     },
 });
 
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+    PaperProps: {
+        style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+        },
+    },
+};
+function getStyles(name, personName, theme) {
+    return {
+        fontWeight:
+            personName.indexOf(name) === -1
+                ? theme.typography.fontWeightRegular
+                : theme.typography.fontWeightMedium,
+    };
+}
 
-const FormGenerator = ({ fields, classes, form, onChange, onSubmit, align = 'center' }) => {
+const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, align = 'center' }) => {
     const { set } = useState()
 
     useEffect(() => {
 
     })
 
-    const textTypes = ['input', 'password', 'email', 'number', 'textarea'],
+    const textTypes = ['input', 'password', 'email', 'number', 'textarea', 'date', 'datetime-local'],
         spacing = 16,
         defaultWidth = { xs: 12 };
 
@@ -91,7 +115,7 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, align = 'cen
                                             required={elem.required}
                                             multiline={elem.type === 'textarea'}
                                             fullWidth
-                                            defaultValue={form[elem.name]}
+                                            defaultValue={form[elem.name] || elem.defaultValue}
                                             onChange={onChange(elem.name)}
                                             style={{ paddingRight: '15px' }}
                                         />
@@ -101,6 +125,33 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, align = 'cen
                                                 <Wysiwyg value={form[elem.name]} onChange={onChange(elem.name)} />
                                             </div>
                                         )
+                                        || elem.type == 'chipList' && (<div>
+                                            <p>{elem.helpText && <span >{elem.helpText}</span>}</p>
+                                            <ChipList list={elem.list} onClick={toggleList} onDelete={toggleList} />
+                                        </div>
+                                        )
+                                        || elem.type == 'select' && (<div>
+                                            < Select
+                                                multiple={elem.multiple}
+                                                value={form[elem.name]}
+                                                onChange={onChange(elem.name)}
+                                                input={<Input id={elem.name} />}
+                                                renderValue={selected => elem.multiline ? (
+                                                    <div className={classes.chips}>
+                                                        {selected.map(value => (
+                                                            <Chip key={value} label={value} className={classes.chip} />
+                                                        ))}
+                                                    </div>
+                                                ): selected}
+                                                MenuProps={MenuProps}
+                                            >
+                                                {elem.list.map(name => (
+                                                    <MenuItem key={name} value={name}>
+                                                        {name}
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+                                        </div>)
                                     }
                                 </div>
                             </Grid>
@@ -123,6 +174,7 @@ FormGenerator.propTypes = {
     form: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
+    toggleList: PropTypes.func,
     align: PropTypes.string
 }
 
