@@ -136,13 +136,13 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                                 value={form[elem.name]}
                                                 onChange={onChange(elem.name)}
                                                 input={<Input id={elem.name} />}
-                                                renderValue={selected => elem.multiline ? (
+                                                renderValue={selected => elem.multiple ? (
                                                     <div className={classes.chips}>
                                                         {selected.map(value => (
                                                             <Chip key={value} label={value} className={classes.chip} />
                                                         ))}
                                                     </div>
-                                                ): selected}
+                                                ) : selected}
                                                 MenuProps={MenuProps}
                                             >
                                                 {elem.list.map(name => (
