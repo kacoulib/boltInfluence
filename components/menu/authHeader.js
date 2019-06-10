@@ -23,7 +23,9 @@ import Badge from '@material-ui/core/Badge';
 import { influencerMenu, optionsMenuCustomer } from './routes'
 import MenuDrop from './MenuDrop';
 import Link from 'next/link';
-import dafaultAvatar from '../../static/img/logo'
+import dafaultAvatar from '../../static/img/logo';
+import { orangeColor, skyBlueColor } from '../../utils/variables/color';
+
 
 const drawerWidth = 240;
 
@@ -113,6 +115,7 @@ class MiniDrawer extends React.Component {
                     className={classNames(classes.appBar, {
                         [classes.appBarShift]: this.state.open,
                     })}
+                    style={{ background: 'white' }}
                 >
                     <Toolbar disableGutters={!this.state.open}>
                         <IconButton
@@ -183,7 +186,7 @@ class MiniDrawer extends React.Component {
                         ))}
                     </List>
                 </Drawer>
-                <main className={classes.content}>
+                <main className={classes.content} style={{ background: skyBlueColor, minHeight: '100vh' }}>
                     <div className={classes.toolbar} />
                     {this.props.children}
                 </main>

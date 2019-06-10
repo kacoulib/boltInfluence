@@ -5,90 +5,80 @@ import withLayout from '../../lib/withLayout';
 import withAuth from '../../lib/withAuth';
 import FormGenerator from '../../components/form/generator';
 import { plateformList } from '../../utils/variables/influencer'
+import { languageList } from '../../utils/variables/language'
 
 const fields = [
     {
-        name: "plateform",
-        helpText: "Choose a platform:",
-        type: 'chipList',
-        list: plateformList
+        name: "avatarUrl",
+        type: 'img',
+        required: true,
+        style: {
+            textAlign: 'center',
+            margin: 'auto',
+            display: 'block',
+            maxHeight: 100
+        }
+    },
+    {
+        label: "Nom",
+        name: "firstName",
+        type: 'input',
+        row: 6,
+        required: true,
+    },
+    {
+        label: "Prénom",
+        name: "lastName",
+        type: 'input',
+        row: 6,
+        required: true,
+    },
+    {
+        label: "Age",
+        name: "age",
+        type: 'date',
+        defaultValue: "2000-05-24",
+        row: 6,
+        required: true,
     },
     {
         label: "Lieu de résidence",
         name: "bornePlace",
-        type: 'date',
-        defaultValue: "2000-05-24",
-        width: 6,
+        type: 'input',
+        row: 6,
         required: true,
     },
     {
-        label: "Date de naissance",
-        name: "bornePlace",
-        type: 'date',
-        defaultValue: "2000-05-24",
-        width: 6,
-        required: true,
-    },
-    {
-        label: "Langue",
+        helpText: "Langue",
         name: "languages",
         type: 'select',
         multiple: true,
-        list: [
-            'Oliver Hansen',
-            'Van Henry',
-            'April Tucker',
-            'Ralph Hubbard',
-            'Omar Alexander',
-            'Carlos Abbott',
-            'Miriam Wagner',
-            'Bradley Wilkerson',
-            'Virginia Andrews',
-            'Kelly Snyder',
-        ],
-        required: true,
-    },
-    {
-        label: "Titre",
-        name: "title",
-        type: 'input',
-        required: true,
-    },
-    {
-        label: "Titre",
-        name: "title",
-        type: 'input',
+        list: languageList,
         required: true,
     },
 ]
 
 const MyBooks = (props) => {
-    const [form, setForm] = useState({
+    const { user } = props;
 
-        firstName: "Karim",
-        lastName: "Coulibaly",
-        email: "kacoulib@gmail.com",
-        password: "Test123$",
-        companyName: "KacoulibINC",
-        phone: "0645100284",
-        languages: []
-    })
+    const [form, setForm] = useState(Object.assign({ languages: [] }, { ...user }))
+    // {
+
+    //     firstName: "Karim",
+    //     lastName: "Coulibaly",
+    //     email: "kacoulib@gmail.com",
+    //     password: "Test123$",
+    //     companyName: "KacoulibINC",
+    //     phone: "0645100284",
+    //     languages: []
+    // })
 
     const onChange = (name) => ({ target: { value } }) => setForm(Object.assign({}, form, { [name]: value }));
     const onSubmit = async () => {
 
-        console.log(res)
+        console.log(form)
     };
-
-    const [list, setList] = useState(plateformList)
-
-    const toggleList = (i) => {
-        let tmp = list.slice();
-
-        tmp[i].selected = !tmp[i].selected;
-        setList(tmp)
-    };
-
+    console.log(props, form)
     return (
         <div style={{ padding: '10px 45px' }}>
             <Head>
@@ -98,7 +88,7 @@ const MyBooks = (props) => {
                 <meta name="description" content="Login page for builderbook.org" />
             </Head>
             <br />
-            <h1 style={{ textAlign: 'center' }}>Campagne</h1>
+            <h1 style={{ textAlign: 'center' }}>Profile</h1>
 
             <div style={{ textAlign: 'left' }}>
                 <FormGenerator
@@ -106,7 +96,6 @@ const MyBooks = (props) => {
                     form={form}
                     onChange={onChange}
                     onSubmit={onSubmit}
-                    toggleList={toggleList}
                     align={'initial'}
                 />
             </div>

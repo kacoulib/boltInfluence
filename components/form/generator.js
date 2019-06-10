@@ -10,9 +10,12 @@ import Button from '@material-ui/core/Button';
 import ChipList from '../../components/form/chipList';
 import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
+import InputLabel from '@material-ui/core/InputLabel';
 import Chip from '@material-ui/core/Chip';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
+import { orangeColor } from '../../utils/variables/color';
+
 
 /*
         Generate form
@@ -65,8 +68,21 @@ const styles = theme => ({
         height: 140,
         width: 100,
     },
+    formControl: {
+        margin: theme.spacing.unit,
+        width: '100%',
+        // minWidth: '100%',
+        // maxWidth: 300,
+    },
     control: {
         padding: theme.spacing.unit,
+    },
+    chips: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    chip: {
+        margin: 2,
     },
 });
 
@@ -104,9 +120,9 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
         <form onSubmit={(e) => { e.preventDefault(); onSubmit() }}>
             <FormControl className={classes.container} >
                 <Grid container className={classes.root} spacing={spacing} alignItems="center">
-                    {fields.map((elem, key) =>
+                    {fields && fields.map((elem, key) =>
                         (
-                            <Grid key={key} item xs={elem.width || defaultWidth.xs}>
+                            <Grid key={key} item xs={elem.row || defaultWidth.xs}>
                                 <div style={{ paddingBottom: '15px' }}>
                                     {textTypes.includes(elem.type) &&
                                         <TextField
@@ -130,28 +146,36 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                             <ChipList list={elem.list} onClick={toggleList} onDelete={toggleList} />
                                         </div>
                                         )
-                                        || elem.type == 'select' && (<div>
-                                            < Select
-                                                multiple={elem.multiple}
-                                                value={form[elem.name]}
-                                                onChange={onChange(elem.name)}
-                                                input={<Input id={elem.name} />}
-                                                renderValue={selected => elem.multiple ? (
-                                                    <div className={classes.chips}>
-                                                        {selected.map(value => (
-                                                            <Chip key={value} label={value} className={classes.chip} />
-                                                        ))}
-                                                    </div>
-                                                ) : selected}
-                                                MenuProps={MenuProps}
-                                            >
-                                                {elem.list.map(name => (
-                                                    <MenuItem key={name} value={name}>
-                                                        {name}
-                                                    </MenuItem>
-                                                ))}
-                                            </Select>
-                                        </div>)
+                                        || elem.type == 'select' && (
+                                            <FormControl className={classes.formControl} required={elem.required}>
+                                                <InputLabel htmlFor={elem.name}>{elem.helpText}</InputLabel>
+                                                < Select
+                                                    multiple={elem.multiple}
+                                                    value={form[elem.name]}
+                                                    onChange={onChange(elem.name)}
+                                                    input={<Input id={elem.name} />}
+                                                    renderValue={selected => elem.multiple ? (
+                                                        <div className={classes.chips}>
+                                                            {selected && selected.map(value => (
+                                                                <Chip key={value} label={value} className={classes.chip} />
+                                                            ))}
+                                                        </div>
+                                                    ) : selected}
+                                                    MenuProps={MenuProps}
+                                                >
+                                                    {elem.list && elem.list.map(name => (
+                                                        <MenuItem key={name} value={name}>
+                                                            {name}
+                                                        </MenuItem>
+                                                    ))}
+                                                </Select>
+                                            </FormControl>
+                                        )
+                                        || elem.type == 'img' && (
+                                            <div>
+                                                <img src={form[elem.name]} style={elem.style} />
+                                            </div>
+                                        )
                                     }
                                 </div>
                             </Grid>
@@ -159,7 +183,7 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
 
                     )}
                     <Grid item xs={12}>
-                        <Button variant="contained" className={classes.button} type="submit">
+                        <Button variant="contained" className={classes.button} type="submit" style={{ background: orangeColor, color: 'white' }}>
                             Submit
                         </Button>
                     </Grid>
