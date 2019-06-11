@@ -5,14 +5,15 @@ import withLayout from '../../lib/withLayout';
 import withAuth from '../../lib/withAuth';
 import FormGenerator from '../../components/form/generator';
 import { plateformList } from '../../utils/variables/influencer'
-import { languageList } from '../../utils/variables/language'
+import { languageList, civilityList } from '../../utils/variables/general'
 
 const fields = [
     {
         name: "avatarUrl",
         type: 'img',
-        required: true,
+
         props: {
+            required: true,
             style: {
                 textAlign: 'center',
                 margin: 'auto',
@@ -22,12 +23,23 @@ const fields = [
         }
     },
     {
+        label: "Civilité",
+        name: "civility",
+        type: 'select',
+        list: civilityList,
+
+        props: {
+            required: true,
+        }
+    },
+    {
         label: "Nom",
         name: "firstName",
         type: 'input',
         dimension: { xs: 6 },
-        required: true,
+
         props: {
+            required: true,
             autoFocus: true
         }
     },
@@ -37,35 +49,43 @@ const fields = [
         type: 'input',
         dimension: { xs: 6 },
 
-        required: true,
+        props: {
+            required: true,
+        }
     },
     {
         label: "Age",
         name: "age",
         type: 'date',
         defaultValue: "2000-05-24",
-        required: true,
+        props: {
+            required: true,
+        }
     },
     {
         label: "Lieu de résidence",
         name: "bornePlace",
         type: 'input',
-        required: true,
+        props: {
+            required: true,
+        }
     },
     {
-        helpText: "Langue",
+        label: "Langue",
         name: "languages",
         type: 'select',
         multiple: true,
         list: languageList,
-        required: true,
+        props: {
+            required: true,
+        }
     },
 ]
 
 const MyBooks = (props) => {
     const { user } = props;
 
-    const [form, setForm] = useState(Object.assign({ languages: [] }, { ...user }))
+    const [form, setForm] = useState(Object.assign({ languages: [], civility: [] }, { ...user }))
     // {
 
     //     firstName: "Karim",

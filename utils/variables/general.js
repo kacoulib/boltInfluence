@@ -1,4 +1,4 @@
-const languages = [
+const languageList = [
     'Mandarin',
     'Hindi',
     'Espagnol',
@@ -31,8 +31,14 @@ const languages = [
     'Bhodjpouri',
     'Minnan',
 ]
+const civilityList = [
+    'Mr',
+    'Mme'
+]
 
 module.exports = {
     // Vars
-    languageList: languages
+    languageList,
+    civilityList
+
 }

@@ -131,7 +131,7 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                         <TextField
                                             type={elem.type}
                                             label={elem.label}
-                                            required={elem.required}
+
                                             multiline={elem.type === 'textarea'}
                                             fullWidth
                                             defaultValue={form[elem.name] || elem.defaultValue}
@@ -141,22 +141,22 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                         />
                                         || elem.type == 'wysiwyg' && (
                                             <div>
-                                                {elem.helpText && <span >{elem.helpText}</span>}
+                                                {elem.label && <span >{elem.label}</span>}
                                                 <Wysiwyg value={form[elem.name]} onChange={onChange(elem.name)}
                                                     {...elemProps}
                                                 />
                                             </div>
                                         )
                                         || elem.type == 'chipList' && (<div>
-                                            <p>{elem.helpText && <span >{elem.helpText}</span>}</p>
+                                            <p>{elem.label && <span >{elem.label}</span>}</p>
                                             <ChipList list={elem.list} onClick={toggleList} onDelete={toggleList}
                                                 {...elemProps}
                                             />
                                         </div>
                                         )
                                         || elem.type == 'select' && (
-                                            <FormControl className={classes.formControl} required={elem.required}>
-                                                <InputLabel htmlFor={elem.name}>{elem.helpText}</InputLabel>
+                                            <FormControl className={classes.formControl} required={elem.props && elem.props.required}>
+                                                <InputLabel htmlFor={elem.name}>{elem.label}</InputLabel>
                                                 < Select
                                                     multiple={elem.multiple}
                                                     value={form[elem.name]}
