@@ -12,25 +12,31 @@ const fields = [
         name: "avatarUrl",
         type: 'img',
         required: true,
-        style: {
-            textAlign: 'center',
-            margin: 'auto',
-            display: 'block',
-            maxHeight: 100
+        props: {
+            style: {
+                textAlign: 'center',
+                margin: 'auto',
+                display: 'block',
+                maxHeight: 100
+            }
         }
     },
     {
         label: "Nom",
         name: "firstName",
         type: 'input',
-        row: 6,
+        dimension: { xs: 6 },
         required: true,
+        props: {
+            autoFocus: true
+        }
     },
     {
         label: "Prénom",
         name: "lastName",
         type: 'input',
-        row: 6,
+        dimension: { xs: 6 },
+
         required: true,
     },
     {
@@ -38,14 +44,12 @@ const fields = [
         name: "age",
         type: 'date',
         defaultValue: "2000-05-24",
-        row: 6,
         required: true,
     },
     {
         label: "Lieu de résidence",
         name: "bornePlace",
         type: 'input',
-        row: 6,
         required: true,
     },
     {
@@ -78,7 +82,6 @@ const MyBooks = (props) => {
 
         console.log(form)
     };
-    console.log(props, form)
     return (
         <div style={{ padding: '10px 45px' }}>
             <Head>

@@ -114,15 +114,18 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
 
     const textTypes = ['input', 'password', 'email', 'number', 'textarea', 'date', 'datetime-local'],
         spacing = 16,
-        defaultWidth = { xs: 12 };
+        defaultDimension = { xs: 12 };
 
     return (
         <form onSubmit={(e) => { e.preventDefault(); onSubmit() }}>
             <FormControl className={classes.container} >
                 <Grid container className={classes.root} spacing={spacing} alignItems="center">
-                    {fields && fields.map((elem, key) =>
-                        (
-                            <Grid key={key} item xs={elem.row || defaultWidth.xs}>
+                    {fields && fields.map((elem, key) => {
+                        const dimentions = elem.dimension ? elem.dimension : defaultDimension;
+                        const elemProps = elem.props
+
+                        return (
+                            <Grid key={key} item {...dimentions}  >
                                 <div style={{ paddingBottom: '15px' }}>
                                     {textTypes.includes(elem.type) &&
                                         <TextField
@@ -134,16 +137,21 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                             defaultValue={form[elem.name] || elem.defaultValue}
                                             onChange={onChange(elem.name)}
                                             style={{ paddingRight: '15px' }}
+                                            {...elemProps}
                                         />
                                         || elem.type == 'wysiwyg' && (
                                             <div>
                                                 {elem.helpText && <span >{elem.helpText}</span>}
-                                                <Wysiwyg value={form[elem.name]} onChange={onChange(elem.name)} />
+                                                <Wysiwyg value={form[elem.name]} onChange={onChange(elem.name)}
+                                                    {...elemProps}
+                                                />
                                             </div>
                                         )
                                         || elem.type == 'chipList' && (<div>
                                             <p>{elem.helpText && <span >{elem.helpText}</span>}</p>
-                                            <ChipList list={elem.list} onClick={toggleList} onDelete={toggleList} />
+                                            <ChipList list={elem.list} onClick={toggleList} onDelete={toggleList}
+                                                {...elemProps}
+                                            />
                                         </div>
                                         )
                                         || elem.type == 'select' && (
@@ -162,6 +170,7 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                                         </div>
                                                     ) : selected}
                                                     MenuProps={MenuProps}
+                                                    {...elemProps}
                                                 >
                                                     {elem.list && elem.list.map(name => (
                                                         <MenuItem key={name} value={name}>
@@ -173,13 +182,14 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                         )
                                         || elem.type == 'img' && (
                                             <div>
-                                                <img src={form[elem.name]} style={elem.style} />
+                                                <img src={form[elem.name]} {...elemProps} />
                                             </div>
                                         )
                                     }
                                 </div>
                             </Grid>
                         )
+                    }
 
                     )}
                     <Grid item xs={12}>
@@ -189,7 +199,7 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                     </Grid>
                 </Grid>
             </FormControl>
-        </form>
+        </form >
     )
 }
 
