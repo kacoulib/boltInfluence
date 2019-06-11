@@ -3,7 +3,7 @@ const Strategy = require('passport-google-oauth').OAuth2Strategy;
 const User = require('../models/User');
 const { redirecAfterAuth } = require('./index')
 
-function auth({ ROOT_URL, server }) {
+function auth({ ROOT_URL, app }) {
   const verify = async (accessToken, refreshToken, profile, verified) => {
     let email;
     let avatarUrl;
@@ -52,10 +52,10 @@ function auth({ ROOT_URL, server }) {
     });
   });
 
-  server.use(passport.initialize());
-  server.use(passport.session());
+  app.use(passport.initialize());
+  app.use(passport.session());
 
-  server.get(
+  app.get(
     '/auth/google',
     passport.authenticate('google', {
       scope: ['profile', 'email'],
@@ -63,7 +63,7 @@ function auth({ ROOT_URL, server }) {
     }),
   );
 
-  server.get(
+  app.get(
     '/oauth2callback',
     passport.authenticate('google', {
       failureRedirect: '/login',

@@ -3,11 +3,12 @@ const session = require('express-session');
 const mongoSessionStore = require('connect-mongo');
 const next = require('next');
 const mongoose = require('mongoose');
-
+const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
 const instagramAuth = require('./auth/instagram');
 const googleAuth = require('./auth/google');
 const basicAuth = require('./auth/basic');
-const { setupGithub } = require('./auth/github');
 const api = require('./api');
 
 const logger = require('./logs');
@@ -29,6 +30,20 @@ mongoose.connect(
   options,
 );
 
+// fake DB
+const messages = []
+
+// socket.io server
+console.log('---')
+io.on('connect', (socket) => {
+  console.log('--------connected')
+  socket.on('message', (data) => {
+    console.log('server', data)
+    messages.push(data)
+    socket.emit('message', data)
+  })
+})
+
 const port = process.env.PORT || 8000;
 const ROOT_URL = `http://localhost:${port}`;
 
@@ -37,13 +52,13 @@ const URL_MAP = {
   '/my-books': '/customer/my-books',
 };
 
-const app = next({ dev });
-const handle = app.getRequestHandler();
+const nextApp = next({ dev });
+const handle = nextApp.getRequestHandler();
 
-app.prepare().then(async () => {
-  const server = express();
+nextApp.prepare().then(async () => {
 
-  server.use(express.json());
+
+  app.use(express.json());
 
   const MongoStore = mongoSessionStore(session);
   const sess = {
@@ -61,31 +76,29 @@ app.prepare().then(async () => {
     },
   };
 
-  server.use(session(sess));
-  server.use(function (req, res, next) {
+  app.use(session(sess));
+  app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
   await insertTemplates();
 
-  googleAuth({ server, ROOT_URL });
-  instagramAuth({ server, ROOT_URL });
-  basicAuth({ server, app })
-  setupGithub({ server });
-  api(server);
-  // routesWithSlug({ server, app });
+  googleAuth({ app, ROOT_URL });
+  instagramAuth({ app, ROOT_URL });
+  basicAuth({ app, nextApp })
+  api(app);
 
-  server.get('/logout', (req, res) => {
+  app.get('/logout', (req, res) => {
     req.logout();
     res.redirect('/login');
   });
 
-  server.get('*', (req, res) => {
+  app.get('*', (req, res) => {
     const url = URL_MAP[req.path];
 
     if (url) {
-      app.render(req, res, url);
+      nextApp.render(req, res, url);
     } else {
       handle(req, res);
     }

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Head from 'next/head';
-
+import io from "socket.io-client";
 import withLayout from '../../lib/withLayout';
 import withAuth from '../../lib/withAuth';
 import FormGenerator from '../../components/form/generator';
@@ -96,7 +96,9 @@ const MyBooks = (props) => {
     //     phone: "0645100284",
     //     languages: []
     // })
-
+    const socket = io();
+    socket.emit('message', 'toto')
+    socket.on('message', (message)=>console.log(message))
     const onChange = (name) => ({ target: { value } }) => setForm(Object.assign({}, form, { [name]: value }));
     const onSubmit = async () => {
 

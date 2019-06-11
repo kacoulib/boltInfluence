@@ -5,7 +5,7 @@ const CompanyModel = require('../models/Company');
 var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser')
 
-const auth = ({ server, app }) => {
+const auth = ({ app }) => {
 
     const verify = async (req, email, password, cb) => {
         const { body: { firstName, lastName, companyName } } = req;
@@ -48,13 +48,13 @@ const auth = ({ server, app }) => {
         });
     });
 
-    server.use(passport.initialize());
-    server.use(passport.session());
-    server.use(bodyParser.json())
-    server.use(bodyParser.urlencoded({ extended: false }))
-    server.use(cookieParser())
+    app.use(passport.initialize());
+    app.use(passport.session());
+    app.use(bodyParser.json())
+    app.use(bodyParser.urlencoded({ extended: false }))
+    app.use(cookieParser())
 
-    server.post('/auth/basic', function (req, res, next) {
+    app.post('/auth/basic', function (req, res, next) {
         passport.authenticate('local', function (err, user, info) {
             if (err)
                 return next(err);

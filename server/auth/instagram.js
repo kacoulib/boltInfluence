@@ -5,7 +5,7 @@ const passport = require('passport')
 const { redirecAfterAuth } = require('./index')
 
 
-function auth({ ROOT_URL, server }) {
+function auth({ ROOT_URL, app }) {
   const uri = '/auth/instagram/oauth2callback'
   const redirect_uri = ROOT_URL + uri;
   const verify = async (accessToken, refreshToken, profile, verified) => {
@@ -45,11 +45,11 @@ function auth({ ROOT_URL, server }) {
     verify
   ));
 
-  server.get('/auth/instagram', passport.authenticate('instagram', { failureRedirect: '/login' }), function (req, res) {
+  app.get('/auth/instagram', passport.authenticate('instagram', { failureRedirect: '/login' }), function (req, res) {
     res.redirect('/');
   });
 
-  server.get(uri, passport.authenticate('instagram', { failureRedirect: '/login' }), redirecAfterAuth)
+  app.get(uri, passport.authenticate('instagram', { failureRedirect: '/login' }), redirecAfterAuth)
 }
 
 module.exports = auth;
