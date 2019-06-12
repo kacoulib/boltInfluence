@@ -32,8 +32,8 @@ const languageList = [
     'Minnan',
 ]
 const civilityList = [
-    'Mr',
-    'Mme'
+    {name: 'Mr', value: 'Mr'},
+    {name: 'Mme', value: 'Mme'}
 ]
 
 module.exports = {

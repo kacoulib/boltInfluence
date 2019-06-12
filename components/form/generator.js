@@ -9,12 +9,12 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import ChipList from '../../components/form/chipList';
 import Select from '@material-ui/core/Select';
-import Checkbox from '@material-ui/core/Checkbox';
+import Checkbox from './checkbox';
 import InputLabel from '@material-ui/core/InputLabel';
 import Chip from '@material-ui/core/Chip';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
-import { orangeColor } from '../../utils/variables/color';
+import { orangeColor, buttonStyle } from '../../utils/variables/css';
 
 
 /*
@@ -116,6 +116,8 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
         spacing = 16,
         defaultDimension = { xs: 12 };
 
+    const handleChange = (name) => ({ target: { value } }) => onChange(name, value)
+
     return (
         <form onSubmit={(e) => { e.preventDefault(); onSubmit() }}>
             <FormControl className={classes.container} >
@@ -134,22 +136,22 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
 
                                             multiline={elem.type === 'textarea'}
                                             fullWidth
-                                            defaultValue={form[elem.name] || elem.defaultValue}
-                                            onChange={onChange(elem.name)}
+                                            defaultValue={form[elem.name] || elemProps.defaultValue}
+                                            onChange={handleChange(elem.name)}
                                             style={{ paddingRight: '15px' }}
                                             {...elemProps}
                                         />
                                         || elem.type == 'wysiwyg' && (
                                             <div>
                                                 {elem.label && <span >{elem.label}</span>}
-                                                <Wysiwyg value={form[elem.name]} onChange={onChange(elem.name)}
+                                                <Wysiwyg value={form[elem.name]} onChange={handleChange(elem.name)}
                                                     {...elemProps}
                                                 />
                                             </div>
                                         )
                                         || elem.type == 'chipList' && (<div>
                                             <p>{elem.label && <span >{elem.label}</span>}</p>
-                                            <ChipList list={elem.list} onClick={toggleList} onDelete={toggleList}
+                                            <ChipList onClick={toggleList} onDelete={toggleList}
                                                 {...elemProps}
                                             />
                                         </div>
@@ -158,11 +160,11 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                             <FormControl className={classes.formControl} required={elem.props && elem.props.required}>
                                                 <InputLabel htmlFor={elem.name}>{elem.label}</InputLabel>
                                                 < Select
-                                                    multiple={elem.multiple}
+                                                    multiple={elemProps.multiple}
                                                     value={form[elem.name]}
-                                                    onChange={onChange(elem.name)}
+                                                    onChange={handleChange(elem.name)}
                                                     input={<Input id={elem.name} />}
-                                                    renderValue={selected => elem.multiple ? (
+                                                    renderValue={selected => elemProps.multiple ? (
                                                         <div className={classes.chips}>
                                                             {selected && selected.map(value => (
                                                                 <Chip key={value} label={value} className={classes.chip} />
@@ -172,9 +174,9 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                                     MenuProps={MenuProps}
                                                     {...elemProps}
                                                 >
-                                                    {elem.list && elem.list.map(name => (
-                                                        <MenuItem key={name} value={name}>
-                                                            {name}
+                                                    {elemProps.list && elemProps.list.map((elem, key) => (
+                                                        <MenuItem key={`${elem.name}-${key}`} value={elem.name}>
+                                                            {elem.value}
                                                         </MenuItem>
                                                     ))}
                                                 </Select>
@@ -182,7 +184,12 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                         )
                                         || elem.type == 'img' && (
                                             <div>
-                                                <img src={form[elem.name]} {...elemProps} />
+                                                <img src={form[elem.name]} {...elemProps} onChange={onChange} />
+                                            </div>
+                                        )
+                                        || elem.type == 'checkbox' && (
+                                            <div>
+                                                <Checkbox {...elemProps} name={elem.name} value={form[elem.name]} onChange={onChange} />
                                             </div>
                                         )
                                     }
@@ -193,7 +200,7 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
 
                     )}
                     <Grid item xs={12}>
-                        <Button variant="contained" className={classes.button} type="submit" style={{ background: orangeColor, color: 'white' }}>
+                        <Button variant="contained" className={classes.button} type="submit" style={buttonStyle}>
                             Submit
                         </Button>
                     </Grid>

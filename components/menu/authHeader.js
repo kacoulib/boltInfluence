@@ -24,7 +24,7 @@ import { influencerMenu, optionsMenuCustomer } from './routes'
 import MenuDrop from './MenuDrop';
 import Link from 'next/link';
 import dafaultAvatar from '../../static/img/logo';
-import { orangeColor, skyBlueColor } from '../../utils/variables/color';
+import { orangeColor, skyBlueColor } from '../../utils/variables/css';
 
 
 const drawerWidth = 240;
