@@ -21,7 +21,7 @@ const styles = theme => ({
     checked: {}
 });
 
-const Checkbox = ({ classes, list, helpText, value, onChange, name = '', style }) => {
+const RadioType = ({ classes, list, helpText, value, onChange, name = '', style }) => {
     const [val, setValue] = useState(value)
 
     const handleChange = ({ target: { value } }) => {
@@ -49,7 +49,7 @@ const Checkbox = ({ classes, list, helpText, value, onChange, name = '', style }
     )
 }
 
-Checkbox.propTypes = {
+RadioType.propTypes = {
     list: PropTypes.arrayOf(PropTypes.object).isRequired,
     onChange: PropTypes.func.isRequired,
     name: PropTypes.string.isRequired,
@@ -57,4 +57,4 @@ Checkbox.propTypes = {
     value: PropTypes.string,
 }
 
-export default withStyles(styles)(Checkbox)
+export default withStyles(styles)(RadioType)

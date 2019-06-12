@@ -9,7 +9,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import ChipList from '../../components/form/chipList';
 import Select from '@material-ui/core/Select';
-import Checkbox from './checkbox';
+import Radio from './radio';
 import InputLabel from '@material-ui/core/InputLabel';
 import Chip from '@material-ui/core/Chip';
 import Input from '@material-ui/core/Input';
@@ -187,9 +187,9 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                                 <img src={form[elem.name]} {...elemProps} onChange={onChange} />
                                             </div>
                                         )
-                                        || elem.type == 'checkbox' && (
+                                        || elem.type == 'radio' && (
                                             <div>
-                                                <Checkbox {...elemProps} name={elem.name} value={form[elem.name]} onChange={onChange} />
+                                                <Radio {...elemProps} name={elem.name} value={form[elem.name]} onChange={onChange} />
                                             </div>
                                         )
                                     }

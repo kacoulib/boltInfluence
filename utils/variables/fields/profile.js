@@ -4,7 +4,7 @@ const profileField = [
     {
         label: "Check",
         name: 'check',
-        type: 'checkbox',
+        type: 'radio',
 
         props: {
             list: civilityList,
