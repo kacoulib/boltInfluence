@@ -128,6 +128,7 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                         const elemProps = elem.props
 
                         return (
+                            <Grid key={key} item {...dimentions}>
                             <div style={{ paddingBottom: '15px' }}>
                                 {textTypes.includes(elem.type) &&
                                     <TextField
@@ -199,6 +200,7 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                     )
                                 }
                             </div>
+                            </Grid>
                         )
                     }
 
