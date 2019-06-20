@@ -136,7 +136,7 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
 
                                         multiline={elem.type === 'textarea'}
                                         fullWidth
-                                        defaultValue={form[elem.name] || elemProps.defaultValue}
+                                        defaultValue={form[elem.name] || elemProps && elemProps.defaultValue ? elemProps.defaultValue : ''}
                                         onChange={handleChange(elem.name)}
                                         style={{ paddingRight: '15px' }}
                                         {...elemProps}
