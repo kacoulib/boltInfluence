@@ -9,7 +9,7 @@ const io = require('socket.io')(server);
 const instagramAuth = require('./auth/instagram');
 const googleAuth = require('./auth/google');
 const basicAuth = require('./auth/basic');
-const api = require('./api');
+const routes = require('./routes');
 
 const logger = require('./logs');
 const { insertTemplates } = require('./models/EmailTemplate');
@@ -87,7 +87,7 @@ nextApp.prepare().then(async () => {
   googleAuth({ app, ROOT_URL });
   instagramAuth({ app, ROOT_URL });
   basicAuth({ app, nextApp })
-  api(app);
+  routes(app);
 
   app.get('/logout', (req, res) => {
     req.logout();

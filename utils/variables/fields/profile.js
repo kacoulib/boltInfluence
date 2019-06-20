@@ -2,9 +2,27 @@ import { languageList, civilityList } from '../general'
 import { avatar, civility, firstName, lastName, age, bornePlace, languages } from './index'
 const profileField = [
     {
-        label: "Check",
-        name: 'check',
+        name: 'radio',
+        label: "Radio",
         type: 'radio',
+
+        props: {
+            list: civilityList,
+        }
+    },
+    {
+        name: 'check',
+        label: "Toto",
+        type: 'checkbox',
+
+        props: {
+            list: civilityList,
+        }
+    },
+    {
+        name: 'check',
+        label: "Je check",
+        type: 'checkbox',
 
         props: {
             list: civilityList,
@@ -25,8 +43,8 @@ const profileField = [
         }
     },
     {
-        label: "Civilité",
         name: civility,
+        label: "Civilité",
         type: 'select',
 
         props: {
@@ -35,8 +53,8 @@ const profileField = [
         }
     },
     {
-        label: "Nom",
         name: firstName,
+        label: "Nom",
         type: 'input',
         dimension: { xs: 6 },
 
@@ -46,8 +64,8 @@ const profileField = [
         }
     },
     {
-        label: "Prénom",
         name: lastName,
+        label: "Prénom",
         type: 'input',
         dimension: { xs: 6 },
 
@@ -56,8 +74,8 @@ const profileField = [
         }
     },
     {
-        label: "Age",
         name: age,
+        label: "Age",
         type: 'date',
 
         props: {
@@ -66,8 +84,8 @@ const profileField = [
         }
     },
     {
-        label: "Lieu de résidence",
         name: bornePlace,
+        label: "Lieu de résidence",
         type: 'input',
 
         props: {
@@ -75,8 +93,8 @@ const profileField = [
         }
     },
     {
-        label: "Langue",
         name: languages,
+        label: "Langue",
         type: 'select',
 
         props: {

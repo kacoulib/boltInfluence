@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { basicAuth } from '../../lib/api/public'
+import { basicAuth } from '../../lib/api/http/public'
 import Head from 'next/head';
 import Button from '@material-ui/core/Button';
 

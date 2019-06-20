@@ -21,7 +21,7 @@ const styles = theme => ({
     checked: {}
 });
 
-const RadioType = ({ classes, list, helpText, value, onChange, name = '', style }) => {
+const RadioType = ({ classes, list, label, value, onChange, name = '', style }) => {
     const [val, setValue] = useState(value)
 
     const handleChange = ({ target: { value } }) => {
@@ -34,7 +34,7 @@ const RadioType = ({ classes, list, helpText, value, onChange, name = '', style 
     return (
 
         <FormControl component="fieldset" className={classes.formControl}>
-            <FormLabel component="legend">{helpText}</FormLabel>
+            <FormLabel component="legend">{label}</FormLabel>
             <RadioGroup
                 aria-label="Gender"
                 name="gender1"
@@ -53,7 +53,7 @@ RadioType.propTypes = {
     list: PropTypes.arrayOf(PropTypes.object).isRequired,
     onChange: PropTypes.func.isRequired,
     name: PropTypes.string.isRequired,
-    helpText: PropTypes.string,
+    label: PropTypes.string,
     value: PropTypes.string,
 }
 
