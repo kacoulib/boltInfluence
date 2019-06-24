@@ -20,72 +20,65 @@ import userIconWhite from '../../static/img/userIconWhite.js';
 import iconTwitter from '../../static/img/icon/TwitterWhite.png';
 
 import Menu from '@material-ui/core/Menu';
+import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles({
 	avatar: {
 		margin: 10,
-		height: 25,
-		width: 25,
+		height: 26,
+		width: 26,
 	},
-		bigAvatar: {
+	bigAvatar: {
 		margin: 10,
 		width: 60,
 		height: 60,
 	},
 });
 
+
+
 function Header({ user }) {
 	const classes = useStyles();
 	return (
 		<div>
-		<Toolbar style={styleToolbar}>
-			<Grid style={styles.redBorder} container direction="row" justify="space-around" alignItems="center">
-				<Grid xs={1} sm={1} item style={styles.greenBorder}>
-					<Grid xs={1} sm={1} item style={styles.greenBorder}>
-						<Link prefetch href="/">
-							<img src={logo} />
-						</Link>
+			<Toolbar style={styleToolbar}>
+				<Grid container alignItems="center" style={{height: '140px', border: '1px solid red'}}>
+					<Grid item align="center" sm={2} style={{border: '1px solid red'}}>
+						<img src={logo} />
+					</Grid>
+					<Grid item align="center" sm={10} style={{border: '1px solid red'}}>
+						<Grid container alignItems="center" justify="center">
+							<Grid item sm={1} xs={2}>
+								<Avatar className={classes.avatar} src={userIconWhite} />
+							</Grid>
+						</Grid>
+						<Grid container alignItems="center">
+							<Grid item style={styleToolbarLink} sm={2} xs={2}>
+								Annonceurs
+							</Grid>
+							<Grid style={styleToolbarLink} item sm={2} xs={2}>
+								Influenceurs
+							</Grid>
+							<Grid style={styleToolbarLink} item sm={2} xs={2}>
+								La vidéo d'influence
+							</Grid>
+							<Grid style={styleToolbarLink} item sm={2} xs={2}>
+								Notre méthode
+							</Grid>
+							<Grid style={styleToolbarLink} item sm={2} xs={2}>
+								Contactez-nous
+							</Grid>
+							<Grid item sm={1} xs={2}>
+								<Avatar className={classes.avatar} src={userIconWhite} />
+							</Grid>
+						</Grid>
+
 					</Grid>
 				</Grid>
-
-			<Grid item sm={2} xs={2}>
-            {!user ? (
-              <React.Fragment>
-
-                <div>
-
-                  {/* {publicMenu.map((menu, key) => (
-                  <Link prefetch href={menu.href} key={key}>
-                    <MenuItem>
-                      <ListItemText primary={menu.text} />
-                    </MenuItem>
-                  </Link>
-                ))} */}
-                </div>
-
-              </React.Fragment>
-
-            ) : null}
-          </Grid>
-          {/* <Grid item sm={2} xs={2} style={{ textAlign: 'right' }}>
-            {user && user.isAdmin && !user.isGithubConnected ? (
-              <Hidden smDown>
-                <a href="/auth/github">
-                  <Button variant="contained" color="primary">
-                    Connect Github
-                  </Button>
-                </a>
-              </Hidden>
-            ) : null}
-          </Grid> */}
-
-
-
-		  </Grid>
-		</Toolbar>
-    </div>
-  );
+			</Toolbar>
+		</div>
+	);
 }
 
 Header.propTypes = {
@@ -100,6 +93,13 @@ Header.defaultProps = {
 };
 
 export default Header;
+
+// <Grid container align="center"  style={{height: '60px'}}>
+// 	<Grid item align="center" style={styleToolbarLink} sm={1} xs={2}>
+// 		Annonceurs
+// 	</Grid>
+// </Grid>
+
 
 
 // <Grid style={styles.redBorder} container direction="row" justify="space-around" alignItems="center">
