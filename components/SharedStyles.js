@@ -11,10 +11,18 @@ const styleRaisedButton = {
 };
 
 const styleToolbar = {
-  background: '#FFF',
-  height: '64px',
+  background: '#252b40',
+  height: '180px',
   paddingRight: '20px',
 };
+
+const styleToolbarLink = {
+	// border: '1px solid #0C2',
+	color: '#FFF',
+	textAlign: 'center',
+	fontWeight: 'bold',
+	fontSize: '0.8em',
+}
 
 const styleLoginButton = {
   margin: '5px',
@@ -46,12 +54,28 @@ const styleGrid = {
   lineHeight: '1.5em',
 };
 
+const greenBorder = {
+	border: '1px solid green',
+};
+
+const redBorder = {
+	border: '1px solid red',
+};
+
+const styleIconeSocial = {
+		height: '18px',
+}
+
 module.exports = {
-  styleBigAvatar,
-  styleRaisedButton,
-  styleToolbar,
-  styleLoginButton,
-  styleTextField,
-  styleForm,
-  styleGrid,
+	redBorder,
+	greenBorder,
+	styleIconeSocial,
+	styleToolbarLink,
+	styleBigAvatar,
+	styleRaisedButton,
+	styleToolbar,
+	styleLoginButton,
+	styleTextField,
+	styleForm,
+	styleGrid,
 };
