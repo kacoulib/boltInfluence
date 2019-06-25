@@ -18,6 +18,7 @@ import logo from '../../static/img/logoBlue.js'
 import userIconWhite from '../../static/img/userIconWhite.js';
 
 import iconTwitter from '../../static/img/icon/TwitterWhite.png';
+import iconFlagFr from '../../static/img/flagFr.png';
 
 import Menu from '@material-ui/core/Menu';
 import Paper from '@material-ui/core/Paper';
@@ -34,8 +35,10 @@ const useStyles = makeStyles({
 		width: 60,
 		height: 60,
 	},
+	flagFr: {
+		height: 15,
+	}
 });
-
 
 
 function Header({ user }) {
@@ -43,40 +46,47 @@ function Header({ user }) {
 	return (
 		<div>
 			<Toolbar style={styleToolbar}>
-				<Grid container alignItems="center" style={{height: '140px', border: '1px solid red'}}>
-					<Grid item align="center" sm={2} style={{border: '1px solid red'}}>
+				<Grid container alignItems="center" justify="center">
+					<Grid item align="center" sm={2} xs={12}>
 						<img src={logo} />
 					</Grid>
-					<Grid item align="center" sm={10} style={{border: '1px solid red'}}>
+					<Grid item align="center" sm={8}>
 						<Grid container alignItems="center" justify="center">
 							<Grid item sm={1} xs={2}>
-								<Avatar className={classes.avatar} src={userIconWhite} />
+								<img src={iconFlagFr} style={styles.iconFlagFr} />
 							</Grid>
 						</Grid>
 						<Grid container alignItems="center">
-							<Grid item style={styleToolbarLink} sm={2} xs={2}>
+							<Grid item style={styleToolbarLink} sm={2} xs={12}>
 								Annonceurs
 							</Grid>
-							<Grid style={styleToolbarLink} item sm={2} xs={2}>
+							<Grid style={styleToolbarLink} item sm={2} xs={12}>
 								Influenceurs
 							</Grid>
-							<Grid style={styleToolbarLink} item sm={2} xs={2}>
+							<Grid style={styleToolbarLink} item sm={2} xs={12}>
 								La vidéo d'influence
 							</Grid>
-							<Grid style={styleToolbarLink} item sm={2} xs={2}>
+							<Grid style={styleToolbarLink} item sm={2} xs={12}>
 								Notre méthode
 							</Grid>
-							<Grid style={styleToolbarLink} item sm={2} xs={2}>
+							<Grid style={styleToolbarLink} item sm={2} xs={12}>
 								Contactez-nous
 							</Grid>
-							<Grid item sm={1} xs={2}>
-								<Avatar className={classes.avatar} src={userIconWhite} />
+							<Grid item style={{padding: '10px'}} sm={2} xs={12}>
+								<Avatar style={styles.avatar} src={userIconWhite} />
 							</Grid>
 						</Grid>
-
+						<Grid container direction="row" alignItems="center" justify="center">
+							<Grid item style={styleToolbarLink} sm={12} xs={12}>
+								<img src={iconTwitter} style={styles.styleIconeSocial} />
+								<img src={iconTwitter} style={styles.styleIconeSocial} />
+								<img src={iconTwitter} style={styles.styleIconeSocial} />
+							</Grid>
+						</Grid>
 					</Grid>
 				</Grid>
 			</Toolbar>
+
 		</div>
 	);
 }
