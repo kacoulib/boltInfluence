@@ -55,7 +55,8 @@ const Index = () => (
 					Data et Technologie
 				</Typography>
 			</Grid>
-			<Grid item align="center" alignItems="center" style={{ padding: '40px' }} xs={6} sm={6}>
+			<Grid item align="center" justify="center" container alignItems="center" direction="column-reverse" style={{ padding: '40px' }} xs={6} sm={6}>
+
 				<Typography variant="h5" gutterBottom style={{ color: '#232941' }}>
 					Search influenceurs
 				</Typography>
@@ -77,7 +78,8 @@ const Index = () => (
 			<Grid item align="center" style={{ padding: '40px' }} xs={6} sm={6}>
 				<img src="https://via.placeholder.com/400x250" />
 			</Grid>
-			<Grid item align="center" alignItems="center" style={{ padding: '40px' }} xs={6} sm={6}>
+			<Grid item align="center" justify="center" container alignItems="center" direction="column-reverse" style={{ padding: '40px' }} xs={6} sm={6}>
+
 				<Typography variant="h5" gutterBottom style={{ color: '#232941' }}>
 					Managment et optimization
 				</Typography>
