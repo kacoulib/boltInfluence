@@ -2,33 +2,27 @@ import React from 'react';
 import Head from 'next/head';
 
 import Grid from '@material-ui/core/Grid';
-import styles from './SharedStyles';
-
+import Video from '../components/element/video'
 
 import withLayout from '../lib/withLayout';
 import Typography from '@material-ui/core/Typography';
 
 const Index = () => (
 	<div style={{ padding: '10px 45px' }}>
-	<Head>
-		<title>Settings</title>
-		<meta
-			name="description"
-			content="Welcome."
-		/>
-	</Head>
-	<p>Welcome </p>
-	<Grid container>
-		<Grid item sm={12}>
-			<video controls style={{width: '100%'}}>
-				<source src="maVideo.mp4" type="video/mp4" />
-				<p>Votre navigateur ne prend pas en charge les vidéos HTML5.
-				Voici <a href="myVideo.mp4">un lien pour télécharger la vidéo</a>.</p>
-				<div style={styles.videoOverlay}>
-				<p>Content above your video</p>
-				</div>
-			</video>
+		<Head>
+			<title>Settings</title>
+			<meta
+				name="description"
+				content="Welcome."
+			/>
+		</Head>
+		<p>Welcome </p>
+		<Grid container>
+			<Grid item sm={12}>
+				<Video style={{ width: '100%' }} src="maVideo.mp4" />
+			</Grid>
 		</Grid>
+<<<<<<< HEAD
 		<Grid container>
 			<Grid item align="center" style={{padding: '40px'}} xs={12} sm={12}>
 				<Typography variant="h4" gutterBottom style={{color: '#232941'}}>
@@ -103,8 +97,10 @@ const Index = () => (
 			</Grid>
 		</Grid>
 	</Grid>
+=======
+>>>>>>> 961a09488e2412ac15a388bea74e888604a779c9
 
-  </div>
+	</div>
 )
 
 
