@@ -18,7 +18,7 @@ const Index = () => (
 		</Head>
 		<p>Welcome </p>
 		<Grid container>
-			<Grid item sm={12}>
+			<Grid item xs={12} sm={12} sm={12}>
 				<Video style={{ width: '100%' }} src="maVideo.mp4" />
 			</Grid>
 		</Grid>
@@ -28,10 +28,10 @@ const Index = () => (
 					Comment rendons-nous l'influence marketing scalable
 				</Typography>
 			</Grid>
-			<Grid item align="center" style={{ padding: '40px' }} xs={6} sm={6}>
+			<Grid item align="center" style={{ padding: '40px' }} sm={6} dm={12}>
 				<img src="https://via.placeholder.com/400x250" />
 			</Grid>
-			<Grid item align="center" justify="center" container alignItems="center" direction="column-reverse" style={{ padding: '40px' }} xs={6} sm={6}>
+			<Grid item align="center" justify="center" container alignItems="center" direction="column-reverse" style={{ padding: '40px' }} sm={6} dm={12}>
 				<Typography variant="h5" gutterBottom style={{ color: '#232941' }}>
 					Stratégie de contenu
 				</Typography>
@@ -55,7 +55,7 @@ const Index = () => (
 					Data et Technologie
 				</Typography>
 			</Grid>
-			<Grid item align="center" justify="center" container alignItems="center" direction="column-reverse" style={{ padding: '40px' }} xs={6} sm={6}>
+			<Grid item align="center" justify="center" container alignItems="center" direction="column-reverse" style={{ padding: '40px' }} sm={6} dm={12}>
 
 				<Typography variant="h5" gutterBottom style={{ color: '#232941' }}>
 					Search influenceurs
@@ -70,15 +70,15 @@ const Index = () => (
 					Audience et analytics
 				</Typography>
 			</Grid>
-			<Grid item align="center" style={{ padding: '40px' }} xs={6} sm={6}>
+			<Grid item align="center" style={{ padding: '40px' }} sm={6} dm={12}>
 				<img src="https://via.placeholder.com/400x250" />
 			</Grid>
 		</Grid>
 		<Grid container>
-			<Grid item align="center" style={{ padding: '40px' }} xs={6} sm={6}>
+			<Grid item align="center" style={{ padding: '40px' }} sm={6} dm={12}>
 				<img src="https://via.placeholder.com/400x250" />
 			</Grid>
-			<Grid item align="center" justify="center" container alignItems="center" direction="column-reverse" style={{ padding: '40px' }} xs={6} sm={6}>
+			<Grid item align="center" justify="center" container alignItems="center" direction="column-reverse" style={{ padding: '40px' }} sm={6} dm={12}>
 
 				<Typography variant="h5" gutterBottom style={{ color: '#232941' }}>
 					Managment et optimization
