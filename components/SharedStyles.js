@@ -89,6 +89,7 @@ const footer = {
 
 const footerLink = {
 	color: '#232941',
+	fontWeight: 'bold',
 }
 
 module.exports = {

@@ -19,8 +19,8 @@ function Footer({ user }) {
 					<img src={logo} />
 				</Grid>
 				<Grid item sm={3}  align="center">
-					<div><Link style={styles.footerLink}>Mon profil</Link></div>
-					<div><Link>À propos</Link></div>
+					<div><Link><a style={styles.footerLink}>Mon profil</a></Link></div>
+					<div><Link><a style={styles.footerLink}>À propos</a></Link></div>
 					<div><Link>Les campagnes</Link></div>
 				</Grid>
 				<Grid item sm={3}  align="center">
