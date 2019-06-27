@@ -122,6 +122,24 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dignissim ma
 					</Grid>
 				</Grid>
 			</Grid>
+			<Grid container align="center">
+				<Grid item xs={6} sm={6}>
+					<img src="https://via.placeholder.com/400x500" />
+				</Grid>
+				<Grid item xs={6} sm={6}>
+					<Typography variant="h5" gutterBottom style={{ color: '#FFF'}}>
+						Le reward
+					</Typography>
+					<p style={{color: '#FFF'}}>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dignissim malesuada nunc, sed vehicula diam dapibus quis. Suspendisse a suscipit dolor, sit amet sagittis erat. Nunc accumsan mauris at tortor auctor sagittis. Aenean maximus lectus tristique, lobortis nunc quis, mollis est. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+					</p>
+				</Grid>
+				<Grid item xs={12} sm={12} style={{backgroundColor: '#000'}}>
+					<p style={{color: '#FFF'}}>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dignissim malesuada nunc, sed vehicula diam dapibus quis. Suspendisse a suscipit dolor, sit amet sagittis erat. Nunc accumsan mauris at tortor auctor sagittis. Aenean maximus lectus tristique, lobortis nunc quis, mollis est. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+					</p>
+				</Grid>
+			</Grid>
 		</Grid>
 	</div>
 );
