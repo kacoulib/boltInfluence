@@ -14,7 +14,7 @@ import MenuDrop from './MenuDrop';
 import { publicMenu, optionsMenuAdmin, optionsMenuCustomer } from './routes'
 import { styleToolbar, styleToolbarLink, greenBorder, redBorder} from '../SharedStyles';
 import styles from '../SharedStyles';
-import logo from '../../static/img/logoBlue.js'
+import logo from '../../static/img/logo.png'
 import userIconWhite from '../../static/img/userIconWhite.js';
 
 import iconTwitter from '../../static/img/icon/TwitterWhite.png';

@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import styles from '../SharedStyles';
 
 
-import logo from '../../static/img/logoGrey.png';
+import logo from '../../static/img/logo.png';
 
 
 
