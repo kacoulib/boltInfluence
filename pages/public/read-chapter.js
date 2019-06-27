@@ -4,7 +4,7 @@ import Error from 'next/error';
 import Head from 'next/head';
 import Grid from '@material-ui/core/Grid';
 
-import { getChapterDetail } from '../../lib/api/public';
+// import { getChapterDetail } from '../../lib/api/public';
 import withLayout from '../../lib/withLayout';
 import withAuth from '../../lib/withAuth';
 
