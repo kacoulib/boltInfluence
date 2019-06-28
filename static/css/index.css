@@ -1,9 +1,11 @@
 ul {
+    margin: 0;
     list-style: none;
 }
 
 /* PROCESS */
 #process {
+    padding-top: 3rem;
     background-image: url('../img/dots-blue.png');
     background-repeat: no-repeat;
     background-position: top right;
@@ -23,9 +25,32 @@ ul {
 #process-nav .icon {
     margin-right: 1rem;
 }
+.red-card {
+    position: relative;
+}
+.red-card .selection {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    background: #F13F4B;
+    background-image: url('../img/icon/validation.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 15px;
+}
+.red-card.selected {
+    border: 2px solid #F13F4B;
+}
+.red-card img{
+    display: block;
+    width: 100%;
+}
 
 /* OTHER */
-.inactive-link {
+.gray-color {
     color: #D8D8D8;
 }
 .orange-color {
@@ -35,6 +60,9 @@ ul {
     text-align: center;
 }
 /* SLICK */
+.slick-slide {
+    padding: 5px;
+}
 .slick-slider .slick-arrow,
 .slick-slider .slick-arrow:hover,
 .slick-slider .slick-arrow:focus {
@@ -53,8 +81,8 @@ ul {
     color: #F13F4B;
     background-image: url('../img/icon/orange-arrow.png');
 }
-/* IMAGE */
 
+/* IMAGE */
 .icon {
     display: inline-block;
     width: 1.5rem;
@@ -64,23 +92,23 @@ ul {
     background-position: center;
 }
 .orange-arrow {
-    background-image: url('../img/icon/orange-arrow.png')
+    background-image: url('../img/icon/orange-arrow.png');
 }
 .noun-loading {
-    background-image: url('../img/icon/noun-loading.png')
+    background-image: url('../img/icon/noun-loading.png');
 }
 .validation {
-    background-image: url('../img/icon/validation.png')
+    background-image: url('../img/icon/validation.png');
 }
 .grid {
-    background-image: url('../img/icon/grid.png')
+    background-image: url('../img/icon/grid.png');
 }
 .post {
-    background-image: url('../img/icon/post.png')
+    background-image: url('../img/icon/post.png');
 }
 .payment {
-    background-image: url('../img/icon/payment.png')
+    background-image: url('../img/icon/payment.png');
 }
 .flash {
-    background-image: url('../img/icon/flash.png')
+    background-image: url('../img/icon/flash.png');
 }

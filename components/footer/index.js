@@ -28,8 +28,7 @@ function Footer({ user }) {
 					<div><Link>Programmez vos posts</Link></div>
 				</Grid>
 				<Grid item sm={3}  align="center">
-					<div><Link>Hey</Link></div>
-					<div><Link>Pouet</Link></div>
+					<div><Link>Suivez noous</Link></div>
 				</Grid>
 			</Grid>
 

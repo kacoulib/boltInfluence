@@ -48,7 +48,7 @@ const CustomerIndex = (props) => {
                                 <li key={i} onClick={() => setActiveLink(i)} >
                                     <span className={e.className}></span>
                                     <Link prefetch href={`#${e.href}`}>
-                                        <a className={i == activeLink ? 'orange-color' : 'inactive-link'}>{e.text}</a>
+                                        <a className={i == activeLink ? 'orange-color' : 'gray-color'}>{e.text}</a>
                                     </Link>
                                 </li>
                             )
