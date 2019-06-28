@@ -1,0 +1,62 @@
+ul {
+    list-style: none;
+}
+
+/* PROCESS */
+#process {
+    background-image: url('../img/dots-blue.png');
+    background-repeat: no-repeat;
+    background-position: top right;
+}
+#process-nav li {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    padding: .5rem;
+    border-bottom: 1px solid #D8D8D8;
+    cursor: pointer;
+}
+#process-nav a {
+    display: inline-block;
+    vertical-align: middle;
+}
+#process-nav .icon {
+    margin-right: 1rem;
+}
+
+/* OTHER */
+.inactive-link {
+    color: #D8D8D8;
+}
+.orange-color {
+    color: #F13F4B;
+}
+
+/* IMAGE */
+
+.icon {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.noun-loading {
+    background-image: url('../img/icon/noun-loading.png')
+}
+.validation {
+    background-image: url('../img/icon/validation.png')
+}
+.grid {
+    background-image: url('../img/icon/grid.png')
+}
+.post {
+    background-image: url('../img/icon/post.png')
+}
+.payment {
+    background-image: url('../img/icon/payment.png')
+}
+.flash {
+    background-image: url('../img/icon/flash.png')
+}
