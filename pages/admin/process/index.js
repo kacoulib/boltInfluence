@@ -36,7 +36,7 @@ const getComp = (i) => {
 }
 
 const CustomerIndex = (props) => {
-    const [activeLink, setActiveLink] = useState(0);
+    const [activeLink, setActiveLink] = useState(3);
 
     return (
         <div id='process'>

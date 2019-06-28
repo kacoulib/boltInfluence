@@ -9,7 +9,7 @@ export default () => {
 
     return (
         <Grid container alignItems='center' justify="center" >
-            <Grid item xs={12} sm={12} className='center-text' p={1}>
+            <Grid item xs={12} sm={8} className='center-text' p={1}>
                 <Slider settings={settings}>
                     <div>
                         <h3>1</h3>
