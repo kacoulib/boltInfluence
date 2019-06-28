@@ -31,13 +31,15 @@ ul {
 .orange-color {
     color: #F13F4B;
 }
-
+.center-text {
+    text-align: center;
+}
 /* IMAGE */
 
 .icon {
     display: inline-block;
-    width: 32px;
-    height: 32px;
+    width: 1.5rem;
+    height: 1.5rem;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
