@@ -12,7 +12,7 @@ const Slider = (props) => {
     const settings = Object.assign(defaultSettings, { ...props.settings });
 
     return (
-        <Slick>
+        <Slick {...settings}>
             {props.children}
         </Slick>
     )

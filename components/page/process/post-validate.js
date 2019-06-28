@@ -4,32 +4,35 @@ import Buttom from '@material-ui/core/Button';
 // import Hooray from '../../../static/img/icon/hooray.png';
 import Slider from '../../dataDisplay/element/slider';
 
-export default () => (
-    <Grid container alignItems='center' justify="center" >
-        <Grid item xs={12} sm={12} className='center-text'>
+export default () => {
+    const settings = { slidesToShow: 2, dots: false };
 
-            <Slider>
-                <div>
-                    <h3>1</h3>
-                </div>
-                <div>
-                    <h3>2</h3>
-                </div>
-                <div>
-                    <h3>3</h3>
-                </div>
-                <div>
-                    <h3>4</h3>
-                </div>
-                <div>
-                    <h3>5</h3>
-                </div>
-                <div>
-                    <h3>6</h3>
-                </div>
-            </Slider>
-            <Buttom>Validate</Buttom>
-        </Grid>
+    return (
+        <Grid container alignItems='center' justify="center" >
+            <Grid item xs={12} sm={12} className='center-text' p={1}>
+                <Slider settings={settings}>
+                    <div>
+                        <h3>1</h3>
+                    </div>
+                    <div>
+                        <h3>2</h3>
+                    </div>
+                    <div>
+                        <h3>3</h3>
+                    </div>
+                    <div>
+                        <h3>4</h3>
+                    </div>
+                    <div>
+                        <h3>5</h3>
+                    </div>
+                    <div>
+                        <h3>6</h3>
+                    </div>
+                </Slider>
+                <Buttom>Validate</Buttom>
+            </Grid>
 
-    </ Grid>
-)
+        </ Grid>
+    )
+}
