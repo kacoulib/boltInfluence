@@ -115,3 +115,18 @@ ul {
 .flash {
     background-image: url('../img/icon/flash.png');
 }
+.mark {
+    background-image: url('../img/icon/mark.png');
+}
+.star {
+    background-image: url('../img/icon/star.png');
+}
+.account {
+    background-image: url('../img/icon/account.png');
+}
+.message {
+    background-image: url('../img/icon/message.png');
+}
+.photos {
+    background-image: url('../img/icon/photos.png');
+}
