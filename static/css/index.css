@@ -11,10 +11,13 @@ ul {
     background-position: top right;
 }
 #process-nav li {
+    padding: .1rem 0;
+}
+#process-nav li a {
     display: flex;
     align-items: center;
     flex-direction: row;
-    padding: .5rem;
+    padding: .4rem;
     border-bottom: 1px solid #D8D8D8;
     cursor: pointer;
 }

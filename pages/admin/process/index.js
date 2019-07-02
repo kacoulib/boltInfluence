@@ -45,10 +45,12 @@ const CustomerIndex = (props) => {
                     <ul id='process-nav'>
                         {navList.map((e, i) => {
                             return (
-                                <li key={i} onClick={() => setActiveLink(i)} >
-                                    <span className={e.className}></span>
-                                    <Link prefetch href={`#${e.href}`}>
-                                        <a className={i == activeLink ? 'orange-color' : 'gray-color'}>{e.text}</a>
+                                <li key={i}>
+                                    <Link prefetch href={`#${e.href}`} onClick={() => setActiveLink(i)}>
+                                        <a className={i == activeLink ? 'orange-color' : 'gray-color'}>
+                                            <span className={e.className}></span>
+                                            <span>{e.text}</span>
+                                        </a>
                                     </Link>
                                 </li>
                             )
