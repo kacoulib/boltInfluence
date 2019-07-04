@@ -46,8 +46,8 @@ const CustomerIndex = (props) => {
                         {navList.map((e, i) => {
                             return (
                                 <li key={i}>
-                                    <Link prefetch href={`#${e.href}`} onClick={() => setActiveLink(i)}>
-                                        <a className={i == activeLink ? 'orange-color' : 'gray-color'}>
+                                    <Link prefetch href={`#${e.href}`}>
+                                        <a className={i == activeLink ? 'orange-color' : 'gray-color'} onClick={() => setActiveLink(i)}>
                                             <span className={e.className}></span>
                                             <span>{e.text}</span>
                                         </a>
