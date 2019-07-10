@@ -1,92 +1,65 @@
 const express = require('express');
-const Book = require('../models/Book');
 const User = require('../models/User');
-const { getRepos } = require('../auth/github');
-const logger = require('../logs');
-const { isAdmin } = require('../../utils/variables/user')
+const Campaign = require('../models/Campaign');
+const Brand = require('../models/Brand');
+// const logger = require('../logs');
+const { isAdmin } = require('../../utils/variables/user');
 
 const router = express.Router();
 
 router.use((req, res, next) => {
-  if (!req.user || isAdmin(isAdmin)) {
-    res.status(401).json({ error: 'Unauthorized' });
-    return;
-  }
+  // if (!req.user || !isAdmin(req.user)) {
+  //   res.status(401).json({ error: 'Unauthorized' });
+  //   return;
+  // }
 
   next();
 });
 
-router.get('/books', async (req, res) => {
+router.get('/influencers', async (req, res) => {
   try {
-    const books = await Book.list();
-    res.json(books);
+    const influencers = await User.listInfluencers();
+    res.json({ influencers });
   } catch (err) {
     res.json({ error: err.message || err.toString() });
   }
 });
 
-router.post('/books/add', async (req, res) => {
+router.get('/businesses', async (req, res) => {
   try {
-    const book = await Book.add(Object.assign({ userId: req.user.id }, req.body));
-    res.json(book);
-  } catch (err) {
-    logger.error(err);
-    res.json({ error: err.message || err.toString() });
-  }
-});
-
-router.post('/books/edit', async (req, res) => {
-  try {
-    const editedBook = await Book.edit(req.body);
-    res.json(editedBook);
+    const businesses = await User.listBusinesses();
+    res.json({ businesses });
   } catch (err) {
     res.json({ error: err.message || err.toString() });
   }
 });
 
-router.get('/books/detail/:slug', async (req, res) => {
+router.get('/campaigns', async (req, res) => {
   try {
-    const book = await Book.getBySlug({ slug: req.params.slug });
-    res.json(book);
+    const campaigns = await Campaign.list();
+    res.json({ campaigns });
   } catch (err) {
     res.json({ error: err.message || err.toString() });
   }
 });
 
-// github-related
-
-router.post('/books/sync-content', async (req, res) => {
-  const { bookId } = req.body;
-
-  const user = await User.findById(req.user._id, 'isGithubConnected githubAccessToken');
-
-  if (!user.isGithubConnected || !user.githubAccessToken) {
-    res.json({ error: 'Github not connected' });
-    return;
-  }
-
+router.get('/campaigns/:slug', async (req, res) => {
   try {
-    await Book.syncContent({ id: bookId, githubAccessToken: user.githubAccessToken });
-    res.json({ done: 1 });
+    const {
+      params: { slug },
+    } = req;
+    const campaign = await Campaign.getBySlug(slug);
+    res.json({ campaign });
   } catch (err) {
-    logger.error(err);
     res.json({ error: err.message || err.toString() });
   }
 });
 
-router.get('/github/repos', async (req, res) => {
-  const user = await User.findById(req.user._id, 'isGithubConnected githubAccessToken');
-
-  if (!user.isGithubConnected || !user.githubAccessToken) {
-    res.json({ error: 'Github not connected' });
-    return;
-  }
-
+router.get('/brands', async (req, res) => {
   try {
-    const response = await getRepos({ accessToken: user.githubAccessToken });
-    res.json({ repos: response.data });
+    const brands = await Brand.list();
+    res.json({ brands });
   } catch (err) {
-    logger.error(err);
     res.json({ error: err.message || err.toString() });
   }
 });

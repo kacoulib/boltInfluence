@@ -3,6 +3,7 @@ const session = require('express-session');
 const mongoSessionStore = require('connect-mongo');
 const next = require('next');
 const mongoose = require('mongoose');
+
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
@@ -12,7 +13,7 @@ const basicAuth = require('./auth/basic');
 const routes = require('./routes');
 
 const logger = require('./logs');
-const { insertTemplates } = require('./models/EmailTemplate');
+// const { insertTemplates } = require('./models/EmailTemplate');
 // // const routesWithSlug = require('./routesWithSlug');
 
 require('dotenv').config();
@@ -25,24 +26,21 @@ const options = {
   useCreateIndex: true,
   useFindAndModify: false,
 };
-mongoose.connect(
-  MONGO_URL,
-  options,
-);
+mongoose.connect(MONGO_URL, options);
 
 // fake DB
-const messages = []
+const messages = [];
 
 // socket.io server
-console.log('---')
+console.log('---');
 io.on('connect', (socket) => {
-  console.log('--------connected')
+  console.log('--------connected');
   socket.on('message', (data) => {
-    console.log('server', data)
-    messages.push(data)
-    socket.emit('message', data)
-  })
-})
+    console.log('server', data);
+    messages.push(data);
+    socket.emit('message', data);
+  });
+});
 
 const port = process.env.PORT || 8000;
 const ROOT_URL = `http://localhost:${port}`;
@@ -56,8 +54,6 @@ const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
 
 nextApp.prepare().then(async () => {
-
-
   app.use(express.json());
 
   const MongoStore = mongoSessionStore(session);
@@ -77,16 +73,16 @@ nextApp.prepare().then(async () => {
   };
 
   app.use(session(sess));
-  app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  app.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
   });
-  await insertTemplates();
+  // await insertTemplates();
 
   googleAuth({ app, ROOT_URL });
   instagramAuth({ app, ROOT_URL });
-  basicAuth({ app, nextApp })
+  basicAuth({ app, nextApp });
   routes(app);
 
   app.get('/logout', (req, res) => {

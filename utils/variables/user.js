@@ -1,22 +1,29 @@
 const Admin = 'admin';
 const Influencer = 'influencer';
-const Enterprise = 'enterprise';
-const RoleList = [Admin, Influencer, Enterprise];
+const Brand = 'brand';
+const Agency = 'agency';
+const RoleList = [Admin, Influencer, Brand, Agency];
+const BusinessRoleList = [Brand, Agency];
 
 const isAdmin = (user) => user && user.role === Admin;
 const isInfluencer = (user) => user && user.role === Influencer;
-const isEnterprise = (user) => user && user.role === Enterprise;
+const isBrand = (user) => user && user.role === Brand;
+const isAgency = (user) => user && user.role === Agency;
+const isBusiness = (user) => user && BusinessRoleList.includes(user.role);
 
 module.exports = {
+  // Vars
+  RoleList,
+  BusinessRoleList,
+  Admin,
+  Influencer,
+  Brand,
+  Agency,
 
-    // Vars
-    RoleList,
-    Admin,
-    Influencer,
-    Enterprise,
-
-    // Methods
-    isAdmin,
-    isInfluencer,
-    isEnterprise
-}
+  // Methods
+  isAdmin,
+  isInfluencer,
+  isBrand,
+  isAgency,
+  isBusiness,
+};
