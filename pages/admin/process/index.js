@@ -17,23 +17,6 @@ const navList = [
     { href: 'mission-validate', className: 'icon flash', text: 'Mission validée' },
 ]
 
-const getComp = (i) => {
-    switch (i) {
-        case 0:
-            return <Examination />;
-        case 1:
-            return <Validation />;
-        case 2:
-            return <Publish />;
-        case 3:
-            return <PostValidate />;
-        case 5:
-            return <MissionValidate />;
-        default:
-            return <Examination />;
-    }
-}
-
 const CustomerIndex = (props) => (
     <NavPanel
         navList={navList}
