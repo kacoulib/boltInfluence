@@ -27,11 +27,12 @@ const mongoSchema = new Schema({
 });
 
 class BrandClass {
-  static list({ offset = 0, limit = 10 } = {}) {
-    return this.find({})
+  static async list({ offset = 0, limit = 10 } = {}) {
+    const brands = await this.find({})
       .sort({ createdAt: -1 })
       .skip(offset)
       .limit(limit);
+    return { brands };
   }
 }
 mongoSchema.loadClass(BrandClass);

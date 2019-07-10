@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
 const CampaignOffer = require('./CampaignOffer');
+const User = require('./User');
+const { languageList } = require('../../utils/variables/general');
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -60,24 +62,20 @@ const mongoSchema = new Schema({
   audience_language: [
     {
       type: String,
-      // ref: LanguageList,
+      enum: languageList,
       required: true,
     },
   ],
-  audience_country: {
-    type: [
-      {
-        type: String,
-        required: true,
-      },
-    ],
-    required: true,
-  },
-  social_medias: {
-    // google: CampaignSocialMediaDetails,
-    // instagram: CampaignSocialMediaDetails,
-    // Other Social Medias
-  },
+  audience_country: [
+    {
+      type: String,
+    },
+  ],
+  // social_medias: {
+  //   google: CampaignSocialMediaDetails,
+  //   instagram: CampaignSocialMediaDetails,
+  //   // Other Social Medias
+  // },
   location: {
     type: {
       latitude: {
@@ -96,17 +94,18 @@ const mongoSchema = new Schema({
     },
     required: true,
   },
-  offers: [{ type: ObjectId, ref: 'CampaignOffer' }],
+  // offers: [{ type: ObjectId, ref: 'CampaignOffer' }],
 });
 
 class CampaignClass {
-  static list({ offset = 0, limit = 10 } = {}) {
-    return this.find({})
+  static async list({ offset = 0, limit = 10 } = {}) {
+    const campaigns = await this.find({})
       .sort({ createdAt: -1 })
       .skip(offset)
       .limit(limit)
-      .populate('brand')
-      .select({ offers: 0 });
+      .populate('brand');
+    // .select({ offers: 0 });
+    return { campaigns };
   }
 
   static async getBySlug({ slug }) {
@@ -115,11 +114,10 @@ class CampaignClass {
       throw new Error('Campaign not found');
     }
     const campaign = campaignDoc.toObject();
-    const offerDocs = await CampaignOffer.find({ campaign: campaign.id }).populate('user', {
-      first_name: 1,
-      last_name: 1,
-      slug: 1,
-    });
+    const offerDocs = await CampaignOffer.find({ campaign: campaign._id }).populate(
+      'user',
+      User.publicFields(),
+    );
     campaign.offers = offerDocs.map((doc) => doc.toObject());
     return campaign;
   }

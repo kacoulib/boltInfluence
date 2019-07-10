@@ -83,6 +83,10 @@ nextApp.prepare().then(async () => {
   googleAuth({ app, ROOT_URL });
   instagramAuth({ app, ROOT_URL });
   basicAuth({ app, nextApp });
+  // app.use((req, res, next) => {
+  //   console.log('USER:', req.user);
+  //   next();
+  // });
   routes(app);
 
   app.get('/logout', (req, res) => {

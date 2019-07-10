@@ -16,6 +16,7 @@ const auth = ({ app }) => {
         firstName,
         lastName,
         email,
+        password,
       });
       //   let company = await CompanyModel.findOne({ name: companyName });
       //   if (!company)
@@ -27,6 +28,8 @@ const auth = ({ app }) => {
       cb(null, user);
     } catch (err) {
       console.log(err); // eslint-disable-line
+      if (err.message) return cb(null, null, err);
+      cb(err, null);
     }
   };
   passport.use(
@@ -41,12 +44,12 @@ const auth = ({ app }) => {
   );
 
   passport.serializeUser((user, cb) => {
-    cb(null, user.id);
+    cb(null, user._id.toString());
   });
 
   passport.deserializeUser((id, cb) => {
     console.log('id', id);
-    UserModel.findById(id, (err, user) => {
+    UserModel.findById(id, UserModel.publicFields(), (err, user) => {
       if (err) {
         return cb(err);
       }

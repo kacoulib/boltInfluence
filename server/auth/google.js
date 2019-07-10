@@ -1,12 +1,14 @@
 const passport = require('passport');
 const Strategy = require('passport-google-oauth').OAuth2Strategy;
 const User = require('../models/User');
-const { redirecAfterAuth } = require('./index')
+const { redirecAfterAuth } = require('./index');
 
 function auth({ ROOT_URL, app }) {
   const verify = async (accessToken, refreshToken, profile, verified) => {
     let email;
     let avatarUrl;
+    let firstName;
+    let lastName;
 
     if (profile.emails) {
       email = profile.emails[0].value;
@@ -15,7 +17,12 @@ function auth({ ROOT_URL, app }) {
     if (profile.photos && profile.photos.length > 0) {
       avatarUrl = profile.photos[0].value.replace('sz=50', 'sz=128');
     }
-
+    if (profile.name && profile.name.familyName) {
+      lastName = profile.name.familyName;
+    }
+    if (profile.name && profile.name.givenName) {
+      firstName = profile.name.givenName;
+    }
     try {
       const user = await User.signInOrSignUp({
         provider: profile.provider,
@@ -23,6 +30,8 @@ function auth({ ROOT_URL, app }) {
         email,
         token: { accessToken, refreshToken },
         displayName: profile.displayName,
+        firstName,
+        lastName,
         avatarUrl,
       });
       verified(null, user);
