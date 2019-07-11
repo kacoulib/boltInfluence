@@ -19,9 +19,13 @@ function auth({ ROOT_URL, app }) {
     }
     if (profile.name && profile.name.familyName) {
       lastName = profile.name.familyName;
+    } else {
+      lastName = profile.displayName;
     }
     if (profile.name && profile.name.givenName) {
       firstName = profile.name.givenName;
+    } else {
+      firstName = profile.displayName;
     }
     try {
       const user = await User.signInOrSignUp({
@@ -29,7 +33,6 @@ function auth({ ROOT_URL, app }) {
         socialUserId: profile.id,
         email,
         token: { accessToken, refreshToken },
-        displayName: profile.displayName,
         firstName,
         lastName,
         avatarUrl,

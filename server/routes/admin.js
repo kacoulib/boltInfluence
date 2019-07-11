@@ -4,7 +4,7 @@ const User = require('../models/User');
 const Campaign = require('../models/Campaign');
 const Brand = require('../models/Brand');
 // const logger = require('../logs');
-// const { isAdmin } = require('../../utils/variables/user');
+const { isAdmin } = require('../../utils/variables/user');
 
 const router = express.Router();
 
@@ -22,10 +22,10 @@ const listCollection = (listFn) => async (req, res) => {
 };
 
 router.use((req, res, next) => {
-  // if (!req.user || !isAdmin(req.user)) {
-  //   res.status(401).json({ error: 'Unauthorized' });
-  //   return;
-  // }
+  if (!req.user || !isAdmin(req.user)) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
   next();
 });
 
@@ -39,7 +39,7 @@ router.get('/campaigns/:slug', async (req, res) => {
   try {
     const { slug } = req.params;
     const campaign = await Campaign.getBySlug({ slug });
-    res.json({ campaign });
+    res.json(campaign);
   } catch (err) {
     res.json({ error: err.message || err.toString() });
   }
@@ -48,3 +48,5 @@ router.get('/campaigns/:slug', async (req, res) => {
 router.get('/brands', listCollection(Brand.list.bind(Brand)));
 
 module.exports = router;
+
+/* TODO: Add input validation to routes */

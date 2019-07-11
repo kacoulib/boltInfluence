@@ -4,14 +4,14 @@ const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
 const mongoSchema = new Schema({
-  // Is it for a user subscription or for an offer?
-  reason: {
-    type: String,
-    // enum: PaymentReasonList,
-    required: true,
-  },
   amount: {
     type: Number,
+    required: true,
+  },
+  // Whether the execution is handled by Bolt or not
+  execution: {
+    type: String,
+    // enum: PaymentExecutionList,
     required: true,
   },
   status: {
@@ -22,10 +22,20 @@ const mongoSchema = new Schema({
   offer: {
     type: ObjectId,
     ref: 'CampaignOffer',
+    required: true,
   },
-  user: {
+  from: {
     type: ObjectId,
     ref: 'User',
+    required: true,
+  },
+  to: {
+    type: ObjectId,
+    ref: 'User',
+    required: true,
+  },
+  mangoPay: {
+    id: String,
   },
 });
 

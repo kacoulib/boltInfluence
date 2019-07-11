@@ -98,6 +98,13 @@ const mongoSchema = new Schema({
 });
 
 class CampaignClass {
+  /**
+   * List a limited amount of Campaigns
+   * @param {Object} where - Filtering criterias
+   * @param {Object} options
+   * @param {Number} options.offset - Amount of Campaigns to skip
+   * @param {Number} options.limit - Amount of Campaigns to return
+   */
   static async list({ offset = 0, limit = 10 } = {}) {
     const campaigns = await this.find({})
       .sort({ createdAt: -1 })
@@ -108,6 +115,11 @@ class CampaignClass {
     return { campaigns };
   }
 
+  /**
+   * Get a Campaign by its slug
+   * @param {Object} params
+   * @param {String} params.slug - The slug of the Campaign to get
+   */
   static async getBySlug({ slug }) {
     const campaignDoc = await this.findOne({ slug }).populate('brand');
     if (!campaignDoc) {
@@ -119,7 +131,7 @@ class CampaignClass {
       User.publicFields(),
     );
     campaign.offers = offerDocs.map((doc) => doc.toObject());
-    return campaign;
+    return { campaign };
   }
 }
 mongoSchema.loadClass(CampaignClass);
