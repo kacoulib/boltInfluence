@@ -4,8 +4,10 @@ const _ = require('lodash');
 const SocialMediaToken = require('./SocialMediaToken');
 const { RoleList, BusinessRoleList, Influencer } = require('../../utils/variables/user');
 const { languageList } = require('../../utils/variables/general');
+const { isInfluencer, isBusiness } = require('../../utils/variables/user');
 const generateSlug = require('../utils/slugify');
 const bcrypt = require('../utils/bcrypt');
+const getMangoPay = require('../utils/mangopay');
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -55,8 +57,6 @@ const mongoSchema = new Schema({
   // Role-dependant fields
   influencer: {
     picture: String,
-    placeOfBirth: String,
-    dateOfBirth: Date,
     situation: {
       type: String,
       // enum: UserSituations
@@ -75,18 +75,23 @@ const mongoSchema = new Schema({
   },
   agency: [{ type: ObjectId, ref: 'Brand' }],
   // Company related (every user needs a company)
+  phoneNumber: String,
   address: String,
   city: String,
   country: String,
+  postalCode: String,
   siret: String,
+  companyEmail: String,
   companyName: String,
   companySize: {
     type: Number,
     min: 1,
     default: 1,
   },
+  placeOfBirth: String,
+  dateOfBirth: Date,
   // Payment related
-  mangoPay: {
+  mangopay: {
     id: String,
     wallet: String,
     bankAccount: String,
@@ -154,6 +159,41 @@ class UserClass {
       // Send Email
     }
 
+    return { user };
+  }
+
+  /**
+   * Get a User by its slug
+   * @param {Object} params
+   * @param {String} params.slug - The slug of the User to get
+   */
+  static async getBySlug({ slug }) {
+    const userDoc = await this.findOne({ slug }).select(this.publicFields());
+    if (!userDoc) {
+      throw new Error('User not found');
+    }
+    const user = userDoc.toObject();
+    return { user };
+  }
+
+  /**
+   * Update a User by its slug
+   * @param {Object} params
+   * @param {String} params.slug - The slug of the User to get
+   * @
+   */
+  static async updateBySlug({ slug, ...updates }) {
+    // const userDoc = await this.findOne({ slug });
+    // if (!userDoc) {
+    //   throw new Error('Campaign not found');
+    // }
+    // await userDoc
+    const userDoc = await this.findOne({ slug });
+    Object.entries(updates).forEach(([key, value]) => {
+      userDoc[key] = value;
+    });
+    await userDoc.save();
+    const user = _.pick(userDoc.toObject(), this.publicFields());
     return { user };
   }
 
@@ -255,7 +295,8 @@ class UserClass {
   }
 }
 mongoSchema.loadClass(UserClass);
-mongoSchema.pre('save', async function userPreSave() {
+
+mongoSchema.pre('save', async function userPreSavePassword() {
   const user = this;
   // only hash the password if it exists and it has been modified (or is new)
   if (!user.password || !user.isModified('password')) {
@@ -263,6 +304,126 @@ mongoSchema.pre('save', async function userPreSave() {
   }
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(user.password, salt);
+});
+
+mongoSchema.pre('save', async function userPreSaveMangopayUser() {
+  const user = this;
+  const checkProperties = [
+    'role',
+    'dateOfBirth',
+    'country',
+    'placeOfBirth',
+    'firstName',
+    'lastName',
+    'companyName',
+    'companyEmail',
+    'siret',
+  ];
+  const hasAll = checkProperties.every((p) => !!user[p]);
+  const hasOneModified = checkProperties.some((p) => user.isModified(p));
+  if (!hasAll || !hasOneModified || (!isInfluencer(user) && !isBusiness(user))) {
+    return;
+  }
+  const mangopay = getMangoPay();
+  const mangopayUserModel = new mangopay.models.UserLegal({
+    Name: user.companyName,
+    Email: user.companyEmail,
+    CompanyNumber: user.siret,
+    LegalPersonType: isInfluencer(user) ? 'SOLETRADER' : 'BUSINESS',
+    LegalRepresentativeFirstName: user.firstName,
+    LegalRepresentativeLastName: user.lastName,
+    LegalRepresentativeBirthday: Math.trunc(user.dateOfBirth.getTime() / 1000),
+    LegalRepresentativeNationality: user.placeOfBirth,
+    LegalRepresentativeCountryOfResidence: user.country,
+  });
+  if (!user.mangopay.id) {
+    const mangopayUser = await mangopay.Users.create(mangopayUserModel);
+    user.mangopay.id = mangopayUser.Id;
+  } else {
+    await mangopay.Users.update({ ...mangopayUserModel, Id: user.mangopay.id });
+  }
+});
+
+mongoSchema.pre('save', async function userPreSaveMangopayWallet() {
+  const user = this;
+
+  if (!user.mangopay.id || user.mangopay.wallet) {
+    return;
+  }
+
+  const mangopay = getMangoPay();
+  const mangopayWalletModel = new mangopay.models.Wallet({
+    Owners: [user.mangopay.id],
+    Description: 'User wallet',
+    Currency: 'EUR',
+  });
+  const mangopayWallet = await mangopay.Wallets.create(mangopayWalletModel);
+  user.mangopay.wallet = mangopayWallet.Id;
+});
+
+mongoSchema.pre('save', async function userPreSaveMangopayBankAccount() {
+  const user = this;
+
+  if (
+    !user.mangopay.id ||
+    !user.iban ||
+    !user.bic ||
+    !user.address ||
+    !user.city ||
+    !user.country ||
+    !user.postalCode ||
+    !user.firstName ||
+    !user.lastName
+  ) {
+    return;
+  }
+  const mangopay = getMangoPay();
+  const mangopayBankAccountModel = new mangopay.models.BankAccount({
+    UserId: user.mangopay.id,
+    Type: 'IBAN',
+    OwnerName: `${user.firstName} ${user.lastName}`,
+    OwnerAddress: new mangopay.models.Address({
+      AddressLine1: user.address,
+      City: user.city,
+      PostalCode: user.postalCode,
+      Country: user.country,
+    }),
+    Details: new mangopay.models.BankAccountDetailsIBAN({
+      IBAN: user.iban,
+      BIC: user.bic,
+    }),
+  });
+  let mangopayBankAccount;
+  let createNew = true;
+  let deactivate = null;
+  if (user.mangopay.bankAccount) {
+    mangopayBankAccount = await mangopay.Users.getBankAccount(
+      user.mangopay.id,
+      user.mangopay.bankAccount,
+    );
+    const anyAddressDiff = ['AddressLine1', 'City', 'PostalCode', 'Country'].some(
+      (p) => mangopayBankAccount.OwnerAddress[p] !== mangopayBankAccountModel.OwnerAddress[p],
+    );
+    if (
+      anyAddressDiff ||
+      mangopayBankAccount.IBAN !== mangopayBankAccountModel.Details.IBAN ||
+      mangopayBankAccount.BIC !== mangopayBankAccountModel.Details.BIC
+    ) {
+      deactivate = user.mangopay.bankAccount;
+    } else {
+      createNew = false;
+    }
+  }
+  if (createNew) {
+    mangopayBankAccount = await mangopay.Users.createBankAccount(
+      user.mangopay.id,
+      mangopayBankAccountModel,
+    );
+    user.mangopay.bankAccount = mangopayBankAccount.Id;
+    if (deactivate !== null) {
+      await mangopay.Users.deactivateBankAccount(user.mangopay.id, deactivate);
+    }
+  }
 });
 
 const User = mongoose.model('User', mongoSchema);
@@ -280,16 +441,16 @@ module.exports = User;
 /* Last name                      */
 /* Company Name                   */
 /* Email                          */
-/* Phone Number                   */
+/* Company Number                 */
 
-/* We need to create a MangoPay user                                                  */
-/* Then create its MangoPay wallet                                                    */
-/* Then create its MangoPay Bank Account                                              */
-/* Then let the user upload its KYC docs                                              */
-/* We need to set up a webhook to listen for MangoPay events such as document success */
+/* DONE: We need to create a MangoPay user                                                  */
+/* DONE: Then create its MangoPay wallet                                                    */
+/* DONE: Then create its MangoPay Bank Account                                              */
+/* TODO: Then let the user upload its KYC docs                                              */
+/* TODO: We need to set up a webhook to listen for MangoPay events such as document success */
 
-/* TODO: Open a MangoPay account                            */
-/* TODO: Create a MangoPay sandbox                          */
-/* TODO: Incrementally set up the MangoPay integration flow */
+/* DONE: Open a MangoPay account                            */
+/* DONE: Create a MangoPay sandbox                          */
+/* WIP : Incrementally set up the MangoPay integration flow */
 
 /* TODO: Set up the limitations on the audience when trying to sign up with a social media */

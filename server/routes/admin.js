@@ -17,7 +17,7 @@ const listCollection = (listFn) => async (req, res) => {
 
     res.json(await listFn({ offset, limit }));
   } catch (err) {
-    res.json({ error: err.message || err.toString() });
+    res.json({ error: err.message || err.Message || err.toString() });
   }
 };
 
@@ -33,6 +33,29 @@ router.get('/influencers', listCollection(User.listInfluencers.bind(User)));
 
 router.get('/businesses', listCollection(User.listBusinesses.bind(User)));
 
+router.get('/users', listCollection(User.list.bind(User)));
+
+router.get('/users/:slug', async (req, res) => {
+  try {
+    const { slug } = req.params;
+    const user = await User.getBySlug({ slug });
+    res.json(user);
+  } catch (err) {
+    res.json({ error: err.message || err.toString() });
+  }
+});
+
+router.put('/users/:slug', async (req, res) => {
+  try {
+    const { slug } = req.params;
+    const updates = req.body;
+    const user = await User.updateBySlug({ ...updates, slug });
+    res.json(user);
+  } catch (err) {
+    res.json({ error: err.message || err.Message || err.toString() });
+  }
+});
+
 router.get('/campaigns', listCollection(Campaign.list.bind(Campaign)));
 
 router.get('/campaigns/:slug', async (req, res) => {
@@ -41,7 +64,7 @@ router.get('/campaigns/:slug', async (req, res) => {
     const campaign = await Campaign.getBySlug({ slug });
     res.json(campaign);
   } catch (err) {
-    res.json({ error: err.message || err.toString() });
+    res.json({ error: err.message || err.Message || err.toString() });
   }
 });
 

@@ -34,7 +34,7 @@ const mongoSchema = new Schema({
     ref: 'User',
     required: true,
   },
-  mangoPay: {
+  mangopay: {
     id: String,
   },
 });
