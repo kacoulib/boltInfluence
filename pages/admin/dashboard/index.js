@@ -20,7 +20,12 @@ const CustomerIndex = (props) => {
         subscribedInfluencer: 22300, waitingInfluencer: 32300,
         subscribedMarque: 18068, waitingMarque: 5647,
         subscribedCampagne: 5435, waitingCampagne: 6453,
+<<<<<<< HEAD
         influencersList: []
+=======
+        influencersList: [],
+        selectedInfluencer: null
+>>>>>>> 6ee54499d45eac96eed185e2216a25192336bdc2
     });
     const index = 1;
 
@@ -30,6 +35,14 @@ const CustomerIndex = (props) => {
         )
         setData(Object.assign({}, data, { influencersList: data.influencersList }))
     }
+<<<<<<< HEAD
+=======
+
+    const selectInfluencer = (id) => {
+        const elem = data.influencersList.find((e) => e._id = id);
+        setData(Object.assign({}, data, { selectedInfluencer: elem }))
+    }
+>>>>>>> 6ee54499d45eac96eed185e2216a25192336bdc2
     useEffect(() => {
         getInfluencerList()
             .then(res => {
@@ -51,7 +64,11 @@ const CustomerIndex = (props) => {
                         subscribedCampagne: data.subscribedCampagne, waitingCampagne: data.waitingCampagne,
                     }}
                 />,
+<<<<<<< HEAD
                 <Influencers datas={data.influencersList} loadMore={loadMore} />,
+=======
+                <Influencers datas={data.influencersList} selectedInfluencer={data.selectedInfluencer} loadMore={loadMore} selectInfluencer={selectInfluencer} />,
+>>>>>>> 6ee54499d45eac96eed185e2216a25192336bdc2
                 <Publish />,
                 <PostValidate />,
             ]}

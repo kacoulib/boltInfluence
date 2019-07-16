@@ -106,7 +106,7 @@ function getStyles(name, personName, theme) {
     };
 }
 
-const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, align = 'center' }) => {
+const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, setting, align = 'center' }) => {
     const { set } = useState()
 
     useEffect(() => {
@@ -118,7 +118,9 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
         defaultDimension = { xs: 12 };
 
     const handleChange = (name) => ({ target: { value } }) => onChange(name, value)
-
+    const showLabel = setting && setting.showLabel;
+    const labelSpacing = showLabel ? setting.showLabel : defaultDimension;
+    console.log(labelSpacing, setting)
     return (
         <form onSubmit={(e) => { e.preventDefault(); onSubmit() }}>
             <FormControl className={classes.container} >
@@ -130,77 +132,120 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
 
                         return (
                             <Grid key={key} item {...dimentions}>
-                            <div style={{ paddingBottom: '15px' }}>
-                                {textTypes.includes(elem.type) &&
-                                    <TextField
-                                        type={elem.type}
-                                        label={elem.label}
+                                <div style={{ paddingBottom: '15px' }}>
+                                    {textTypes.includes(elem.type) &&
+                                        (
+                                            <Grid container>
+                                                {showLabel && <Grid item {...labelSpacing}>{elem.label}</Grid>}
+                                                <Grid item {...labelSpacing}>
+                                                    <TextField
+                                                        type={elem.type}
+                                                        label={showLabel ? '': elem.label}
 
-                                        multiline={elem.type === 'textarea'}
-                                        fullWidth
-                                        defaultValue={form[elem.name] || inputDefaultProps}
-                                        onChange={handleChange(elem.name)}
-                                        style={{ paddingRight: '15px' }}
-                                        {...elemProps}
-                                    />
-                                    || elem.type == 'wysiwyg' && (
-                                        <div>
-                                            {elem.label && <span >{elem.label}</span>}
-                                            <Wysiwyg value={form[elem.name]} onChange={handleChange(elem.name)}
-                                                {...elemProps}
-                                            />
-                                        </div>
-                                    )
-                                    || elem.type == 'chipList' && (<div>
-                                        <p>{elem.label && <span >{elem.label}</span>}</p>
-                                        <ChipList onClick={toggleList} onDelete={toggleList}
-                                            {...elemProps}
-                                        />
-                                    </div>
-                                    )
-                                    || elem.type == 'select' && (
-                                        <FormControl className={classes.formControl} required={elem.props && elem.props.required}>
-                                            <InputLabel htmlFor={elem.name}>{elem.label}</InputLabel>
-                                            < Select
-                                                multiple={elemProps.multiple}
-                                                value={form[elem.name]}
-                                                onChange={handleChange(elem.name)}
-                                                input={<Input id={elem.name} />}
-                                                renderValue={selected => elemProps.multiple ? (
-                                                    <div className={classes.chips}>
-                                                        {selected && selected.map(value => (
-                                                            <Chip key={value} label={value} className={classes.chip} />
-                                                        ))}
+                                                        multiline={elem.type === 'textarea'}
+                                                        fullWidth
+                                                        defaultValue={form[elem.name] || inputDefaultProps}
+                                                        onChange={handleChange(elem.name)}
+                                                        style={{ paddingRight: '15px' }}
+                                                        {...elemProps}
+                                                    />
+                                                </Grid>
+                                            </Grid>
+                                        )
+                                        || elem.type == 'wysiwyg' && (
+                                            <Grid container>
+                                                {showLabel && <Grid item {...labelSpacing}>{elem.label}</Grid>}
+
+                                                <Grid item {...labelSpacing}>
+                                                    {elem.label && <span >{elem.label}</span>}
+                                                    <Wysiwyg value={form[elem.name]} onChange={handleChange(elem.name)}
+                                                        {...elemProps}
+                                                    />
+                                                </ Grid>
+                                            </ Grid>
+                                        )
+                                        || elem.type == 'chipList' && (
+                                            <Grid container>
+                                                {showLabel && <Grid item {...labelSpacing}>{elem.label}</Grid>}
+
+                                                <Grid item {...labelSpacing}>
+                                                    <p>{elem.label && <span >{elem.label}</span>}</p>
+                                                    <ChipList onClick={toggleList} onDelete={toggleList}
+                                                        {...elemProps}
+                                                    />
+                                                </ Grid>
+                                            </ Grid>
+                                        )
+                                        || elem.type == 'select' && (
+                                            <Grid container>
+                                                {showLabel && <Grid item {...labelSpacing}>{elem.label}</Grid>}
+
+                                                <Grid item {...labelSpacing}>
+                                                    <FormControl className={classes.formControl} required={elem.props && elem.props.required}>
+                                                        <InputLabel htmlFor={elem.name}>{elem.label}</InputLabel>
+                                                        < Select
+                                                            multiple={elemProps.multiple}
+                                                            value={form[elem.name]}
+                                                            onChange={handleChange(elem.name)}
+                                                            input={<Input id={elem.name} />}
+                                                            renderValue={selected => elemProps.multiple ? (
+                                                                <div className={classes.chips}>
+                                                                    {selected && selected.map(value => (
+                                                                        <Chip key={value} label={value} className={classes.chip} />
+                                                                    ))}
+                                                                </div>
+                                                            ) : selected}
+                                                            MenuProps={MenuProps}
+                                                            {...elemProps}
+                                                        >
+                                                            {elemProps.list && elemProps.list.map((elem, key) => (
+                                                                <MenuItem key={`${elem.name}-${key}`} value={elem.name}>
+                                                                    {elem.value}
+                                                                </MenuItem>
+                                                            ))}
+                                                        </Select>
+                                                    </FormControl>
+                                                </ Grid>
+                                            </ Grid>
+                                        )
+                                        || elem.type == 'img' && (
+                                            <Grid container>
+                                                {showLabel && <Grid item {...labelSpacing}>{elem.label}</Grid>}
+
+                                                <Grid item {...labelSpacing}>
+
+                                                    <div>
+                                                        <img src={form[elem.name]} {...elemProps} onChange={onChange} />
                                                     </div>
-                                                ) : selected}
-                                                MenuProps={MenuProps}
-                                                {...elemProps}
-                                            >
-                                                {elemProps.list && elemProps.list.map((elem, key) => (
-                                                    <MenuItem key={`${elem.name}-${key}`} value={elem.name}>
-                                                        {elem.value}
-                                                    </MenuItem>
-                                                ))}
-                                            </Select>
-                                        </FormControl>
-                                    )
-                                    || elem.type == 'img' && (
-                                        <div>
-                                            <img src={form[elem.name]} {...elemProps} onChange={onChange} />
-                                        </div>
-                                    )
-                                    || elem.type == 'radio' && (
-                                        <div>
-                                            <Radio {...elemProps} name={elem.name} label={elem.label} value={form[elem.name]} onChange={onChange} />
-                                        </div>
-                                    )
-                                    || elem.type == 'checkbox' && (
-                                        <div>
-                                            <Checkbox {...elemProps} name={elem.name} label={elem.label} value={form[elem.name]} onChange={onChange} />
-                                        </div>
-                                    )
-                                }
-                            </div>
+                                                </ Grid>
+                                            </ Grid>
+                                        )
+                                        || elem.type == 'radio' && (
+                                            <Grid container>
+                                                {showLabel && <Grid item {...labelSpacing}>{elem.label}</Grid>}
+
+                                                <Grid item {...labelSpacing}>
+
+                                                    <div>
+                                                        <Radio {...elemProps} name={elem.name} label={elem.label} value={form[elem.name]} onChange={onChange} />
+                                                    </div>
+                                                </ Grid>
+                                            </ Grid>
+                                        )
+                                        || elem.type == 'checkbox' && (
+                                            <Grid container>
+                                                {showLabel && <Grid item {...labelSpacing}>{elem.label}</Grid>}
+
+                                                <Grid item {...labelSpacing}>
+
+                                                    <div>
+                                                        <Checkbox {...elemProps} name={elem.name} label={elem.label} value={form[elem.name]} onChange={onChange} />
+                                                    </div>
+                                                </ Grid>
+                                            </ Grid>
+                                        )
+                                    }
+                                </div>
                             </Grid>
                         )
                     }
@@ -222,6 +267,7 @@ FormGenerator.propTypes = {
     form: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
+    setting: PropTypes.object,
     toggleList: PropTypes.func,
     align: PropTypes.string
 }
