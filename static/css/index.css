@@ -51,17 +51,37 @@ ul {
     display: block;
     width: 100%;
 }
-
+/* ADMIN  */
+.influencers_list {
+    background-color: #F4F3F8;
+    margin-bottom: 1rem;
+} 
+.influencers_img {
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.influencers_img > img {
+    width: 80%;
+    opacity: 0;
+}
 /* OTHER */
+.pointer {
+    cursor: pointer;
+}
 .gray-color {
     color: #D8D8D8;
 }
 .orange-color {
     color: #F13F4B;
 }
-.center-text {
+.center-text, .text-center {
     text-align: center;
 }
+.text-right {
+    text-align: right;
+}
+
 /* SLICK */
 .slick-slide {
     padding: 5px;
@@ -107,7 +127,7 @@ ul {
     background-image: url('../img/icon/grid.png');
 }
 .post {
-    background-image: url('../img/icon/post.png');
+    background-image: url('../img/icon/post.svg');
 }
 .payment {
     background-image: url('../img/icon/payment.png');
@@ -122,11 +142,20 @@ ul {
     background-image: url('../img/icon/star.png');
 }
 .account {
-    background-image: url('../img/icon/account.png');
+    background-image: url('../img/icon/account.svg');
 }
 .message {
     background-image: url('../img/icon/message.png');
 }
 .photos {
     background-image: url('../img/icon/photos.png');
+}
+.home {
+    background-image: url('../img/icon/home.svg');
+}
+.feed {
+    background-image: url('../img/icon/feed.svg');
+}
+.write {
+    background-image: url('../img/icon/write.svg');
 }
