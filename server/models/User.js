@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
 const _ = require('lodash');
 
+const KycValidation = require('./KycValidation');
 const SocialMediaToken = require('./SocialMediaToken');
 const { RoleList, BusinessRoleList, Influencer } = require('../../utils/variables/user');
-const { languageList } = require('../../utils/variables/general');
+const { languageCodeList } = require('../../utils/variables/general');
 const { isInfluencer, isBusiness } = require('../../utils/variables/user');
 const generateSlug = require('../utils/slugify');
 const bcrypt = require('../utils/bcrypt');
-const getMangoPay = require('../utils/mangopay');
+const { getMangopay, createWallet, createOrUpdateIbanBankAccount } = require('../utils/mangopay');
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -61,7 +62,7 @@ const mongoSchema = new Schema({
       type: String,
       // enum: UserSituations
     },
-    languages: [{ type: String, enum: languageList }],
+    languages: [{ type: String, enum: languageCodeList }],
     // socialMedias: {
     //   google: SocialToken,
     //   instagram: SocialToken
@@ -95,7 +96,6 @@ const mongoSchema = new Schema({
     id: String,
     wallet: String,
     bankAccount: String,
-    kycDocument: String,
   },
 });
 
@@ -180,15 +180,14 @@ class UserClass {
    * Update a User by its slug
    * @param {Object} params
    * @param {String} params.slug - The slug of the User to get
-   * @
+   * @param {...Object} params.updates - The updates to apply
+   * @todo Validate updates
    */
   static async updateBySlug({ slug, ...updates }) {
-    // const userDoc = await this.findOne({ slug });
-    // if (!userDoc) {
-    //   throw new Error('Campaign not found');
-    // }
-    // await userDoc
     const userDoc = await this.findOne({ slug });
+    if (!userDoc) {
+      throw new Error('User not found');
+    }
     Object.entries(updates).forEach(([key, value]) => {
       userDoc[key] = value;
     });
@@ -293,6 +292,60 @@ class UserClass {
       'Invalid SignIn/Up method, either use email + password or use social media login.',
     );
   }
+
+  /**
+   * Add a KYC document to be validated for a user given its slug
+   * @param {Object} options
+   * @param {String} options.slug - User slug
+   * @param {String} options.file - Base64-encoded KYC Document
+   * @param {String} options.type - KYC Document Type (Identity or Registration proof)
+   */
+  static async addKycDocumentBySlug({ slug, file, type }) {
+    const user = await this.findOne({ slug }).select('mangopay.id');
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+    if (!user.mangopay.id) {
+      throw new Error('User is not linked to MangoPay');
+    }
+
+    const mangopay = getMangopay();
+    let model = new mangopay.models.KycDocument({ Type: type });
+    let mangopayKycDocument = await mangopay.Users.createKycDocument(user.mangopay.id, model);
+
+    model = new mangopay.models.KycPage({ File: file });
+    await mangopay.Users.createKycPage(user.mangopay.id, mangopayKycDocument.Id, model);
+    model = new mangopay.models.KycDocument({
+      Id: mangopayKycDocument.Id,
+      Status: mangopay.models.KycDocumentStatus.ValidationAsked,
+    });
+    mangopayKycDocument = await mangopay.Users.updateKycDocument(user.mangopay.id, model);
+    await KycValidation.addOrUpdate({
+      user: user._id,
+      documentId: mangopayKycDocument.Id,
+      documentType: type,
+      status: mangopayKycDocument.Status,
+    });
+  }
+
+  static addIdentityProofBySlug({ slug, file }) {
+    const mangopay = getMangopay();
+    return this.addKycDocumentBySlug({
+      slug,
+      file,
+      type: mangopay.models.KycDocumentType.IdentityProof,
+    });
+  }
+
+  static addRegistrationProofBySlug({ slug, file }) {
+    const mangopay = getMangopay();
+    return this.addKycDocumentBySlug({
+      slug,
+      file,
+      type: mangopay.models.KycDocumentType.RegistrationProof,
+    });
+  }
 }
 mongoSchema.loadClass(UserClass);
 
@@ -324,7 +377,7 @@ mongoSchema.pre('save', async function userPreSaveMangopayUser() {
   if (!hasAll || !hasOneModified || (!isInfluencer(user) && !isBusiness(user))) {
     return;
   }
-  const mangopay = getMangoPay();
+  const mangopay = getMangopay();
   const mangopayUserModel = new mangopay.models.UserLegal({
     Name: user.companyName,
     Email: user.companyEmail,
@@ -351,14 +404,11 @@ mongoSchema.pre('save', async function userPreSaveMangopayWallet() {
     return;
   }
 
-  const mangopay = getMangoPay();
-  const mangopayWalletModel = new mangopay.models.Wallet({
-    Owners: [user.mangopay.id],
-    Description: 'User wallet',
-    Currency: 'EUR',
+  const { wallet } = await createWallet({
+    owner: user.mangopay.id,
+    description: `User ${user.slug}`,
   });
-  const mangopayWallet = await mangopay.Wallets.create(mangopayWalletModel);
-  user.mangopay.wallet = mangopayWallet.Id;
+  user.mangopay.wallet = wallet.Id;
 });
 
 mongoSchema.pre('save', async function userPreSaveMangopayBankAccount() {
@@ -377,53 +427,17 @@ mongoSchema.pre('save', async function userPreSaveMangopayBankAccount() {
   ) {
     return;
   }
-  const mangopay = getMangoPay();
-  const mangopayBankAccountModel = new mangopay.models.BankAccount({
-    UserId: user.mangopay.id,
-    Type: 'IBAN',
-    OwnerName: `${user.firstName} ${user.lastName}`,
-    OwnerAddress: new mangopay.models.Address({
-      AddressLine1: user.address,
-      City: user.city,
-      PostalCode: user.postalCode,
-      Country: user.country,
-    }),
-    Details: new mangopay.models.BankAccountDetailsIBAN({
-      IBAN: user.iban,
-      BIC: user.bic,
-    }),
+  user.mangopay.bankAccount = await createOrUpdateIbanBankAccount({
+    user: user.mangopay.id,
+    name: `${user.firstName} ${user.lastName}`,
+    address: user.address,
+    city: user.city,
+    country: user.country,
+    postalCode: user.postalCode,
+    iban: user.iban,
+    bic: user.bic,
+    oldBankAccountId: user.mangopay.bankAccount,
   });
-  let mangopayBankAccount;
-  let createNew = true;
-  let deactivate = null;
-  if (user.mangopay.bankAccount) {
-    mangopayBankAccount = await mangopay.Users.getBankAccount(
-      user.mangopay.id,
-      user.mangopay.bankAccount,
-    );
-    const anyAddressDiff = ['AddressLine1', 'City', 'PostalCode', 'Country'].some(
-      (p) => mangopayBankAccount.OwnerAddress[p] !== mangopayBankAccountModel.OwnerAddress[p],
-    );
-    if (
-      anyAddressDiff ||
-      mangopayBankAccount.IBAN !== mangopayBankAccountModel.Details.IBAN ||
-      mangopayBankAccount.BIC !== mangopayBankAccountModel.Details.BIC
-    ) {
-      deactivate = user.mangopay.bankAccount;
-    } else {
-      createNew = false;
-    }
-  }
-  if (createNew) {
-    mangopayBankAccount = await mangopay.Users.createBankAccount(
-      user.mangopay.id,
-      mangopayBankAccountModel,
-    );
-    user.mangopay.bankAccount = mangopayBankAccount.Id;
-    if (deactivate !== null) {
-      await mangopay.Users.deactivateBankAccount(user.mangopay.id, deactivate);
-    }
-  }
 });
 
 const User = mongoose.model('User', mongoSchema);
@@ -446,8 +460,8 @@ module.exports = User;
 /* DONE: We need to create a MangoPay user                                                  */
 /* DONE: Then create its MangoPay wallet                                                    */
 /* DONE: Then create its MangoPay Bank Account                                              */
-/* TODO: Then let the user upload its KYC docs                                              */
-/* TODO: We need to set up a webhook to listen for MangoPay events such as document success */
+/* DONE: Then let the user upload its KYC docs                                              */
+/* DONE: We need to set up a webhook to listen for MangoPay events such as document success */
 
 /* DONE: Open a MangoPay account                            */
 /* DONE: Create a MangoPay sandbox                          */

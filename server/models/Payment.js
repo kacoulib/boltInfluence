@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const { PaymentExecutionList } = require('../../utils/variables/payment');
+
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
@@ -11,7 +13,7 @@ const mongoSchema = new Schema({
   // Whether the execution is handled by Bolt or not
   execution: {
     type: String,
-    // enum: PaymentExecutionList,
+    enum: PaymentExecutionList,
     required: true,
   },
   status: {

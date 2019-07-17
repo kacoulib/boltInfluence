@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 
 const CampaignOffer = require('./CampaignOffer');
 const User = require('./User');
-const { languageList } = require('../../utils/variables/general');
+const { languageCodeList, civilityList } = require('../../utils/variables/general');
+const { PaymentExecutionList } = require('../../utils/variables/payment');
+const { isInfluencer } = require('../../utils/variables/user');
+const generateSlug = require('../utils/slugify');
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -35,40 +38,29 @@ const mongoSchema = new Schema({
     type: String,
     // required: true
   },
-  // A revoir les produits
-  send_product: {
-    type: Boolean,
-    default: false,
-  },
-  choose_product: {
-    type: Boolean,
-    default: false,
-  },
-  number_of_products_to_send: {
-    type: Number,
-    default: 0,
-  },
   pictures: [String],
-  audience_gender: {
+  audienceGender: {
     type: String,
-    // enum: GenderList,
+    enum: civilityList.map((c) => c.value),
     required: true,
   },
-  audience_age: {
+  audienceAge: {
     type: Number,
     required: true,
     // min: 18
   },
-  audience_language: [
+  audienceLanguage: [
     {
       type: String,
-      enum: languageList,
+      enum: languageCodeList,
       required: true,
     },
   ],
-  audience_country: [
+  audienceCountry: [
     {
       type: String,
+      // enum: countryList,
+      // required: true
     },
   ],
   // social_medias: {
@@ -92,6 +84,11 @@ const mongoSchema = new Schema({
         min: 1,
       },
     },
+    required: true,
+  },
+  paymentExecution: {
+    type: String,
+    enum: PaymentExecutionList,
     required: true,
   },
   // offers: [{ type: ObjectId, ref: 'CampaignOffer' }],
@@ -132,6 +129,66 @@ class CampaignClass {
     );
     campaign.offers = offerDocs.map((doc) => doc.toObject());
     return { campaign };
+  }
+
+  static async getOffersBySlug({ slug }) {
+    const campaignDoc = await this.findOne({ slug }).select('_id');
+    if (!campaignDoc) {
+      throw new Error('Campaign not found');
+    }
+    const offerDocs = await CampaignOffer.find({ campaign: campaignDoc._id });
+    const offers = offerDocs.map((doc) => doc.toObject());
+    return { offers };
+  }
+
+  static async add({
+    brand,
+    title,
+    description,
+    budget,
+    video,
+    pictures,
+    audienceGender,
+    audienceAge,
+    audienceLanguage,
+    audienceCountry,
+    location,
+    paymentExecution,
+  }) {
+    const slug = await generateSlug(this, title);
+    const campaign = await this.create({
+      brand,
+      title,
+      slug,
+      description,
+      budget,
+      video,
+      pictures,
+      audienceGender,
+      audienceAge,
+      audienceLanguage,
+      audienceCountry,
+      location,
+      paymentExecution,
+    });
+    return { campaign };
+  }
+
+  /**
+   *
+   * @param {Object} options
+   * @param {String} options.campaign - Campaign slug
+   * @param {String} options.user - User slug
+   */
+  static async addOfferBySlug({ campaign: campaignSlug, user: userSlug }) {
+    const { campaign } = await this.getBySlug({ slug: campaignSlug });
+    const { user } = await User.getBySlug({ slug: userSlug });
+    if (!isInfluencer(user)) {
+      throw new Error('User is not an influencer');
+    }
+    const offer = await CampaignOffer.add({ campaign, user });
+
+    return offer;
   }
 }
 mongoSchema.loadClass(CampaignClass);

@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-const { setUp: mangopaySetUp } = require('./utils/mangopay');
+const { setupMangopay } = require('./utils/mangopay');
 const instagramAuth = require('./auth/instagram');
 const googleAuth = require('./auth/google');
 const basicAuth = require('./auth/basic');
@@ -25,12 +25,12 @@ const MONGO_URL = process.env.MONGO_URL_TEST;
 const mangopayConfig = {
   clientId: process.env.MANGOPAY_CLIENTID,
   clientPassword: process.env.MANGOPAY_PASSWORD,
-  debugMode: dev,
+  // debugMode: dev,
 };
 if (process.env.MANGOPAY_BASE_URL) {
   mangopayConfig.baseUrl = process.env.MANGOPAY_BASE_URL;
 }
-console.log(mangopaySetUp(mangopayConfig).config);
+console.log(setupMangopay(mangopayConfig).config);
 
 const options = {
   useNewUrlParser: true,

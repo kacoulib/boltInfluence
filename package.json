@@ -39,6 +39,7 @@
     "marked": "0.6.2",
     "mongoose": "5.5.2",
     "mui-datatables": "^2.3.0",
+    "multer": "^1.4.2",
     "next": "8.1.0",
     "next-images": "^1.1.1",
     "node-instagram": "^4.3.0",
