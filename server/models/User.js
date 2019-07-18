@@ -8,7 +8,12 @@ const { languageCodeList } = require('../../utils/variables/general');
 const { isInfluencer, isBusiness } = require('../../utils/variables/user');
 const generateSlug = require('../utils/slugify');
 const bcrypt = require('../utils/bcrypt');
-const { getMangopay, createWallet, createOrUpdateIbanBankAccount } = require('../utils/mangopay');
+const {
+  getMangopay,
+  createWallet,
+  createOrUpdateIbanBankAccount,
+  preregisterCard,
+} = require('../utils/mangopay');
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -93,7 +98,11 @@ const mongoSchema = new Schema({
   dateOfBirth: Date,
   // Payment related
   mangopay: {
-    id: String,
+    id: {
+      type: String,
+      unique: true,
+      sparse: true,
+    },
     wallet: String,
     bankAccount: String,
   },
@@ -346,6 +355,25 @@ class UserClass {
       type: mangopay.models.KycDocumentType.RegistrationProof,
     });
   }
+
+  static async preregisterCardBySlug({ slug, cardType, currency }) {
+    const user = await this.findOne({ slug }).select('mangopay.id');
+    if (!user) {
+      throw new Error('User not found');
+    }
+    if (!user.mangopay.id) {
+      throw new Error('User is not linked to MangoPay');
+    }
+    const { registration } = await preregisterCard({ user: user.mangopay.id, cardType, currency });
+    return {
+      registration: {
+        registrationId: registration.Id,
+        preregistrationData: registration.PreregistrationData,
+        accessKey: registration.AccessKey,
+        registrationUrl: registration.CardRegistrationURL,
+      },
+    };
+  }
 }
 mongoSchema.loadClass(UserClass);
 
@@ -427,7 +455,7 @@ mongoSchema.pre('save', async function userPreSaveMangopayBankAccount() {
   ) {
     return;
   }
-  user.mangopay.bankAccount = await createOrUpdateIbanBankAccount({
+  const { bankAccount } = await createOrUpdateIbanBankAccount({
     user: user.mangopay.id,
     name: `${user.firstName} ${user.lastName}`,
     address: user.address,
@@ -438,6 +466,7 @@ mongoSchema.pre('save', async function userPreSaveMangopayBankAccount() {
     bic: user.bic,
     oldBankAccountId: user.mangopay.bankAccount,
   });
+  user.mangopay.bankAccount = bankAccount.Id;
 });
 
 const User = mongoose.model('User', mongoSchema);
