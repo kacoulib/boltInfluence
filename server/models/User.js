@@ -221,7 +221,7 @@ class UserClass {
       // If the user is unknown via the social id but we have an email
       // Then try to find the user by its email
       user = await this.findOne({ email }).select(this.publicFields());
-    } else {
+    } else if (oldToken) {
       // If we know the token, then we just get the associated user
       user = await this.findOne({ _id: oldToken.user });
     }
@@ -246,15 +246,18 @@ class UserClass {
         identifier: socialUserId,
         accessToken: token.accessToken,
         refreshToken: token.refreshToken,
+        accessTokenSecret: token.accessTokenSecret,
       });
     }
     if (
       oldToken.accessToken !== token.accessToken ||
-      oldToken.refreshToken !== token.refreshToken
+      oldToken.refreshToken !== token.refreshToken ||
+      oldToken.accessTokenSecret !== token.accessTokenSecret
     ) {
       // If the known token is not up to date, update it
       oldToken.accessToken = token.accessToken;
       oldToken.refreshToken = token.refreshToken;
+      oldToken.accessTokenSecret = token.accessTokenSecret;
       await oldToken.save();
     }
     user = user.toObject();

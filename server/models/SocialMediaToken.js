@@ -25,6 +25,10 @@ const mongoSchema = new Schema({
     type: String,
     // required: true,
   },
+  accessTokenSecret: {
+    type: String,
+    // required: true,
+  },
   tokenType: {
     type: String,
     // required: true,

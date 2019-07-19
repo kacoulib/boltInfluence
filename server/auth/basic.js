@@ -1,7 +1,5 @@
 const passport = require('passport');
 const { Strategy } = require('passport-local');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
 const UserModel = require('../models/User');
 // const CompanyModel = require('../models/Company');
 
@@ -42,26 +40,6 @@ const auth = ({ app }) => {
       verify,
     ),
   );
-
-  passport.serializeUser((user, cb) => {
-    cb(null, user._id.toString());
-  });
-
-  passport.deserializeUser((id, cb) => {
-    console.log('id', id);
-    UserModel.findById(id, UserModel.publicFields(), (err, user) => {
-      if (err) {
-        return cb(err);
-      }
-      cb(null, user);
-    });
-  });
-
-  app.use(passport.initialize());
-  app.use(passport.session());
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(cookieParser());
 
   app.post('/auth/basic', function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {

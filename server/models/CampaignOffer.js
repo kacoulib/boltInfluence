@@ -156,8 +156,20 @@ class CampaignOfferClass {
     return { offer: off };
   }
 
+  static async validate({ offer }) {
+    const off = offer;
+
+    if (!isAwaitingValidation(off)) {
+      throw new Error('Campaign Offer is not awaiting validation');
+    }
+
+    off.status = Validated;
+    await off.save();
+    return { offer: off };
+  }
+
   static async changeStatusBySlug({ slug, status }) {
-    const { offer } = await this.findOne({ slug });
+    const { offer } = await this.getBySlug({ slug });
     const transitions = {
       [Proposed]: {
         [AwaitingFunding]: this.acceptProposal.bind(this),
@@ -166,7 +178,7 @@ class CampaignOfferClass {
         [Ongoing]: this.validateFunds.bind(this),
       },
       [Ongoing]: {
-        [AwaitingValidation]: null,
+        [AwaitingValidation]: this.finishWork.bind(this),
       },
       [AwaitingValidation]: {
         [Disputed]: null,
@@ -273,7 +285,7 @@ class CampaignOfferClass {
     if (!user) {
       throw new Error('User not found');
     }
-    if (!user.mangopay.wallet) {
+    if (!user.mangopay.wallet || !user.mangopay.bankAccount) {
       throw new Error('User cannot receive payment');
     }
 
@@ -285,12 +297,12 @@ class CampaignOfferClass {
 
     let transferout;
     try {
-      transferout = await createTransfer({
+      transferout = (await createTransfer({
         debitedUser: process.env.MANGOPAY_BOLT_USERID,
         debitedWallet: offer.mangopay.wallet,
         creditedWallet: user.mangopay.wallet,
         amount: offer.campaign.budget,
-      });
+      })).transfer;
     } catch (err) {
       logger.error(err);
       payment.status = Failed;
@@ -304,7 +316,33 @@ class CampaignOfferClass {
       operationId: transferout.Id,
     });
   }
+
+  static async validateById({ offerId }) {
+    const offer = await this.findById(offerId).populate('campaign');
+    if (!offer) {
+      throw new Error('Campaign Offer not found');
+    }
+    return this.validate({ offer });
+  }
+
+  static async getFundsBySlug({ slug }) {
+    const offer = await this.findOne({ slug }).select('mangopay.wallet');
+
+    if (!offer) {
+      throw new Error('Campaign Offer not found');
+    }
+
+    let funds = { amount: 0, currency: 'EUR' };
+
+    if (offer.mangopay.wallet) {
+      const { wallet } = await getWallet({ wallet: offer.mangopay.wallet });
+
+      funds = { amount: wallet.Balance.Amount, currency: wallet.Balance.Currency };
+    }
+    return { funds };
+  }
 }
+
 mongoSchema.loadClass(CampaignOfferClass);
 
 const CampaignOffer = mongoose.model('CampaignOffer', mongoSchema);

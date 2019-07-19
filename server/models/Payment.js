@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const PaymentOperation = require('./PaymentOperation');
-const { isAwaitingFunding } = require('../../utils/variables/campaignoffer');
+const { isAwaitingFunding, isAwaitingValidation } = require('../../utils/variables/campaignoffer');
 const {
   Pending,
   isPending,
@@ -11,8 +11,8 @@ const {
   PaymentExecutionList,
   PaymentStatusList,
 } = require('../../utils/variables/payment');
-const { TransferIn } = require('../../utils/variables/paymentoperation');
-const { createTransfer } = require('../utils/mangopay');
+const { TransferIn, PayOut } = require('../../utils/variables/paymentoperation');
+const { createTransfer, createPayOut } = require('../utils/mangopay');
 const logger = require('../logs');
 
 const { Schema } = mongoose;
@@ -128,7 +128,7 @@ class PaymentClass {
     // logger.info(paymentOperation);
   }
 
-  static async succeedById({ paymentId }) {
+  static async process({ paymentId, status }) {
     const payment = await this.findById(paymentId);
 
     if (!payment) {
@@ -137,8 +137,70 @@ class PaymentClass {
     if (!isPending(payment)) {
       throw new Error('Payment already processed');
     }
-    payment.status = Succeeded;
+    payment.status = status;
     await payment.save();
+  }
+
+  static async succeedById({ paymentId }) {
+    return this.process({ paymentId, status: Succeeded });
+  }
+
+  static async failById({ paymentId }) {
+    return this.process({ paymentId, status: Failed });
+  }
+
+  static async payOutById({ paymentId }) {
+    const payment = await this.findById(paymentId)
+      .populate('offer')
+      .populate('creditedUser');
+
+    if (!payment) {
+      throw new Error('Payment not found');
+    }
+    if (!isPending(payment)) {
+      throw new Error('Payment already processed');
+    }
+    if (!payment.offer) {
+      throw new Error('Payment does not have an associated Campaign Offer');
+    }
+    if (!isAwaitingValidation(payment.offer)) {
+      throw new Error('Campaign Offer cannot be debited');
+    }
+    if (!payment.creditedUser) {
+      throw new Error('Payment cannot credit');
+    }
+    if (
+      !payment.creditedUser.mangopay.id ||
+      !payment.creditedUser.mangopay.wallet ||
+      !payment.creditedUser.mangopay.bankAccount
+    ) {
+      throw new Error('User cannot be credited');
+    }
+
+    let payout;
+
+    try {
+      payout = (await createPayOut({
+        user: payment.creditedUser.mangopay.id,
+        debitedWallet: payment.creditedUser.mangopay.wallet,
+        bankAccount: payment.creditedUser.mangopay.bankAccount,
+        amount: payment.amount,
+      })).payout;
+    } catch (err) {
+      logger.error(err);
+      payment.status = Failed;
+      await payment.save();
+      throw err;
+    }
+
+    const { paymentOperation } = await PaymentOperation.add({
+      payment: payment._id,
+      operationType: PayOut,
+      operationId: payout.Id,
+    });
+    // logger.info(payment);
+    // logger.info(transfer);
+    // logger.info(paymentOperation);
   }
 }
 mongoSchema.loadClass(PaymentClass);

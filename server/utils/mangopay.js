@@ -17,7 +17,7 @@ const getMangopay = () => {
  * @param {Object} options
  * @param {String} options.owner - Wallet's owner
  * @param {String} options.description - Wallet's description
- * @param {String} options.currency - Wallet's currency
+ * @param {String} [options.currency] - Wallet's currency
  */
 const createWallet = async ({ owner, description, currency = 'EUR' } = {}) => {
   const model = new api.models.Wallet({
@@ -108,7 +108,7 @@ const createOrUpdateIbanBankAccount = async ({
  * @param {Number} options.amount - Amount of money to pay
  * @param {String} options.creditedWallet - ID of the wallet to credit
  * @param {String} options.description - Statement Description
- * @param {String} options.currency - Currency used for the PayIn
+ * @param {String} [options.currency] - Currency used for the PayIn
  * @returns {Promise<String>} The newly created PayIn ID
  */
 const createCardDirectPayIn = async ({
@@ -153,7 +153,7 @@ const createCardDirectPayIn = async ({
  * @param {String} [options.creditedUser] - ID of the User to credit
  * @param {String} options.creditedWallet - ID of the Wallet to credit
  * @param {Number} options.amount - Amount of money to transfer
- * @param {String} options.currency - Currency used for the transfer
+ * @param {String} [options.currency] - Currency used for the transfer
  */
 const createTransfer = async ({
   debitedUser,
@@ -185,7 +185,7 @@ const createTransfer = async ({
  * @param {Object} options
  * @param {String} options.user
  * @param {String} options.cardType
- * @param {String} options.currency
+ * @param {String} [options.currency]
  */
 const preregisterCard = async ({ user, cardType, currency = 'EUR' } = {}) => {
   const model = new api.models.CardRegistration({
@@ -223,6 +223,45 @@ const getWallet = async ({ wallet: walletId }) => {
   return { wallet };
 };
 
+/**
+ * Create a MangoPay PayOut by BankWire
+ * @param {Object} options
+ * @param {String} options.user - ID of the owner of both the Wallet and the Bank Account
+ * @param {String} options.debitedWallet - Debited Wallet ID
+ * @param {String} options.bankAccount - Credited Bank Account ID
+ * @param {Number} options.amount - Amount to PayOut
+ * @param {String} [options.reference] - BankWire Reference
+ */
+const createPayOut = async ({
+  user,
+  debitedWallet,
+  bankAccount,
+  amount,
+  reference,
+  currency = 'EUR',
+} = {}) => {
+  const model = new api.models.PayOut({
+    AuthorId: user,
+    DebitedWalletId: debitedWallet,
+    PaymentType: api.models.PayOutPaymentType.BankWire,
+    MeanOfPaymentDetails: new api.models.PayOutPaymentDetailsBankWire({
+      BankAccountId: bankAccount,
+      BankWireRef: reference,
+    }),
+    DebitedFunds: new api.models.Money({
+      Currency: currency,
+      Amount: amount,
+    }),
+    Fees: new api.models.Money({
+      Currency: currency,
+      Amount: 0,
+    }),
+  });
+  const payout = await api.PayOuts.create(model);
+
+  return { payout };
+};
+
 module.exports = {
   getMangopay,
   setupMangopay,
@@ -233,4 +272,5 @@ module.exports = {
   registerCard,
   createTransfer,
   getWallet,
+  createPayOut,
 };

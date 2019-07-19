@@ -55,6 +55,20 @@ class PaymentOperationClass {
     await paymentOperation.save();
     return { paymentOperation };
   }
+
+  static async failById({ operationId }) {
+    const paymentOperation = await this.findOne({ operationId }).populate('payment');
+    if (!paymentOperation) {
+      throw new Error('Payment Operation not found');
+    }
+    if (paymentOperation.operationStatus !== Pending) {
+      throw new Error('Payment Operation already processed');
+    }
+
+    paymentOperation.operationStatus = Failed;
+    await paymentOperation.save();
+    return { paymentOperation };
+  }
 }
 mongoSchema.loadClass(PaymentOperationClass);
 

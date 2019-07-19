@@ -3,6 +3,9 @@ const session = require('express-session');
 const mongoSessionStore = require('connect-mongo');
 const next = require('next');
 const mongoose = require('mongoose');
+const passport = require('passport');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 const server = require('http').createServer(app);
@@ -10,8 +13,11 @@ const io = require('socket.io')(server);
 const { setupMangopay } = require('./utils/mangopay');
 const instagramAuth = require('./auth/instagram');
 const googleAuth = require('./auth/google');
+const twitterAuth = require('./auth/twitter');
+const twitchAuth = require('./auth/twitch');
 const basicAuth = require('./auth/basic');
 const routes = require('./routes');
+const User = require('./models/User');
 
 const logger = require('./logs');
 // const { insertTemplates } = require('./models/EmailTemplate');
@@ -65,8 +71,6 @@ const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
 
 nextApp.prepare().then(async () => {
-  app.use(express.json());
-
   const MongoStore = mongoSessionStore(session);
   const sess = {
     name: 'builderbook.sid',
@@ -83,16 +87,39 @@ nextApp.prepare().then(async () => {
     },
   };
 
-  app.use(session(sess));
   app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
   });
+
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(cookieParser());
+  app.use(session(sess));
+  app.use(passport.initialize());
+  app.use(passport.session());
+
   // await insertTemplates();
+
+  passport.serializeUser((user, cb) => {
+    cb(null, user._id.toString());
+  });
+
+  passport.deserializeUser((id, cb) => {
+    console.log('Id', id);
+    User.findById(id, User.publicFields(), (err, user) => {
+      if (err) {
+        return cb(err);
+      }
+      cb(null, user);
+    });
+  });
 
   googleAuth({ app, ROOT_URL });
   instagramAuth({ app, ROOT_URL });
+  twitterAuth({ app, ROOT_URL });
+  twitchAuth({ app, ROOT_URL });
   basicAuth({ app, nextApp });
   // app.use((req, res, next) => {
   //   console.log('USER:', req.user);

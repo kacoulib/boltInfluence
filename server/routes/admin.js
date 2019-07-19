@@ -19,15 +19,27 @@ const kycUpload = multer({
   },
 });
 
+/**
+ * Creates a middleware that tries to execute a function
+ * and catch eventual errors to send them as a json response
+ * @param {(req: Request, res: Response) => any} fn
+ * @returns {(res: Request, res: Response) => any}
+ */
 const handleErrors = (fn) => async (req, res) => {
   try {
     await fn(req, res);
   } catch (err) {
     logger.error(err);
-    res.json({ error: err.message || err.Message || err.toString() });
+    res.status(400).json({ error: err.message || err.Message || err.toString() });
   }
 };
 
+/**
+ * Creates a middleware that extract listing parameters,
+ * pass them to a listing function and return the result
+ * as a json response
+ * @param {(req: Request, res: Response) => any} listFn
+ */
 const listCollection = (listFn) =>
   handleErrors(async (req, res) => {
     let { offset, limit } = req.query;
@@ -174,12 +186,30 @@ router.put(
   }),
 );
 
+router.get(
+  '/campaignoffers/:slug/funds',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    const funds = await CampaignOffer.getFundsBySlug({ slug });
+    res.json(funds);
+  }),
+);
+
 router.post(
   '/campaignoffers/:slug/fund-card',
   handleErrors(async (req, res) => {
     const { slug: offer } = req.params;
     const { user, card } = req.body;
     await CampaignOffer.fundWithCardBySlug({ offer, user, card });
+    res.status(204).end();
+  }),
+);
+
+router.post(
+  '/campaignoffers/:slug/validate',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    await CampaignOffer.freeFundsBySlug({ slug });
     res.json({ message: 'Hey' });
   }),
 );
@@ -206,7 +236,6 @@ router.post(
 
 module.exports = router;
 
-// TODO: Ajouter une route pour valider le paiement de l'influencer / valider la fin de mission
 /* TODO: Add input validation to routes */
 /* TODO Front:
 To register a card, you have to post, as url-encoded, these data:

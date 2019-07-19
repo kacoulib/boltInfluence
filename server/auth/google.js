@@ -1,5 +1,7 @@
 const passport = require('passport');
 const Strategy = require('passport-google-oauth').OAuth2Strategy;
+const { google } = require('googleapis');
+
 const User = require('../models/User');
 const { redirecAfterAuth } = require('./index');
 
@@ -9,6 +11,21 @@ function auth({ ROOT_URL, app }) {
     let avatarUrl;
     let firstName;
     let lastName;
+
+    /* TESTING YOUTUBE */
+    const oauth2Client = new google.auth.OAuth2(
+      process.env.Google_clientId,
+      process.env.Google_clientSecret,
+    );
+
+    oauth2Client.setCredentials({ access_token: accessToken, refresh_token: refreshToken });
+    const youtube = google.youtube({ version: 'v3', auth: oauth2Client });
+    const stats = await youtube.channels.list({
+      part: 'statistics',
+      mine: true,
+    });
+    console.log(stats.data.items);
+    /* END TESTING YOUTUBE */
 
     if (profile.emails) {
       email = profile.emails[0].value;
@@ -46,7 +63,7 @@ function auth({ ROOT_URL, app }) {
   passport.use(
     new Strategy(
       {
-        clientID: process.env.Google_clientID,
+        clientID: process.env.Google_clientId,
         clientSecret: process.env.Google_clientSecret,
         callbackURL: `${ROOT_URL}/oauth2callback`,
       },
@@ -54,23 +71,10 @@ function auth({ ROOT_URL, app }) {
     ),
   );
 
-  passport.serializeUser((user, done) => {
-    done(null, user.id);
-  });
-
-  passport.deserializeUser((id, done) => {
-    User.findById(id, User.publicFields(), (err, user) => {
-      done(err, user);
-    });
-  });
-
-  app.use(passport.initialize());
-  app.use(passport.session());
-
   app.get(
     '/auth/google',
     passport.authenticate('google', {
-      scope: ['profile', 'email'],
+      scope: ['profile', 'email', 'https://www.googleapis.com/auth/youtube.readonly'],
       prompt: 'select_account',
     }),
   );
