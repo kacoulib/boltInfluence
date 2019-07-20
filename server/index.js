@@ -89,11 +89,15 @@ nextApp.prepare().then(async () => {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 6ee54499d45eac96eed185e2216a25192336bdc2
   app.use(function(req, res, next) {
 =======
   app.use(session(sess));
+=======
+  // app.use(session(sess));
+>>>>>>> Added setting props to generator
   app.use(function (req, res, next) {
 >>>>>>> Fixed path problem
     res.header('Access-Control-Allow-Origin', '*');
