@@ -1,12 +1,10 @@
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types'
-import AccountIcon from '../../../static/img/icon/account.png'
-import TimeIcon from '../../../static/img/icon/time.png'
-import PostIcon from '../../../static/img/icon/post.png'
-import FeedIcon from '../../../static/img/icon/feed-white.png'
 import Stars from '../../../static/img/icon/stars.png'
 import InfluenceurJones from '../../../static/img/pictures/influencer_jones.png'
 import Button from '@material-ui/core/Button';
+import InflencerDetail from './influencer-detail'
+
 
 const cardContainer = {
     padding: '1rem',
@@ -26,8 +24,10 @@ const styles = {
     influencer_info_container: { padding: '1rem' },
 }
 
-const Index = ({ datas, loadMore }) => {
-    console.log(datas)
+const Index = ({ datas, selectedInfluencer, selectInfluencer, loadMore }) => {
+    console.log(selectedInfluencer)
+    if (selectedInfluencer)
+        return (<InflencerDetail selectedInfluencer={selectedInfluencer} />);
     return (
         <Grid container alignItems='center' justify="center" style={styles.container} >
             <Grid item xs={12} sm={12} style={styles.childContainer}>
@@ -44,7 +44,7 @@ const Index = ({ datas, loadMore }) => {
                                 <Grid key={i} container alignItems='center' justify="center" >
                                     <Grid item xs={4} sm={4}><img src={Stars} style={styles.stars} /></Grid>
                                     <Grid item xs={4} sm={4} className='text-center'><span>{`${elem.firstName} ${elem.lastName}`}</span></Grid>
-                                    <Grid item xs={4} sm={4} className='text-right'><span className='icon write pointer'></span></Grid>
+                                    <Grid item xs={4} sm={4} className='text-right'><span className='icon write pointer' onClick={() => selectInfluencer(elem._id)}></span></Grid>
                                 </Grid>
                             </div>
                             <div>ID : {elem._id}</div>
@@ -60,7 +60,9 @@ const Index = ({ datas, loadMore }) => {
     )
 }
 Index.propTypes = {
-    data: PropTypes.object.isRequired,
+    datas: PropTypes.object.isRequired,
+    selectInfluencer: PropTypes.func.isRequired,
+    loadMore: PropTypes.func
 }
 
 export default Index;
