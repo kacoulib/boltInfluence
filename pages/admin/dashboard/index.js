@@ -20,17 +20,9 @@ const CustomerIndex = (props) => {
         subscribedInfluencer: 22300, waitingInfluencer: 32300,
         subscribedMarque: 18068, waitingMarque: 5647,
         subscribedCampagne: 5435, waitingCampagne: 6453,
-<<<<<<< HEAD
-<<<<<<< HEAD
-        influencersList: []
-=======
+
         influencersList: [],
         selectedInfluencer: null
->>>>>>> 6ee54499d45eac96eed185e2216a25192336bdc2
-=======
-        influencersList: [],
-        selectedInfluencer: null
->>>>>>> Added setting props to generator
     });
     const index = 1;
 
@@ -40,29 +32,21 @@ const CustomerIndex = (props) => {
         )
         setData(Object.assign({}, data, { influencersList: data.influencersList }))
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> Added setting props to generator
 
     const selectInfluencer = (id) => {
         const elem = data.influencersList.find((e) => e._id = id);
         setData(Object.assign({}, data, { selectedInfluencer: elem }))
     }
-<<<<<<< HEAD
->>>>>>> 6ee54499d45eac96eed185e2216a25192336bdc2
-=======
->>>>>>> Added setting props to generator
-    useEffect(() => {
-        getInfluencerList()
-            .then(res => {
-                const tmp = Object.assign({}, data, { influencersList: res.influencers })
-                setData(tmp);
 
-                console.log(tmp)
-            })
-    }, [])
+    // useEffect(() => {
+    //     getInfluencerList()
+    //         .then(res => {
+    //             const tmp = Object.assign({}, data, { influencersList: res.influencers })
+    //             setData(tmp);
+
+    //             console.log(tmp)
+    //         })
+    // }, [])
     return (
         <NavPanel
             navList={navList}
@@ -75,15 +59,8 @@ const CustomerIndex = (props) => {
                         subscribedCampagne: data.subscribedCampagne, waitingCampagne: data.waitingCampagne,
                     }}
                 />,
-<<<<<<< HEAD
-<<<<<<< HEAD
-                <Influencers datas={data.influencersList} loadMore={loadMore} />,
-=======
+
                 <Influencers datas={data.influencersList} selectedInfluencer={data.selectedInfluencer} loadMore={loadMore} selectInfluencer={selectInfluencer} />,
->>>>>>> 6ee54499d45eac96eed185e2216a25192336bdc2
-=======
-                <Influencers datas={data.influencersList} selectedInfluencer={data.selectedInfluencer} loadMore={loadMore} selectInfluencer={selectInfluencer} />,
->>>>>>> Added setting props to generator
                 <Publish />,
                 <PostValidate />,
             ]}

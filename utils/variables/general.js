@@ -39,6 +39,7 @@ const languageList = Object.keys(languageToCode);
 const languageCodeList = Object.keys(codeToLanguage);
 
 const civilityList = [{ name: 'Mr', value: 'Mr' }, { name: 'Mme', value: 'Mme' }];
+const choiceList = [{ name: 'Yes', value: 'yes' }, { name: 'No', value: 'no' }];
 
 module.exports = {
   // Vars
@@ -47,4 +48,5 @@ module.exports = {
   languageToCode,
   codeToLanguage,
   civilityList,
+  choiceList,
 };

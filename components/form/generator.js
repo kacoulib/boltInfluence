@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from "react";
-
 import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Wysiwyg from './wysiwyg'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import ChipList from '../../components/form/chipList';
 import Select from '@material-ui/core/Select';
 import Radio from './radio';
@@ -15,47 +12,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Chip from '@material-ui/core/Chip';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
-import { orangeColor, buttonStyle } from '../../utils/variables/css';
 
-
-/*
-        Generate form
-
-  Settings :
-      - handleChange
-      - form
-      - desc
-      - fields : - name
-                    - label
-                    - type (null, checkbox, radio, select)
-                    - placeholder
-                    - required (null, true, false)
-                    - labels = [] (not to select)
-                    - values = [] (to select = [{value: "", text: ""}, {}])
-Autofocus on the first field
-
-{
-    label:        "Test - Radio",
-    name:         "radio",
-    type:         "radio",
-    labels: ["one", "two", "three"],
-    values: ["One", "Two", "Three"]
-},
-{
-    label:        "Test - Checkbox",
-    name:         "checkbox",
-    type:         "checkbox",
-    labels: ["un", "deux", "trois"],
-    values: ["Un", "Deux", "Trois"]
-},
-{
-    label:        "Test - Select",
-    name:         "select",
-    type:         "select",
-    values: [{values: "Dix", text: "dix"}, {values: "Vingt", text: "vingt"}, {values: "Trente", text: "trente"}, {values: "Quarante", text: "quarante"}, {values: "Cinquante", text: "cinquante"}]
-}
-
-*/
 
 const styles = theme => ({
     root: {
@@ -72,8 +29,6 @@ const styles = theme => ({
     formControl: {
         margin: theme.spacing.unit,
         width: '100%',
-        // minWidth: '100%',
-        // maxWidth: 300,
     },
     control: {
         padding: theme.spacing.unit,
@@ -97,21 +52,8 @@ const MenuProps = {
         },
     },
 };
-function getStyles(name, personName, theme) {
-    return {
-        fontWeight:
-            personName.indexOf(name) === -1
-                ? theme.typography.fontWeightRegular
-                : theme.typography.fontWeightMedium,
-    };
-}
 
 const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, setting, align = 'center' }) => {
-    const { set } = useState()
-
-    useEffect(() => {
-
-    })
 
     const textTypes = ['input', 'password', 'email', 'number', 'textarea', 'date', 'datetime-local'],
         spacing = 16,
@@ -120,10 +62,10 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
     const handleChange = (name) => ({ target: { value } }) => onChange(name, value)
     const showLabel = setting && setting.showLabel;
     const labelSpacing = showLabel ? setting.showLabel : defaultDimension;
-    console.log(labelSpacing, setting)
+
     return (
         <form onSubmit={(e) => { e.preventDefault(); onSubmit() }}>
-            <FormControl className={classes.container} >
+            <FormControl className={classes.container} required={true}>
                 <Grid container className={classes.root} spacing={spacing} alignItems="center">
                     {fields && fields.map((elem, key) => {
                         const dimentions = elem.dimension ? elem.dimension : defaultDimension;
@@ -140,7 +82,7 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                                 <Grid item {...labelSpacing}>
                                                     <TextField
                                                         type={elem.type}
-                                                        label={showLabel ? '': elem.label}
+                                                        label={showLabel ? '' : elem.label}
 
                                                         multiline={elem.type === 'textarea'}
                                                         fullWidth
@@ -197,6 +139,7 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                                             ) : selected}
                                                             MenuProps={MenuProps}
                                                             {...elemProps}
+                                                            required={true}
                                                         >
                                                             {elemProps.list && elemProps.list.map((elem, key) => (
                                                                 <MenuItem key={`${elem.name}-${key}`} value={elem.name}>
@@ -227,7 +170,7 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                                 <Grid item {...labelSpacing}>
 
                                                     <div>
-                                                        <Radio {...elemProps} name={elem.name} label={elem.label} value={form[elem.name]} onChange={onChange} />
+                                                        <Radio {...elemProps} name={elem.name} label={showLabel ? '' : elem.label} value={form[elem.name]} onChange={onChange} />
                                                     </div>
                                                 </ Grid>
                                             </ Grid>
@@ -251,11 +194,6 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                     }
 
                     )}
-                    <Grid item xs={12}>
-                        <Button variant="contained" className={classes.button} type="submit" style={buttonStyle}>
-                            Submit
-                        </Button>
-                    </Grid>
                 </Grid>
             </FormControl>
         </form >

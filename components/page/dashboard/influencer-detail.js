@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types'
 import FormGenerator from '../../form/generator'
+import { buttonStyle } from '../../../utils/variables/css';
+import Button from '@material-ui/core/Button';
+import { choiceList } from '../../../utils/variables/general'
 
 const cardContainer = {
     padding: '1rem',
@@ -46,9 +49,13 @@ const fields = [
     {
         label: "Avez vous des enfants*",
         name: "child",
-        type: 'email',
+        type: 'radio',
         required: true,
-        width: 6
+        width: 6,
+        props: {
+            list: choiceList,
+            required: true
+        }
     },
     {
         label: "Numero de téléphone",
@@ -79,13 +86,12 @@ const Index = ({ selectedInfluencer }) => {
 
     const [form, setForm] = useState(selectedInfluencer)
 
-    const onChange = (name) => ({ target: { value } }) => setForm(Object.assign({}, form, { [name]: value }));
+    const onChange = (name, value) => {
+        console.log(name, value)
+        setForm(Object.assign({}, form, { [name]: value }))
+    };
     const onSubmit = async () => {
-
-        const { login } = await basicAuth(form);
-
-        if (login)
-            window.location = "/dashboard"
+        console.log(form)
     };
 
 
@@ -107,6 +113,11 @@ const Index = ({ selectedInfluencer }) => {
                     setting={{ showLabel: { xs: 6 } }}
                 />
             </div>
+            <Grid item xs={12}>
+                <Button variant="contained" type="submit" style={buttonStyle} onClick={() => onSubmit()}>
+                    Submit
+                </Button>
+            </Grid>
         </ Grid>
     )
 }
