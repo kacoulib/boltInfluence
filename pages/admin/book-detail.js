@@ -5,7 +5,7 @@ import Error from 'next/error';
 import Link from 'next/link';
 import Button from '@material-ui/core/Button';
 
-import { getBookDetail, syncBookContent } from '../../lib/api/admin';
+import { getBookDetail, syncBookContent } from '../../lib/api/http/admin';
 import withLayout from '../../lib/withLayout';
 import withAuth from '../../lib/withAuth';
 import notify from '../../lib/notifier';

@@ -5,7 +5,7 @@ import NProgress from 'nprogress';
 import withLayout from '../../lib/withLayout';
 import withAuth from '../../lib/withAuth';
 import EditBook from '../../components/admin/EditBook';
-import { addBook, syncBookContent } from '../../lib/api/admin';
+import { addBook, syncBookContent } from '../../lib/api/http/admin';
 import notify from '../../lib/notifier';
 
 class AddBook extends React.Component {

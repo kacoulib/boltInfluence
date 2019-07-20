@@ -3,18 +3,16 @@ import withLayout from '../../../lib/withLayout';
 import NavPanel from '../../../components/admin/NavPanel';
 
 import Home from '../../../components/page/dashboard/index';
-import Validation from '../../../components/page/process/validation';
+import Influencers from '../../../components/page/dashboard/influencers';
 import Publish from '../../../components/page/process/publish';
-import MissionValidate from '../../../components/page/process/mission-validate';
 import PostValidate from '../../../components/page/process/post-validate';
+import { getInfluencerList } from '../../../lib/api/http/admin'
 
 const navList = [
-    { href: 'home', className: 'icon noun-loading', text: 'Exament de validation' },
-    { href: 'validation', className: 'icon validation', text: 'Validation' },
-    { href: 'publish', className: 'icon grid', text: 'Soumetez vos posts avant publication' },
-    { href: 'post-validate', className: 'icon post', text: 'Post validé' },
-    { href: 'waiting-payment', className: 'icon payment', text: 'Attente paiement' },
-    { href: 'mission-validate', className: 'icon flash', text: 'Mission validée' },
+    { href: 'home', className: 'icon home', text: 'Acceuil' },
+    { href: 'account', className: 'icon account', text: 'Influencers' },
+    { href: 'publish', className: 'icon feed', text: 'Marques & Agences' },
+    { href: 'post-validate', className: 'icon post', text: 'Campagne' },
 ]
 
 const CustomerIndex = (props) => {
@@ -22,11 +20,29 @@ const CustomerIndex = (props) => {
         subscribedInfluencer: 22300, waitingInfluencer: 32300,
         subscribedMarque: 18068, waitingMarque: 5647,
         subscribedCampagne: 5435, waitingCampagne: 6453,
+        influencersList: []
     });
+    const index = 1;
 
+    const loadMore = () => {
+        const tmp = data.influencersList.push({ _id: '5483752', firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'En attente de confirmation' },
+            { _id: '5483752', firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'Inscrit' },
+        )
+        setData(Object.assign({}, data, { influencersList: data.influencersList }))
+    }
+    useEffect(() => {
+        getInfluencerList()
+            .then(res => {
+                const tmp = Object.assign({}, data, { influencersList: res.influencers })
+                setData(tmp);
+
+                console.log(tmp)
+            })
+    }, [])
     return (
         <NavPanel
             navList={navList}
+            index={index}
             pages={[
                 <Home
                     datas={{
@@ -35,10 +51,9 @@ const CustomerIndex = (props) => {
                         subscribedCampagne: data.subscribedCampagne, waitingCampagne: data.waitingCampagne,
                     }}
                 />,
-                <Validation />,
+                <Influencers datas={data.influencersList} loadMore={loadMore} />,
                 <Publish />,
                 <PostValidate />,
-                <MissionValidate />
             ]}
         />
     )

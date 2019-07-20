@@ -8,7 +8,7 @@ import notify from '../../lib/notifier';
 
 import withLayout from '../../lib/withLayout';
 import withAuth from '../../lib/withAuth';
-import { getBookList } from '../../lib/api/admin';
+import { getBookList } from '../../lib/api/http/admin';
 
 const Index = ({ books }) => (
   <div style={{ padding: '10px 45px' }}>
