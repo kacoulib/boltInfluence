@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Error from 'next/error';
 
 import EditBookComp from '../../components/admin/EditBook';
-import { getBookDetail, editBook } from '../../lib/api/admin';
+import { getBookDetail, editBook } from '../../lib/api/http/admin';
 import withLayout from '../../lib/withLayout';
 import withAuth from '../../lib/withAuth';
 import notify from '../../lib/notifier';

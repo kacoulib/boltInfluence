@@ -6,7 +6,7 @@ import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import { getGithubRepos } from '../../lib/api/admin';
+import { getGithubRepos } from '../../lib/api/http/admin';
 import { styleTextField } from '../../components/SharedStyles';
 import notify from '../../lib/notifier';
 

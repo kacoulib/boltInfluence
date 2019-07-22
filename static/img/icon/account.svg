@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>Icons / Account</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M18.3461538,19.3846154 C14.7138195,19.3846154 11.7692308,16.1300699 11.7692308,12.1153846 C11.7692308,8.10069932 14.7138195,4.84615385 18.3461538,4.84615385 C21.9784882,4.84615385 24.9230769,8.10069932 24.9230769,12.1153846 C24.9230769,16.1300699 21.9784882,19.3846154 18.3461538,19.3846154 Z M31.1538462,28.1122627 C31.1538462,30.6104889 21.1706565,31.5697632 13.5039229,30.9900856 C8.72502064,30.6287554 4.84615385,29.6694811 4.84615385,28.1122627 C4.84615385,24.0568182 12.3258142,20.7692308 18,20.7692308 C23.6741858,20.7692308 31.1538462,24.0568182 31.1538462,28.1122627 Z" id="path-1"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Accueil" transform="translate(-41.000000, -318.000000)">
+            <g id="Icons-/-Account-/-dark" transform="translate(37.000000, 314.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Icon" fill="#242B45" fill-rule="evenodd" xlink:href="#path-1"></use>
+            </g>
+        </g>
+    </g>
+</svg>

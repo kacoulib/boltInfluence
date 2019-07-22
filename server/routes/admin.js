@@ -1,94 +1,247 @@
 const express = require('express');
-const Book = require('../models/Book');
+const multer = require('multer');
+
 const User = require('../models/User');
-const { getRepos } = require('../auth/github');
+const Campaign = require('../models/Campaign');
+const CampaignOffer = require('../models/CampaignOffer');
+const Brand = require('../models/Brand');
 const logger = require('../logs');
-const { isAdmin } = require('../../utils/variables/user')
+const { isAdmin } = require('../../utils/variables/user');
+const { registerCard } = require('../utils/mangopay');
 
 const router = express.Router();
+const kycUpload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fields: 0,
+    fileSize: 7e6, // 7 MB
+    files: 1,
+  },
+});
+
+/**
+ * Creates a middleware that tries to execute a function
+ * and catch eventual errors to send them as a json response
+ * @param {(req: Request, res: Response) => any} fn
+ * @returns {(res: Request, res: Response) => any}
+ */
+const handleErrors = (fn) => async (req, res) => {
+  try {
+    await fn(req, res);
+  } catch (err) {
+    logger.error(err);
+    res.status(400).json({ error: err.message || err.Message || err.toString() });
+  }
+};
+
+/**
+ * Creates a middleware that extract listing parameters,
+ * pass them to a listing function and return the result
+ * as a json response
+ * @param {(req: Request, res: Response) => any} listFn
+ */
+const listCollection = (listFn) =>
+  handleErrors(async (req, res) => {
+    let { offset, limit } = req.query;
+
+    offset = Number(offset) || undefined;
+    limit = Number(limit) || undefined;
+
+    res.json(await listFn({ offset, limit }));
+  });
 
 router.use((req, res, next) => {
-  if (!req.user || isAdmin(isAdmin)) {
+  if (!req.user || !isAdmin(req.user)) {
     res.status(401).json({ error: 'Unauthorized' });
     return;
   }
-
   next();
 });
 
-router.get('/books', async (req, res) => {
-  try {
-    const books = await Book.list();
-    res.json(books);
-  } catch (err) {
-    res.json({ error: err.message || err.toString() });
-  }
-});
+router.get('/influencers', listCollection(User.listInfluencers.bind(User)));
 
-router.post('/books/add', async (req, res) => {
-  try {
-    const book = await Book.add(Object.assign({ userId: req.user.id }, req.body));
-    res.json(book);
-  } catch (err) {
-    logger.error(err);
-    res.json({ error: err.message || err.toString() });
-  }
-});
+router.get('/businesses', listCollection(User.listBusinesses.bind(User)));
 
-router.post('/books/edit', async (req, res) => {
-  try {
-    const editedBook = await Book.edit(req.body);
-    res.json(editedBook);
-  } catch (err) {
-    res.json({ error: err.message || err.toString() });
-  }
-});
+router.get('/users', listCollection(User.list.bind(User)));
 
-router.get('/books/detail/:slug', async (req, res) => {
-  try {
-    const book = await Book.getBySlug({ slug: req.params.slug });
-    res.json(book);
-  } catch (err) {
-    res.json({ error: err.message || err.toString() });
-  }
-});
+router.get(
+  '/users/:slug',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    const user = await User.getBySlug({ slug });
+    res.json(user);
+  }),
+);
 
-// github-related
+router.put(
+  '/users/:slug',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    const updates = req.body;
+    const user = await User.updateBySlug({ ...updates, slug });
+    res.json(user);
+  }),
+);
 
-router.post('/books/sync-content', async (req, res) => {
-  const { bookId } = req.body;
+router.post(
+  '/users/:slug/preregister-card',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    const { cardType, currency } = req.body;
+    const registration = await User.preregisterCardBySlug({ slug, cardType, currency });
+    res.json(registration);
+  }),
+);
 
-  const user = await User.findById(req.user._id, 'isGithubConnected githubAccessToken');
+router.post(
+  '/users/:slug/kyc-identity',
+  kycUpload.single('document'),
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    const file = req.file.buffer.toString('base64');
 
-  if (!user.isGithubConnected || !user.githubAccessToken) {
-    res.json({ error: 'Github not connected' });
-    return;
-  }
+    await User.addIdentityProofBySlug({ slug, file });
+    res.status(204).end();
+  }),
+);
 
-  try {
-    await Book.syncContent({ id: bookId, githubAccessToken: user.githubAccessToken });
-    res.json({ done: 1 });
-  } catch (err) {
-    logger.error(err);
-    res.json({ error: err.message || err.toString() });
-  }
-});
+router.post(
+  '/users/:slug/kyc-registration',
+  kycUpload.single('document'),
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    const file = req.file.buffer.toString('base64');
 
-router.get('/github/repos', async (req, res) => {
-  const user = await User.findById(req.user._id, 'isGithubConnected githubAccessToken');
+    await User.addRegistrationProofBySlug({ slug, file });
+    res.status(204).end();
+  }),
+);
 
-  if (!user.isGithubConnected || !user.githubAccessToken) {
-    res.json({ error: 'Github not connected' });
-    return;
-  }
+router.get('/campaigns', listCollection(Campaign.list.bind(Campaign)));
 
-  try {
-    const response = await getRepos({ accessToken: user.githubAccessToken });
-    res.json({ repos: response.data });
-  } catch (err) {
-    logger.error(err);
-    res.json({ error: err.message || err.toString() });
-  }
-});
+router.post(
+  '/campaigns',
+  handleErrors(async (req, res) => {
+    const options = req.body; // TODO: Validation
+    const campaign = await Campaign.add(options);
+    res.json(campaign);
+  }),
+);
+
+router.get(
+  '/campaigns/:slug',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    const campaign = await Campaign.getBySlug({ slug });
+    res.json(campaign);
+  }),
+);
+
+router.get(
+  '/campaigns/:slug/offers',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    const offers = await Campaign.getOffersBySlug({ slug });
+    res.json(offers);
+  }),
+);
+
+router.post(
+  '/campaigns/:slug/offers',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    const { user } = req.body;
+    const offer = await Campaign.addOfferBySlug({ user, campaign: slug });
+    res.json(offer);
+  }),
+);
+
+router.get('/campaignoffers', listCollection(CampaignOffer.list.bind(CampaignOffer, {})));
+
+router.post(
+  '/campaignoffers',
+  handleErrors(async (req, res) => {
+    const { campaign, user } = req.body;
+    const offer = await Campaign.addOfferBySlug({ user, campaign });
+    res.json(offer);
+  }),
+);
+
+router.get(
+  '/campaignoffers/:slug',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    const offer = await CampaignOffer.getBySlug({ slug });
+    res.json(offer);
+  }),
+);
+
+router.put(
+  '/campaignoffers/:slug',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    const { status } = req.body;
+    const offer = await CampaignOffer.changeStatusBySlug({ slug, status });
+    res.json(offer);
+  }),
+);
+
+router.get(
+  '/campaignoffers/:slug/funds',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    const funds = await CampaignOffer.getFundsBySlug({ slug });
+    res.json(funds);
+  }),
+);
+
+router.post(
+  '/campaignoffers/:slug/fund-card',
+  handleErrors(async (req, res) => {
+    const { slug: offer } = req.params;
+    const { user, card } = req.body;
+    await CampaignOffer.fundWithCardBySlug({ offer, user, card });
+    res.status(204).end();
+  }),
+);
+
+router.post(
+  '/campaignoffers/:slug/validate',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    await CampaignOffer.freeFundsBySlug({ slug });
+    res.json({ message: 'Hey' });
+  }),
+);
+
+router.get('/brands', listCollection(Brand.list.bind(Brand)));
+
+router.post(
+  '/cards/preregister',
+  handleErrors(async (req, res) => {
+    const { user, cardType, currency } = req.body;
+    const registration = await User.preregisterCardBySlug({ slug: user, cardType, currency });
+    res.json(registration);
+  }),
+);
+
+router.post(
+  '/cards/register',
+  handleErrors(async (req, res) => {
+    const { registrationId, registrationData } = req.body;
+    await registerCard({ registrationId, registrationData });
+    res.status(204).end();
+  }),
+);
 
 module.exports = router;
+
+/* TODO: Add input validation to routes */
+/* TODO Front:
+To register a card, you have to post, as url-encoded, these data:
+- accessKeyRef: The accessKey for the registration
+- data: The preregistrationData
+- cardNumber: The card number
+- cardExpirationDate: The card expiration date in MMYY format
+- cardCvx: The 3 numbers behind the card
+*/
