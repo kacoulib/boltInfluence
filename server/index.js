@@ -87,7 +87,7 @@ nextApp.prepare().then(async () => {
     },
   };
 
-  app.use(function (req, res, next) {
+  app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
@@ -99,6 +99,10 @@ nextApp.prepare().then(async () => {
   app.use(session(sess));
   app.use(passport.initialize());
   app.use(passport.session());
+  app.use((req, res, next) => {
+    console.log('Sess:', req.sessionID);
+    next();
+  });
 
   // await insertTemplates();
 

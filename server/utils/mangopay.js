@@ -146,6 +146,41 @@ const createCardDirectPayIn = async ({
 };
 
 /**
+ * Create a MangoPay BankWire Direct PayIn
+ * @param {Object} options
+ * @param {String} options.user
+ * @param {String} options.creditedWallet
+ * @param {Number} options.amount
+ * @param {String} options.currency
+ */
+const createBankWireDirectPayIn = async ({
+  user,
+  creditedWallet,
+  amount,
+  currency = 'EUR',
+} = {}) => {
+  const model = new api.models.PayIn({
+    AuthorId: user,
+    CreditedWalletId: creditedWallet,
+    PaymentType: 'BANK_WIRE',
+    PaymentDetails: new api.models.PayInPaymentDetailsBankWire({
+      DeclaredDebitedFunds: new api.models.Money({
+        Currency: currency,
+        Amount: amount,
+      }),
+      DeclaredFees: new api.models.Money({
+        Currency: currency,
+        Amount: 0,
+      }),
+    }),
+    ExecutionType: 'DIRECT',
+    ExecutionDetails: new api.models.PayInExecutionDetailsDirect({}),
+  });
+  const payin = await api.PayIns.create(model);
+  return { payin };
+};
+
+/**
  * Create a MangoPay Transfer between two Wallets
  * @param {Object} options
  * @param {String} options.debitedUser - ID of the User to debit
@@ -268,6 +303,7 @@ module.exports = {
   createWallet,
   createOrUpdateIbanBankAccount,
   createCardDirectPayIn,
+  createBankWireDirectPayIn,
   preregisterCard,
   registerCard,
   createTransfer,

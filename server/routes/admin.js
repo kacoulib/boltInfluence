@@ -8,6 +8,7 @@ const Brand = require('../models/Brand');
 const logger = require('../logs');
 const { isAdmin } = require('../../utils/variables/user');
 const { registerCard } = require('../utils/mangopay');
+const { handleErrors, listCollection } = require('../utils/express');
 
 const router = express.Router();
 const kycUpload = multer({
@@ -18,37 +19,6 @@ const kycUpload = multer({
     files: 1,
   },
 });
-
-/**
- * Creates a middleware that tries to execute a function
- * and catch eventual errors to send them as a json response
- * @param {(req: Request, res: Response) => any} fn
- * @returns {(res: Request, res: Response) => any}
- */
-const handleErrors = (fn) => async (req, res) => {
-  try {
-    await fn(req, res);
-  } catch (err) {
-    logger.error(err);
-    res.status(400).json({ error: err.message || err.Message || err.toString() });
-  }
-};
-
-/**
- * Creates a middleware that extract listing parameters,
- * pass them to a listing function and return the result
- * as a json response
- * @param {(req: Request, res: Response) => any} listFn
- */
-const listCollection = (listFn) =>
-  handleErrors(async (req, res) => {
-    let { offset, limit } = req.query;
-
-    offset = Number(offset) || undefined;
-    limit = Number(limit) || undefined;
-
-    res.json(await listFn({ offset, limit }));
-  });
 
 router.use((req, res, next) => {
   if (!req.user || !isAdmin(req.user)) {
@@ -206,11 +176,20 @@ router.post(
 );
 
 router.post(
+  '/campaignoffers/:slug/fund-wire',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    const payin = await CampaignOffer.fundWithBankWireBySlug({ slug });
+    res.json(payin);
+  }),
+);
+
+router.post(
   '/campaignoffers/:slug/validate',
   handleErrors(async (req, res) => {
     const { slug } = req.params;
     await CampaignOffer.freeFundsBySlug({ slug });
-    res.json({ message: 'Hey' });
+    res.status(204).end();
   }),
 );
 

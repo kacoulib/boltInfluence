@@ -3,7 +3,13 @@ const _ = require('lodash');
 
 const KycValidation = require('./KycValidation');
 const SocialMediaToken = require('./SocialMediaToken');
-const { RoleList, BusinessRoleList, Influencer } = require('../../utils/variables/user');
+const {
+  RoleList,
+  BusinessRoleList,
+  Influencer,
+  isBrand,
+  isAgency,
+} = require('../../utils/variables/user');
 const { languageCodeList } = require('../../utils/variables/general');
 const { isInfluencer, isBusiness } = require('../../utils/variables/user');
 const generateSlug = require('../utils/slugify');
@@ -81,7 +87,6 @@ const mongoSchema = new Schema({
   },
   agency: [{ type: ObjectId, ref: 'Brand' }],
   // Company related (every user needs a company)
-  phoneNumber: String,
   address: String,
   city: String,
   country: String,
@@ -110,7 +115,31 @@ const mongoSchema = new Schema({
 
 class UserClass {
   static publicFields() {
-    return ['_id', 'firstName', 'lastName', 'email', 'slug', 'role'];
+    return [
+      '_id',
+      'firstName',
+      'lastName',
+      'email',
+      'slug',
+      'role',
+      'newsletter',
+      'notifications',
+      'status',
+      'role',
+      'influencer',
+      'brand',
+      'agency',
+      'address',
+      'city',
+      'country',
+      'postalCode',
+      'siret',
+      'companyEmail',
+      'companyName',
+      'companySize',
+      'placeOfBirth',
+      'dateOfBirth',
+    ];
   }
 
   /**
@@ -177,7 +206,10 @@ class UserClass {
    * @param {String} params.slug - The slug of the User to get
    */
   static async getBySlug({ slug }) {
-    const userDoc = await this.findOne({ slug }).select(this.publicFields());
+    const userDoc = await this.findOne({ slug })
+      .select(this.publicFields())
+      .populate('brand')
+      .populate('agency');
     if (!userDoc) {
       throw new Error('User not found');
     }
@@ -197,9 +229,11 @@ class UserClass {
     if (!userDoc) {
       throw new Error('User not found');
     }
-    Object.entries(updates).forEach(([key, value]) => {
-      userDoc[key] = value;
-    });
+    Object.entries(updates)
+      .filter(([_, value]) => value !== undefined)
+      .forEach(([key, value]) => {
+        userDoc[key] = value;
+      });
     await userDoc.save();
     const user = _.pick(userDoc.toObject(), this.publicFields());
     return { user };
@@ -376,6 +410,39 @@ class UserClass {
         registrationUrl: registration.CardRegistrationURL,
       },
     };
+  }
+
+  /**
+   * Get a brand, only if the user has ownership of it
+   * @param {Object} options
+   * @param {String} options.user - User slug
+   * @param {String} options.brand - Brand slug
+   */
+  static async getBrandBySlug({ user: userSlug, brand: brandSlug }) {
+    const user = await this.findOne({ slug: userSlug })
+      .select(['role', 'brand', 'agency'])
+      .populate('brand')
+      .populate('agency');
+
+    if (!user) {
+      return { brand: null };
+    }
+
+    let brand = null;
+
+    if (isBrand(user) && user.brand.slug === brandSlug) {
+      brand = user.brand;
+    }
+    if (isAgency(user)) {
+      user.agency.some((b) => {
+        const has = b.slug === brandSlug;
+        if (has) {
+          brand = b;
+        }
+        return has;
+      });
+    }
+    return { brand };
   }
 }
 mongoSchema.loadClass(UserClass);

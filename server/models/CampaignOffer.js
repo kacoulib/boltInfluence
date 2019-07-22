@@ -21,6 +21,7 @@ const {
   createWallet,
   getWallet,
   createCardDirectPayIn,
+  createBankWireDirectPayIn,
   createTransfer,
 } = require('../utils/mangopay');
 const logger = require('../logs');
@@ -245,7 +246,73 @@ class CampaignOfferClass {
     // logger.info(paymentOperation);
   }
 
-  static async fundWithBankwireBySlug({ slug }) {
+  static async fundWithBankWireBySlug({ slug }) {
+    const offer = await this.findOne({ slug })
+      .populate('campaign')
+      .populate('user', ['_id', 'mangopay.id', 'mangopay.wallet']);
+    if (!offer) {
+      throw new Error('CampaignOffer not found');
+    }
+    if (!isAwaitingFunding(offer)) {
+      throw new Error('CampaignOffer is not waiting any funding.');
+    }
+    const { payment } = await Payment.add({
+      offer: offer._id,
+      amount: offer.campaign.budget,
+      debitedUser: offer.user._id,
+    });
+
+    let payin;
+    try {
+      payin = (await createBankWireDirectPayIn({
+        user: offer.user.mangopay.id,
+        amount: offer.campaign.budget,
+        creditedWallet: offer.user.mangopay.wallet,
+      })).payin;
+    } catch (err) {
+      logger.error(err);
+      payment.status = Failed;
+      await payment.save();
+      throw err;
+    }
+
+    const { paymentOperation } = await PaymentOperation.add({
+      payment: payment._id,
+      operationType: PayIn,
+      operationId: payin.Id,
+    });
+    const {
+      WireReference: reference,
+      BankAccount: {
+        OwnerAddress: {
+          AddressLine1: address,
+          City: city,
+          PostalCode: postalCode,
+          Country: country,
+        },
+        OwnerName: owner,
+        Type: type,
+        IBAN: iban,
+        BIC: bic,
+      },
+    } = payin;
+    // logger.info(payment.toObject());
+    // logger.info(payin);
+    // logger.info(paymentOperation);
+    return {
+      payin: {
+        address,
+        city,
+        postalCode,
+        country,
+        owner,
+        type,
+        iban,
+        bic,
+        reference,
+      },
+    };
+
     // Create a MangoPay Bankwire PayIn to user's
     // wallet
     // Make it so there's a transfer to the offer's
