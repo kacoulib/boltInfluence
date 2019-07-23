@@ -21,14 +21,20 @@ const navList = [
 const CustomerIndex = () => {
 
     const [data, setData] = useState({
-        influencersList: []
+        marquesAgencesList: [],
+        selectedMarqueAgence: null,
     })
 
     const loadMore = () => {
-        const tmp = data.influencersList.push({ _id: '5483752', name: 'L\'Oréal', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'En cours d\'inscription' },
+        const tmp = data.marquesAgencesList.push({ _id: '5483752', name: 'L\'Oréal', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'En cours d\'inscription' },
             { _id: '5483752', name: 'Séphora',picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'Inscrit' },
         )
-        setData(Object.assign({}, data, { influencersList: data.influencersList }))
+        setData(Object.assign({}, data, { marquesAgencesList: data.marquesAgencesList }))
+    }
+
+    const selectMarquesAgences = (id) =>  {
+        const elem = data.marquesAgencesList.find(e => e._id = id);
+        setData(Object.assign({}, data, { selectedMarqueAgence: elem }))
     }
 
     return (
@@ -36,8 +42,10 @@ const CustomerIndex = () => {
         navList={navList}
         pages={[
             <MarquesAgences
-                datas={data.influencersList} 
+                datas={data.marquesAgencesList} 
                 loadMore={loadMore}
+                selectedMarqueAgence={data.selectedMarqueAgence}
+                selectMarquesAgences={selectMarquesAgences}
             />,
             <Examination />, 
             <Validation />, 
