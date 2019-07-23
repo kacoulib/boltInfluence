@@ -9,6 +9,8 @@ const {
   Influencer,
   isBrand,
   isAgency,
+  StatusList,
+  Active,
 } = require('../../utils/variables/user');
 const { languageCodeList } = require('../../utils/variables/general');
 const { isInfluencer, isBusiness } = require('../../utils/variables/user');
@@ -20,6 +22,7 @@ const {
   createOrUpdateIbanBankAccount,
   preregisterCard,
 } = require('../utils/mangopay');
+const { getStats } = require('../utils/socialmedias');
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -58,7 +61,7 @@ const mongoSchema = new Schema({
   },
   status: {
     type: String,
-    // enum: UserStatus,
+    enum: StatusList,
     required: true,
   },
   role: {
@@ -144,10 +147,10 @@ class UserClass {
 
   /**
    * List a limited amount of Users
-   * @param {Object} where - Filtering criterias
-   * @param {Object} options
-   * @param {Number} options.offset - Amount of Users to skip
-   * @param {Number} options.limit - Amount of Users to return
+   * @param {Object} [where] - Filtering criterias
+   * @param {Object} [options]
+   * @param {Number} [options.offset] - Amount of Users to skip
+   * @param {Number} [options.limit] - Amount of Users to return
    */
   static async list(where = {}, { offset = 0, limit = 10 } = {}) {
     const users = await this.find(where)
@@ -158,6 +161,20 @@ class UserClass {
       .populate('agency')
       .select(this.publicFields());
     return { users };
+  }
+
+  static async getId(where) {
+    const user = await this.findOne(where)
+      .select('_id')
+      .lean();
+    if (!user) {
+      return { userId: null };
+    }
+    return { userId: user._id };
+  }
+
+  static async getIdBySlug({ slug }) {
+    return this.getId({ slug });
   }
 
   static async listInfluencers(options) {
@@ -173,13 +190,10 @@ class UserClass {
   static async add({ email, password, firstName, lastName, role, picture }) {
     const slug = await generateSlug(this, firstName + lastName);
     const additional = {};
-    let status = 'active'; // Change to Enum Value
+    const status = Active; // Change to Enum Value
 
     if (role === Influencer) {
       additional.influencer = { picture };
-    }
-    if (email) {
-      status = 'waiting email confirmation'; // Change to Enum Value
     }
 
     const user = await this.create({
@@ -393,6 +407,15 @@ class UserClass {
     });
   }
 
+  static addArticlesOfAssociationBySlug({ slug, file }) {
+    const mangopay = getMangopay();
+    return this.addKycDocumentBySlug({
+      slug,
+      file,
+      type: mangopay.models.KycDocumentType.ArticlesOfAssociation,
+    });
+  }
+
   static async preregisterCardBySlug({ slug, cardType, currency }) {
     const user = await this.findOne({ slug }).select('mangopay.id');
     if (!user) {
@@ -443,6 +466,13 @@ class UserClass {
       });
     }
     return { brand };
+  }
+
+  static async getStatsById({ userId }) {
+    const socialMediaTokens = await SocialMediaToken.find({ user: userId });
+    const data = await Promise.all(socialMediaTokens.map(getStats));
+    const stats = data.map((d) => d.stats);
+    return { stats };
   }
 }
 mongoSchema.loadClass(UserClass);

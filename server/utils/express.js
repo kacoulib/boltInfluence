@@ -31,7 +31,33 @@ const listCollection = (listFn) =>
     res.json(await listFn({ offset, limit }));
   });
 
+/**
+ * @param {(options: { slug: String, file: String }) => any} fn
+ * @param {String} slugKey - In which property is the User slug
+ */
+const verifyKyc = (fn, slugKey) =>
+  handleErrors(async (req, res) => {
+    const { slug } = req[slugKey];
+    const file = req.file.buffer.toString('base64');
+
+    await fn({ slug, file });
+    res.status(204).end();
+  });
+
+/**
+ * @param {(options: { slug: String, file: String }) => any} fn
+ */
+const verifyKycUser = (fn) => verifyKyc(fn, 'user');
+
+/**
+ * @param {(options: { slug: String, file: String }) => any} fn
+ */
+const verifyKycParams = (fn) => verifyKyc(fn, 'params');
+
 module.exports = {
   handleErrors,
   listCollection,
+  verifyKyc,
+  verifyKycUser,
+  verifyKycParams,
 };

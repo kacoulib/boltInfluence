@@ -2,6 +2,7 @@ const express = require('express');
 
 const Brand = require('../models/Brand');
 const User = require('../models/User');
+const CampaignOffer = require('../models/CampaignOffer');
 const Campaign = require('../models/Campaign');
 const { isBusiness, isBrand, isAgency } = require('../../utils/variables/user');
 const { handleErrors, listCollection } = require('../utils/express');
@@ -108,6 +109,15 @@ router.put(
       slug: campaignSlug,
     });
     res.json(campaign);
+  }),
+);
+
+router.get(
+  '/campaignoffers/:slug/stats',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    const stats = await CampaignOffer.getStatsBySlug({ slug });
+    res.json(stats);
   }),
 );
 

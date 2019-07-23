@@ -44,7 +44,7 @@ class Twitch {
    *
    * @param {Object} options
    * @param {String} options.endpoint
-   * @param {Object} options.query
+   * @param {Object} [options.query]
    */
   async get({ endpoint, query }) {
     const options = {

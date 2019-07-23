@@ -1,8 +1,10 @@
 const express = require('express');
 
+const Payment = require('../models/Payment');
 const Campaign = require('../models/Campaign');
 const User = require('../models/User');
-const { handleErrors, listCollection } = require('../utils/express');
+const { handleErrors, listCollection, verifyKycUser } = require('../utils/express');
+const { kycFileUpload } = require('../utils/multer');
 
 const router = express.Router();
 
@@ -58,6 +60,24 @@ router.put(
   }),
 );
 
+router.post(
+  '/profile/kyc-identity',
+  kycFileUpload,
+  verifyKycUser(User.addIdentityProofBySlug.bind(User)),
+);
+
+router.post(
+  '/profile/kyc-registration',
+  kycFileUpload,
+  verifyKycUser(User.addRegistrationProofBySlug.bind(User)),
+);
+
+router.post(
+  '/profile/kyc-association',
+  kycFileUpload,
+  verifyKycUser(User.addArticlesOfAssociationBySlug.bind(User)),
+);
+
 router.get('/campaigns', listCollection(Campaign.list.bind(Campaign, {})));
 
 router.get(
@@ -67,6 +87,14 @@ router.get(
     const campaign = await Campaign.getBySlug({ slug });
     res.json(campaign);
   }),
+);
+
+router.get('/payments', (req, res) =>
+  listCollection((listingOptions) => {
+    const { _id: user } = req.user;
+
+    return Payment.listForUserById({ user }, listingOptions);
+  })(req, res),
 );
 
 // List of API:

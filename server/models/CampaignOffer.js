@@ -15,6 +15,8 @@ const {
   isAwaitingFunding,
   isOngoing,
   isAwaitingValidation,
+  isValidated,
+  isDisputed,
 } = require('../../utils/variables/campaignoffer');
 const generateSlug = require('../utils/slugify');
 const {
@@ -30,6 +32,10 @@ const { PayIn, TransferOut } = require('../../utils/variables/paymentoperation')
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
+
+/**
+ * @typedef {import('../utils/socialmedias').Stats} Stats
+ */
 
 const mongoSchema = new Schema({
   campaign: {
@@ -69,8 +75,23 @@ class CampaignOfferClass {
     const offers = await this.find(where)
       .sort({ createdAt: -1 })
       .skip(offset)
-      .limit(limit);
+      .limit(limit)
+      .populate('campaign')
+      .populate('user', User.publicFields())
+      .lean();
     return { offers };
+  }
+
+  static async listForInfluencerBySlug({ user: userSlug }, listingOptions) {
+    const { userId: user } = await User.getIdBySlug({ slug: userSlug });
+    if (!user) {
+      return { offers: [] };
+    }
+    return this.list({ user }, listingOptions);
+  }
+
+  static async listForInfluencerById({ user }, listingOptions) {
+    return this.list({ user }, listingOptions);
   }
 
   /**
@@ -407,6 +428,36 @@ class CampaignOfferClass {
       funds = { amount: wallet.Balance.Amount, currency: wallet.Balance.Currency };
     }
     return { funds };
+  }
+
+  /**
+   * Get the different stats of the influencers. Before the
+   * offer is accepted, the stats are the latest. Then there are
+   * open and close snapshots. They are snapshots taken when the
+   * offer was accepted and when it was completed.
+   * @param {Object} options
+   * @param {String} options.slug
+   * @returns {Promise<{
+   *   stats: { latest: Array<Stats> } | { open: Array<Stats>, close?: Array<Stats> }
+   * }>}
+   */
+  static async getStatsBySlug({ slug }) {
+    const offer = await this.findOne({ slug });
+    if (!offer) {
+      throw new Error('Campaign Offer not found');
+    }
+    let stats;
+    if (isProposed(offer)) {
+      stats = {
+        latest: (await User.getStatsById({ userId: offer.user })).stats,
+      };
+    } else {
+      // Handle OPEN
+    }
+    if (isAwaitingValidation(offer) || isValidated(offer) || isDisputed(offer)) {
+      // Handle CLOSE
+    }
+    return stats;
   }
 }
 

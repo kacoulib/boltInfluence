@@ -5,6 +5,10 @@ const Agency = 'agency';
 const RoleList = [Admin, Influencer, Brand, Agency];
 const BusinessRoleList = [Brand, Agency];
 
+const Active = 'active';
+const Inactive = 'inactive';
+const StatusList = [Active, Inactive];
+
 const isAdmin = (user) => user && user.role === Admin;
 const isInfluencer = (user) => user && user.role === Influencer;
 const isBrand = (user) => user && user.role === Brand;
@@ -19,6 +23,10 @@ module.exports = {
   Influencer,
   Brand,
   Agency,
+
+  Active,
+  Inactive,
+  StatusList,
 
   // Methods
   isAdmin,

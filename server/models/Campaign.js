@@ -119,7 +119,7 @@ class CampaignClass {
       where = { brand: { $in: user.agency } };
     }
     if (!where) {
-      return [];
+      return { campaigns: [] };
     }
     return this.list(where, listingOptions);
   }
@@ -245,11 +245,9 @@ class CampaignClass {
     if (!campaign) {
       return false;
     }
-    const owned = !!(await User.findOne({
+    const owned = !!(await User.getId({
       $and: [{ slug: userSlug }, { $or: [{ brand: campaign.brand }, { agency: campaign.brand }] }],
-    })
-      .select('_id')
-      .lean());
+    })).userId;
     return owned;
   }
 }

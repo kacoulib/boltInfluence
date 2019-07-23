@@ -1,6 +1,8 @@
 const express = require('express');
 const multer = require('multer');
 
+const EmailTemplate = require('../models/EmailTemplate');
+const Payment = require('../models/Payment');
 const User = require('../models/User');
 const Campaign = require('../models/Campaign');
 const CampaignOffer = require('../models/CampaignOffer');
@@ -8,17 +10,10 @@ const Brand = require('../models/Brand');
 const logger = require('../logs');
 const { isAdmin } = require('../../utils/variables/user');
 const { registerCard } = require('../utils/mangopay');
-const { handleErrors, listCollection } = require('../utils/express');
+const { kycFileUpload } = require('../utils/multer');
+const { handleErrors, listCollection, verifyKycParams } = require('../utils/express');
 
 const router = express.Router();
-const kycUpload = multer({
-  storage: multer.memoryStorage(),
-  limits: {
-    fields: 0,
-    fileSize: 7e6, // 7 MB
-    files: 1,
-  },
-});
 
 router.use((req, res, next) => {
   if (!req.user || !isAdmin(req.user)) {
@@ -53,6 +48,14 @@ router.put(
   }),
 );
 
+router.get('/user/:slug/payments', (req, res) =>
+  listCollection((listingOptions) => {
+    const { slug: user } = req.params;
+
+    return Payment.listForUserBySlug({ user }, listingOptions);
+  })(req, res),
+);
+
 router.post(
   '/users/:slug/preregister-card',
   handleErrors(async (req, res) => {
@@ -65,26 +68,20 @@ router.post(
 
 router.post(
   '/users/:slug/kyc-identity',
-  kycUpload.single('document'),
-  handleErrors(async (req, res) => {
-    const { slug } = req.params;
-    const file = req.file.buffer.toString('base64');
-
-    await User.addIdentityProofBySlug({ slug, file });
-    res.status(204).end();
-  }),
+  kycFileUpload,
+  verifyKycParams(User.addIdentityProofBySlug.bind(User)),
 );
 
 router.post(
   '/users/:slug/kyc-registration',
-  kycUpload.single('document'),
-  handleErrors(async (req, res) => {
-    const { slug } = req.params;
-    const file = req.file.buffer.toString('base64');
+  kycFileUpload,
+  verifyKycParams(User.addRegistrationProofBySlug.bind(User)),
+);
 
-    await User.addRegistrationProofBySlug({ slug, file });
-    res.status(204).end();
-  }),
+router.post(
+  '/users/:slug/kyc-association',
+  kycFileUpload,
+  verifyKycParams(User.addArticlesOfAssociationBySlug.bind(User)),
 );
 
 router.get('/campaigns', listCollection(Campaign.list.bind(Campaign)));
@@ -210,6 +207,19 @@ router.post(
     const { registrationId, registrationData } = req.body;
     await registerCard({ registrationId, registrationData });
     res.status(204).end();
+  }),
+);
+
+router.get('/payments', listCollection(Payment.list.bind(Payment, {})));
+
+router.get('/emailtemplates', listCollection(EmailTemplate.list.bind(EmailTemplate)));
+
+router.get(
+  '/emailtemplates/:slug',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    const template = await EmailTemplate.getBySlug({ slug });
+    return res.json(template);
   }),
 );
 
