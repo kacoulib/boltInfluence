@@ -9,14 +9,7 @@ import Publish from '../../../components/page/process/publish';
 import MissionValidate from '../../../components/page/process/mission-validate';
 import PostValidate from '../../../components/page/process/post-validate';
 
-const navList = [
-    { href: 'account', className: 'icon account', text: 'Informations de contact' },
-    { href: 'mark', className: 'icon mark', text: 'Information de marque' },
-    { href: 'payment-information', className: 'icon payment', text: 'Information de paiement' },
-    { href: 'campagne', className: 'icon photos', text: 'Campagnes' },
-    { href: 'influencers', className: 'icon star', text: 'Influenceurs' },
-    { href: 'contact', className: 'icon message', text: 'Contact plateform' },
-]
+
 
 const CustomerIndex = () => {
 
@@ -37,22 +30,29 @@ const CustomerIndex = () => {
         setData(Object.assign({}, data, { selectedMarqueAgence: elem }))
     }
 
+    const navList = [
+        { id: 'account', href: 'account', className: 'icon account', text: 'Informations de contact', page: <MarquesAgences
+        datas={data.marquesAgencesList} 
+        loadMore={loadMore}
+        selectedMarqueAgence={data.selectedMarqueAgence}
+        selectMarquesAgences={selectMarquesAgences}
+    />, },
+        { id: 'mark', href: 'mark', className: 'icon mark', text: 'Information de marque', page: <Examination /> },
+        { id: 'payment-information', href: 'payment-information', className: 'icon payment', text: 'Information de paiement', page: <Validation /> },
+        { id: 'campagne', href: 'campagne', className: 'icon photos', text: 'Campagnes', page: <Publish />, subMenu: {
+            title: 'Campagne', navList: [
+                { id: 'mark', href: 'mark', className: 'icon mark', text: 'Information de marque', page: <Examination /> },
+                { id: 'payment-information', href: 'payment-information', className: 'icon payment', text: 'Information de paiement', page: <Validation /> },        
+            ]
+        } },
+        { id: 'influencers', href: 'influencers', className: 'icon star', text: 'Influenceurs', page: <PostValidate /> },
+        { id: 'contact', href: 'contact', className: 'icon message', text: 'Contact plateform', page: <MissionValidate /> },
+    ]
+
     return (
         <NavPanel
         navList={navList}
-        pages={[
-            <MarquesAgences
-                datas={data.marquesAgencesList} 
-                loadMore={loadMore}
-                selectedMarqueAgence={data.selectedMarqueAgence}
-                selectMarquesAgences={selectMarquesAgences}
-            />,
-            <Examination />, 
-            <Validation />, 
-            <Publish />, 
-            <PostValidate />, 
-            <MissionValidate />
-        ]}
+ 
     />
     )
 }
