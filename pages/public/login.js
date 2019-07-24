@@ -121,6 +121,11 @@ const Login = () => {
         <span className="fa fa-twitch" style={styles.buttonIcon} />
         Twitch
       </Button>
+      <br />
+      <Button variant="contained" style={styleLoginButton} href="/auth/pinterest">
+        <span className="fa fa-pinterest" style={styles.buttonIcon} />
+        Pinterest
+      </Button>
 
       <div>
         <FormGenerator fields={fields} form={form} onChange={onChange} onSubmit={onSubmit} />

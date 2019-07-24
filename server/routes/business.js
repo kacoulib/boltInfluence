@@ -6,8 +6,19 @@ const CampaignOffer = require('../models/CampaignOffer');
 const Campaign = require('../models/Campaign');
 const { isBusiness, isBrand, isAgency } = require('../../utils/variables/user');
 const { handleErrors, listCollection } = require('../utils/express');
+const { AwaitingFunding, Validated } = require('../../utils/variables/campaignoffer');
 
 const router = express.Router();
+
+const userOwnsCampaignOffer = handleErrors(async (req, res, next) => {
+  const { slug: offer } = req.params;
+  const { slug: user } = req.user;
+  const owns = await Campaign.ownedByOfferSlug({ offer, user });
+  if (!owns) {
+    return res.status(404).end();
+  }
+  next();
+});
 
 router.use((req, res, next) => {
   if (!req.user || !isBusiness(req.user)) {
@@ -113,11 +124,77 @@ router.put(
 );
 
 router.get(
+  '/campaignoffers/:slug',
+  userOwnsCampaignOffer,
+  handleErrors(async (req, res) => {
+    const { slug: offerSlug } = req.params;
+    const offer = await CampaignOffer.getBySlug({ slug: offerSlug });
+    res.json(offer);
+  }),
+);
+
+router.get(
   '/campaignoffers/:slug/stats',
+  userOwnsCampaignOffer,
   handleErrors(async (req, res) => {
     const { slug } = req.params;
     const stats = await CampaignOffer.getStatsBySlug({ slug });
     res.json(stats);
+  }),
+);
+
+router.get(
+  '/campaignoffers/:slug/funds',
+  userOwnsCampaignOffer,
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    const funds = await CampaignOffer.getFundsBySlug({ slug });
+    res.json(funds);
+  }),
+);
+
+router.get(
+  '/campaignoffers/:slug/accept',
+  userOwnsCampaignOffer,
+  handleErrors(async (req, res) => {
+    const { slug: offerSlug } = req.params;
+    const offer = await CampaignOffer.changeStatusBySlug({
+      slug: offerSlug,
+      status: AwaitingFunding,
+    });
+    res.json(offer);
+  }),
+);
+
+router.put(
+  '/campaignoffers/:slug/validate',
+  userOwnsCampaignOffer,
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    await CampaignOffer.freeFundsBySlug({ slug });
+    res.status(204).end();
+  }),
+);
+
+router.post(
+  '/campaignoffers/:slug/fund-card',
+  userOwnsCampaignOffer,
+  handleErrors(async (req, res) => {
+    const { slug: offer } = req.params;
+    const { slug: user } = req.user;
+    const { card } = req.body;
+    await CampaignOffer.fundWithCardBySlug({ offer, user, card });
+    res.status(204).end();
+  }),
+);
+
+router.post(
+  '/campaignoffers/:slug/fund-wire',
+  userOwnsCampaignOffer,
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    const payin = await CampaignOffer.fundWithBankWireBySlug({ slug });
+    res.json(payin);
   }),
 );
 

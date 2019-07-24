@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const _ = require('lodash');
 
+const Stat = require('./Stat');
 const KycValidation = require('./KycValidation');
 const SocialMediaToken = require('./SocialMediaToken');
 const {
@@ -23,6 +24,7 @@ const {
   preregisterCard,
 } = require('../utils/mangopay');
 const { getStats } = require('../utils/socialmedias');
+const logger = require('../logs');
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -87,6 +89,8 @@ const mongoSchema = new Schema({
   brand: {
     type: ObjectId,
     ref: 'Brand',
+    unique: true,
+    sparse: true,
   },
   agency: [{ type: ObjectId, ref: 'Brand' }],
   // Company related (every user needs a company)
@@ -300,15 +304,22 @@ class UserClass {
     if (
       oldToken.accessToken !== token.accessToken ||
       oldToken.refreshToken !== token.refreshToken ||
-      oldToken.accessTokenSecret !== token.accessTokenSecret
+      oldToken.accessTokenSecret !== token.accessTokenSecret ||
+      oldToken.user !== user._id
     ) {
       // If the known token is not up to date, update it
       oldToken.accessToken = token.accessToken;
       oldToken.refreshToken = token.refreshToken;
       oldToken.accessTokenSecret = token.accessTokenSecret;
+      oldToken.user = user._id;
       await oldToken.save();
     }
     user = user.toObject();
+    this.getStatsById({ userId: user._id })
+      .then(({ stats }) =>
+        Stat.addOrUpdateManyForUserById(stats.map((s) => ({ user: user._id, ...s }))),
+      )
+      .catch((err) => logger.error(err.message));
     return _.pick(user, this.publicFields());
   }
 
@@ -473,6 +484,13 @@ class UserClass {
     const data = await Promise.all(socialMediaTokens.map(getStats));
     const stats = data.map((d) => d.stats);
     return { stats };
+  }
+
+  static async hasBrandById({ brandId, user: userSlug }) {
+    const owned = !!(await this.getId({
+      $and: [{ slug: userSlug }, { $or: [{ brand: brandId }, { agency: brandId }] }],
+    })).userId;
+    return owned;
   }
 }
 mongoSchema.loadClass(UserClass);

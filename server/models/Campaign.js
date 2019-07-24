@@ -128,18 +128,21 @@ class CampaignClass {
    * Get a Campaign by its slug
    * @param {Object} params
    * @param {String} params.slug - The slug of the Campaign to get
+   * @param {Boolean=} [params.showOffers]
    */
-  static async getBySlug({ slug }) {
+  static async getBySlug({ slug, showOffers = true } = {}) {
     const campaignDoc = await this.findOne({ slug }).populate('brand');
     if (!campaignDoc) {
       throw new Error('Campaign not found');
     }
     const campaign = campaignDoc.toObject();
-    const offerDocs = await CampaignOffer.find({ campaign: campaign._id }).populate(
-      'user',
-      User.publicFields(),
-    );
-    campaign.offers = offerDocs.map((doc) => doc.toObject());
+    if (showOffers) {
+      const offerDocs = await CampaignOffer.find({ campaign: campaign._id }).populate(
+        'user',
+        User.publicFields(),
+      );
+      campaign.offers = offerDocs.map((doc) => doc.toObject());
+    }
     return { campaign };
   }
 
@@ -245,10 +248,19 @@ class CampaignClass {
     if (!campaign) {
       return false;
     }
-    const owned = !!(await User.getId({
-      $and: [{ slug: userSlug }, { $or: [{ brand: campaign.brand }, { agency: campaign.brand }] }],
-    })).userId;
-    return owned;
+    return User.hasBrandById({ brandId: campaign.brand, user: userSlug });
+  }
+
+  static async ownedByOfferSlug({ user: userSlug, offer: offerSlug }) {
+    const offer = await CampaignOffer.findOne({ slug: offerSlug })
+      .populate('campaign')
+      .select(['campaign.brand', 'campaign.user'])
+      .lean();
+
+    if (!offer || !offer.campaign) {
+      return false;
+    }
+    return User.hasBrandById({ brandId: offer.campaign.brand, user: userSlug });
   }
 }
 mongoSchema.loadClass(CampaignClass);

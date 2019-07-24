@@ -6,9 +6,9 @@ const logger = require('../logs');
  * @param {(req: Request, res: Response) => any} fn
  * @returns {(res: Request, res: Response) => Promise<any>}
  */
-const handleErrors = (fn) => async (req, res) => {
+const handleErrors = (fn) => async (req, res, next) => {
   try {
-    await fn(req, res);
+    await fn(req, res, next);
   } catch (err) {
     logger.error(err);
     res.status(400).json({ error: err.message || err.Message || err.toString() });

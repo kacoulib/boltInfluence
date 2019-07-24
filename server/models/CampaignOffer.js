@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+const Stat = require('./Stat');
 const Payment = require('./Payment');
 const PaymentOperation = require('./PaymentOperation');
 const User = require('./User');
@@ -29,6 +30,7 @@ const {
 const logger = require('../logs');
 const { Failed } = require('../../utils/variables/payment');
 const { PayIn, TransferOut } = require('../../utils/variables/paymentoperation');
+const { Open, Close } = require('../../utils/variables/stat');
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -130,6 +132,11 @@ class CampaignOfferClass {
     if (!isProposed(off)) {
       throw new Error('Offer is not a proposal.');
     }
+
+    const { stats } = await User.getStatsById({ userId: offer.user });
+    await Stat.addOrUpdateManyForOfferById(
+      stats.map((s) => ({ offerId: off._id, offerStatus: Open, ...s })),
+    );
 
     const { wallet } = await createWallet({
       owner: process.env.MANGOPAY_BOLT_USERID,
@@ -268,27 +275,36 @@ class CampaignOfferClass {
   }
 
   static async fundWithBankWireBySlug({ slug }) {
-    const offer = await this.findOne({ slug })
-      .populate('campaign')
-      .populate('user', ['_id', 'mangopay.id', 'mangopay.wallet']);
+    const offer = await this.findOne({ slug }).populate('campaign');
+
     if (!offer) {
       throw new Error('CampaignOffer not found');
     }
     if (!isAwaitingFunding(offer)) {
       throw new Error('CampaignOffer is not waiting any funding.');
     }
+
+    const user = await User.findOne({ brand: offer.campaign.brand }).select('mangopay');
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+    if (!user.mangopay.wallet) {
+      throw new Error('User has no wallet');
+    }
+
     const { payment } = await Payment.add({
       offer: offer._id,
       amount: offer.campaign.budget,
-      debitedUser: offer.user._id,
+      debitedUser: user._id,
     });
 
     let payin;
     try {
       payin = (await createBankWireDirectPayIn({
-        user: offer.user.mangopay.id,
+        user: user.mangopay.id,
         amount: offer.campaign.budget,
-        creditedWallet: offer.user.mangopay.wallet,
+        creditedWallet: user.mangopay.wallet,
       })).payin;
     } catch (err) {
       logger.error(err);
@@ -449,15 +465,34 @@ class CampaignOfferClass {
     let stats;
     if (isProposed(offer)) {
       stats = {
-        latest: (await User.getStatsById({ userId: offer.user })).stats,
+        latest: (await Stat.getAllForUserById({ userId: offer.user })).stats,
       };
     } else {
       // Handle OPEN
+      stats = {
+        open: (await Stat.getAllForOfferById({ offerId: offer._id, offerStatus: Open })).stats,
+      };
     }
     if (isAwaitingValidation(offer) || isValidated(offer) || isDisputed(offer)) {
       // Handle CLOSE
+      stats.close = (await Stat.getAllForOfferById({
+        offerId: offer._id,
+        offerStatus: Close,
+      })).stats;
     }
     return stats;
+  }
+
+  /**
+   * @param {Object} options
+   * @param {ObjectId} options.userId - User ID
+   * @param {String} options.offer - Campaign Offer slug
+   */
+  static async ownedByUserId({ userId, offer: offerSlug }) {
+    const offer = await this.findOne({ slug: offerSlug, user: userId })
+      .select('_id')
+      .lean();
+    return !!offer;
   }
 }
 

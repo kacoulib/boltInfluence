@@ -5,6 +5,7 @@ const Campaign = require('../models/Campaign');
 const User = require('../models/User');
 const { handleErrors, listCollection, verifyKycUser } = require('../utils/express');
 const { kycFileUpload } = require('../utils/multer');
+const { registerCard } = require('../utils/mangopay');
 
 const router = express.Router();
 
@@ -84,7 +85,7 @@ router.get(
   '/campaigns/:slug',
   handleErrors(async (req, res) => {
     const { slug } = req.params;
-    const campaign = await Campaign.getBySlug({ slug });
+    const campaign = await Campaign.getBySlug({ slug, showOffers: false });
     res.json(campaign);
   }),
 );
@@ -95,6 +96,25 @@ router.get('/payments', (req, res) =>
 
     return Payment.listForUserById({ user }, listingOptions);
   })(req, res),
+);
+
+router.post(
+  '/cards/preregister',
+  handleErrors(async (req, res) => {
+    const { cardType, currency } = req.body;
+    const { slug } = req.user;
+    const registration = await User.preregisterCardBySlug({ slug, cardType, currency });
+    res.json(registration);
+  }),
+);
+
+router.post(
+  '/cards/register',
+  handleErrors(async (req, res) => {
+    const { registrationId, registrationData } = req.body;
+    await registerCard({ registrationId, registrationData });
+    res.status(204).end();
+  }),
 );
 
 // List of API:

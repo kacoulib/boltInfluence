@@ -1,6 +1,8 @@
 // @ts-check
 const { google } = require('googleapis');
 const Twitter = require('twitter');
+const { default: Instagram } = require('node-instagram');
+
 const { Twitch } = require('../utils/twitch');
 
 /**
@@ -53,10 +55,21 @@ const getYoutubeStats = async ({ provider, accessToken, refreshToken }) => {
  * @param {Object} options
  * @param {String} options.provider
  * @param {String} options.accessToken
- * @param {String} options.refreshToken
  * @returns {Promise<{stats: Stats}>}
  */
-const getInstagramStats = async ({ provider, accessToken, refreshToken }) => {};
+const getInstagramStats = async ({ provider, accessToken }) => {
+  const instagram = new Instagram({
+    clientId: process.env.Instagram_clientId,
+    clientSecret: process.env.Instagram_clientSecret,
+    accessToken,
+  });
+  const {
+    data: {
+      counts: { followed_by: value },
+    },
+  } = await instagram.get('users/self');
+  return { stats: { media: provider, value } };
+};
 
 /**
  *
