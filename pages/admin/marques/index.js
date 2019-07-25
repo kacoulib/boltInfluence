@@ -8,6 +8,8 @@ import Validation from '../../../components/page/process/validation';
 import Publish from '../../../components/page/process/publish';
 import MissionValidate from '../../../components/page/process/mission-validate';
 import PostValidate from '../../../components/page/process/post-validate';
+import CreateCampagne from '../../../components/page/marques/campagne/create';
+import ListCampagne from '../../../components/page/marques/campagne/list';
 
 
 
@@ -16,6 +18,13 @@ const CustomerIndex = () => {
     const [data, setData] = useState({
         marquesAgencesList: [],
         selectedMarqueAgence: null,
+
+        subscribedInfluencer: 22300, waitingInfluencer: 32300,
+        subscribedMarque: 18068, waitingMarque: 5647,
+        subscribedCampagne: 5435, waitingCampagne: 6453,
+
+        influencersList: [],
+        selectedInfluencer: null
     })
 
     const loadMore = () => {
@@ -29,8 +38,13 @@ const CustomerIndex = () => {
         const elem = data.marquesAgencesList.find(e => e._id = id);
         setData(Object.assign({}, data, { selectedMarqueAgence: elem }))
     }
+    const selectInfluencer = (id) => {
+        const elem = data.influencersList.find((e) => e._id = id);
+        setData(Object.assign({}, data, { selectedInfluencer: elem }))
+    }
 
     const navList = [
+        { id: 'mark', href: 'mark', className: 'icon mark', text: 'Information de marque', page: <CreateCampagne /> },
         {
             id: 'account', href: 'account', className: 'icon account', text: 'Informations de contact', page: <MarquesAgences
                 datas={data.marquesAgencesList}
@@ -44,8 +58,13 @@ const CustomerIndex = () => {
         {
             id: 'campagne', href: 'campagne', className: 'icon photos', text: 'Campagnes', page: <Publish />, subMenu: {
                 title: 'Campagne', navList: [
-                    { id: 'mark', href: 'mark', className: 'icon mark', text: 'Information de marque', page: <Examination /> },
-                    { id: 'payment-information', href: 'payment-information', className: 'icon payment', text: 'Information de paiement', page: <Validation /> },
+                    {
+                        id: 'payment-information', href: 'payment-information', className: 'icon payment', text: 'Information de paiement', page: <ListCampagne
+                            datas={data.influencersList}
+                            selectedInfluencer={data.selectedInfluencer}
+                            loadMore={loadMore}
+                            selectInfluencer={selectInfluencer} />
+                    },
                 ]
             }
         },
