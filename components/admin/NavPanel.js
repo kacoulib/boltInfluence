@@ -7,22 +7,41 @@ import Link from 'next/link';
 const NavPanel = ({ navList, index = 0 }) => {
     const [state, setState] = useState({
         index,
-        showSubMenu: false
+        showSubMenu: false,
+        subMenuIndex: index,
     });
-    const currentComp = navList[state.index].page;
-    const nav = navList[state.index].subMenu ? navList[state.index].subMenu.navList: navList;
-    console.log(nav)
+    let nav = navList[state.index].subMenu ? navList[state.index].subMenu.navList : navList;
+    let currentComp;
+
+    if (state.showSubMenu && navList[state.index].subMenu.navList[state.subMenuIndex])
+        currentComp = navList[state.index].subMenu.navList[state.subMenuIndex].page;
+    else
+        currentComp = navList[state.index].page;
+
+    const setNavigation = (index, hasSubMenu) => {
+        if (state.showSubMenu)
+            setState({ index: state.index, showSubMenu: state.showSubMenu, subMenuIndex: index })
+        else
+            setState({ index, showSubMenu: hasSubMenu || state.showSubMenu, subMenuIndex: index })
+    }
     return (
         <div id='process'>
             <Grid container>
+                {state.showSubMenu && <Grid item xs={12} sm={12}>
+                    <Grid container>
+                        <Grid item xs={12} sm={3}>
+                            <h2 id='subMenuTitle' className='text-right' onClick={() => setState({ index, showSubMenu: false })}>{navList[state.index].subMenu.title}</h2>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                }
                 <Grid item xs={12} sm={3}>
-                    {state.showSubMenu && <h2><span onClick={()=> setState({index, showSubMenu: false})}>sdsqsqdsqd</span>{navList[state.index].subMenu.title}</h2>}
                     <ul id='process-nav'>
                         {nav && nav.map((e, i) => {
                             return (
                                 <li key={i}>
                                     <Link prefetch href={`#${e.href}`}>
-                                        <a className={i == state.index ? 'orange-color' : 'gray-color'} onClick={() => setState({index: i, showSubMenu: e.subMenu})}>
+                                        <a className={i == state.index ? 'orange-color' : 'gray-color'} onClick={() => setNavigation(i, !!e.subMenu)}>
                                             <span className={e.className}></span>
                                             <span>{e.text}</span>
                                         </a>
@@ -33,7 +52,7 @@ const NavPanel = ({ navList, index = 0 }) => {
                     </ul>
                 </Grid>
                 <Grid item xs={12} sm={9} container>
-                    { currentComp }
+                    {currentComp}
                 </Grid>
             </Grid>
 

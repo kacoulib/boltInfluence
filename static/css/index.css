@@ -10,6 +10,22 @@ ul {
     background-repeat: no-repeat;
     background-position: top right;
 }
+#process-nav, #subMenuTitle {
+    padding-left: 2rem;
+    cursor: pointer;
+}
+#subMenuTitle {
+    position: relative;
+    top: -.5rem;
+    /* padding-bottom: .5rem; */
+}
+#subMenuTitle::before {
+    content: "<";
+    font-size: 1rem;
+    padding-left: 2px;
+    color: gray;
+    float: left;
+}
 #process-nav li {
     padding: .1rem 0;
 }
