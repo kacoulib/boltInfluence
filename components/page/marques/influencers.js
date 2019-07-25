@@ -2,6 +2,9 @@ import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types'
 import Stars from '../../../static/img/icon/full-stars.png'
 import InfluenceurJones from '../../../static/img/pictures/influencer_jones.png'
+import FacebookIcon from '../../../static/img/icon/facebook.png'
+import InstagramIcon from '../../../static/img/icon/instagram.png'
+import TiktokIcon from '../../../static/img/icon/tiktok.png'
 import Button from '@material-ui/core/Button';
 
 const styles = {
@@ -9,6 +12,8 @@ const styles = {
     interstList: { padding: '.5rem' },
     interstListIcon: { verticalAlign: 'middle', marginRight: 10 },
     tiniIcon: { height: '1rem', },
+    socialList: { margin: '1rem' },
+    socialListIcon: { width: 25 },
     influencer_info_container: { padding: '.5rem 1rem' }
 }
 
@@ -38,25 +43,36 @@ const Index = ({ datas, selectedInfluencer, selectInfluencer, loadMore }) => {
                             </div>
                             <Grid item container xs={12} sm={12}>
                                 <Grid item xs={12} sm={4} className='text-center'>
-                                    <div className='red-color'>3508K</div>
-                                    <span>Total abonnés</span>
+                                    <div>
+                                        <div className='red-color'>3508K</div>
+                                        <span>Total abonnés</span>
+                                    </div>
                                 </Grid>
                                 <Grid item xs={12} sm={4} className='text-center'>
-                                    <div className='red-color'>200€</div>
-                                    <span>Coût moyen par post / vidéo</span>
+                                    <div>
+                                        <div className='red-color'>200€</div>
+                                        <span>Coût moyen par post / vidéo</span>
+                                    </div>
                                 </Grid>
                                 <Grid item xs={12} sm={4} className='text-center'>
-                                    <div className='red-color'>250K</div>
-                                    <span>Engagement moyen</span>
+                                    <div>
+                                        <div className='red-color'>250K</div>
+                                        <span>Engagement moyen</span>
+                                    </div>
                                 </Grid>
-                                <Grid item xs={12} sm={12} className='text-center'>
-                                    <span>Engagement moyen</span>
-                                    <ul>
-                                        <li>
-                                            <div className='social facebook'></div>
-                                            <p>58K</p>
-                                        </li>
-                                    </ul>
+                                <Grid item container xs={12} sm={12} className='text-center'>
+                                    <div className='text-center' style={styles.socialList}>
+                                        <div><img src={FacebookIcon} style={styles.socialListIcon} /></div>
+                                        <div>58K</div>
+                                    </div>
+                                    <div className='text-center' style={styles.socialList}>
+                                        <div><img src={InstagramIcon} style={styles.socialListIcon} /></div>
+                                        <div>58K</div>
+                                    </div>
+                                    <div className='text-center' style={styles.socialList}>
+                                        <div><img src={TiktokIcon} style={styles.socialListIcon} /></div>
+                                        <div>58K</div>
+                                    </div>
                                 </Grid>
                             </Grid>
                         </Grid>
