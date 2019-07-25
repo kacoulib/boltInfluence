@@ -208,6 +208,18 @@ button.submit {
 }
 
 /* IMAGE */
+.social {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.facebook {
+    background-image: url('../img/icon/facebook.png');
+}
+
 .icon {
     display: inline-block;
     width: 1.5rem;
@@ -260,4 +272,19 @@ button.submit {
 }
 .write {
     background-image: url('../img/icon/write.svg');
+}
+.love {
+    background-image: url('../img/icon/love.png');
+}
+.travel {
+    background-image: url('../img/icon/travel.png');
+}
+.location {
+    background-image: url('../img/icon/location.png');
+}
+.mode {
+    background-image: url('../img/icon/mode.png');
+}
+.mother {
+    background-image: url('../img/icon/mother.png');
 }

@@ -1,0 +1,75 @@
+import Grid from '@material-ui/core/Grid';
+import PropTypes from 'prop-types'
+import Stars from '../../../static/img/icon/stars.png'
+import InfluenceurJones from '../../../static/img/pictures/influencer_jones.png'
+import Button from '@material-ui/core/Button';
+
+const styles = {
+    container: { padding: '0 3em' },
+    interstList: { padding: '.5rem' },
+    interstListIcon: { verticalAlign: 'middle', marginRight: 10 },
+    tiniIcon: { height: '1rem', },
+}
+
+const Index = ({ datas, selectedInfluencer, selectInfluencer, loadMore }) => {
+    return (
+        <Grid container alignItems='center' justify="center" style={styles.container} >
+            <Grid item xs={12} sm={12} style={styles.childContainer}>
+                <h2>Influenceurs</h2>
+                {datas && datas.map((elem, i) => (
+                    <Grid key={i} container alignItems='center' justify="center" className='influencers_list'>
+                        <Grid item xs={4} sm={4} className='center-text' style={styles.influencer_img_container}>
+                            <div className='influencers_img' style={{ backgroundImage: "url(" + InfluenceurJones + ")" }}><div></div>
+                                <img src={InfluenceurJones} />
+                            </div>
+                        </Grid>
+                        <Grid item xs={8} sm={8} style={styles.influencer_info_container}>
+                            <div>
+                                <Grid key={i} container alignItems='center' justify="center" >
+                                    <Grid item xs={4} sm={4}><img src={Stars} style={styles.stars} /></Grid>
+                                    <Grid item xs={4} sm={4} className='text-center'><span>{`${elem.firstName} ${elem.lastName}`}</span></Grid>
+                                    <Grid item xs={4} sm={4} className='text-right'><span className='icon love pointer' onClick={() => selectInfluencer(elem._id)}></span></Grid>
+                                </Grid>
+                            </div>
+                            <div className='center-text'>
+                                <ul >{elem.interests.map(((e, y) => (<li key={y} className='inline-block' style={styles.interstList}><span style={styles.interstListIcon} className={`icon ${e.name}`}></span>{e.text}</li>)))}</ul>
+                                <p><span style={styles.interstListIcon} className='icon location' style={styles.tiniIcon}></span>{elem.location}</p>
+                            </div>
+                            <Grid item container xs={12} sm={12} style={styles.influencer_info_container}>
+                                <Grid item xs={12} sm={4} style={styles.influencer_info_container} className='text-center'>
+                                    <div className='red-color'>3508K</div>
+                                    <span>Total abonnés</span>
+                                </Grid>
+                                <Grid item xs={12} sm={4} style={styles.influencer_info_container} className='text-center'>
+                                    <div className='red-color'>200€</div>
+                                    <span>Coût moyen par post / vidéo</span>
+                                </Grid>
+                                <Grid item xs={12} sm={4} style={styles.influencer_info_container} className='text-center'>
+                                    <div className='red-color'>250K</div>
+                                    <span>Engagement moyen</span>
+                                </Grid>
+                                <Grid item xs={12} sm={12} style={styles.influencer_info_container} className='text-center'>
+                                    <span>Engagement moyen</span>
+                                    <ul>
+                                        <li>
+                                            <div className='social facebook'></div>
+                                            <p>58K</p>
+                                        </li>
+                                    </ul>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                ))}
+            </Grid>
+            <Button onClick={() => loadMore()}>More</Button>
+        </ Grid>
+    )
+}
+Index.propTypes = {
+    datas: PropTypes.object.isRequired,
+    selectInfluencer: PropTypes.func.isRequired,
+    loadMore: PropTypes.func
+}
+
+export default Index;

@@ -4,7 +4,7 @@ import NavPanel from '../../../components/admin/NavPanel';
 
 import MarquesAgences from '../../../components/page/marques/marquesAgences'
 import Examination from '../../../components/page/process/examination';
-import Validation from '../../../components/page/process/validation';
+import Influencers from '../../../components/page/marques/influencers'
 import Publish from '../../../components/page/process/publish';
 import MissionValidate from '../../../components/page/process/mission-validate';
 import PostValidate from '../../../components/page/process/post-validate';
@@ -27,9 +27,9 @@ const CustomerIndex = () => {
         subscribedCampagne: 5435, waitingCampagne: 6453,
 
         influencersList: [
-            { _id: '5483752', name: 'Campagne Naked blushed', picture: 'influencer_jones.png', marque: 'L\'Oréal', status: 'doing' },
-            { _id: '5483752', name: 'LOréal campagne', picture: 'influencer_jones.png', marque: 'Sephora', status: 'active' },
-            { _id: '5483752', name: 'Campagne Naked blushed', picture: 'influencer_jones.png', marque: 'Hilton', status: 'done' }],
+            { _id: '5483752', location: 'Saratoga, CA, USA', interests: [{name:'mother', text: 'Mother'}, {name:'mode', text: 'Mode'}], firstName: 'Sam', lastName: 'James', name: 'Campagne Naked blushed', picture: 'influencer_jones.png', marque: 'L\'Oréal', status: 'doing' },
+            { _id: '5483752', location: 'Saratoga, CA, USA', interests: [{name:'travel', text: 'Travel'},], firstName: 'Sam', lastName: 'James', name: 'LOréal campagne', picture: 'influencer_jones.png', marque: 'Sephora', status: 'active' },
+            { _id: '5483752', location: 'Saratoga, CA, USA', interests: [{name:'travel', text: 'Travel'}, {name:'mother', text:'mother'}, {name:'mode', text: 'Mode'}], firstName: 'Sam', lastName: 'James', name: 'Campagne Naked blushed', picture: 'influencer_jones.png', marque: 'Hilton', status: 'done' }],
         selectedInfluencer: null
     })
 
@@ -72,7 +72,12 @@ const CustomerIndex = () => {
                 ]
             }
         },
-        { href: 'influencers', className: 'icon star', text: 'Influenceurs', page: <PostValidate /> },
+        {
+            href: 'influencers', className: 'icon star', text: 'Influenceurs', page: <Influencers datas={data.influencersList}
+                selectedInfluencer={data.selectedInfluencer}
+                loadMore={loadMore}
+                selectInfluencer={selectInfluencer} />
+        },
         { href: 'contact', className: 'icon message', text: 'Contact plateform', page: <MissionValidate /> },
     ]
 
