@@ -91,6 +91,8 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                                         onChange={handleChange(elem.name)}
                                                         style={{ paddingRight: '15px' }}
                                                         {...elemProps}
+                                                        rows={8}
+                                                        rowsMax={10}
                                                     />
                                                 </Grid>
                                             </Grid>
@@ -193,7 +195,6 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                                 {showLabel && <Grid item {...labelSpacing}>{elem.label}</Grid>}
 
                                                 <Grid item {...labelSpacing}>
-
                                                     <div>
                                                         <Upload name={elem.name} label={elem.label} value={form[elem.name]} onChange={onChange} {...elemProps} />
                                                     </div>

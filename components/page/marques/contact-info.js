@@ -43,8 +43,6 @@ const fields = [
         type: 'upload',
         required: true,
         width: 12,
-        props: {
-        }
     },
     {
         label: "Bio",
@@ -55,10 +53,8 @@ const fields = [
         props: {
             list: choiceList,
             required: true,
-            // multiline: true,
             margin: "normal",
             variant: "outlined",
-            rows: 15
         }
     },
 ]

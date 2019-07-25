@@ -10,6 +10,7 @@ import MissionValidate from '../../../components/page/process/mission-validate';
 import PostValidate from '../../../components/page/process/post-validate';
 import CreateCampagne from '../../../components/page/marques/campagne/create';
 import ListCampagne from '../../../components/page/marques/campagne/list';
+import ContactInfo from '../../../components/page/marques/contact-info';
 
 
 
@@ -47,7 +48,7 @@ const CustomerIndex = () => {
     }
 
     const navList = [
-        { href: 'mark', className: 'icon mark', text: 'Information de marque', page: <CreateCampagne /> },
+        { href: 'mark', className: 'icon mark', text: 'Information de marque', page: <ContactInfo /> },
         {
             href: 'account', className: 'icon account', text: 'Informations de contact', page: <MarquesAgences
                 datas={data.campagneList}
@@ -68,7 +69,7 @@ const CustomerIndex = () => {
                             loadMore={loadMore}
                             selectInfluencer={selectInfluencer} />
                     },
-                    { href: 'mark', className: 'icon mark', text: 'Ajouter une campagne', page: <Examination /> },
+                    { href: 'mark', className: 'icon mark', text: 'Ajouter une campagne', page: <CreateCampagne /> },
 
                 ]
             }
