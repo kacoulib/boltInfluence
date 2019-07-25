@@ -16,7 +16,7 @@ const NavPanel = ({ navList, index = 0 }) => {
         <div id='process'>
             <Grid container>
                 <Grid item xs={12} sm={3}>
-                    {state.showSubMenu && <h2><span onClick={()=> setState({index, showSubMenu: false})}>sdsqsqdsqd</span>{navList[state.index].subMenu.title}</h2>}
+                    {state.showSubMenu && <h2><span onClick={()=> setState({index, showSubMenu: false})}>{"<< "}</span>{navList[state.index].subMenu.title}</h2>}
                     <ul id='process-nav'>
                         {nav && nav.map((e, i) => {
                             return (

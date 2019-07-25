@@ -8,8 +8,8 @@ import Validation from '../../../components/page/process/validation';
 import Publish from '../../../components/page/process/publish';
 import MissionValidate from '../../../components/page/process/mission-validate';
 import PostValidate from '../../../components/page/process/post-validate';
-
-
+import Calendar from '../../../components/dataDisplay/element/calendar';
+import Campagne from "../../../components/page/marques/campagne";
 
 const CustomerIndex = () => {
 
@@ -39,9 +39,9 @@ const CustomerIndex = () => {
     />, },
         { id: 'mark', href: 'mark', className: 'icon mark', text: 'Information de marque', page: <Examination /> },
         { id: 'payment-information', href: 'payment-information', className: 'icon payment', text: 'Information de paiement', page: <Validation /> },
-        { id: 'campagne', href: 'campagne', className: 'icon photos', text: 'Campagnes', page: <Publish />, subMenu: {
+        { id: 'campagne', href: 'campagne', className: 'icon photos', text: 'Campagnes', page: <Calendar/>, subMenu: {
             title: 'Campagne', navList: [
-                { id: 'mark', href: 'mark', className: 'icon mark', text: 'Information de marque', page: <Examination /> },
+                { id: 'mark', href: 'mark', className: 'icon mark', text: 'Information de marque', page: <Publish /> },
                 { id: 'payment-information', href: 'payment-information', className: 'icon payment', text: 'Information de paiement', page: <Validation /> },        
             ]
         } },
