@@ -27,9 +27,9 @@ const CustomerIndex = () => {
         subscribedCampagne: 5435, waitingCampagne: 6453,
 
         influencersList: [
-            { _id: '5483752', location: 'Saratoga, CA, USA', interests: [{name:'mother', text: 'Mother'}, {name:'mode', text: 'Mode'}], firstName: 'Sam', lastName: 'James', name: 'Campagne Naked blushed', picture: 'influencer_jones.png', marque: 'L\'Oréal', status: 'doing' },
-            { _id: '5483752', location: 'Saratoga, CA, USA', interests: [{name:'travel', text: 'Travel'},], firstName: 'Sam', lastName: 'James', name: 'LOréal campagne', picture: 'influencer_jones.png', marque: 'Sephora', status: 'active' },
-            { _id: '5483752', location: 'Saratoga, CA, USA', interests: [{name:'travel', text: 'Travel'}, {name:'mother', text:'mother'}, {name:'mode', text: 'Mode'}], firstName: 'Sam', lastName: 'James', name: 'Campagne Naked blushed', picture: 'influencer_jones.png', marque: 'Hilton', status: 'done' }],
+            { _id: '5483752', location: 'Saratoga, CA, USA', interests: [{ name: 'mother', text: 'Mother' }, { name: 'mode', text: 'Mode' }], firstName: 'Sam', lastName: 'James', name: 'Campagne Naked blushed', picture: 'influencer_jones.png', marque: 'L\'Oréal', status: 'doing' },
+            { _id: '5483752', location: 'Saratoga, CA, USA', interests: [{ name: 'travel', text: 'Travel' },], firstName: 'Sam', lastName: 'James', name: 'LOréal campagne', picture: 'influencer_jones.png', marque: 'Sephora', status: 'active' },
+            { _id: '5483752', location: 'Saratoga, CA, USA', interests: [{ name: 'travel', text: 'Travel' }, { name: 'mother', text: 'mother' }, { name: 'mode', text: 'Mode' }], firstName: 'Sam', lastName: 'James', name: 'Campagne Naked blushed', picture: 'influencer_jones.png', marque: 'Hilton', status: 'done' }],
         selectedInfluencer: null
     })
 
@@ -50,7 +50,7 @@ const CustomerIndex = () => {
     }
 
     const navList = [
-        { href: 'mark', className: 'icon mark', text: 'Ajouter une campagne', page: <CreateCampagne /> },
+        // { href: 'mark', className: 'icon mark', text: 'Ajouter une campagne', page: <CreateCampagne /> },
 
         { href: 'mark', className: 'icon mark', text: 'Information de marque', page: <ContactInfo /> },
         {
