@@ -10,7 +10,9 @@ import MissionValidate from '../../../components/page/process/mission-validate';
 import PostValidate from '../../../components/page/process/post-validate';
 import CreateCampagne from '../../../components/page/marques/campagne/create';
 import ListCampagne from '../../../components/page/marques/campagne/list';
-import ContactInfo from '../../../components/page/marques/contact-info';
+import ContactInfo from '../../../components/page/marques/info-contact';
+import MarqueInfo from '../../../components/page/marques/info-marque';
+import PaymentInfo from '../../../components/page/marques/info-payment';
 
 
 
@@ -48,17 +50,13 @@ const CustomerIndex = () => {
     }
 
     const navList = [
+        { href: 'mark', className: 'icon mark', text: 'Ajouter une campagne', page: <CreateCampagne /> },
+
         { href: 'mark', className: 'icon mark', text: 'Information de marque', page: <ContactInfo /> },
         {
-            href: 'account', className: 'icon account', text: 'Informations de contact', page: <MarquesAgences
-                datas={data.campagneList}
-                loadMore={loadMore}
-                selectedMarqueAgence={data.selectedMarqueAgence}
-                selectMarquesAgences={selectMarquesAgences}
-            />,
+            href: 'account', className: 'icon account', text: 'Informations de contact', page: <MarqueInfo />,
         },
-        { href: 'mark', className: 'icon mark', text: 'Information de marque', page: <Examination /> },
-        { href: 'payment-information', className: 'icon payment', text: 'Information de paiement', page: <Validation /> },
+        { href: 'payment-information', className: 'icon payment', text: 'Information de paiement', page: <PaymentInfo /> },
         {
             href: 'campagne', className: 'icon photos', text: 'Campagnes', page: <Publish />, subMenu: {
                 title: 'Campagne', navList: [
@@ -79,7 +77,9 @@ const CustomerIndex = () => {
     ]
 
     return (
-        <NavPanel navList={navList} />
+        <div id='admin-marque'>
+            <NavPanel navList={navList} />
+        </div>
     )
 }
 

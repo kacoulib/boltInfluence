@@ -70,6 +70,12 @@ body a {
     display: block;
     width: 100%;
 }
+#admin-marque h2:first-child {
+    margin: 0;
+    padding-bottom: .8rem;
+    border-bottom: 1px solid #D8D8D8;
+
+}
 /* Campagne  */
 .filter {
     border: 1px solid;
@@ -120,6 +126,20 @@ body a {
     opacity: 0;
 }
 /* OTHER */
+.red-color {
+    color: #F13F4B;
+}
+.blue-bg {
+    background-color: #242B45;
+}
+button.submit {
+    background-color: #F13F4B;
+    padding: .8rem;
+    color: white;
+}
+.submit.large {
+    width: 50%;
+}
 .pointer {
     cursor: pointer;
 }

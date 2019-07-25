@@ -87,9 +87,9 @@ const Index = ({ selectedInfluencer }) => {
                     onSubmit={onSubmit}
                 />
             </Grid>
-            <Grid item xs={12}>
-                <Button variant="contained" type="submit" style={buttonStyle} onClick={() => onSubmit()}>
-                    Submit
+            <Grid item xs={12} justify='center' className='center-text'>
+                <Button variant="contained" type="submit" className='submit large' onClick={() => onSubmit()}>
+                    Mettre à jour
                 </Button>
             </Grid>
         </ Grid>
