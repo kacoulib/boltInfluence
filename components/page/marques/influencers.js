@@ -1,6 +1,6 @@
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types'
-import Stars from '../../../static/img/icon/stars.png'
+import Stars from '../../../static/img/icon/full-stars.png'
 import InfluenceurJones from '../../../static/img/pictures/influencer_jones.png'
 import Button from '@material-ui/core/Button';
 
@@ -9,6 +9,7 @@ const styles = {
     interstList: { padding: '.5rem' },
     interstListIcon: { verticalAlign: 'middle', marginRight: 10 },
     tiniIcon: { height: '1rem', },
+    influencer_info_container: { padding: '.5rem 1rem' }
 }
 
 const Index = ({ datas, selectedInfluencer, selectInfluencer, loadMore }) => {
@@ -17,9 +18,9 @@ const Index = ({ datas, selectedInfluencer, selectInfluencer, loadMore }) => {
             <Grid item xs={12} sm={12} style={styles.childContainer}>
                 <h2>Influenceurs</h2>
                 {datas && datas.map((elem, i) => (
-                    <Grid key={i} container alignItems='center' justify="center" className='influencers_list'>
-                        <Grid item xs={4} sm={4} className='center-text' style={styles.influencer_img_container}>
-                            <div className='influencers_img' style={{ backgroundImage: "url(" + InfluenceurJones + ")" }}><div></div>
+                    <Grid key={i} container alignItems='center' justify="center" className='influencers_list' alignItems="stretch">
+                        <Grid item xs={4} sm={4} className='center-text' style={styles.influencer_img_container} >
+                            <div className='influencers_img' style={{ backgroundImage: "url(" + InfluenceurJones + ")", backgroundSize: 'contain' }}><div></div>
                                 <img src={InfluenceurJones} />
                             </div>
                         </Grid>
@@ -35,20 +36,20 @@ const Index = ({ datas, selectedInfluencer, selectInfluencer, loadMore }) => {
                                 <ul >{elem.interests.map(((e, y) => (<li key={y} className='inline-block' style={styles.interstList}><span style={styles.interstListIcon} className={`icon ${e.name}`}></span>{e.text}</li>)))}</ul>
                                 <p><span style={styles.interstListIcon} className='icon location' style={styles.tiniIcon}></span>{elem.location}</p>
                             </div>
-                            <Grid item container xs={12} sm={12} style={styles.influencer_info_container}>
-                                <Grid item xs={12} sm={4} style={styles.influencer_info_container} className='text-center'>
+                            <Grid item container xs={12} sm={12}>
+                                <Grid item xs={12} sm={4} className='text-center'>
                                     <div className='red-color'>3508K</div>
                                     <span>Total abonnés</span>
                                 </Grid>
-                                <Grid item xs={12} sm={4} style={styles.influencer_info_container} className='text-center'>
+                                <Grid item xs={12} sm={4} className='text-center'>
                                     <div className='red-color'>200€</div>
                                     <span>Coût moyen par post / vidéo</span>
                                 </Grid>
-                                <Grid item xs={12} sm={4} style={styles.influencer_info_container} className='text-center'>
+                                <Grid item xs={12} sm={4} className='text-center'>
                                     <div className='red-color'>250K</div>
                                     <span>Engagement moyen</span>
                                 </Grid>
-                                <Grid item xs={12} sm={12} style={styles.influencer_info_container} className='text-center'>
+                                <Grid item xs={12} sm={12} className='text-center'>
                                     <span>Engagement moyen</span>
                                     <ul>
                                         <li>

@@ -31,7 +31,8 @@ const fields = [
         required: true,
         width: 6,
         props: {
-            list: choiceList,
+            list: [{ name: 'Marque1', value: 'marque 1' }, { name: 'Marque2', value: 'second marque' }],
+
             margin: "normal",
             variant: "outlined",
             required: true

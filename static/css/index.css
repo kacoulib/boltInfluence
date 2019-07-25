@@ -83,6 +83,9 @@ body a {
     border-radius: 5px;
     cursor: pointer;
 }
+.filter:hover {
+    opacity: .7;
+}
 .filter.active {
     border: 1px solid #F13F4B;
     background-color: #F13F4B;
