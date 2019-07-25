@@ -16,26 +16,29 @@ import ListCampagne from '../../../components/page/marques/campagne/list';
 const CustomerIndex = () => {
 
     const [data, setData] = useState({
-        marquesAgencesList: [],
+        campagneList: [],
         selectedMarqueAgence: null,
 
         subscribedInfluencer: 22300, waitingInfluencer: 32300,
         subscribedMarque: 18068, waitingMarque: 5647,
         subscribedCampagne: 5435, waitingCampagne: 6453,
 
-        influencersList: [],
+        influencersList: [
+            { _id: '5483752', name: 'Campagne Naked blushed', picture: 'influencer_jones.png', marque: 'L\'Oréal', status: 'doing' },
+            { _id: '5483752', name: 'LOréal campagne', picture: 'influencer_jones.png', marque: 'Sephora', status: 'active' },
+            { _id: '5483752', name: 'Campagne Naked blushed', picture: 'influencer_jones.png', marque: 'Hilton', status: 'done' }],
         selectedInfluencer: null
     })
 
     const loadMore = () => {
-        const tmp = data.marquesAgencesList.push({ _id: '5483752', name: 'L\'Oréal', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'En cours d\'inscription' },
-            { _id: '5483752', name: 'Séphora', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'Inscrit' },
+        const tmp = data.campagneList.push({ _id: '5483752', name: 'L\'Oréal', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', status: 'En cours d\'inscription' },
+            { _id: '5483752', name: 'Séphora', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', status: 'Inscrit' },
         )
-        setData(Object.assign({}, data, { marquesAgencesList: data.marquesAgencesList }))
+        setData(Object.assign({}, data, { campagneList: data.campagneList }))
     }
 
     const selectMarquesAgences = (id) => {
-        const elem = data.marquesAgencesList.find(e => e._id = id);
+        const elem = data.campagneList.find(e => e._id = id);
         setData(Object.assign({}, data, { selectedMarqueAgence: elem }))
     }
     const selectInfluencer = (id) => {
@@ -44,32 +47,34 @@ const CustomerIndex = () => {
     }
 
     const navList = [
-        { id: 'mark', href: 'mark', className: 'icon mark', text: 'Information de marque', page: <CreateCampagne /> },
+        { href: 'mark', className: 'icon mark', text: 'Information de marque', page: <CreateCampagne /> },
         {
-            id: 'account', href: 'account', className: 'icon account', text: 'Informations de contact', page: <MarquesAgences
-                datas={data.marquesAgencesList}
+            href: 'account', className: 'icon account', text: 'Informations de contact', page: <MarquesAgences
+                datas={data.campagneList}
                 loadMore={loadMore}
                 selectedMarqueAgence={data.selectedMarqueAgence}
                 selectMarquesAgences={selectMarquesAgences}
             />,
         },
-        { id: 'mark', href: 'mark', className: 'icon mark', text: 'Information de marque', page: <Examination /> },
-        { id: 'payment-information', href: 'payment-information', className: 'icon payment', text: 'Information de paiement', page: <Validation /> },
+        { href: 'mark', className: 'icon mark', text: 'Information de marque', page: <Examination /> },
+        { href: 'payment-information', className: 'icon payment', text: 'Information de paiement', page: <Validation /> },
         {
-            id: 'campagne', href: 'campagne', className: 'icon photos', text: 'Campagnes', page: <Publish />, subMenu: {
+            href: 'campagne', className: 'icon photos', text: 'Campagnes', page: <Publish />, subMenu: {
                 title: 'Campagne', navList: [
                     {
-                        id: 'payment-information', href: 'payment-information', className: 'icon payment', text: 'Information de paiement', page: <ListCampagne
+                        href: 'my-campagne', className: 'icon payment', text: 'Mes campagnes', page: <ListCampagne
                             datas={data.influencersList}
                             selectedInfluencer={data.selectedInfluencer}
                             loadMore={loadMore}
                             selectInfluencer={selectInfluencer} />
                     },
+                    { href: 'mark', className: 'icon mark', text: 'Ajouter une campagne', page: <Examination /> },
+
                 ]
             }
         },
-        { id: 'influencers', href: 'influencers', className: 'icon star', text: 'Influenceurs', page: <PostValidate /> },
-        { id: 'contact', href: 'contact', className: 'icon message', text: 'Contact plateform', page: <MissionValidate /> },
+        { href: 'influencers', className: 'icon star', text: 'Influenceurs', page: <PostValidate /> },
+        { href: 'contact', className: 'icon message', text: 'Contact plateform', page: <MissionValidate /> },
     ]
 
     return (

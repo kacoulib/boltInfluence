@@ -2,6 +2,9 @@ ul {
     margin: 0;
     list-style: none;
 }
+body a {
+    color: #5b5b5d;
+}
 
 /* PROCESS */
 #process {
@@ -67,6 +70,41 @@ ul {
     display: block;
     width: 100%;
 }
+/* Campagne  */
+.filter {
+    border: 1px solid;
+    padding: .5rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.filter.active {
+    border: 1px solid #F13F4B;
+    background-color: #F13F4B;
+    color: white;
+}
+.filter.done {
+    color: #87b8c2;
+}
+.filter.new {
+    color: #f1943f;
+}
+.filter> div:nth-child(2){
+    min-width: 25px;
+    border-radius: 50%;
+    text-align: center;
+    color: white;
+}
+.filter.doing > div:nth-child(2){
+    background-color: black;
+}
+.filter.new > div:nth-child(2){
+    background-color: #f1943f;
+    font-size: 1.5rem;
+}
+.filter.done > div:nth-child(2){
+    background-color: #87b8c2;
+}
+
 /* ADMIN  */
 .influencers_list {
     background-color: #F4F3F8;

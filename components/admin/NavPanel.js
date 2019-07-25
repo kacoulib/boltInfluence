@@ -22,7 +22,7 @@ const NavPanel = ({ navList, index = 0 }) => {
         if (state.showSubMenu)
             setState({ index: state.index, showSubMenu: state.showSubMenu, subMenuIndex: index })
         else
-            setState({ index, showSubMenu: hasSubMenu || state.showSubMenu, subMenuIndex: index })
+            setState({ index, showSubMenu: hasSubMenu || state.showSubMenu, subMenuIndex: 0 })
     }
     return (
         <div id='process'>
