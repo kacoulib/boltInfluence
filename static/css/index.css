@@ -71,7 +71,7 @@ body a {
     width: 100%;
 }
 #admin-marque h2:first-child {
-    margin: 0;
+    margin: 0 0 .7rem;
     padding-bottom: .8rem;
     border-bottom: 1px solid #D8D8D8;
 
