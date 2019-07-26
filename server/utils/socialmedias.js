@@ -2,6 +2,7 @@
 const { google } = require('googleapis');
 const Twitter = require('twitter');
 const { default: Instagram } = require('node-instagram');
+const FB = require('fb');
 
 const { Twitch } = require('../utils/twitch');
 
@@ -132,13 +133,41 @@ const getTwitchStats = async ({ provider, accessToken, refreshToken }) => {
 };
 
 /**
- * @type {Readonly<{ [key: string]: (...args: any[]) => Promise<{stats: Stats}> }>}
+ * @param {Object} options
+ * @param {String} options.provider
+ * @param {String} options.accessToken
+ * @param {String} options.refreshToken
+ */
+const getFacebookStats = async ({ provider: media, accessToken, refreshToken }) => {
+  const fbUser = FB.extend({
+    accessToken,
+    appId: process.env.Facebook_clientId,
+    appSecret: process.env.Facebook_clientSecret,
+    version: 'v3.2',
+  });
+  const userFb = await fbUser.api(
+    'me?fields=id,address,birthday,email,first_name,last_name,languages,picture,gender,accounts{fan_count}',
+  );
+  const value =
+    (((userFb.accounts || {}).data || []).sort((a, b) => a.fan_count - b.fan_count)[0] || {})
+      .fan_count || 0;
+  return {
+    stats: {
+      media,
+      value,
+    },
+  };
+};
+
+/**
+ * @type {Readonly<Object<string, (...arg: any[]) => Promise<{stats: Stats}>>>}
  */
 const providerFunctions = Object.freeze({
   google: getYoutubeStats,
   instagram: getInstagramStats,
   twitter: getTwitterStats,
   twitch: getTwitchStats,
+  facebook: getFacebookStats,
 });
 
 /**

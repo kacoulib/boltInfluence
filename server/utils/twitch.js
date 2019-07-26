@@ -45,8 +45,9 @@ class Twitch {
    * @param {Object} options
    * @param {String} options.endpoint
    * @param {Object} [options.query]
+   * @param {Boolean} [options.hasRefreshed=false]
    */
-  async get({ endpoint, query }) {
+  async get({ endpoint, query, hasRefreshed = false }) {
     const options = {
       method: 'GET',
       uri: `${TWITCH_API_URL}${endpoint}`,
@@ -60,8 +61,11 @@ class Twitch {
       const data = await rpn(options);
       return data;
     } catch (err) {
-      console.error(err);
-      // TODO: Try to detect needed token refreshing
+      console.error(err.message);
+      if (err.statusCode === 401 && !hasRefreshed) {
+        await this.refresh();
+        return this.get({ endpoint, query, hasRefreshed: true });
+      }
       throw err;
     }
   }

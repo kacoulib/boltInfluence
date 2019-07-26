@@ -211,7 +211,7 @@ class CampaignOfferClass {
       },
       [AwaitingValidation]: {
         [Disputed]: null,
-        [Validated]: null,
+        // [Validated]: null, This transition is done automatically when the influencer's payment is complete.
       },
       // [Disputed]: {},
       // [Validated]: {},
@@ -269,9 +269,6 @@ class CampaignOfferClass {
       operationType: PayIn,
       operationId: payin.Id,
     });
-    // logger.info(payment.toObject());
-    // logger.info(payin);
-    // logger.info(paymentOperation);
   }
 
   static async fundWithBankWireBySlug({ slug }) {
@@ -333,9 +330,7 @@ class CampaignOfferClass {
         BIC: bic,
       },
     } = payin;
-    // logger.info(payment.toObject());
-    // logger.info(payin);
-    // logger.info(paymentOperation);
+    
     return {
       payin: {
         address,
@@ -349,13 +344,6 @@ class CampaignOfferClass {
         reference,
       },
     };
-
-    // Create a MangoPay Bankwire PayIn to user's
-    // wallet
-    // Make it so there's a transfer to the offer's
-    // wallet once the wire is processed
-    // Make it so the offer transitions to the
-    // Ongoing status once the transfer is processed
   }
 
   static async validateFundsById({ offerId }) {

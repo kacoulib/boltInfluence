@@ -16,6 +16,7 @@ const googleAuth = require('./auth/google');
 const twitterAuth = require('./auth/twitter');
 const twitchAuth = require('./auth/twitch');
 const pinterestAuth = require('./auth/pinterest');
+const facebookAuth = require('./auth/facebook');
 const basicAuth = require('./auth/basic');
 const routes = require('./routes');
 const User = require('./models/User');
@@ -126,6 +127,7 @@ nextApp.prepare().then(async () => {
   twitterAuth({ app, ROOT_URL });
   twitchAuth({ app, ROOT_URL });
   pinterestAuth({ app, ROOT_URL });
+  facebookAuth({ app, ROOT_URL });
   basicAuth({ app, nextApp });
   // app.use((req, res, next) => {
   //   console.log('USER:', req.user);

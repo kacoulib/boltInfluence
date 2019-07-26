@@ -4,6 +4,7 @@ const _ = require('lodash');
 const Stat = require('./Stat');
 const KycValidation = require('./KycValidation');
 const SocialMediaToken = require('./SocialMediaToken');
+const SignUpMediaThreshold = require('./SignUpMediaThreshold');
 const {
   RoleList,
   BusinessRoleList,
@@ -280,6 +281,14 @@ class UserClass {
     if (!user) {
       // If the user really does not exist
       // Then we create a new user with the infos we know
+      // Except if the stats (number of subscribers / followers) are not high enough
+      const threshold = await SignUpMediaThreshold.getForMedia({ media: provider });
+      if (threshold !== null) {
+        const { stats } = await getStats({ provider, ...token });
+        if (stats.value < threshold) {
+          throw new Error('Stats not high enough to sign up');
+        }
+      }
       user = (await this.add({
         email,
         password,
