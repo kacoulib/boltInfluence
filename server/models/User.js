@@ -94,6 +94,19 @@ const mongoSchema = new Schema({
     sparse: true,
   },
   agency: [{ type: ObjectId, ref: 'Brand' }],
+  // UBO is a requirement for businesses (Brands & Agencies)
+  ubo: {
+    firstName: String,
+    lastName: String,
+    address: String,
+    city: String,
+    postalCode: String,
+    country: String,
+    nationality: String,
+    birthday: Date,
+    birthcity: String,
+    birthcountry: String,
+  },
   // Company related (every user needs a company)
   address: String,
   city: String,
@@ -118,6 +131,8 @@ const mongoSchema = new Schema({
     },
     wallet: String,
     bankAccount: String,
+    ubo: String,
+    uboDeclaration: String,
   },
 });
 
@@ -501,6 +516,65 @@ class UserClass {
     })).userId;
     return owned;
   }
+
+  static async createOrUpdateUboBySlug({
+    slug,
+    firstName,
+    lastName,
+    address,
+    city,
+    postalCode,
+    country,
+    nationality,
+    birthday,
+    birthcountry,
+    birthcity,
+  }) {
+    const user = await this.findOne({ slug });
+    if (!user) {
+      throw new Error('User not found');
+    }
+    if (firstName) user.ubo.firstName = firstName;
+    if (lastName) user.ubo.lastName = lastName;
+    if (address) user.ubo.address = address;
+    if (city) user.ubo.city = city;
+    if (postalCode) user.ubo.postalCode = postalCode;
+    if (country) user.ubo.country = country;
+    if (nationality) user.ubo.nationality = nationality;
+    if (birthday) user.ubo.birthday = birthday;
+    if (birthcountry) user.birthcountry = birthcountry;
+    if (birthcity) user.birthcity = birthcity;
+    const hasChanges = Boolean(
+      firstName ||
+        lastName ||
+        address ||
+        city ||
+        postalCode ||
+        country ||
+        nationality ||
+        birthday ||
+        birthcountry ||
+        birthcity,
+    );
+    if (hasChanges) {
+      await user.save();
+      if (
+        user.ubo.firstName &&
+        user.ubo.lastName &&
+        user.ubo.address &&
+        user.ubo.city &&
+        user.ubo.postalCode &&
+        user.ubo.country &&
+        user.ubo.nationality &&
+        user.ubo.birthday &&
+        user.ubo.birthcountry &&
+        user.ubo.birthcity
+      ) {
+        // TODO: Call updateOrCreateUbo from mangopay ../utils/mangopay and save possible new ids
+        // TODO: Create a method to submit the UBO.
+      }
+    }
+  }
 }
 mongoSchema.loadClass(UserClass);
 
@@ -599,28 +673,3 @@ mongoSchema.pre('save', async function userPreSaveMangopayBankAccount() {
 const User = mongoose.model('User', mongoSchema);
 
 module.exports = User;
-
-/* Information needed by MangoPay */
-/* User Type:                     */
-/*   Influencer:   SoleTrader     */
-/*   Agency/Brand: Business       */
-/* Birthday                       */
-/* Country of residence           */
-/* Nationality                    */
-/* First name                     */
-/* Last name                      */
-/* Company Name                   */
-/* Email                          */
-/* Company Number                 */
-
-/* DONE: We need to create a MangoPay user                                                  */
-/* DONE: Then create its MangoPay wallet                                                    */
-/* DONE: Then create its MangoPay Bank Account                                              */
-/* DONE: Then let the user upload its KYC docs                                              */
-/* DONE: We need to set up a webhook to listen for MangoPay events such as document success */
-
-/* DONE: Open a MangoPay account                            */
-/* DONE: Create a MangoPay sandbox                          */
-/* WIP : Incrementally set up the MangoPay integration flow */
-
-/* TODO: Set up the limitations on the audience when trying to sign up with a social media */
