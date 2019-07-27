@@ -2,6 +2,15 @@ ul {
     margin: 0;
     list-style: none;
 }
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: #222;
+    margin: 0px auto;
+    font-weight: 300;
+    line-height: 1.5em;
+    background-color: #F7F9FC;
+}
 body a {
     color: #5b5b5d;
 }
@@ -114,6 +123,37 @@ body a {
     background-color: #87b8c2;
 }
 
+/* PUBLIC  */
+.publicCard {
+    color: white;
+}
+.publicCard img {
+    display: block;
+    width: 100%;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+.publicCard h3 {
+    margin: 0;
+    padding: 1rem 2rem;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+}
+.bordered-head {
+    position: relative;
+    margin: 0;
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+}
+.bordered-head::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border-bottom: 2px solid #F13F4B;
+    width: 75px;
+}
+
 /* ADMIN  */
 .influencers_list {
     background-color: #F4F3F8;
@@ -129,6 +169,9 @@ body a {
     opacity: 0;
 }
 /* OTHER */
+.fullwidth {
+    width: 100%;
+}
 .red-color {
     color: #F13F4B;
 }
@@ -290,4 +333,11 @@ button.submit {
 }
 .mother {
     background-image: url('../img/icon/mother.png');
+}
+.right-bg {
+    background-repeat: no-repeat;
+    background-position-x: right;
+}
+.dot-blue {
+    background-image: url('../img/dots-blue.png');
 }
