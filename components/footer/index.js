@@ -2,7 +2,6 @@ import Link from 'next/link';
 import Grid from '@material-ui/core/Grid';
 import styles from '../SharedStyles';
 
-
 import logo from '../../static/img/logo.png';
 
 
@@ -10,31 +9,34 @@ import logo from '../../static/img/logo.png';
 // style={{border: '1px solid red'}}
 
 
-function Footer({ user }) {
-
-	return (
-		<div>
-			<Grid container style={styles.footer} alignItems="center" justify="center">
-				<Grid item sm={12}  align="center">
-					<img src={logo} />
-				</Grid>
-				<Grid item sm={3}  align="center">
-					<div><Link><a style={styles.footerLink}>Mon profil</a></Link></div>
-					<div><Link><a style={styles.footerLink}>À propos</a></Link></div>
-					<div><Link>Les campagnes</Link></div>
-				</Grid>
-				<Grid item sm={3}  align="center">
-					<div><Link>À découvrir</Link></div>
-					<div><Link>Programmez vos posts</Link></div>
-				</Grid>
-				<Grid item sm={3}  align="center">
-					<div><Link>Suivez noous</Link></div>
-				</Grid>
+const Footer = () => (
+	<footer className='dot-white'>
+		<Grid container alignItems="center" justify="center" align='center'>
+			<Grid item sm={12}>
+				<img src={logo} />
 			</Grid>
+			<Grid item sm={4}>
+				<ul>
+					<li><Link href="/about"><a >Mon profil</a></Link></li>
+					<li><Link href="/about"><a >À propos</a></Link></li>
+					<li><Link href="/about">Les campagnes</Link></li>
+				</ul>
+			</Grid>
+			<Grid item sm={4}>
+				<ul>
+					<li><Link href="/about"><a >À découvrir</a></Link></li>
+					<li><Link href="/about"><a >Programmez vos posts</a></Link></li>
+				</ul>
+			</Grid>
+			<Grid item sm={4}>
+				<ul>
+					<li><Link href="/about"><a >Suivez noous</a></Link></li>
+				</ul>
+			</Grid>
+		</Grid>
 
 
-		</div>
-	);
-}
+	</footer>
+);
 
 export default Footer;

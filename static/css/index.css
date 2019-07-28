@@ -1,8 +1,11 @@
 ul {
     margin: 0;
+    padding: 0;
     list-style: none;
 }
-
+a, a:hover {
+    text-decoration: none;
+}
 body {
     font-family: 'Montserrat', sans-serif;
     color: #222;
@@ -189,12 +192,14 @@ body a {
     border: 3px solid #F13F4B;
     color: #fff;
 }
-.bordered-head {
+.bordered-head, .full-bordered-head {
     position: relative;
     margin: 0;
     padding: 1rem 0;
     margin-bottom: 1rem;
 }
+
+.full-bordered-head::after,
 .bordered-head::after {
     content: '';
     position: absolute;
@@ -203,7 +208,23 @@ body a {
     border-bottom: 2px solid #F13F4B;
     width: 75px;
 }
-
+.full-bordered-head::after {
+    width: 100%;
+}
+/* GENERAL  */
+footer {
+    padding: 4rem 0;
+    background-color: #dedee8;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+}
+footer a {
+    font-weight: bold;
+    color: #232941;
+}
+#contact-us {
+    
+}
 /* ADMIN  */
 .influencers_list {
     background-color: #F4F3F8;
@@ -219,6 +240,9 @@ body a {
     opacity: 0;
 }
 /* OTHER */
+.justify {
+    text-align: justify;
+}
 .italic {
     font-style: italic;
 }
@@ -231,10 +255,14 @@ body a {
 .blue-bg {
     background-color: #242B45;
 }
+.red-btn,
 button.submit {
     background-color: #F13F4B;
     padding: .8rem;
     color: white;
+}
+.red-btn {
+    border-radius: 5px;
 }
 .submit.large {
     width: 50%;
@@ -393,4 +421,10 @@ button.submit {
 }
 .dot-blue {
     background-image: url('../img/dots-blue.png');
+}
+.dot-white {
+    background-image: url('../img/dots-white.png');
+}
+.lines-blue {
+    background-image: url('../img/lines-blue.png');
 }

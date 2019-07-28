@@ -14,7 +14,32 @@ import Chip from '@material-ui/core/Chip';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 
+/*
 
+    <FormGenerator
+        fields={fieldsMarque}
+        form={form}
+        onChange={onChange}
+        onSubmit={onSubmit}
+        setting={{ showLabel: { xs: 6 } }}
+    />
+
+    const form = [{
+        label: "Nom de la marque",
+        name: "name",
+        type: 'input',
+        required: true,
+        width: 4
+    },
+    {
+        label: "Description",
+        name: "description",
+        type: 'textarea',
+        required: true,
+        width: 4
+        }
+    ]
+*/
 const styles = theme => ({
     root: {
         flexGrow: 1,

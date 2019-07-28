@@ -10,6 +10,7 @@ import withLayout from '../lib/withLayout';
 import { darkBlueColor, darkOrangeColor, lightGray } from '../utils/variables/css'
 import Search from '../components/elements/search';
 import Rectangle from '../static/img/rectangle.png'
+import FormGenerator from '../components/form/generator';
 
 const styles = {
 	expandContainer: {
@@ -53,6 +54,29 @@ const styles = {
 		backgroundColor: lightGray,
 	}
 }
+
+const fields = [{
+	label: "Sélectionner",
+	name: "name",
+	type: 'select',
+	required: true,
+	width: 4,
+	props: {
+		list: [{ name: 'Mr', value: 'Mr' }, { name: 'Mme', value: 'Mme' }],
+		style: {
+			// backgroundColor: 'white'
+			select: {
+				'&:before': {
+					borderColor: 'red',
+				},
+				'&:after': {
+					borderColor: 'red',
+				}
+			},
+		}
+	}
+}]
+
 const Index = () => {
 	const [state, setState] = useState({
 		toogleTeam: false,
@@ -134,10 +158,17 @@ const Index = () => {
 					<p className='italic'>Notre FAQ répondra à tous vos questions !</p>
 					<Grid container item style={styles.cardContainer}>
 						<Grid item xs={12} sm={6}>
+							<FormGenerator
+								fields={fields}
+								form={{}}
+								label='test'
+							/>
 						</Grid>
 
-						<Grid item xs={12} sm={6}>
-							<Search />
+						<Grid item container xs={12} sm={6} justify="flex-end">
+							<Grid item xs={12} sm={6}>
+								<Search />
+							</Grid>
 						</Grid>
 					</Grid>
 					<div style={styles.expandContainer}>
@@ -220,6 +251,8 @@ const Index = () => {
 					</div>
 				</div>
 			</div>
+			{/*  */}
+
 			<div>
 				<div className='home-block-padding' style={styles.padding}>
 					<h2 className='bordered-head fullwidth'>Notre equipe</h2>
@@ -243,7 +276,7 @@ const Index = () => {
 					</ul>
 				</div>
 			</div>
-		</div >
+		</div>
 	)
 }
 

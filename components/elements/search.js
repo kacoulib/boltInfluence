@@ -10,25 +10,26 @@ const styles = {
         padding: '2px 4px',
         display: 'flex',
         alignItems: 'center',
-        width: 400,
+        width: '100%',
     },
     input: {
         marginLeft: 8,
         flex: 1,
+
+    },
+    inputContainer: {
+        width: 'calc(100% - 70px)',
+        paddingLeft: 10
     },
     iconButton: {
         padding: 10,
-    },
-    divider: {
-        width: 1,
-        height: 28,
-        margin: 4,
     },
 };
 
 const SearchComp = ({ classes, label = 'Recherche', onChange, onClick }) => (
     <Paper className={classes.root}>
         <InputBase
+            style={styles.inputContainer}
             className={classes.input}
             placeholder={label}
             inputProps={{ 'aria-label': 'Search Google Maps' }}
