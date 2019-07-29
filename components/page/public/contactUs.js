@@ -143,9 +143,9 @@ const Contactus = ({ onSubmit, linkText = 'Contact' }) => {
                 form={state}
                 onChange={onChange}
             />
-            <div className='text-right'>
+            <p id='submit-contact' className='text-right'>
                 <Link ><a className='red-btn' onClick={handleSubmit}>{linkText}</a></Link>
-            </div>
+            </p>
         </div>
     )
 }
