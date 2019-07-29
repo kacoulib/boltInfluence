@@ -63,7 +63,7 @@ function Header({ user }) {
 										<a title='Annonceurs'>Annonceurs</a>
 									</Link>
 								</Grid>
-								<Grid item sm={2} xs={12}><Link href='/'><a>Influenceurs</a></Link></Grid>
+								<Grid item sm={2} xs={12}><Link href='/influenceurs'><a>Influenceurs</a></Link></Grid>
 								<Grid item sm={2} xs={12}><Link href='/'><a>La vidéo d'influence</a></Link></Grid>
 								<Grid item sm={2} xs={12}><Link href='/'><a>Notre méthode</a></Link></Grid>
 								<Grid item sm={2} xs={12}><Link href='/'><a>Contactez-nous</a></Link></Grid>

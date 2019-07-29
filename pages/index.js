@@ -61,19 +61,15 @@ const fields = [{
 	type: 'select',
 	required: true,
 	width: 4,
+	disableUnderline: true,
+	formControlStyle: {
+		borderRadius: '5px',
+		backgroundColor: 'white',
+		boxShadow: '0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12)',
+		padding: 0
+	},
 	props: {
 		list: [{ name: 'Mr', value: 'Mr' }, { name: 'Mme', value: 'Mme' }],
-		style: {
-			// backgroundColor: 'white'
-			select: {
-				'&:before': {
-					borderColor: 'red',
-				},
-				'&:after': {
-					borderColor: 'red',
-				}
-			},
-		}
 	}
 }]
 

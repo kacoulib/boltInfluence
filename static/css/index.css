@@ -250,6 +250,9 @@ footer a {
     opacity: 0;
 }
 /* OTHER */
+.auto {
+    margin: auto;
+}
 .justify {
     text-align: justify;
 }
@@ -275,6 +278,7 @@ button.submit {
     color: white;
 }
 .red-btn {
+    display: inline-block;
     border-radius: 5px;
 }
 .submit.large {
@@ -487,16 +491,16 @@ button.submit {
     transform: rotate(180deg);
 }
 
-.card-bg.dot-pink::before {
+.card-bg.dots-pink::before {
     background-image: url('../img/dots-pink.png');
 }
-.card-bg.dot-pink.reverse::before {
+.card-bg.dots-pink.reverse::before {
 }
 .card-bg.lines-blue::before {
     background-image: url('../img/lines-blue.png');
 }
 
-.dots-pink {
+.dots-pink-double {
     background-size: 100% 100%;
     background-image: url('../img/dots-pink.png'), url('../img/dots-pink-right.png');
     background-repeat: no-repeat;

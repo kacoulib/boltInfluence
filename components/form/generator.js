@@ -23,7 +23,8 @@ import MenuItem from '@material-ui/core/MenuItem';
         setting={{ showLabel: { xs: 6 } }}
     />
 
-    const form = [{
+    // input
+    const form = [{ //input
         label: "Nom de la marque",
         name: "name",
         type: 'input',
@@ -33,8 +34,12 @@ import MenuItem from '@material-ui/core/MenuItem';
         formControlStyle: {},
         props: {
             style: {},
-        }
-    },
+        },
+    }]
+
+    // select
+    const select = {
+
     {
         label: "Description",
         name: "description",
