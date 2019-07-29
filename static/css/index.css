@@ -265,6 +265,9 @@ footer a {
 .blue-bg {
     background-color: #242B45;
 }
+.light-gray-bg {
+    background-color: #F4F3F8;
+}
 .red-btn,
 button.submit {
     background-color: #F13F4B;
@@ -282,6 +285,9 @@ button.submit {
 }
 .gray-color {
     color: #D8D8D8;
+}
+.gray-bg {
+    background-color: #D8D8D8;
 }
 .orange-color {
     color: #F13F4B;
@@ -431,18 +437,61 @@ button.submit {
     background-repeat: no-repeat;
     background-position-x: right;
 }
-.dot-blue {
+.dots-blue {
     background-image: url('../img/dots-blue.png');
 }
-.dot-blue-down {
+.dots-blue-down {
     background-image: url('../img/dots-blue-down.png');
 }
 .dot-white {
     background-image: url('../img/dots-white.png');
 }
-.dot-pink {
+/* .dot-pink {
+    background-image: url('../img/dots-pink.png');
+} */
+/* .lines-blue {
+    background-image: url('../img/lines-blue.png');
+} */
+.bottom-lines-blue {
+    background-image: url('../img/bottom-lines-blue.png');
+}
+.card-bg {
+    position: relative;
+}
+.card-bg > div {
+    z-index: 1;
+}
+
+.card-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    z-index: -1;
+}
+.card-bg.right::before {
+    background-position-x: right;
+}
+.card-bg.bottom::before {
+    background-position-x: bottom;
+}
+.card-bg.left::before {
+    background-position-x: left;
+}
+.card-bg.reverse::before {
+    transform: rotateY(180deg);
+}
+.card-bg.reverse-all::before {
+    transform: rotate(180deg);
+}
+
+.card-bg.dot-pink::before {
     background-image: url('../img/dots-pink.png');
 }
-.lines-blue {
+.card-bg.dot-pink.reverse::before {
+}
+.card-bg.lines-blue::before {
     background-image: url('../img/lines-blue.png');
 }

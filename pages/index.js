@@ -107,7 +107,7 @@ const Index = () => {
 	}
 
 	return (
-		<div className='dot-blue right-bg'>
+		<div className='dots-blue right-bg'>
 			<div className='home-block-padding' style={styles.padding}>
 				<h1 className='bordered-head fullwidth'>À propos</h1>
 				<Grid container>
