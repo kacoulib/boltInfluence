@@ -20,7 +20,6 @@ import MenuItem from '@material-ui/core/MenuItem';
         fields={fieldsMarque}
         form={form}
         onChange={onChange}
-        onSubmit={onSubmit}
         setting={{ showLabel: { xs: 6 } }}
     />
 
@@ -29,7 +28,12 @@ import MenuItem from '@material-ui/core/MenuItem';
         name: "name",
         type: 'input',
         required: true,
-        width: 4
+        disableUnderline: true,
+        width: 4,
+        formControlStyle: {},
+        props: {
+            style: {},
+        }
     },
     {
         label: "Description",
@@ -53,8 +57,17 @@ const styles = theme => ({
         width: 100,
     },
     formControl: {
-        margin: theme.spacing.unit,
+        padding: theme.spacing.unit,
         width: '100%',
+    },
+    inputControl: {
+        backgoundColor: 'red'
+    },
+    formLabel: {
+        paddingLeft: '1rem'
+    },
+    InputLabelProps: {
+        paddingLeft: '1rem'
     },
     control: {
         padding: theme.spacing.unit,
@@ -79,7 +92,7 @@ const MenuProps = {
     },
 };
 
-const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, setting, align = 'center' }) => {
+const FormGenerator = ({ fields, classes, form, onChange, toggleList, setting, align = 'center' }) => {
 
     const textTypes = ['input', 'password', 'email', 'number', 'textarea', 'date', 'datetime-local'],
         spacing = 16,
@@ -90,7 +103,7 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
     const labelSpacing = showLabel ? setting.showLabel : defaultDimension;
 
     return (
-        <form onSubmit={(e) => { e.preventDefault(); onSubmit() }}>
+        <form onSubmit={(e) => { e.preventDefault(); }}>
             <FormControl className={classes.container} required={true}>
                 <Grid container className={classes.root} spacing={spacing} alignItems="center">
                     {fields && fields.map((elem, key) => {
@@ -109,15 +122,24 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                                     <TextField
                                                         type={elem.type}
                                                         label={showLabel ? '' : elem.label}
-
+                                                        underlineStyle={false}
                                                         multiline={elem.type === 'textarea'}
                                                         fullWidth
                                                         defaultValue={form[elem.name] || inputDefaultProps}
                                                         onChange={handleChange(elem.name)}
+                                                        InputLabelProps={{
+                                                            FormLabelClasses: {
+                                                                root: classes.InputLabelProps
+                                                            }
+                                                        }}
+                                                        InputProps={{
+                                                            disableUnderline: !!elem.disableUnderline
+                                                        }}
                                                         style={{ paddingRight: '15px' }}
                                                         {...elemProps}
                                                         rows={8}
                                                         rowsMax={10}
+                                                        underlineStyle={{ display: 'none' }}
                                                     />
                                                 </Grid>
                                             </Grid>
@@ -151,7 +173,7 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                                 {showLabel && <Grid item {...labelSpacing}>{elem.label}</Grid>}
 
                                                 <Grid item {...labelSpacing}>
-                                                    <FormControl className={classes.formControl} required={elem.props && elem.props.required}>
+                                                    <FormControl className={classes.formControl} required={elem.props && elem.props.required} style={elem.formControlStyle}>
                                                         <InputLabel htmlFor={elem.name}>{elem.label}</InputLabel>
                                                         < Select
                                                             multiple={elemProps.multiple}
@@ -166,7 +188,8 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                                                 </div>
                                                             ) : selected}
                                                             MenuProps={MenuProps}
-                                                            {...elemProps}
+                                                            // {...elemProps}
+                                                            disableUnderline={!!elem.disableUnderline}
                                                             required={true}
                                                         >
                                                             {elemProps.list && elemProps.list.map((elem, key) => (
@@ -243,7 +266,6 @@ FormGenerator.propTypes = {
     fields: PropTypes.arrayOf(PropTypes.object).isRequired,
     form: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired,
     setting: PropTypes.object,
     toggleList: PropTypes.func,
     align: PropTypes.string

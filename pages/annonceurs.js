@@ -11,6 +11,10 @@ import { Link } from '@material-ui/core';
 import ContactUs from '../components/page/public/contactUs'
 
 const styles = {
+	cardContainer: {
+		padding: '2rem 0',
+		marginBottom: '3rem'
+	},
 	padding: {
 		padding: '1rem 2rem',
 	},
@@ -25,6 +29,7 @@ const styles = {
 
 
 const Index = () => {
+	const onSubmit = () => console.log('submit')
 
 	return (
 		<div className='lines-blue right-bg'>
@@ -46,7 +51,7 @@ const Index = () => {
 			</div>
 			{/*  */}
 			<div>
-				<Grid container item style={styles.cardContainer} className='dot-blue'>
+				<Grid container item style={styles.cardContainer} className='dot-blue-down no-repeat'>
 					<Grid item xs={12} sm={6} className='text-center'>
 						<img src={Screen2} />
 					</Grid>
@@ -60,7 +65,7 @@ const Index = () => {
 			</div>
 			{/*  */}
 			<div className='home-block-padding' style={styles.padding}>
-				<h2><span className='full-bordered-head' style={{ padding: 0 }}>Identifiez</span> les nouveaux talents et évitez les faux influenceurs</h2>
+				<h2 className='text-center'><span className='full-bordered-head' style={{ padding: 0 }}>Identifiez</span> les nouveaux talents et évitez les faux influenceurs</h2>
 				<Grid container item style={styles.cardContainer}>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item xs={12} sm={8}>
@@ -75,7 +80,7 @@ const Index = () => {
 			</div>
 			{/*  */}
 			<div>
-				<Grid container item style={styles.cardContainer} className='dot-blue'>
+				<Grid container item style={styles.cardContainer} className='dot-pink no-repeat'>
 					<Grid item xs={12} sm={6} className='text-center'>
 						<img src={Screen4} />
 					</Grid>
@@ -92,7 +97,7 @@ const Index = () => {
 				<Grid container >
 					<Grid item xs={12} sm={2} className='text-center'></Grid>
 					<Grid item xs={12} sm={8} className='text-center'>
-						<ContactUs onClick />
+						<ContactUs onSubmit={onSubmit} />
 					</Grid>
 					<Grid item xs={12} sm={2} className='text-center'></Grid>
 				</Grid>

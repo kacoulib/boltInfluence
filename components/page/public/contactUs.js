@@ -2,16 +2,19 @@ import { useState } from "react";
 import { Link } from '@material-ui/core';
 import FormGenerator from '../../form/generator'
 import { lightGray } from '../../../utils/variables/css';
+import PropTypes from 'prop-types'
 
 const fields = [{
     label: "Prénom *",
     name: "firstname",
     type: 'input',
+    disableUnderline: true,
     required: true,
     props: {
         style: {
             padding: 5,
             backgroundColor: lightGray,
+
         }
     }
 },
@@ -19,6 +22,7 @@ const fields = [{
     label: "Nom *",
     name: "lastname",
     type: 'input',
+    disableUnderline: true,
     required: true,
     props: {
         style: {
@@ -32,6 +36,7 @@ const fields = [{
     name: "email",
     type: 'email',
     required: true,
+    disableUnderline: true,
     props: {
         style: {
             padding: 5,
@@ -43,6 +48,7 @@ const fields = [{
     label: "Téléphone *",
     name: "phone",
     type: 'input',
+    disableUnderline: true,
     required: true,
     props: {
         style: {
@@ -55,6 +61,7 @@ const fields = [{
     label: "Société *",
     name: "agence",
     type: 'input',
+    disableUnderline: true,
     required: true,
     props: {
         style: {
@@ -68,18 +75,23 @@ const fields = [{
     name: "activity",
     type: 'select',
     required: true,
+    disableUnderline: true,
+    formControlStyle: {
+        backgroundColor: lightGray
+    },
     props: {
         list: [{ name: 'Mr', value: 'Mr' }, { name: 'Mme', value: 'Mme' }],
         style: {
-            padding: 5,
+            // padding: 5,
             backgroundColor: lightGray,
-        }
+        },
     }
 },
 {
     label: "Titre professionnel *",
     name: "job",
     type: 'input',
+    disableUnderline: true,
     required: true,
     props: {
         style: {
@@ -93,6 +105,7 @@ const fields = [{
     name: "message",
     type: 'textarea',
     required: true,
+    disableUnderline: true,
     props: {
         style: {
             padding: 5,
@@ -103,7 +116,7 @@ const fields = [{
 ]
 
 
-const Contactus = ({ onClick, linkText = 'Contact' }) => {
+const Contactus = ({ onSubmit, linkText = 'Contact' }) => {
     const [state, setState] = useState({
         firstname: '',
         lastname: '',
@@ -115,7 +128,9 @@ const Contactus = ({ onClick, linkText = 'Contact' }) => {
         message: '',
     })
     const onChange = (name, value) => setState({ ...state, [name]: value })
-
+    const handleSubmit = () => {
+        console.log(state)
+    }
     return (
         <div id='contact-us'>
             <div className='center-text'>
@@ -125,15 +140,17 @@ const Contactus = ({ onClick, linkText = 'Contact' }) => {
 
             <FormGenerator
                 fields={fields}
-                form={{}}
+                form={state}
                 onChange={onChange}
-                onClick={onclick}
             />
             <div className='text-right'>
-                <Link ><a className='red-btn' onClick={onClick}>{linkText}</a></Link>
+                <Link ><a className='red-btn' onClick={handleSubmit}>{linkText}</a></Link>
             </div>
         </div>
     )
+}
+Contactus.propTypes = {
+    onSubmit: PropTypes.func.isRequired,
 }
 
 export default Contactus
