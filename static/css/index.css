@@ -17,6 +17,16 @@ body {
 body a {
     color: #5b5b5d;
 }
+header {
+    background: #252b40;
+    padding-top: 1rem;
+}
+header a {
+    color: #FFF;
+	text-align: center;
+	font-weight: bold;
+	font-size: 1rem;
+}
 
 /* PROCESS */
 #process {

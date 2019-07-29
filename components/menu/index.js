@@ -45,8 +45,8 @@ const useStyles = makeStyles({
 function Header({ user }) {
 	const classes = useStyles();
 	return (
-		<div>
-			<Toolbar style={styleToolbar}>
+		<header>
+			<Toolbar>
 				<Grid container alignItems="center" justify="center">
 					<Grid container item sm={12} xs={12} alignItems="center" justify="center">
 						<img src={iconFlagFr} style={styles.iconFlagFr} />
@@ -57,13 +57,17 @@ function Header({ user }) {
 						</Grid>
 						<Grid item align="center" sm={10}>
 							<Grid container alignItems="center">
-								<Grid item style={styleToolbarLink} sm={1} xs={12}></Grid>
-								<Grid item style={styleToolbarLink} sm={2} xs={12}>Annonceurs</Grid>
-								<Grid style={styleToolbarLink} item sm={2} xs={12}>Influenceurs</Grid>
-								<Grid style={styleToolbarLink} item sm={2} xs={12}>La vidéo d'influence</Grid>
-								<Grid style={styleToolbarLink} item sm={2} xs={12}>Notre méthode</Grid>
-								<Grid style={styleToolbarLink} item sm={2} xs={12}>Contactez-nous</Grid>
-								<Grid item style={styleToolbarLink} sm={1} xs={12}></Grid>
+								<Grid item sm={1} xs={12}></Grid>
+								<Grid item sm={2} xs={12}>
+									<Link href='/annonceurs'>
+										<a title='Annonceurs'>Annonceurs</a>
+									</Link>
+								</Grid>
+								<Grid item sm={2} xs={12}><Link href='/'><a>Influenceurs</a></Link></Grid>
+								<Grid item sm={2} xs={12}><Link href='/'><a>La vidéo d'influence</a></Link></Grid>
+								<Grid item sm={2} xs={12}><Link href='/'><a>Notre méthode</a></Link></Grid>
+								<Grid item sm={2} xs={12}><Link href='/'><a>Contactez-nous</a></Link></Grid>
+								<Grid item sm={1} xs={12}></Grid>
 
 							</Grid>
 						</Grid>
@@ -82,7 +86,7 @@ function Header({ user }) {
 				</Grid>
 			</Toolbar>
 
-		</div>
+		</header>
 	);
 }
 
