@@ -7,6 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import ChipList from '../../components/form/chipList';
 import Select from '@material-ui/core/Select';
 import Radio from './radio';
+import Upload from './upload';
 import Checkbox from './checkbox';
 import InputLabel from '@material-ui/core/InputLabel';
 import Chip from '@material-ui/core/Chip';
@@ -90,6 +91,8 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                                         onChange={handleChange(elem.name)}
                                                         style={{ paddingRight: '15px' }}
                                                         {...elemProps}
+                                                        rows={8}
+                                                        rowsMax={10}
                                                     />
                                                 </Grid>
                                             </Grid>
@@ -170,7 +173,7 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                                 <Grid item {...labelSpacing}>
 
                                                     <div>
-                                                        <Radio {...elemProps} name={elem.name} label={showLabel ? '' : elem.label} value={form[elem.name]} onChange={onChange} />
+                                                        <Radio name={elem.name} label={showLabel ? '' : elem.label} value={form[elem.name]} onChange={onChange} {...elemProps} />
                                                     </div>
                                                 </ Grid>
                                             </ Grid>
@@ -182,7 +185,18 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                                 <Grid item {...labelSpacing}>
 
                                                     <div>
-                                                        <Checkbox {...elemProps} name={elem.name} label={elem.label} value={form[elem.name]} onChange={onChange} />
+                                                        <Checkbox name={elem.name} label={elem.label} value={form[elem.name]} onChange={onChange} {...elemProps} />
+                                                    </div>
+                                                </ Grid>
+                                            </ Grid>
+                                        )
+                                        || elem.type == 'upload' && (
+                                            <Grid container>
+                                                {showLabel && <Grid item {...labelSpacing}>{elem.label}</Grid>}
+
+                                                <Grid item {...labelSpacing}>
+                                                    <div>
+                                                        <Upload name={elem.name} label={elem.label} value={form[elem.name]} onChange={onChange} {...elemProps} />
                                                     </div>
                                                 </ Grid>
                                             </ Grid>
