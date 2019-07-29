@@ -446,3 +446,10 @@ button.submit {
 .lines-blue {
     background-image: url('../img/lines-blue.png');
 }
+
+.dots-pink {
+    background-size: 100% 100%;
+    background-image: url('../img/dots-pink.png'), url('../img/dots-pink-right.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
