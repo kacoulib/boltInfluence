@@ -14,7 +14,6 @@ const fields = [{
         style: {
             padding: 5,
             backgroundColor: lightGray,
-
         }
     }
 },
