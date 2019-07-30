@@ -9,6 +9,7 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
+<<<<<<< HEAD
 const { setupMangopay } = require('./utils/mangopay');
 const instagramAuth = require('./auth/instagram');
 const googleAuth = require('./auth/google');
@@ -16,6 +17,13 @@ const twitterAuth = require('./auth/twitter');
 const twitchAuth = require('./auth/twitch');
 const pinterestAuth = require('./auth/pinterest');
 const facebookAuth = require('./auth/facebook');
+=======
+// const { setupMangopay } = require('./utils/mangopay');
+// const instagramAuth = require('./auth/instagram');
+// const googleAuth = require('./auth/google');
+// const twitterAuth = require('./auth/twitter');
+// const twitchAuth = require('./auth/twitch');
+>>>>>>> 03481533672f1356ff9d4c42178d018991cd43c0
 const basicAuth = require('./auth/basic');
 const routes = require('./routes');
 const User = require('./models/User');
@@ -99,11 +107,15 @@ nextApp.prepare().then(async () => {
   app.use(session(sess));
   app.use(passport.initialize());
   app.use(passport.session());
+<<<<<<< HEAD
   app.use((req, res, next) => {
     console.log('Sess:', req.sessionID);
     next();
   });
 
+=======
+  
+>>>>>>> 03481533672f1356ff9d4c42178d018991cd43c0
   // await insertTemplates();
 
   passport.serializeUser((user, cb) => {
@@ -120,12 +132,19 @@ nextApp.prepare().then(async () => {
     });
   });
 
+<<<<<<< HEAD
   googleAuth({ app, ROOT_URL });
   instagramAuth({ app, ROOT_URL });
   twitterAuth({ app, ROOT_URL });
   twitchAuth({ app, ROOT_URL });
   pinterestAuth({ app, ROOT_URL });
   facebookAuth({ app, ROOT_URL });
+=======
+  // googleAuth({ app, ROOT_URL });
+  // instagramAuth({ app, ROOT_URL });
+  // twitterAuth({ app, ROOT_URL });
+  // twitchAuth({ app, ROOT_URL });
+>>>>>>> 03481533672f1356ff9d4c42178d018991cd43c0
   basicAuth({ app, nextApp });
   // app.use((req, res, next) => {
   //   console.log('USER:', req.user);

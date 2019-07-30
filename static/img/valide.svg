@@ -1,0 +1,24 @@
+<? xml version = "1.0" encoding = "UTF-8" ?>
+    <svg width="19px" height="14px" viewBox="0 0 19 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns: xlink="http://www.w3.org/1999/xlink">
+        <!-- Generator: Sketch 56.2 (81672) - https://sketch.com -->
+    <title>Icons / Tick</title>
+        <desc>Created with Sketch.</desc>
+        <defs>
+            <path d="M21.2928932,7.29289322 C21.6834175,6.90236893 22.3165825,6.90236893 22.7071068,7.29289322 C23.0976311,7.68341751 23.0976311,8.31658249 22.7071068,8.70710678 L10.7071068,20.7071068 C10.3165825,21.0976311 9.68341751,21.0976311 9.29289322,20.7071068 L4.29289322,15.7071068 C3.90236893,15.3165825 3.90236893,14.6834175 4.29289322,14.2928932 C4.68341751,13.9023689 5.31658249,13.9023689 5.70710678,14.2928932 L10,18.5857864 L21.2928932,7.29289322 Z" id="path-1"></path>
+        </defs>
+        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g id="Tarifs" transform="translate(-46.000000, -564.000000)">
+                <g id="Basic" transform="translate(35.000000, 265.000000)">
+                    <g id="Icons-/-Tick" transform="translate(7.000000, 292.000000)">
+                        <mask id="mask-2" fill="white">
+                            <use xlink: href="#path-1"></use>
+                    </mask>
+                    <use id="Icon" fill="#000000" fill-rule="nonzero" xlink: href="#path-1"></use>
+                <g id="Colors-/-Black" mask="url(#mask-2)" fill="#F13F4B" fill-rule="evenodd">
+                    <rect id="Color" x="0" y="0" width="28" height="28"></rect>
+                </g>
+            </g>
+        </g>
+        </g>
+    </g >
+</svg >

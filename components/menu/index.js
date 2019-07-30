@@ -12,7 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 import MenuDrop from './MenuDrop';
 import { publicMenu, optionsMenuAdmin, optionsMenuCustomer } from './routes'
-import { styleToolbar, styleToolbarLink, greenBorder, redBorder} from '../SharedStyles';
+import { styleToolbar, styleToolbarLink, greenBorder, redBorder } from '../SharedStyles';
 import styles from '../SharedStyles';
 import logo from '../../static/img/logo.png'
 import userIconWhite from '../../static/img/userIconWhite.js';
@@ -29,6 +29,7 @@ const useStyles = makeStyles({
 		margin: 10,
 		height: 26,
 		width: 26,
+		textAlign: 'right'
 	},
 	bigAvatar: {
 		margin: 10,
@@ -44,50 +45,48 @@ const useStyles = makeStyles({
 function Header({ user }) {
 	const classes = useStyles();
 	return (
-		<div>
-			<Toolbar style={styleToolbar}>
+		<header>
+			<Toolbar>
 				<Grid container alignItems="center" justify="center">
-					<Grid item align="center" sm={2} xs={12}>
-						<img src={logo} />
+					<Grid container item sm={12} xs={12} alignItems="center" justify="center">
+						<img src={iconFlagFr} style={styles.iconFlagFr} />
 					</Grid>
-					<Grid item align="center" sm={8}>
-						<Grid container alignItems="center" justify="center">
-							<Grid item sm={1} xs={2}>
-								<img src={iconFlagFr} style={styles.iconFlagFr} />
+					<Grid container item sm={12} xs={12} alignItems="center" justify="center">
+						<Grid item align="center" sm={1} xs={12}>
+							<img src={logo} />
+						</Grid>
+						<Grid item align="center" sm={10}>
+							<Grid container alignItems="center">
+								<Grid item sm={1} xs={12}></Grid>
+								<Grid item sm={2} xs={12}>
+									<Link href='/annonceurs'>
+										<a title='Annonceurs'>Annonceurs</a>
+									</Link>
+								</Grid>
+								<Grid item sm={2} xs={12}><Link href='/influenceurs'><a>Influenceurs</a></Link></Grid>
+								<Grid item sm={2} xs={12}><Link href='/'><a>La vidéo d'influence</a></Link></Grid>
+								<Grid item sm={2} xs={12}><Link href='/'><a>Notre méthode</a></Link></Grid>
+								<Grid item sm={2} xs={12}><Link href='/'><a>Contactez-nous</a></Link></Grid>
+								<Grid item sm={1} xs={12}></Grid>
+
 							</Grid>
 						</Grid>
-						<Grid container alignItems="center">
-							<Grid item style={styleToolbarLink} sm={2} xs={12}>
-								Annonceurs
-							</Grid>
-							<Grid style={styleToolbarLink} item sm={2} xs={12}>
-								Influenceurs
-							</Grid>
-							<Grid style={styleToolbarLink} item sm={2} xs={12}>
-								La vidéo d'influence
-							</Grid>
-							<Grid style={styleToolbarLink} item sm={2} xs={12}>
-								Notre méthode
-							</Grid>
-							<Grid style={styleToolbarLink} item sm={2} xs={12}>
-								Contactez-nous
-							</Grid>
-							<Grid item style={{padding: '10px'}} sm={2} xs={12}>
-								<Avatar style={styles.avatar} src={userIconWhite} />
-							</Grid>
+						<Grid item style={{ padding: '10px', textAlign: 'right$' }} sm={1} xs={12}>
+							<Avatar style={styles.avatar} src={userIconWhite} />
 						</Grid>
-						<Grid container direction="row" alignItems="center" justify="center">
-							<Grid item style={styleToolbarLink} sm={12} xs={12}>
-								<img src={iconTwitter} style={styles.styleIconeSocial} />
-								<img src={iconTwitter} style={styles.styleIconeSocial} />
-								<img src={iconTwitter} style={styles.styleIconeSocial} />
-							</Grid>
+					</Grid>
+					<Grid container item sm={12} xs={12} direction="row" alignItems="center" justify="center">
+						<Grid item style={styleToolbarLink} sm={12} xs={12}>
+							<img src={iconTwitter} style={styles.styleIconeSocial} />
+							<img src={iconTwitter} style={styles.styleIconeSocial} />
+							<img src={iconTwitter} style={styles.styleIconeSocial} />
+							<img src={iconTwitter} style={styles.styleIconeSocial} />
 						</Grid>
 					</Grid>
 				</Grid>
 			</Toolbar>
 
-		</div>
+		</header>
 	);
 }
 

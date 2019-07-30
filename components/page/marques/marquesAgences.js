@@ -24,7 +24,7 @@ const styles = {
 }
 
 
-const Index = ({datas, loadMore}) => {
+const Index = ({ datas, loadMore }) => {
     return (
         <Grid container alignItems='center' justify="center" style={styles.container} >
             <Grid item xs={12} sm={12} style={styles.childContainer}>

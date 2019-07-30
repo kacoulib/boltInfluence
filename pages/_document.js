@@ -13,7 +13,7 @@ class MyDocument extends Document {
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <meta name="google" content="notranslate" />
           <meta name="theme-color" content="#1976D2" />
-
+          <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet" />
           <link
             rel="shortcut icon"
             href="https://storage.googleapis.com/builderbook/favicon32.png"
@@ -68,16 +68,7 @@ class MyDocument extends Document {
             `}
           </style>
         </Head>
-        <body
-          style={{
-            font: '16px Muli',
-            color: '#222',
-            margin: '0px auto',
-            fontWeight: '300',
-            lineHeight: '1.5em',
-            backgroundColor: '#F7F9FC',
-          }}
-        >
+        <body>
           <Main />
           <NextScript />
         </body>

@@ -1,8 +1,9 @@
 // Color
 const orangeColor = '#f25c05';
 const skyBlueColor = '#e7f1f3'
-
-
+const darkBlueColor = '#242B45';
+const darkOrangeColor = '#F13F4B';
+const lightGray = '#F4F3F8'
 // Style
 const buttonStyle = {
     background: 'none',
@@ -15,7 +16,10 @@ const buttonStyle = {
 module.exports = {
     // Color
     orangeColor,
+    darkBlueColor,
+    darkOrangeColor,
     skyBlueColor,
+    lightGray,
 
     // Style
     buttonStyle
