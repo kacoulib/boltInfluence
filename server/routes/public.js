@@ -4,7 +4,9 @@ const KycValidation = require('../models/KycValidation');
 const Payment = require('../models/Payment');
 const PaymentOperation = require('../models/PaymentOperation');
 const CampaignOffer = require('../models/CampaignOffer');
+const Article = require('../models/Article');
 const { isTransferIn, isTransferOut } = require('../../utils/variables/paymentoperation');
+const { handleErrors, listCollection } = require('../utils/express');
 const logger = require('../logs');
 // const Book = require('../models/Book');
 // const Chapter = require('../models/Chapter');
@@ -118,37 +120,15 @@ router.get(
   ),
 );
 
-// router.get('/books', async (req, res) => {
-//   try {
-//     const books = await Book.list();
-//     res.json(books);
-//   } catch (err) {
-//     res.json({ error: err.message || err.toString() });
-//   }
-// });
+router.get('/articles', listCollection(Article.list.bind(Article)))
 
-// router.get('/books/:slug', async (req, res) => {
-//   try {
-//     const book = await Book.getBySlug({ slug: req.params.slug, userId: req.user && req.user.id });
-//     res.json(book);
-//   } catch (err) {
-//     res.json({ error: err.message || err.toString() });
-//   }
-// });
-
-// router.get('/get-chapter-detail', async (req, res) => {
-//   try {
-//     const { bookSlug, chapterSlug } = req.query;
-//     const chapter = await Chapter.getBySlug({
-//       bookSlug,
-//       chapterSlug,
-//       userId: req.user && req.user.id,
-//       isAdmin: req.user && req.user.isAdmin,
-//     });
-//     res.json(chapter);
-//   } catch (err) {
-//     res.json({ error: err.message || err.toString() });
-//   }
-// });
+router.get(
+  '/articles/:slug',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    const article = await Article.getBySlug({ slug });
+    res.json(article);
+  }),
+)
 
 module.exports = router;

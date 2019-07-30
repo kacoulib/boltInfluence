@@ -1,9 +1,19 @@
 const mongoose = require('mongoose');
 const _ = require('lodash');
 
+const Stat = require('./Stat');
 const KycValidation = require('./KycValidation');
 const SocialMediaToken = require('./SocialMediaToken');
-const { RoleList, BusinessRoleList, Influencer } = require('../../utils/variables/user');
+const SignUpMediaThreshold = require('./SignUpMediaThreshold');
+const {
+  RoleList,
+  BusinessRoleList,
+  Influencer,
+  isBrand,
+  isAgency,
+  StatusList,
+  Active,
+} = require('../../utils/variables/user');
 const { languageCodeList } = require('../../utils/variables/general');
 const { isInfluencer, isBusiness } = require('../../utils/variables/user');
 const generateSlug = require('../utils/slugify');
@@ -14,6 +24,8 @@ const {
   createOrUpdateIbanBankAccount,
   preregisterCard,
 } = require('../utils/mangopay');
+const { getStats } = require('../utils/socialmedias');
+const logger = require('../logs');
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -52,7 +64,7 @@ const mongoSchema = new Schema({
   },
   status: {
     type: String,
-    // enum: UserStatus,
+    enum: StatusList,
     required: true,
   },
   role: {
@@ -78,10 +90,24 @@ const mongoSchema = new Schema({
   brand: {
     type: ObjectId,
     ref: 'Brand',
+    unique: true,
+    sparse: true,
   },
   agency: [{ type: ObjectId, ref: 'Brand' }],
+  // UBO is a requirement for businesses (Brands & Agencies)
+  ubo: {
+    firstName: String,
+    lastName: String,
+    address: String,
+    city: String,
+    postalCode: String,
+    country: String,
+    nationality: String,
+    birthday: Date,
+    birthcity: String,
+    birthcountry: String,
+  },
   // Company related (every user needs a company)
-  phoneNumber: String,
   address: String,
   city: String,
   country: String,
@@ -105,20 +131,46 @@ const mongoSchema = new Schema({
     },
     wallet: String,
     bankAccount: String,
+    ubo: String,
+    uboDeclaration: String,
   },
 });
 
 class UserClass {
   static publicFields() {
-    return ['_id', 'firstName', 'lastName', 'email', 'slug', 'role'];
+    return [
+      '_id',
+      'firstName',
+      'lastName',
+      'email',
+      'slug',
+      'role',
+      'newsletter',
+      'notifications',
+      'status',
+      'role',
+      'influencer',
+      'brand',
+      'agency',
+      'address',
+      'city',
+      'country',
+      'postalCode',
+      'siret',
+      'companyEmail',
+      'companyName',
+      'companySize',
+      'placeOfBirth',
+      'dateOfBirth',
+    ];
   }
 
   /**
    * List a limited amount of Users
-   * @param {Object} where - Filtering criterias
-   * @param {Object} options
-   * @param {Number} options.offset - Amount of Users to skip
-   * @param {Number} options.limit - Amount of Users to return
+   * @param {Object} [where] - Filtering criterias
+   * @param {Object} [options]
+   * @param {Number} [options.offset] - Amount of Users to skip
+   * @param {Number} [options.limit] - Amount of Users to return
    */
   static async list(where = {}, { offset = 0, limit = 10 } = {}) {
     const users = await this.find(where)
@@ -129,6 +181,20 @@ class UserClass {
       .populate('agency')
       .select(this.publicFields());
     return { users };
+  }
+
+  static async getId(where) {
+    const user = await this.findOne(where)
+      .select('_id')
+      .lean();
+    if (!user) {
+      return { userId: null };
+    }
+    return { userId: user._id };
+  }
+
+  static async getIdBySlug({ slug }) {
+    return this.getId({ slug });
   }
 
   static async listInfluencers(options) {
@@ -144,13 +210,10 @@ class UserClass {
   static async add({ email, password, firstName, lastName, role, picture }) {
     const slug = await generateSlug(this, firstName + lastName);
     const additional = {};
-    let status = 'active'; // Change to Enum Value
+    const status = Active; // Change to Enum Value
 
     if (role === Influencer) {
       additional.influencer = { picture };
-    }
-    if (email) {
-      status = 'waiting email confirmation'; // Change to Enum Value
     }
 
     const user = await this.create({
@@ -177,7 +240,10 @@ class UserClass {
    * @param {String} params.slug - The slug of the User to get
    */
   static async getBySlug({ slug }) {
-    const userDoc = await this.findOne({ slug }).select(this.publicFields());
+    const userDoc = await this.findOne({ slug })
+      .select(this.publicFields())
+      .populate('brand')
+      .populate('agency');
     if (!userDoc) {
       throw new Error('User not found');
     }
@@ -197,9 +263,11 @@ class UserClass {
     if (!userDoc) {
       throw new Error('User not found');
     }
-    Object.entries(updates).forEach(([key, value]) => {
-      userDoc[key] = value;
-    });
+    Object.entries(updates)
+      .filter(([_, value]) => value !== undefined)
+      .forEach(([key, value]) => {
+        userDoc[key] = value;
+      });
     await userDoc.save();
     const user = _.pick(userDoc.toObject(), this.publicFields());
     return { user };
@@ -228,6 +296,14 @@ class UserClass {
     if (!user) {
       // If the user really does not exist
       // Then we create a new user with the infos we know
+      // Except if the stats (number of subscribers / followers) are not high enough
+      const threshold = await SignUpMediaThreshold.getForMedia({ media: provider });
+      if (threshold !== null) {
+        const { stats } = await getStats({ provider, ...token });
+        if (stats.value < threshold) {
+          throw new Error('Stats not high enough to sign up');
+        }
+      }
       user = (await this.add({
         email,
         password,
@@ -252,15 +328,22 @@ class UserClass {
     if (
       oldToken.accessToken !== token.accessToken ||
       oldToken.refreshToken !== token.refreshToken ||
-      oldToken.accessTokenSecret !== token.accessTokenSecret
+      oldToken.accessTokenSecret !== token.accessTokenSecret ||
+      oldToken.user !== user._id
     ) {
       // If the known token is not up to date, update it
       oldToken.accessToken = token.accessToken;
       oldToken.refreshToken = token.refreshToken;
       oldToken.accessTokenSecret = token.accessTokenSecret;
+      oldToken.user = user._id;
       await oldToken.save();
     }
     user = user.toObject();
+    this.getStatsById({ userId: user._id })
+      .then(({ stats }) =>
+        Stat.addOrUpdateManyForUserById(stats.map((s) => ({ user: user._id, ...s }))),
+      )
+      .catch((err) => logger.error(err.message));
     return _.pick(user, this.publicFields());
   }
 
@@ -359,6 +442,15 @@ class UserClass {
     });
   }
 
+  static addArticlesOfAssociationBySlug({ slug, file }) {
+    const mangopay = getMangopay();
+    return this.addKycDocumentBySlug({
+      slug,
+      file,
+      type: mangopay.models.KycDocumentType.ArticlesOfAssociation,
+    });
+  }
+
   static async preregisterCardBySlug({ slug, cardType, currency }) {
     const user = await this.findOne({ slug }).select('mangopay.id');
     if (!user) {
@@ -376,6 +468,112 @@ class UserClass {
         registrationUrl: registration.CardRegistrationURL,
       },
     };
+  }
+
+  /**
+   * Get a brand, only if the user has ownership of it
+   * @param {Object} options
+   * @param {String} options.user - User slug
+   * @param {String} options.brand - Brand slug
+   */
+  static async getBrandBySlug({ user: userSlug, brand: brandSlug }) {
+    const user = await this.findOne({ slug: userSlug })
+      .select(['role', 'brand', 'agency'])
+      .populate('brand')
+      .populate('agency');
+
+    if (!user) {
+      return { brand: null };
+    }
+
+    let brand = null;
+
+    if (isBrand(user) && user.brand.slug === brandSlug) {
+      brand = user.brand;
+    }
+    if (isAgency(user)) {
+      user.agency.some((b) => {
+        const has = b.slug === brandSlug;
+        if (has) {
+          brand = b;
+        }
+        return has;
+      });
+    }
+    return { brand };
+  }
+
+  static async getStatsById({ userId }) {
+    const socialMediaTokens = await SocialMediaToken.find({ user: userId });
+    const data = await Promise.all(socialMediaTokens.map(getStats));
+    const stats = data.map((d) => d.stats);
+    return { stats };
+  }
+
+  static async hasBrandById({ brandId, user: userSlug }) {
+    const owned = !!(await this.getId({
+      $and: [{ slug: userSlug }, { $or: [{ brand: brandId }, { agency: brandId }] }],
+    })).userId;
+    return owned;
+  }
+
+  static async createOrUpdateUboBySlug({
+    slug,
+    firstName,
+    lastName,
+    address,
+    city,
+    postalCode,
+    country,
+    nationality,
+    birthday,
+    birthcountry,
+    birthcity,
+  }) {
+    const user = await this.findOne({ slug });
+    if (!user) {
+      throw new Error('User not found');
+    }
+    if (firstName) user.ubo.firstName = firstName;
+    if (lastName) user.ubo.lastName = lastName;
+    if (address) user.ubo.address = address;
+    if (city) user.ubo.city = city;
+    if (postalCode) user.ubo.postalCode = postalCode;
+    if (country) user.ubo.country = country;
+    if (nationality) user.ubo.nationality = nationality;
+    if (birthday) user.ubo.birthday = birthday;
+    if (birthcountry) user.birthcountry = birthcountry;
+    if (birthcity) user.birthcity = birthcity;
+    const hasChanges = Boolean(
+      firstName ||
+        lastName ||
+        address ||
+        city ||
+        postalCode ||
+        country ||
+        nationality ||
+        birthday ||
+        birthcountry ||
+        birthcity,
+    );
+    if (hasChanges) {
+      await user.save();
+      if (
+        user.ubo.firstName &&
+        user.ubo.lastName &&
+        user.ubo.address &&
+        user.ubo.city &&
+        user.ubo.postalCode &&
+        user.ubo.country &&
+        user.ubo.nationality &&
+        user.ubo.birthday &&
+        user.ubo.birthcountry &&
+        user.ubo.birthcity
+      ) {
+        // TODO: Call updateOrCreateUbo from mangopay ../utils/mangopay and save possible new ids
+        // TODO: Create a method to submit the UBO.
+      }
+    }
   }
 }
 mongoSchema.loadClass(UserClass);
@@ -475,28 +673,3 @@ mongoSchema.pre('save', async function userPreSaveMangopayBankAccount() {
 const User = mongoose.model('User', mongoSchema);
 
 module.exports = User;
-
-/* Information needed by MangoPay */
-/* User Type:                     */
-/*   Influencer:   SoleTrader     */
-/*   Agency/Brand: Business       */
-/* Birthday                       */
-/* Country of residence           */
-/* Nationality                    */
-/* First name                     */
-/* Last name                      */
-/* Company Name                   */
-/* Email                          */
-/* Company Number                 */
-
-/* DONE: We need to create a MangoPay user                                                  */
-/* DONE: Then create its MangoPay wallet                                                    */
-/* DONE: Then create its MangoPay Bank Account                                              */
-/* DONE: Then let the user upload its KYC docs                                              */
-/* DONE: We need to set up a webhook to listen for MangoPay events such as document success */
-
-/* DONE: Open a MangoPay account                            */
-/* DONE: Create a MangoPay sandbox                          */
-/* WIP : Incrementally set up the MangoPay integration flow */
-
-/* TODO: Set up the limitations on the audience when trying to sign up with a social media */

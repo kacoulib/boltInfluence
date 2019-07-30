@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+const User = require('./User');
 const PaymentOperation = require('./PaymentOperation');
 const { isAwaitingFunding, isAwaitingValidation } = require('../../utils/variables/campaignoffer');
 const {
@@ -51,6 +52,51 @@ const mongoSchema = new Schema({
 });
 
 class PaymentClass {
+  static async list(where, { offset = 0, limit = 10 } = {}) {
+    const payments = await this.find(where)
+      .sort({ createdAt: -1 })
+      .skip(offset)
+      .limit(limit)
+      .populate('offer')
+      .populate('debitedUser', User.publicFields())
+      .populate('creditedUser', User.publicFields());
+    return { payments };
+  }
+
+  /**
+   * List Payments (in/out) for a User
+   * @param {Object} options
+   * @param {String} options.user - User slug
+   */
+  static async listForUserBySlug({ user: userSlug }, listingOptions) {
+    const { userId } = await User.getIdBySlug({ slug: userSlug });
+    if (!userId) {
+      throw new Error('User not found');
+    }
+    const payments = await this.list(
+      {
+        $or: [{ debitedUser: userId }, { creditedUser: userId }],
+      },
+      listingOptions,
+    );
+    return payments;
+  }
+
+  /**
+   * List Payments (in/out) for a User
+   * @param {Object} options
+   * @param {String} options.user - User ID
+   */
+  static async listForUserById({ user }, listingOptions) {
+    const payments = await this.list(
+      {
+        $or: [{ debitedUser: user }, { creditedUser: user }],
+      },
+      listingOptions,
+    );
+    return payments;
+  }
+
   /**
    * Create a new payment
    * @param {Object} options
