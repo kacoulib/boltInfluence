@@ -60,7 +60,12 @@ const CustomerIndex = (props) => {
                     }}
                 />,
 
-                <Influencers datas={data.influencersList} selectedInfluencer={data.selectedInfluencer} loadMore={loadMore} selectInfluencer={selectInfluencer} />,
+                <Influencers 
+                    datas={data.influencersList} 
+                    selectedInfluencer={data.selectedInfluencer} 
+                    loadMore={loadMore} 
+                    selectInfluencer={selectInfluencer} 
+                />,
                 <Publish />,
                 <PostValidate />,
             ]}

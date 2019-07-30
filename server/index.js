@@ -6,7 +6,6 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
@@ -20,7 +19,6 @@ const facebookAuth = require('./auth/facebook');
 const basicAuth = require('./auth/basic');
 const routes = require('./routes');
 const User = require('./models/User');
-
 const logger = require('./logs');
 // const { insertTemplates } = require('./models/EmailTemplate');
 // // const routesWithSlug = require('./routesWithSlug');
@@ -30,15 +28,15 @@ require('dotenv').config();
 const dev = process.env.NODE_ENV !== 'production';
 const MONGO_URL = process.env.MONGO_URL_TEST;
 
-const mangopayConfig = {
-  clientId: process.env.MANGOPAY_CLIENTID,
-  clientPassword: process.env.MANGOPAY_PASSWORD,
-  // debugMode: dev,
-};
-if (process.env.MANGOPAY_BASE_URL) {
-  mangopayConfig.baseUrl = process.env.MANGOPAY_BASE_URL;
-}
-console.log(setupMangopay(mangopayConfig).config);
+// const mangopayConfig = {
+//   clientId: process.env.MANGOPAY_CLIENTID,
+//   clientPassword: process.env.MANGOPAY_PASSWORD,
+//   // debugMode: dev,
+// };
+// if (process.env.MANGOPAY_BASE_URL) {
+//   mangopayConfig.baseUrl = process.env.MANGOPAY_BASE_URL;
+// }
+// console.log(setupMangopay(mangopayConfig).config);
 
 const options = {
   useNewUrlParser: true,
@@ -142,7 +140,7 @@ nextApp.prepare().then(async () => {
 
   app.get('*', (req, res) => {
     const url = URL_MAP[req.path];
-
+    
     if (url) {
       nextApp.render(req, res, url);
     } else {

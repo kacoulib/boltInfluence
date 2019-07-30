@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import withLayout from '../../../lib/withLayout';
 import NavPanel from '../../../components/admin/NavPanel';
 
+import MarquesAgences from '../../../components/page/marques/marquesAgences'
 import Examination from '../../../components/page/process/examination';
 import Validation from '../../../components/page/process/validation';
 import Publish from '../../../components/page/process/publish';
@@ -17,11 +18,35 @@ const navList = [
     { href: 'contact', className: 'icon message', text: 'Contact plateform' },
 ]
 
-const CustomerIndex = () => (
-    <NavPanel
+const CustomerIndex = () => {
+
+    const [data, setData] = useState({
+        influencersList: []
+    })
+
+    const loadMore = () => {
+        const tmp = data.influencersList.push({ _id: '5483752', name: 'L\'Oréal', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'En cours d\'inscription' },
+            { _id: '5483752', name: 'Séphora',picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'Inscrit' },
+        )
+        setData(Object.assign({}, data, { influencersList: data.influencersList }))
+    }
+
+    return (
+        <NavPanel
         navList={navList}
-        pages={[<Examination />, <Validation />, <Publish />, <PostValidate />, <MissionValidate />]}
+        pages={[
+            <MarquesAgences
+                datas={data.influencersList} 
+                loadMore={loadMore}
+            />,
+            <Examination />, 
+            <Validation />, 
+            <Publish />, 
+            <PostValidate />, 
+            <MissionValidate />
+        ]}
     />
-);
+    )
+}
 
 export default withLayout(CustomerIndex);
