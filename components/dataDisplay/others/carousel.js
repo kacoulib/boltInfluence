@@ -1,21 +1,16 @@
 import Slider from "react-slick";
 
-const styles = {
-    container: {
-        width: '100%'
-    }
-}
 var defaultSettings = {
     slidesToShow: 3,
     slidesToScroll: 1,
-    // autoplay: true,
-    autoplaySpeed: 2000,
+    autoplay: true,
+    autoplaySpeed: 3000,
 };
 const CarouselComp = (props) => {
     const tmp = { ...defaultSettings, ...props.settings };
 
     return (
-        <div style={styles.container}>
+        <div className='fullwidth'>
             <Slider {...tmp}>{props.children}</Slider>
         </div>
     )

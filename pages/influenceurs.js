@@ -5,7 +5,7 @@ import withLayout from '../lib/withLayout';
 import Screen7 from '../static/img/screen7.png'
 import Screen8 from '../static/img/screen8.png'
 import Screen9 from '../static/img/screen9.png'
-import Screen10 from '../static/img/screen10.png'
+import Screen10 from '../static/img/screen10.jpg'
 import Screen11 from '../static/img/screen11.png'
 import { Link } from '@material-ui/core';
 import Carousel from '../components/dataDisplay/others/carousel';
@@ -37,8 +37,14 @@ const styles = {
 		margin: 0,
 		bottom: 0
 	},
+	testimonialTitle: {
+		fontSize: '2rem'
+	},
 	carouselImg: {
 		width: '100%'
+	},
+	sliderContainer: {
+		padding: '0 3rem'
 	}
 }
 
@@ -106,36 +112,39 @@ const Index = () => {
 			</div>
 			{/*  */}
 			<div>
-				<Grid container item style={styles.cardContainer} className='lines-blue no-repeat right card-bg'>
-					<h2>Testimonials</h2>
+				<Grid container item style={styles.cardContainer}>
+					<div className='lines-black no-repeat right card-bg fullwidth' style={styles.sliderContainer}>
 
-					<Carousel>
-						<div style={styles.testimonialContainer}>
-							<div style={styles.testimonialContainer}>
-								<img src={Screen10} style={styles.carouselImg} />
-								<h3 style={styles.testimonial}>Loremp impsum Phrase deux</h3>
-							</div>
-						</div>
-						<div style={styles.testimonialContainer}>
-							<div style={styles.testimonialContainer}>
-								<img src={Screen11} style={styles.carouselImg} />
-								<h3 style={styles.testimonial}>Loremp impsum Phrase deux</h3>
-							</div>
-						</div>
-						<div style={styles.testimonialContainer}>
-							<div style={styles.testimonialContainer}>
-								<img src={Screen10} style={styles.carouselImg} />
-								<h3 style={styles.testimonial}>Loremp impsum Phrase deux</h3>
-							</div>
-						</div>
-						<div style={styles.testimonialContainer}>
-							<div style={styles.testimonialContainer}>
-								<img src={Screen11} style={styles.carouselImg} />
-								<h3 style={styles.testimonial}>Loremp impsum Phrase deux</h3>
-							</div>
-						</div>
+						<h2 style={styles.testimonialTitle}>Testimonials</h2>
 
-					</Carousel>
+						<Carousel>
+							<div style={styles.testimonialContainer}>
+								<div style={styles.testimonialContainer}>
+									<img src={Screen10} style={styles.carouselImg} />
+									<h3 style={styles.testimonial}>Loremp impsum Phrase deux</h3>
+								</div>
+							</div>
+							<div style={styles.testimonialContainer}>
+								<div style={styles.testimonialContainer}>
+									<img src={Screen11} style={styles.carouselImg} />
+									<h3 style={styles.testimonial}>Loremp impsum Phrase deux</h3>
+								</div>
+							</div>
+							<div style={styles.testimonialContainer}>
+								<div style={styles.testimonialContainer}>
+									<img src={Screen10} style={styles.carouselImg} />
+									<h3 style={styles.testimonial}>Loremp impsum Phrase deux</h3>
+								</div>
+							</div>
+							<div style={styles.testimonialContainer}>
+								<div style={styles.testimonialContainer}>
+									<img src={Screen11} style={styles.carouselImg} />
+									<h3 style={styles.testimonial}>Loremp impsum Phrase deux</h3>
+								</div>
+							</div>
+
+						</Carousel>
+					</div>
 				</Grid>
 			</div>
 		</div>
