@@ -5,7 +5,6 @@ const generateSlug = require('../utils/slugify');
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-
 const mongoSchema = new Schema({
   title: {
     type: String,
