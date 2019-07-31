@@ -186,6 +186,13 @@ body a {
 
 
 /* PUBLIC  */
+.single-content-container aside {
+    padding: 0 2rem;
+}
+.single-content > p:first-child {
+    margin-top: 0;
+}
+
 .home_team li {
     display: inline-block;
     padding: 1rem;
@@ -323,6 +330,9 @@ body a {
 }
 
 /* OTHER */
+.no-margin {
+    margin: 0;
+}
 .gray-border {
     border: 1px solid #D8D8D8;
     border-radius: 5px;
