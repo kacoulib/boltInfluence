@@ -52,7 +52,7 @@ const Index = () => {
 	const [state, setState] = useState({
 		cover: {
 			title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit. ',
-			img: '../static/img/screen6.png',
+			img: '../static/img/team.jpg',
 			resume: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit. ',
 			author: {
 				firstName: 'Matthieu',
