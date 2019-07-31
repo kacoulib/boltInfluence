@@ -7,7 +7,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Grid from '@material-ui/core/Grid';
 import withLayout from '../lib/withLayout';
-import { darkBlueColor, darkOrangeColor, lightGray } from '../utils/variables/css'
+import { darkBlueColor, darkOrangeColor, lightGray, redColor } from '../utils/variables/css'
 import Search from '../components/elements/search';
 import Rectangle from '../static/img/rectangle.png'
 import FormGenerator from '../components/form/generator';
@@ -253,22 +253,25 @@ const Index = () => {
 				<div className='home-block-padding' style={styles.padding}>
 					<h2 className='bordered-head fullwidth'>Notre equipe</h2>
 					<ul className={`home_team ${state.active != null ? 'toggle' : ''}`}>
-						{state.teams.map((elem, key) => (
-							<li key={key} className={`${state.active == key ? 'active' : ''}`}>
-								<div className='text-center' onClick={() => toggleTeam(key)}>
-									<div><img src={Rectangle} /></div>
-									<h3>{elem.fullName}</h3>
-									<h4>{elem.slug}</h4>
-									<h5>{elem.job}</h5>
-								</div>
-								<div>
-									<div>
-										<p>{elem.description}</p>
-										<p></p>
+						{state.teams.map((elem, key) => {
+							const isActive = state.active == key;
+							return (
+								<li key={key} className={`${isActive ? 'active' : ''}`}>
+									<div className='text-center' style={{ backgroundColor: isActive ? redColor : '' }} onClick={() => toggleTeam(key)}>
+										<div><img src={Rectangle} /></div>
+										<h3>{elem.fullName}</h3>
+										<h4>{elem.slug}</h4>
+										<h5>{elem.job}</h5>
 									</div>
-								</div>
-							</li>
-						))}
+									<div>
+										<div>
+											<p>{elem.description}</p>
+											<p></p>
+										</div>
+									</div>
+								</li>
+							)
+						})}
 					</ul>
 				</div>
 			</div>

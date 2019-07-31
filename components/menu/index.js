@@ -24,7 +24,7 @@ import Menu from '@material-ui/core/Menu';
 import Paper from '@material-ui/core/Paper';
 
 const Header = ({ user }) => (
-	<header>
+	<header id='header'>
 		<Toolbar>
 			<Grid container alignItems="center" justify="center">
 				<Grid container item sm={12} xs={12} alignItems="center" justify="center">

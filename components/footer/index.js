@@ -10,7 +10,7 @@ import logo from '../../static/img/logo.png';
 
 
 const Footer = () => (
-	<footer className='dot-white'>
+	<footer id='footer' className='dot-white'>
 		<Grid container alignItems="center" justify="center" align='center'>
 			<Grid item sm={12}>
 				<img src={logo} />

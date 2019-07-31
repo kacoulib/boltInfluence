@@ -99,7 +99,7 @@ const Index = () => {
 	return (
 		<div className='dots-blue right-bg'>
 			<div className='home-block-padding' style={styles.padding}>
-				<h1 className='bordered-head fullwidth'>À propos</h1>
+				<h1 className='bordered-head fullwidth'>À propos de nous</h1>
 				<Grid container>
 					<Grid container item style={styles.cardContainer}>
 						<Grid item xs={12} sm={6}>

@@ -21,11 +21,11 @@ body, html {
 body a {
     color: #5b5b5d;
 }
-header {
+#header {
     background: #252b40;
     padding-top: 1rem;
 }
-header a {
+#header a {
     color: #FFF;
 	text-align: center;
 	font-weight: bold;
@@ -226,13 +226,13 @@ header a {
     width: 100%;
 }
 /* GENERAL  */
-footer {
+#footer {
     padding: 4rem 0;
     background-color: #dedee8;
     background-repeat: no-repeat;
     background-position: left bottom;
 }
-footer a {
+#footer a {
     font-weight: bold;
     color: #232941;
 }
@@ -278,6 +278,10 @@ footer a {
 }
 
 /* OTHER */
+.gray-border {
+    border: 1px solid #D8D8D8;
+    border-radius: 5px;
+}
 .flex-reverse {
     -webkit-flex-direction: row-reverse; 
     flex-direction: row-reverse;
@@ -305,6 +309,12 @@ footer a {
 }
 .light-gray-bg {
     background-color: #F4F3F8;
+}
+.red-bg {
+    background-color: #F13F4B;
+}
+.white-color {
+    color: white;
 }
 .red-btn,
 button.submit {
@@ -352,6 +362,9 @@ button.submit {
 }
 .inline-block {
     display: inline-block;
+}
+.vertical-top {
+    vertical-align: top;
 }
 .upload h6 {
     padding-left: 1rem;
@@ -493,9 +506,6 @@ button.submit {
 .dots-blue-down {
     background-image: url('../img/dots-blue-down.png');
 }
-.dot-white {
-    background-image: url('../img/dots-white.png');
-}
 /* .dot-pink {
     background-image: url('../img/dots-pink.png');
 } */
@@ -520,7 +530,7 @@ button.submit {
     width: 100%;
     height: 100%;
     background-repeat: no-repeat;
-    z-index: -1;
+    z-index: 0;
 }
 .card-bg.right::before {
     background-position-x: right;
@@ -548,7 +558,12 @@ button.submit {
 .card-bg.lines-black::before {
     background-image: url('../img/lines-black.png');
 }
-
+.card-bg.dots-white::before {
+    background-image: url('../img/dots-white.png');
+}
+.card-bg.top-dots-white::before {
+    background-image: url('../img/top-dots-white.png');
+}
 .dots-pink-double {
     background-size: 100% 100%;
     background-image: url('../img/dots-pink.png'), url('../img/dots-pink-right.png');
