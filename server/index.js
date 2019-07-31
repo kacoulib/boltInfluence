@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-
+const compression = require('compression')
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
@@ -72,6 +72,7 @@ const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
 
 nextApp.prepare().then(async () => {
+  app.use(compression())
   const MongoStore = mongoSessionStore(session);
   const sess = {
     name: 'builderbook.sid',

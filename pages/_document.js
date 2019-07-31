@@ -13,7 +13,7 @@ class MyDocument extends Document {
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <meta name="google" content="notranslate" />
           <meta name="theme-color" content="#1976D2" />
-          <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet" />
+          {/* <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet" />
           <link
             rel="shortcut icon"
             href="https://storage.googleapis.com/builderbook/favicon32.png"
@@ -32,10 +32,10 @@ class MyDocument extends Document {
           />
           <link rel="stylesheet" href="https://storage.googleapis.com/builderbook/vs.min.css" />
 
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link> */}
           <link rel="stylesheet" href="../static/css/index.css"></link>
-          <link rel="stylesheet" type="text/css" charset="UTF-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
-          <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
+          {/* <link rel="stylesheet" type="text/css" charset="UTF-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
+          <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" /> */}
 
           <style>
             {`
