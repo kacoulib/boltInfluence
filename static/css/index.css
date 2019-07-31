@@ -278,6 +278,10 @@ footer a {
 }
 
 /* OTHER */
+.flex-reverse {
+    -webkit-flex-direction: row-reverse; 
+    flex-direction: row-reverse;
+}
 .bold {
     font-weight: bold;
 }
