@@ -5,6 +5,7 @@ import withLayout from '../lib/withLayout';
 import { grayColor } from '../utils/variables/css'
 import Search from '../components/elements/search'
 import { Link } from '@material-ui/core';
+import Socials from '../components/elements/socials';
 
 const styles = {
 	cardContainer: {
@@ -52,6 +53,14 @@ const styles = {
 	date: {
 		padding: '.3rem',
 		color: '#656464'
+	},
+	socialListContainer: {
+		padding: '0 0 1rem 0'
+	},
+	socialList: {
+		width: 25,
+		height: 25,
+		margin: '0 1rem'
 	}
 }
 
@@ -113,6 +122,10 @@ const Index = () => {
 				<Grid container item style={styles.contentContainer} className='single-content-container' direction="row-reverse">
 					<Grid item container xs={12} sm={4}>
 						<aside>
+							<Grid item xs={12} sm={12}>
+								<Socials parent={styles.socialListContainer} child={styles.socialList} />
+							</Grid>
+
 							<Grid item container xs={12} sm={12}>
 								<Search />
 							</Grid>

@@ -1,10 +1,7 @@
 import Link from 'next/link';
 import Grid from '@material-ui/core/Grid';
-import styles from '../SharedStyles';
-
 import logo from '../../static/img/logo.png';
-
-
+import Socials from '../../components/elements/socials'
 
 // style={{border: '1px solid red'}}
 
@@ -31,6 +28,10 @@ const Footer = () => (
 			<Grid item sm={4}>
 				<ul>
 					<li><Link href="/about"><a >Suivez noous</a></Link></li>
+					<li>
+						<Socials />
+					</li>
+
 				</ul>
 			</Grid>
 		</Grid>

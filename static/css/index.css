@@ -288,6 +288,21 @@ body a {
     font-weight: bold;
     color: #232941;
 }
+#socials {
+    text-align: center;
+    padding: 0 0 1rem 0;
+}
+#socials > li {
+    width: 15px;
+    height: 15px;
+    margin: 0 .5rem;
+}
+#socials > li:first-child {
+    margin-left: 0;
+}
+#socials > li:last-child {
+    margin-right: 0;
+}
 #contact-us {
     padding-bottom: 3rem;
 }

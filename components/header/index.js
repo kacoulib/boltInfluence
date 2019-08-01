@@ -2,26 +2,16 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
-import Hidden from '@material-ui/core/Hidden';
 import Avatar from '@material-ui/core/Avatar';
+
 // import Button from '@material-ui/core/Button';
-
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import MenuItem from '@material-ui/core/MenuItem';
-
-import MenuDrop from './MenuDrop';
-import { publicMenu, optionsMenuAdmin, optionsMenuCustomer } from './routes'
 import { styleToolbar, styleToolbarLink, greenBorder, redBorder } from '../SharedStyles';
 import styles from '../SharedStyles';
 import logo from '../../static/img/logo.png'
 import userIconWhite from '../../static/img/userIconWhite.js';
 
-import iconTwitter from '../../static/img/icon/TwitterWhite.png';
 import iconFlagFr from '../../static/img/flagFr.png';
-
-import Menu from '@material-ui/core/Menu';
-import Paper from '@material-ui/core/Paper';
+import Socials from '../elements/socials'
 
 const Header = ({ user }) => (
 	<header id='header'>
@@ -56,10 +46,7 @@ const Header = ({ user }) => (
 				</Grid>
 				<Grid container item sm={12} xs={12} direction="row" alignItems="center" justify="center">
 					<Grid item style={styleToolbarLink} sm={12} xs={12}>
-						<img src={iconTwitter} style={styles.styleIconeSocial} />
-						<img src={iconTwitter} style={styles.styleIconeSocial} />
-						<img src={iconTwitter} style={styles.styleIconeSocial} />
-						<img src={iconTwitter} style={styles.styleIconeSocial} />
+						<Socials fill='white' /* parent={styles.socialListContainer} child={styles.socialList} */ />
 					</Grid>
 				</Grid>
 			</Grid>
