@@ -2,12 +2,9 @@ import React, { useState, useEffect } from "react";
 import withLayout from '../../../lib/withLayout';
 import NavPanel from '../../../components/admin/NavPanel';
 
-import MarquesAgences from '../../../components/page/marques/marquesAgences'
-import Examination from '../../../components/page/process/examination';
 import Influencers from '../../../components/page/marques/influencers'
 import Publish from '../../../components/page/process/publish';
 import MissionValidate from '../../../components/page/process/mission-validate';
-import PostValidate from '../../../components/page/process/post-validate';
 import CreateCampagne from '../../../components/page/marques/campagne/create';
 import ListCampagne from '../../../components/page/marques/campagne/list';
 import ContactInfo from '../../../components/page/marques/info-contact';
@@ -40,10 +37,6 @@ const CustomerIndex = () => {
         setData(Object.assign({}, data, { campagneList: data.campagneList }))
     }
 
-    const selectMarquesAgences = (id) => {
-        const elem = data.campagneList.find(e => e._id = id);
-        setData(Object.assign({}, data, { selectedMarqueAgence: elem }))
-    }
     const selectInfluencer = (id) => {
         const elem = data.influencersList.find((e) => e._id = id);
         setData(Object.assign({}, data, { selectedInfluencer: elem }))
