@@ -154,6 +154,7 @@ button.submit {
 }
 .center-text, .text-center {
     text-align: center;
+    width: 100%
 }
 .text-right {
     text-align: right;
@@ -290,4 +291,15 @@ button.submit {
 }
 .mother {
     background-image: url('../img/icon/mother.png');
+}
+.dots-pink {
+    background-size: 100% 100%;
+    background-image: url('../img/dots-pink.png'), url('../img/dots-pink-right.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.logo {
+    width: 5em;
+    height: 5em;
+    filter: grayscale();
 }

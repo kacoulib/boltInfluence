@@ -13,6 +13,7 @@
   "dependencies": {
     "@material-ui/core": "3.9.3",
     "@material-ui/icons": "^4.0.0",
+    "@material-ui/lab": "^4.0.0-alpha.20",
     "@material-ui/styles": "^4.0.0",
     "@octokit/rest": "16.25.0",
     "@shelf/jest-mongodb": "^1.0.1",
