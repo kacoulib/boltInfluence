@@ -2,12 +2,7 @@ import React from 'react';
 
 import Typography from '@material-ui/core/Typography';
 import withLayout from '../../lib/withLayout';
-import withAuth from '../../lib/withAuth';
 import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core/styles';
-import OutlinedButtons from '../../components/elements/OutlinedButtons';
-import TextField from '@material-ui/core/TextField';
-
 
 
 
@@ -31,12 +26,12 @@ const CustomerIndex = () => (
 						<Typography variant="h6" gutterBottom style={{ color: 'red' }}>
 							Sam49
 						</Typography>
-							<img style={{borderRadius: '500px'}}src="https://via.placeholder.com/160x160"/>
+						<img style={{ borderRadius: '500px' }} src="https://via.placeholder.com/160x160" />
 						<Typography variant="h6" gutterBottom style={{ color: 'red' }}>
 							profil 90% complete
 						</Typography>
 					</Grid>
-					<Grid item xs={6} sm={6} style={{backgroundColor: '#DFDFFF'}}>
+					<Grid item xs={6} sm={6} style={{ backgroundColor: '#DFDFFF' }}>
 						<Typography align="center" variant="h6" gutterBottom style={{ color: '#232941' }}>
 							Information profil
 						</Typography>
@@ -62,7 +57,7 @@ const CustomerIndex = () => (
 							Notes / Appréciations
 						</Typography>
 					</Grid>
-					<Grid item xs={12} sm={12} style={{backgroundColor: '#232941'}}>
+					<Grid item xs={12} sm={12} style={{ backgroundColor: '#232941' }}>
 						<Typography align="center" variant="h6" gutterBottom style={{ color: '#FFF' }}>
 							> Ouvrir mon profil
 						</Typography>
@@ -72,7 +67,7 @@ const CustomerIndex = () => (
 			<Grid item xs={6} sm={6}>
 				<Grid container justify="center">
 					<Grid item>
-						<img src="https://via.placeholder.com/450x450"/>
+						<img src="https://via.placeholder.com/450x450" />
 					</Grid>
 					<Grid item xs={12} sm={12} align="center">
 						<Typography variant="h6" gutterBottom style={{ color: '#232941' }}>
@@ -86,7 +81,7 @@ const CustomerIndex = () => (
 					</Grid>
 					<Grid item xs={4} sm={4} justify="center" align="center">
 						<Grid item>
-							<img src="https://via.placeholder.com/150x150"/>
+							<img src="https://via.placeholder.com/150x150" />
 							<Typography variant="h6" gutterBottom style={{ color: '#232941' }}>
 								Decouvrez!
 							</Typography>
@@ -98,13 +93,13 @@ const CustomerIndex = () => (
 				</Grid>
 			</Grid>
 		</Grid>
-		<Grid container style={{backgroundColor: '#232941'}}>
+		<Grid container style={{ backgroundColor: '#232941' }}>
 			<Grid item>
 				<Typography variant="h5" gutterBottom style={{ color: '#FFF' }}>
 					Top 4 "campagnes du moment"
 				</Typography>
 			</Grid>
-			<Grid container style={{backgroundColor: '#232941'}}>
+			<Grid container style={{ backgroundColor: '#232941' }}>
 				<Grid item xs={3} sm={3}>
 					<Card />
 				</Grid>
@@ -119,7 +114,7 @@ const CustomerIndex = () => (
 				</Grid>
 			</Grid>
 		</Grid>
-		<Grid container style={{backgroundColor: '#EEE'}}>
+		<Grid container style={{ backgroundColor: '#EEE' }}>
 			<Grid item>
 				<Typography variant="h5" gutterBottom style={{ color: '#232941' }}>
 					Top 3 influencers

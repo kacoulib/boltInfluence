@@ -61,12 +61,12 @@ const Index = ({ datas, selectedInfluencer, selectInfluencer, loadMore }) => {
                             <h3 style={styles.marqueName}>{elem.marque}</h3>
                         </Grid>
                         <Grid item container xs={12} sm={12} style={styles.footer}>
-                            <Grid item xs={2} sm={2}> <Link prefetch href={'#Aperçu'}><a>Aperçu </a></Link></Grid>
-                            <Grid item xs={2} sm={2}> <Link prefetch href={'#Brief'}><a>Brief campage </a></Link></Grid>
-                            <Grid item xs={2} sm={2}> <Link prefetch href={'#Calendrier'}><a>Calendrier </a></Link></Grid>
-                            <Grid item xs={2} sm={2}> <Link prefetch href={'#Influencers'}><a>Influencers </a></Link></Grid>
-                            <Grid item xs={2} sm={2}> <Link prefetch href={'#Contenus'}><a>Contenus </a></Link></Grid>
-                            <Grid item xs={2} sm={2}> <Link prefetch href={'#Analytics'}><a>Analytics </a></Link></Grid>
+                            <Grid item xs={2} sm={2}> <Link prefetch href={'#Aperçu'}><a title='Aperçu'>Aperçu </a></Link></Grid>
+                            <Grid item xs={2} sm={2}> <Link prefetch href={'#Brief'}><a title='Brief campage'>Brief campage </a></Link></Grid>
+                            <Grid item xs={2} sm={2}> <Link prefetch href={'#Calendrier'}><a title='Calendrier'>Calendrier </a></Link></Grid>
+                            <Grid item xs={2} sm={2}> <Link prefetch href={'#Influencers'}><a title='Influencers'>Influencers </a></Link></Grid>
+                            <Grid item xs={2} sm={2}> <Link prefetch href={'#Contenus'}><a title='Contenus'>Contenus </a></Link></Grid>
+                            <Grid item xs={2} sm={2}> <Link prefetch href={'#Analytics'}><a title='Analytics'>Analytics </a></Link></Grid>
                         </Grid>
                     </Grid>
                 ))}

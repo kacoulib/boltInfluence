@@ -123,7 +123,7 @@ const Index = () => {
 								<h2 className='red-color text-center'>{elem.title}</h2>
 								<p className='justify'>{elem.description}</p>
 								<div className='center-text auto'>
-									<Link ><a className='red-btn' style={styles.button}>Demander une démo</a></Link>
+									<Link href='#'><a title='Demander une démo' className='red-btn' style={styles.button}>Demander une démo</a></Link>
 								</div>
 								<ul>
 									{elem.list && elem.list.map((e, i) => (<li><span className='tiny-icon valide-red'></span><p className='inline-block'>{e}</p></li>))}
@@ -167,7 +167,7 @@ const Index = () => {
 			<div className='center-text' style={styles.demoContainer}>
 				<h2 className='red-color'>Demander une démo aujourd’hui ! </h2>
 				<div className='center-text auto'>
-					<Link ><a className='red-btn' style={styles.button}>Demander une démo</a></Link>
+					<Link href='#'><a title='Demander une démo' className='red-btn' style={styles.button}>Demander une démo</a></Link>
 				</div>
 			</div>
 

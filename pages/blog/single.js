@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import Grid from '@material-ui/core/Grid';
-import withLayout from '../lib/withLayout';
-import { grayColor } from '../utils/variables/css'
-import Search from '../components/elements/search'
+import withLayout from '../../lib/withLayout';
+import Search from '../../components/elements/search'
 import { Link } from '@material-ui/core';
-import Socials from '../components/elements/socials';
+import Socials from '../../components/elements/socials';
 
 const styles = {
 	cardContainer: {
-		padding: '2rem 0',
+		padding: '0 0 2rem 0',
 		// marginBottom: '3rem'
 	},
 	padding: {
 		padding: '1rem 2rem',
 	},
 	contentContainer: {
-		padding: '0 2rem',
+		padding: '0 2rem 2rem',
 	},
 	verticalPadding: {
 		fontSize: '1.8rem',
@@ -64,7 +63,7 @@ const styles = {
 	}
 }
 
-const displayList = (data) => (<ul>{data && data.map((elem, index) => <li key={index}><Link href={`/category=${elem.id}`}><a>{elem.name}</a></Link></li>)}</ul>)
+const displayList = (data) => (<ul>{data && data.map((elem, index) => <li key={index}><Link href={`/category=${elem.id}`}><a title={elem.name}>{elem.name}</a></Link></li>)}</ul>)
 
 const Index = () => {
 	const [state, setState] = useState({
@@ -76,7 +75,7 @@ const Index = () => {
 			author: {
 				firstName: 'Matthieu',
 				lastName: 'Lopez',
-				img: '../static/img/user.png'
+				img: '../../static/img/user.png'
 			},
 		},
 		categories: [

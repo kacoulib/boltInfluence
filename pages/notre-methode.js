@@ -38,13 +38,12 @@ const Index = () => {
 		<div>
 			<div className='card-bg lines-blue no-repeat right'>
 				<div className='home-block-padding' style={styles.padding}>
-					<h1 className='text-center red-color'>La vidéo un média d’avenir</h1>
+					<h1 className='text-center red-color'>Notre méthode</h1>
 					<Grid container item style={styles.cardContainer}>
 						<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 							<Grid item xs={12} sm={8}>
-								<h2><span className='bordered-head'>Un média</span>  en pleine croissance</h2>
-								<p className='justify'>87% des marketeurs reconnaissent faire appel à la vidéo sur les réseaux sociaux* (contre seulement 63% en 2017).</p>
-								<p className='italic'>*Etude : the state of Video Marketing 2019 - Wyzowl</p>
+								<h2 className='justify'><span className='bordered-head'>Stratégie de contenu :</span></h2>
+								<p className='justify'>La création de contenu et le story telling est au centre de ce que nous produisons. Nos experts dans le domaine supportent les marques afin de créer des campagnes impactantes sur tous les réseaux sociaux.</p>
 							</Grid>
 						</Grid>
 						<Grid item xs={12} sm={6}>
@@ -61,21 +60,19 @@ const Index = () => {
 					</Grid>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item container xs={12} sm={8}>
-							<h2><span className='bordered-head'>Un média</span> engageant</h2>
-							<p className='justify'>Les vidéos rencontrent 36% d’engagement de plus que les photos sur Instagram et reçoivent en moyenne 2,1x de commentaires en plus.</p>
-							<p className='italic'>*Etude : 17 instagram stats marketer needs to know in 2019 - Sprout Social.</p>
+							<h2><span className='bordered-head'>Identification des influenceurs : </span></h2>
+							<p className='justify'>Notre plateforme donne accès à des centaines de milliers d’influenceurs sur Instagram, Youtube, TikTok, Twitch.</p>
 						</Grid>
 					</Grid>
 				</Grid>
 			</div>
 			{/*  */}
 			<div className='home-block-padding' style={styles.padding} className='card-bg dot-pink reverse no-repeat'>
-				<h1 className='text-center red-color'>Le format In-vidéo</h1>
 				<Grid container item style={styles.cardContainer}>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item xs={12} sm={8}>
-							<h2><span className='bordered-head'>Intégrez</span> votre contenu sur tous les types de contenu vidéo </h2>
-							<p className='justify'>Le format In-vidéo est flexible et s’intègre simplement sur tous les types de contenu vidéos et dans tous les formats.</p>
+							<h2 className='justify'><span className='bordered-head'>Accompagnement</span> des influenceurs et campaign management :</h2>
+							<p className='justify'>Le formatUne fois les influenceurs validés, nous mettons notre expertise au profit des annonceurs en agrégeant ces influenceurs au sein de différents packs thématiques : santé, beauté/lifestyle, sport, e-sport, décoration, voyages, entertainment, grande consoIn-vidéo est flexible et s’intègre simplement sur tous les types de contenu vidéos et dans tous les formats.</p>
 						</Grid>
 					</Grid>
 					<Grid item xs={12} sm={6}>
@@ -91,8 +88,8 @@ const Index = () => {
 					</Grid>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item container xs={12} sm={8}>
-							<h2><span className='bordered-head'>Intégrez</span> Un format non-intrusif</h2>
-							<p className='justify'>Une étude menée auprès de 1000 personnes a montré que 80% d’entre eux trouvent que ce format offre une bonne visibilité et 70% trouvent que ce mode de publicité est moins intrusif que les pré-roll.</p>
+							<h2><span className='bordered-head'>Reporting et campaign management</span></h2>
+							<p className='justify'>Toutes les campagnes lancées ont un objectif spécifiques : nous mesurons tous les KPI de manière transparente. Nous travaillons étroitement avec nos clients et pouvons leur fournir les résultats dès que la campagne est terminée.</p>
 						</Grid>
 					</Grid>
 				</Grid>

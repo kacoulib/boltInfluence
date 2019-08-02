@@ -44,7 +44,7 @@ const Index = () => {
 						<Grid item xs={12} sm={8}>
 							<p className='justify' style={styles.p}>Notre plateforme vous accompagne dans toutes les étapes de vos campagnes en Marketing d’influence : sélection des influenceurs, création et administration et export des statistiques.</p>
 							<div className='center-text'>
-								<Link ><a className='red-btn'>Demander une démo</a></Link>
+								<Link href='#'><a title='Demander une démo' className='red-btn'>Demander une démo</a></Link>
 							</div>
 						</Grid>
 					</Grid>

@@ -22,20 +22,16 @@ const Header = ({ user }) => (
 				</Grid>
 				<Grid container item sm={12} xs={12} alignItems="center" justify="center">
 					<Grid item align="center" sm={1} xs={12}>
-						<img src={logo} />
+						<Link href='/'><a title='home logo'><img src={logo} /></a></Link>
 					</Grid>
 					<Grid item align="center" sm={10}>
 						<Grid container alignItems="center">
 							<Grid item sm={1} xs={12}></Grid>
-							<Grid item sm={2} xs={12}>
-								<Link href='/annonceurs'>
-									<a title='Annonceurs'>Annonceurs</a>
-								</Link>
-							</Grid>
-							<Grid item sm={2} xs={12}><Link href='/influenceurs'><a>Influenceurs</a></Link></Grid>
-							<Grid item sm={2} xs={12}><Link href='/'><a>La vidéo d'influence</a></Link></Grid>
-							<Grid item sm={2} xs={12}><Link href='/'><a>Notre méthode</a></Link></Grid>
-							<Grid item sm={2} xs={12}><Link href='/'><a>Contactez-nous</a></Link></Grid>
+							<Grid item sm={2} xs={12}><Link href='/annonceurs'><a title='Annonceurs'>Annonceurs</a></Link></Grid>
+							<Grid item sm={2} xs={12}><Link href='/influenceurs'><a title='Influenceurs'>Influenceurs</a></Link></Grid>
+							<Grid item sm={2} xs={12}><Link href='/video'><a title="La vidéo d'influence">La vidéo d'influence</a></Link></Grid>
+							<Grid item sm={2} xs={12}><Link href='/notre-methode'><a title='Notre méthode'>Notre méthode</a></Link></Grid>
+							<Grid item sm={2} xs={12}><Link href='/contact'><a title='Contactez-nous'>Contactez-nous</a></Link></Grid>
 							<Grid item sm={1} xs={12}></Grid>
 
 						</Grid>

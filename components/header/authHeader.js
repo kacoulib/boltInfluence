@@ -18,7 +18,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import Ucfirst from '../../lib/ucfirst';
 import Badge from '@material-ui/core/Badge';
 import { influencerMenu, optionsMenuCustomer } from './routes'
 import MenuDrop from './MenuDrop';

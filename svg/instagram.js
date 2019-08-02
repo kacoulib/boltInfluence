@@ -2,8 +2,8 @@ export default ({ fill = "#242B45", stroke }) => (
     <svg viewBox="0 0 34 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" width='100%' height='100%'>
         <title>noun_Camera_12387</title>
         <desc>Created with Sketch.</desc>
-        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-            <g id="Article" transform="translate(-886.000000, -831.000000)" fill={fill} fill-rule="nonzero">
+        <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+            <g id="Article" transform="translate(-886.000000, -831.000000)" fill={fill} fillRule="nonzero">
                 <g id="noun_Camera_12387" transform="translate(886.000000, 831.000000)">
                     <g id="Group">
                         <path d="M24.86896,16.0873155 C24.86896,20.5521236 21.34588,24.1728804 17,24.1728804 C12.65446,24.1728804 9.13206,20.552473 9.13206,16.0873155 C9.13206,15.0766198 9.32042,14.1144851 9.6492,13.2222222 L0,13.2222222 L0,25.2663741 C0,30.0906727 3.80596,34 8.5,34 L25.50034,34 C30.19472,34 34,30.0906727 34,25.2663741 L34,13.2222222 L24.35046,13.2222222 C24.67992,14.1141358 24.86896,15.0766198 24.86896,16.0873155 Z" id="Path"></path>

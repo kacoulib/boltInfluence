@@ -133,12 +133,13 @@ nextApp.prepare().then(async () => {
   //   console.log('USER:', req.user);
   //   next();
   // });
-  routes(app);
+  routes(app, nextApp);
 
   app.get('/logout', (req, res) => {
     req.logout();
     res.redirect('/login');
   });
+
 
   app.get('*', (req, res) => {
     const url = URL_MAP[req.path];

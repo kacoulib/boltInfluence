@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import Grid from '@material-ui/core/Grid';
-import withLayout from '../lib/withLayout';
-import Team from '../static/img/team.jpg'
-import Screen6 from '../static/img/screen6.png'
-import Partners from '../components/page/public/partners'
-import ContactUs from '../components/page/public/contactUs'
-import { grayColor } from '../utils/variables/css'
+import withLayout from '../../lib/withLayout';
+import { grayColor } from '../../utils/variables/css'
+
 const styles = {
 	cardContainer: {
 		padding: '3rem 0',
@@ -57,7 +54,7 @@ const Index = () => {
 			author: {
 				firstName: 'Matthieu',
 				lastName: 'Lopez',
-				img: '../static/img/user.png'
+				img: '../../static/img/user.png'
 			},
 		},
 		articles: [{

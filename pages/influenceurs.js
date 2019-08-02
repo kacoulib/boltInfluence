@@ -62,8 +62,8 @@ const Index = () => {
 							<Grid item xs={12} sm={8}>
 								<p className='justify' style={styles.p}>Découvrez l’ensemble de notre offre de campagnes rémunérées et commencez à postuler dès aujourd’hui.</p>
 								<div className='center-text'>
-									<Link ><a className='red-btn' style={styles.button}>Inscrivez-vous</a></Link>
-									<div>ou <Link ><a>connectez-vous</a></Link></div>
+									<Link href='#'><a title='Inscrivez-vous' className='red-btn' style={styles.button}>Inscrivez-vous</a></Link>
+									<div>ou <Link href='#'><a title='connectez-vous'>connectez-vous</a></Link></div>
 								</div>
 							</Grid>
 						</Grid>
@@ -105,8 +105,8 @@ const Index = () => {
 			<div>
 				<Grid container item alignContent='center' alignItems='center'>
 					<div className='center-text auto'>
-						<Link ><a className='red-btn' style={styles.button}>Inscrivez-vous</a></Link>
-						<div>ou <Link ><a>connectez-vous</a></Link></div>
+						<Link href='#'><a className='red-btn' style={styles.button}>Inscrivez-vous</a></Link>
+						<div>ou <Link href='#'><a title='connectez-vous'>connectez-vous</a></Link></div>
 					</div>
 				</Grid>
 			</div>

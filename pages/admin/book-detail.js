@@ -51,7 +51,7 @@ const MyBook = ({ book, error }) => {
               as={`/books/${book.slug}/${ch.slug}`}
               href={`/public/read-chapter?bookSlug=${book.slug}&chapterSlug=${ch.slug}`}
             >
-              <a>{ch.title}</a>
+              <a title={ch.title}>{ch.title}</a>
             </Link>
           </li>
         ))}

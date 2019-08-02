@@ -7,27 +7,27 @@ import Socials from '../../components/elements/socials'
 
 
 const Footer = () => (
-	<footer id='footer' className='dot-white'>
+	<footer id='footer' className='card-bg dots-white bottom'>
 		<Grid container alignItems="center" justify="center" align='center'>
 			<Grid item sm={12}>
-				<img src={logo} />
+				<Link href='/'><a title='home logo'><img src={logo} /></a></Link>
 			</Grid>
 			<Grid item sm={4}>
 				<ul>
-					<li><Link href="/about"><a >Mon profil</a></Link></li>
-					<li><Link href="/about"><a >À propos</a></Link></li>
-					<li><Link href="/about">Les campagnes</Link></li>
+					<li><Link href='/annonceurs'><a title='Annonceurs'>Annonceurs</a></Link></li>
+					<li><Link href='/influenceurs'><a title='Influenceurs'>Influenceurs</a></Link></li>
+					<li><Link href="/about">La vidéo d'influence</Link></li>
 				</ul>
 			</Grid>
 			<Grid item sm={4}>
 				<ul>
-					<li><Link href="/about"><a >À découvrir</a></Link></li>
-					<li><Link href="/about"><a >Programmez vos posts</a></Link></li>
+					<li><Link href="/about"><a title='Notre méthode'>Notre méthode</a></Link></li>
+					<li><Link href="/contact"><a title='contact'>Contactez-nous</a></Link></li>
 				</ul>
 			</Grid>
 			<Grid item sm={4}>
 				<ul>
-					<li><Link href="/about"><a >Suivez noous</a></Link></li>
+					<li><Link href="/about"><a title='Suivez noous'>Suivez noous</a></Link></li>
 					<li>
 						<Socials />
 					</li>

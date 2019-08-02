@@ -261,8 +261,9 @@ body a {
 .bordered-head, .full-bordered-head {
     position: relative;
     margin: 0;
-    padding: 1rem 0;
+    padding: 1rem 0 .3rem;
     margin-bottom: 1rem;
+    line-height: 2.5rem;
 }
 
 .full-bordered-head::after,
@@ -587,6 +588,7 @@ button.submit {
 }
 .card-bg {
     position: relative;
+    z-index: 1;
 }
 .card-bg > div {
     z-index: 1;
@@ -600,13 +602,13 @@ button.submit {
     width: 100%;
     height: 100%;
     background-repeat: no-repeat;
-    z-index: 0;
+    z-index: -1;
 }
 .card-bg.right::before {
     background-position-x: right;
 }
 .card-bg.bottom::before {
-    background-position-x: bottom;
+    background-position-y: bottom;
 }
 .card-bg.left::before {
     background-position-x: left;
