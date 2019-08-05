@@ -276,7 +276,7 @@ const FormGenerator = ({ fields, classes, form, onChange, toggleList, setting, a
 
                                                 <Grid item {...labelSpacing}>
                                                     <div>
-                                                        <Upload name={elem.name} label={elem.label} value={form[elem.name]} onChange={onChange} {...elemProps} />
+                                                        <Upload name={elem.name} label={elem.label} defaultValue={form[elem.name]} value={form[elem.name]} onChange={value => onChange(elem.name, value)} {...elemProps} />
                                                     </div>
                                                 </ Grid>
                                             </ Grid>

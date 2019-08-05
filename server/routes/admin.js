@@ -230,8 +230,8 @@ router.post(
   '/articles',
   handleErrors(async (req, res) => {
     const { firstName, lastName } = req.user;
-    const { title, content, tags, social_medias } = req.body;
-    const article = await Article.add({ title, content, tags, social_medias, author: `${firstName} ${lastName}` });
+    const { title, picture, content, tags, social_medias } = req.body;
+    const article = await Article.add({ title, picture, content, tags, social_medias, author: `${firstName} ${lastName}` });
     res.json(article);
   }),
 )
@@ -249,8 +249,8 @@ router.put(
   '/articles/:slug',
   handleErrors(async (req, res) => {
     const { slug } = req.params;
-    const { title, content, tags } = req.body;
-    const article = await Article.updateBySlug({ title, content, tags, slug });
+    const { title, picture, content, tags } = req.body;
+    const article = await Article.updateBySlug({ title, picture, content, tags, slug });
     res.json(article);
   }),
 )

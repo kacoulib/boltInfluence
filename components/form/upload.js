@@ -6,7 +6,7 @@ export default class PictureUpload extends React.Component {
         super(props);
         this.state = {
             imageUpdated: false,
-            imagePreviewUrl: defaultUserImage
+            imagePreviewUrl: props.defaultValue || defaultUserImage
         };
     }
 
@@ -16,7 +16,7 @@ export default class PictureUpload extends React.Component {
         let file = e.target.files[0];
         reader.onloadend = () => {
             this.setState({ imagePreviewUrl: reader.result, imageUpdated: true });
-            this.props.onChange && this.props.onChange(file)
+            this.props.onChange && this.props.onChange(reader.result)
         };
         if (file)
             reader.readAsDataURL(file);

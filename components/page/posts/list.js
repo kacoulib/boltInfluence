@@ -56,8 +56,8 @@ const Index = ({ datas, loadMore }) => {
                 {state.articles && state.articles.map((elem, i) => (
                     <Grid key={i} container alignItems='center' justify="center" className='influencers_list' style={styles.listContainer}>
                         <Grid item xs={4} sm={4} className='center-text' style={styles.influencer_img_container}>
-                            <div className='influencers_img' style={{ backgroundImage: "url(" + InfluenceurJones + ")" }}><div></div>
-                                <img src={InfluenceurJones} />
+                            <div className='influencers_img' style={{ backgroundImage: "url(" + elem.picture || InfluenceurJones + ")" }}><div></div>
+                                <img src={elem.picture || InfluenceurJones} />
                             </div>
                         </Grid>
                         <Grid item xs={8} sm={8} style={styles.influencer_info_container}>

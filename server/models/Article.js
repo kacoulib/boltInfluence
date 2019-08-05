@@ -9,6 +9,10 @@ const mongoSchema = new Schema({
     type: String,
     required: true,
   },
+  picture: {
+    type: String,
+    required: true,
+  },
   slug: {
     type: String,
     required: true,
@@ -50,12 +54,14 @@ class ArticleClass {
     title,
     content,
     author,
+    picture,
     social_medias,
     tags,
   }) {
     const slug = await generateSlug(this, title);
     const articleDoc = await this.create({
       title,
+      picture,
       slug,
       content,
       author,
@@ -77,6 +83,7 @@ class ArticleClass {
   static async updateBySlug({
     slug,
     title,
+    picture,
     content,
     tags,
   }) {
@@ -85,8 +92,9 @@ class ArticleClass {
     if (title) article.title = title;
     if (content) article.content = content;
     if (tags) article.tags = tags;
+    if (picture) article.picture = picture;
 
-    const hasChanges = Boolean(title || content || tags);
+    const hasChanges = Boolean(title || content || tags || picture);
 
     if (hasChanges) {
       await article.save();

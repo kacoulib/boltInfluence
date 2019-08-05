@@ -84,10 +84,10 @@ const Index = ({ selected = defaultState, isEdit = false }) => {
     const [state, setState] = useState(selected)
 
     const onChange = (name, value) => {
-        console.log(name, value)
         setState(Object.assign({}, state, { [name]: value }))
     };
     const onSubmit = async () => {
+        console.log(state)
         if (isEdit)
             editArticle(state)
         else
