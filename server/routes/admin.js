@@ -2,6 +2,7 @@ const express = require('express');
 const multer = require('multer');
 
 const Article = require('../models/Article');
+const Category = require('../models/Category');
 const EmailTemplate = require('../models/EmailTemplate');
 const Payment = require('../models/Payment');
 const User = require('../models/User');
@@ -260,6 +261,49 @@ router.delete(
   handleErrors(async (req, res) => {
     const { slug } = req.params;
     await Article.deleteBySlug({ slug });
+    res.status(204).end();
+  }),
+)
+
+
+router.get('/categories', listCollection(Category.list.bind(Category)))
+
+router.post(
+  '/categories',
+  handleErrors(async (req, res) => {
+    const { title, color } = req.body;
+    const category = await Category.add({ title, color });
+    res.json(category);
+  }),
+)
+
+router.get(
+  '/categories/:id',
+  handleErrors(async (req, res) => {
+    const { id } = req.params;
+    const category = await Category.getById({ id });
+    res.json(category);
+  }),
+)
+
+router.put(
+  '/categories/:id',
+  handleErrors(async (req, res) => {
+    console.log(1)
+    const { id } = req.params;
+    const { title, color } = req.body;
+    console.log(title, color)
+
+    const category = await Category.updateById({ title, color, id });
+    res.json(category);
+  }),
+)
+
+router.delete(
+  '/categories/:id',
+  handleErrors(async (req, res) => {
+    const { id } = req.params;
+    await Category.deleteByid({ id });
     res.status(204).end();
   }),
 )

@@ -538,6 +538,11 @@ li > a:only-child:after { content: ''; }
     width: 80%;
     opacity: 0;
 }
+.listActions {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
 /* ADMIN  */
 .tarif-list-container {
     padding-top: 5rem;
@@ -563,6 +568,9 @@ li > a:only-child:after { content: ''; }
 }
 
 /* OTHER */
+.relative {
+    position: relative;
+}
 .no-margin {
     margin: 0;
 }

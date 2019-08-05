@@ -3,76 +3,101 @@ import withLayout from '../../../lib/withLayout';
 import withAuth from '../../../lib/withAuth';
 import NavPanel from '../../../components/admin/NavPanel';
 
-import Influencers from '../../../components/page/posts/influencers'
-import Publish from '../../../components/page/process/publish';
-import MissionValidate from '../../../components/page/process/mission-validate';
-import CreateCampagne from '../../../components/page/posts/campagne/create';
-import ListPost from '../../../components/page/posts/list';
+import PostList from '../../../components/page/posts/list';
+import CategoryList from '../../../components/page/posts/categoryList';
 import Faq from '../../../components/page/posts/faq';
-import CreatePost from '../../../components/page/posts/create';
-import PaymentInfo from '../../../components/page/posts/info-payment';
-import { getArticles, getBookList } from '../../../lib/api/http/admin';
+import CreatePost from '../../../components/page/create-edit';
+import { choiceList } from '../../../utils/variables/general'
 
-
-
-const CustomerIndex = (props) => {
-
-    const [state, setState] = useState({
-        campagneList: [],
-        selectedMarqueAgence: null,
-
-        subscribedInfluencer: 22300, waitingInfluencer: 32300,
-        subscribedMarque: 18068, waitingMarque: 5647,
-        subscribedCampagne: 5435, waitingCampagne: 6453,
-
-        articles: [
-            { _id: '5483752', location: 'Saratoga, CA, USA', interests: [{ name: 'mother', text: 'Mother' }, { name: 'mode', text: 'Mode' }], firstName: 'Sam', lastName: 'James', name: 'Campagne Naked blushed', picture: 'influencer_jones.png', marque: 'L\'Oréal', status: 'doing' },
-            { _id: '5483752', location: 'Saratoga, CA, USA', interests: [{ name: 'travel', text: 'Travel' },], firstName: 'Sam', lastName: 'James', name: 'LOréal campagne', picture: 'influencer_jones.png', marque: 'Sephora', status: 'active' },
-            { _id: '5483752', location: 'Saratoga, CA, USA', interests: [{ name: 'travel', text: 'Travel' }, { name: 'mother', text: 'mother' }, { name: 'mode', text: 'Mode' }], firstName: 'Sam', lastName: 'James', name: 'Campagne Naked blushed', picture: 'influencer_jones.png', marque: 'Hilton', status: 'done' }
-        ],
-        selectedInfluencer: null
-    })
-
-    useEffect(() => {
-        async function getData() {
-            const articles = await getArticles();
-            console.log('ok', articles)
-            setState({ ...state, ...articles })
+const articleFields = [
+    {
+        label: "Poster / image",
+        name: "picture",
+        type: 'upload',
+        required: true,
+        width: 12,
+    },
+    {
+        label: "Titre",
+        name: "title",
+        type: 'input',
+        required: true,
+        props: {
+            margin: "normal",
         }
-        getData()
-    }, [])
-    const loadMore = () => {
-        // setState(Object.assign({}, state, { campagneList: state.campagneList }))
-    }
+    },
+    {
+        label: "Catégories",
+        name: "categories",
+        type: 'react-select',
+        required: true,
+        props: {
+            list: [{ name: 'Marque1', value: 'marque 1' }, { name: 'Marque2', value: 'second marque' }],
+        }
+    },
+    {
+        label: "Tags",
+        name: "tags",
+        type: 'react-select',
+        required: true,
+        props: {
+            list: [{ name: 'Marque1', value: 'marque 1' }, { name: 'Marque2', value: 'second marque' }],
+        }
+    },
+    {
+        label: "Contenu",
+        name: "content",
+        type: 'wysiwyg',
+        required: true,
+        props: {
+            list: choiceList,
+            required: true,
+            margin: "normal",
+            variant: "outlined",
+        }
+    },
+]
 
-    const selectInfluencer = (id) => {
-        const elem = state.articles.find((e) => e._id = id);
-        setState(Object.assign({}, state, { selectedInfluencer: elem }))
-    }
 
+const categoryFields = [
+    {
+        label: "Titre",
+        name: "title",
+        type: 'input',
+        required: true,
+        props: {
+            margin: "normal",
+        }
+    },
+    {
+        label: "Couleur",
+        name: "color",
+        type: 'color',
+        required: true,
+        props: {
+            margin: "normal",
+        }
+    },
+]
+
+const CustomerIndex = () => {
     const navList = [
-        // { href: 'mark', className: 'icon mark', text: 'Ajouter une campagne', page: <CreateCampagne /> },
         { href: 'account', className: 'icon ', text: 'F.A.Q', page: <Faq /> },
         {
             href: 'article', className: 'icon photos', text: 'Articles', subMenu: {
                 title: 'Articles', navList: [
-                    { href: 'mark', className: 'icon photos', text: 'Créer un article', page: <CreatePost /> },
-                    {
-                        href: 'account', className: 'icon mark', text: 'Liste des articles', page: <ListPost
-                            datas={state.articles}
-                            selectedInfluencer={state.selectedInfluencer}
-                            loadMore={loadMore}
-                            selectInfluencer={selectInfluencer} />
-                    },
+                    { href: 'mark', className: 'icon photos', text: 'Créer un article', page: <CreatePost fields={articleFields} path='/admin/articles' /> },
+                    { href: 'account', className: 'icon mark', text: 'Liste des articles', page: <PostList fields={articleFields} path='/admin/articles' editIdenfier='slug' /> },
                 ]
             }
         },
         {
-            href: 'account', className: 'icon mark', text: 'Liste des articles', page: <ListPost
-                datas={state.articles}
-                selectedInfluencer={state.selectedInfluencer}
-                loadMore={loadMore}
-                selectInfluencer={selectInfluencer} />
+            href: 'account', className: 'icon mark', text: 'Categories', subMenu: {
+                title: 'Catégories', navList: [
+                    { href: 'mark', className: 'icon photos', text: 'Créer un article', page: <CreatePost fields={categoryFields} path='/admin/categories' /> },
+                    { href: 'account', className: 'icon mark', text: 'Liste des Catégories', page: <CategoryList fields={categoryFields} path='/admin/categories' editIdenfier='_id' /> },
+                ]
+            }
         },
     ]
 

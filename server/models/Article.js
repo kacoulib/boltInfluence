@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const generateSlug = require('../utils/slugify');
 
 const { Schema } = mongoose;
+const { ObjectId } = Schema.Types;
+
 
 const mongoSchema = new Schema({
   title: {
@@ -29,7 +31,8 @@ const mongoSchema = new Schema({
   social_medias: [{
     //
   }],
-  tags: [String],
+  categories: [{ type: ObjectId, ref: 'Category' }],
+  tags: [{ type: ObjectId, ref: 'Tags' }],
 });
 
 class ArticleClass {

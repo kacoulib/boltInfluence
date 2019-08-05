@@ -14,6 +14,8 @@ import Chip from '@material-ui/core/Chip';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import ReactSelect from 'react-select'
+import ColorPicker from 'material-ui-color-picker'
+
 /*
 
     <FormGenerator
@@ -266,6 +268,23 @@ const FormGenerator = ({ fields, classes, form, onChange, toggleList, setting, a
 
                                                     <div>
                                                         <Checkbox name={elem.name} label={elem.label} value={form[elem.name]} onChange={onChange} {...elemProps} />
+                                                    </div>
+                                                </ Grid>
+                                            </ Grid>
+                                        )
+                                        || elem.type == 'color' && (
+                                            <Grid container>
+                                                {showLabel && <Grid item {...labelSpacing}>{elem.label}</Grid>}
+
+                                                <Grid item {...labelSpacing}>
+                                                    <div>
+                                                        <ColorPicker
+                                                            name='color'
+                                                            defaultValue={form[elem.name] || '#000'}
+                                                            // value={this.state.color} - for controlled component
+                                                            onChange={value => onChange(elem.name, value)}
+
+                                                        />
                                                     </div>
                                                 </ Grid>
                                             </ Grid>

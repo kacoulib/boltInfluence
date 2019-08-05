@@ -5,7 +5,7 @@ import Stars from '../../../static/img/icon/stars.png'
 import InfluenceurJones from '../../../static/img/pictures/rectangle.png'
 import Button from '@material-ui/core/Button';
 import Link from 'next/link';
-import { getArticles, getBookList } from '../../../lib/api/http/admin';
+import { customRequest } from '../../../lib/api/http/index';
 import Edit from '../create-edit'
 
 const cardContainer = {
@@ -30,18 +30,18 @@ const styles = {
 }
 
 const Index = ({ loadMore, fields, path, editIdenfier }) => {
-    const [state, setState] = useState({ articles: [], selectedArticle: null })
+    const [state, setState] = useState({ categories: [], selectedArticle: null })
 
     useEffect(() => {
         async function getData() {
-            const articles = await getArticles();
-            setState({ ...state, ...articles })
+            const categories = await customRequest({ path: '/admin/categories' });
+            setState({ ...state, ...categories })
         }
         getData()
     }, [])
 
     const handleSelectArticle = (id) => {
-        const tmp = state.articles.find((e) => e._id == id);
+        const tmp = state.categories.find((e) => e._id == id);
         setState({ ...state, selectedArticle: tmp })
     }
     if (state.selectedArticle)
@@ -49,17 +49,17 @@ const Index = ({ loadMore, fields, path, editIdenfier }) => {
     return (
         <Grid container alignItems='center' justify="center" style={styles.container} >
             <Grid item xs={12} sm={12}>
-                <h2>Liste des articles</h2>
+                <h2>Liste des catégories</h2>
             </Grid>
             <Grid item xs={12} sm={12} style={styles.childContainer}>
-                {state.articles && state.articles.map((elem, i) => (
-                    <Grid key={i} container alignItems='center' justify="center" className='influencers_list relative' style={styles.listContainer}>
+                {state.categories && state.categories.map((elem, i) => (
+                    <Grid key={i} container alignItems='stretch' justify="center" className='influencers_list relative' style={styles.listContainer}>
                         <div className='listActions'>
                             <span className='icon write pointer' onClick={() => handleSelectArticle(elem._id)}></span>
                         </div>
                         <Grid item xs={4} sm={4} className='center-text' style={styles.influencer_img_container}>
-                            <div className='influencers_img' style={{ backgroundImage: "url(" + elem.picture || InfluenceurJones + ")" }}><div></div>
-                                <img src={elem.picture || InfluenceurJones} />
+                            <div className='influencers_img' style={{ backgroundColor: elem.color }}><div></div>
+                                {/* <img src={elem.picture || InfluenceurJones} /> */}
                             </div>
                         </Grid>
                         <Grid item xs={8} sm={8} style={styles.influencer_info_container}>
@@ -67,14 +67,6 @@ const Index = ({ loadMore, fields, path, editIdenfier }) => {
                             <h3 style={styles.marqueName}>{elem.marque}</h3>
 
 
-                        </Grid>
-                        <Grid item container xs={12} sm={12} style={styles.footer}>
-                            <Grid item xs={2} sm={2}> <Link prefetch href={'#Aperçu'}><a>Aperçu </a></Link></Grid>
-                            <Grid item xs={2} sm={2}> <Link prefetch href={'#Brief'}><a>Brief campage </a></Link></Grid>
-                            <Grid item xs={2} sm={2}> <Link prefetch href={'#Calendrier'}><a>Calendrier </a></Link></Grid>
-                            <Grid item xs={2} sm={2}> <Link prefetch href={'#Influencers'}><a>Influencers </a></Link></Grid>
-                            <Grid item xs={2} sm={2}> <Link prefetch href={'#Contenus'}><a>Contenus </a></Link></Grid>
-                            <Grid item xs={2} sm={2}> <Link prefetch href={'#Analytics'}><a>Analytics </a></Link></Grid>
                         </Grid>
                     </Grid>
                 ))}
