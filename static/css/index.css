@@ -882,7 +882,7 @@ button.submit {
     .home_team.toggle li {
         display: block;
     }
-    /* .home_team.toggle li > div:last-child {
-        display: none;
-    } */
+    .tarif-list-container > li {
+        width: 100%;
+    }
 }

@@ -138,8 +138,8 @@ const Index = () => {
 				<h3 className='text-center' style={styles.more}>Et bien plus encore…</h3>
 				<Grid container style={styles.padding}>
 					<Grid container item>
-						<Grid container item xs={8} sm={8}></Grid>
-						<Grid container item xs={4} sm={4} style={styles.tableHead} className='text-center bold'>
+						<Grid container item xs={4} sm={8}></Grid>
+						<Grid container item xs={8} sm={4} style={styles.tableHead} className='text-center bold'>
 							<Grid item xs={4} sm={4}>Basic</Grid>
 							<Grid item xs={4} sm={4}>Pro</Grid>
 							<Grid item xs={4} sm={4}>Entreprise</Grid>
@@ -150,8 +150,8 @@ const Index = () => {
 							<h2 className='red-color'>{elem.title}</h2>
 							{elem.list && elem.list.map((e, i) => (
 								<Grid container item key={i} className={i % 2 == 0 ? 'light-gray-bg' : ''} style={styles.verticalPadding}>
-									<Grid item xs={8} sm={8}>{e.title}</Grid>
-									<Grid item container xs={4} sm={4} className='text-center'>
+									<Grid item xs={4} sm={8}>{e.title}</Grid>
+									<Grid item container xs={8} sm={4} className='text-center'>
 										<Grid item xs={4} sm={4}>{e.basic}</Grid>
 										<Grid item xs={4} sm={4}>{e.pro}</Grid>
 										<Grid item xs={4} sm={4}>{e.entreprise}</Grid>
