@@ -40,18 +40,18 @@ const AnnonceDemo = () => {
 
     return (
         <Grid container>
-            <Grid id={"description"} container>
-                <Grid container item xs={6} alignItems="center" alignContent="center" style={{ height: "400px" }}>
+            <Grid id="description" container>
+                <Grid container item sm={6} xs={12} alignItems="center" alignContent="center" style={{ height: "400px" }}>
                     <h2 className="text-center"> En incarnant votre marque, les influenceurs la rendent plus vivante et sensible</h2>
                     <p className="text-center">
                         Grâce à leur communauté, vous obtenez un moyen privilégié d'échange avec vos clients et futurs clients.
                     </p>
                 </Grid>
-                <Grid container item xs={6} className="dots-pink-double" alignItems="center">
+                <Grid container item sm={6} xs={12} className="dots-pink-double" alignItems="center">
                     <img src={girlboat} alt="demo" />
                 </Grid>
             </Grid>
-            <Grid id={"form-demo"} container alignContent="center">
+            <Grid id="form-demo" container alignContent="center">
                 <Grid item xs={12} sm={2} className='text-center'></Grid>
                 <Grid item xs={12} sm={8} className='text-center'>
                     <ContactUs onSubmit={onSubmit} />
