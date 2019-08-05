@@ -803,6 +803,7 @@ button.submit {
 .card-bg {
     position: relative;
     z-index: 1;
+    padding: 0 3rem;
 }
 .card-bg > div {
     z-index: 1;
@@ -884,5 +885,8 @@ button.submit {
     }
     .tarif-list-container > li {
         width: 100%;
+    }
+    .card-bg {
+        padding: 0;
     }
 }

@@ -42,9 +42,6 @@ const styles = {
 	},
 	carouselImg: {
 		width: '100%'
-	},
-	sliderContainer: {
-		padding: '0 3rem'
 	}
 }
 
@@ -113,7 +110,7 @@ const Index = () => {
 			{/*  */}
 			<div>
 				<Grid container item style={styles.cardContainer}>
-					<div className='lines-black no-repeat right card-bg fullwidth' style={styles.sliderContainer}>
+					<div className='lines-black no-repeat right card-bg fullwidth'>
 
 						<h2 style={styles.testimonialTitle}>Testimonials</h2>
 
