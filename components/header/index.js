@@ -13,6 +13,46 @@ import userIconWhite from '../../static/img/userIconWhite.js';
 import iconFlagFr from '../../static/img/flagFr.png';
 import Socials from '../elements/socials'
 
+const menuList = [
+	{
+		title: 'Annonceurs', text: "Annonceurs", href: '#Annonceurs', child: [
+			{ title: 'Marque', text: "Marque", href: '#marques', },
+			{ title: 'Agence', text: "Agence", href: '#agence', },
+		]
+	},
+	{ title: 'Influenceurs', text: "Influenceurs", href: '#Influenceurs' },
+	{ title: "La vidéo d'influence", text: "La vidéo d'influence", href: '#influencers' },
+	{
+		title: 'Notre méthode', text: "Notre méthode", href: '#method', child: [
+			{ title: 'Blog', text: "Blog", href: '#blog', },
+		]
+	},
+	{
+		title: 'Contactez-nous', text: "Contactez-nous", href: '#contact', child: [
+			{ title: 'A propos', text: "A propos", href: '#apropos', },
+			{ title: 'Notre méthode', text: "Notre méthode", href: '#method', },
+			{ title: 'Carriere', text: "Carriere", href: '#carriere', },
+			{ title: 'FAQ', text: "FAQ", href: '#faq', },
+		]
+	},
+]
+
+const displayMenuList = (list, i) => (
+	list.map((elem, index) => (
+		<li key={++i}>
+			<Link href={elem.href}><a title={elem.title}>{elem.text}</a></Link>
+			{elem.child && <>
+				<label for={`drop-${i}`} class="toggle">{elem.text} +</label>
+				<input type="checkbox" id={`drop-${i}`} />
+				<ul class="nav-dropdown">
+					{displayMenuList(elem.child)}
+				</ul>
+			</>
+			}
+		</li>
+	))
+)
+
 const Header = ({ user }) => (
 	<header id='header'>
 		<Toolbar>
@@ -26,13 +66,51 @@ const Header = ({ user }) => (
 					</Grid>
 					<Grid item align="center" sm={10}>
 						<Grid container alignItems="center">
-							<Grid item sm={1} xs={12}></Grid>
-							<Grid item sm={2} xs={12}><Link href='/annonceurs'><a title='Annonceurs'>Annonceurs</a></Link></Grid>
-							<Grid item sm={2} xs={12}><Link href='/influenceurs'><a title='Influenceurs'>Influenceurs</a></Link></Grid>
-							<Grid item sm={2} xs={12}><Link href='/video'><a title="La vidéo d'influence">La vidéo d'influence</a></Link></Grid>
-							<Grid item sm={2} xs={12}><Link href='/notre-methode'><a title='Notre méthode'>Notre méthode</a></Link></Grid>
-							<Grid item sm={2} xs={12}><Link href='/contact'><a title='Contactez-nous'>Contactez-nous</a></Link></Grid>
-							<Grid item sm={1} xs={12}></Grid>
+							<nav>
+								<label for="drop" class="toggle">☰</label>
+								<input type="checkbox" id="drop" />
+								<ul class="menu">
+									{displayMenuList(menuList, 0)}
+									{/* <li><a href="#">Home</a></li>
+									<li>
+										<label for="drop-1" class="toggle">WordPress +</label>
+										<input type="checkbox" id="drop-1" />
+										<a href="#">WordPress</a>
+										<ul>
+											<li><a href="#">Themes and stuff</a></li>
+											<li><a href="#">Plugins</a></li>
+											<li><a href="#">Tutorials</a></li>
+										</ul>
+
+									</li>
+									<li>
+
+										<label for="drop-2" class="toggle">Web Design +</label>
+										<a href="#">Web Design</a>
+										<input type="checkbox" id="drop-2" />
+										<ul>
+											<li><a href="#">Resources</a></li>
+											<li><a href="#">Links</a></li>
+											<li>
+
+												<label for="drop-3" class="toggle">Tutorials +</label>
+												<a href="#">Tutorials</a>
+												<input type="checkbox" id="drop-3" />
+
+												<ul>
+													<li><a href="#">HTML/CSS</a></li>
+													<li><a href="#">jQuery</a></li>
+													<li><a href="#">Other</a></li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+									<li><a href="#">Graphic Design</a></li>
+									<li><a href="#">Inspiration</a></li>
+									<li><a href="#">Contact</a></li>
+									<li><a href="#">About</a></li> */}
+								</ul>
+							</nav>
 
 						</Grid>
 					</Grid>

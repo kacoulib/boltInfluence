@@ -87,13 +87,13 @@ const Index = () => {
 			fullName: 'Morgane SIRGUEY',
 			slug: '“La créa”',
 			job: 'Chargée des influenceurs et Co-fondatrice ',
-			description: 'Joseph n’est pas à son premier coup d’essai. Serial Entrepreneur, il a été associé chez StickyADS.tv revendue à Comcast en 2016. Avec Bolt Influence, il souhaite mettre au service des marques sa vision d’une communication cohérente et adaptée aux usages actuels des consommateurs'
+			description: 'Issue du monde culinaire et entrepreneuriale, Morgane apporte à Bolt Influence la créativité dont la communication a besoin. Également blogueuse, son bagage social media lui permet de vous accompagner lors du choix stratégique des influenceurs qui représenteront votre marque.'
 		},
 		{
 			fullName: 'Thomas VAN’T WOUT',
 			slug: '“l’arpenteur”',
 			job: '',
-			description: 'Joseph n’est pas à son premier coup d’essai. Serial Entrepreneur, il a été associé chez StickyADS.tv revendue à Comcast en 2016. Avec Bolt Influence, il souhaite mettre au service des marques sa vision d’une communication cohérente et adaptée aux usages actuels des consommateurs'
+			description: 'Thomas a fait toutes ses armes dans le monde digital pour de grands comptes comme des projets entrepreneurials. Lui-même influenceur, il permet à Bolt Influence de se positionner comme un interlocuteur privilégié pour toutes les marques désireuses de communiquer auprès des communautés sociales.'
 		}]
 	})
 
@@ -101,6 +101,8 @@ const Index = () => {
 		const active = state.active == i ? null : i;
 		setState({ ...state, active });
 	}
+	const onChange = (name, value) => setState({ ...state, [name]: value })
+
 
 	return (
 		<div className='dots-blue right-bg'>
@@ -156,8 +158,9 @@ const Index = () => {
 						<Grid item xs={12} sm={6}>
 							<FormGenerator
 								fields={fields}
-								form={{}}
+								form={state}
 								label='test'
+								onChange={onChange}
 							/>
 						</Grid>
 
@@ -258,7 +261,7 @@ const Index = () => {
 							return (
 								<li key={key} className={`${isActive ? 'active' : ''}`}>
 									<div className='text-center' style={{ backgroundColor: isActive ? redColor : '' }} onClick={() => toggleTeam(key)}>
-										<div><img src={Rectangle} /></div>
+										<div><img src={Rectangle} className='fullwidthe' /></div>
 										<h3>{elem.fullName}</h3>
 										<h4>{elem.slug}</h4>
 										<h5>{elem.job}</h5>

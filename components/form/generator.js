@@ -13,7 +13,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Chip from '@material-ui/core/Chip';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
-
+import ReactSelect from 'react-select'
 /*
 
     <FormGenerator
@@ -203,6 +203,33 @@ const FormGenerator = ({ fields, classes, form, onChange, toggleList, setting, a
                                                                 </MenuItem>
                                                             ))}
                                                         </Select>
+                                                    </FormControl>
+                                                </ Grid>
+                                            </ Grid>
+                                        )
+                                        || elem.type == 'react-select' && (
+                                            <Grid container>
+                                                {showLabel && <Grid item {...labelSpacing}>{elem.label}</Grid>}
+
+                                                <Grid item {...labelSpacing}>
+                                                    <FormControl className={classes.formControl} required={elem.props && elem.props.required} style={elem.formControlStyle}>
+                                                        {elem.label && <span >{elem.label}</span>}
+                                                        <ReactSelect
+                                                            isMulti
+                                                            name="colors"
+                                                            options={[
+                                                                { value: 'chocolate', label: 'Chocolate' },
+                                                                { value: 'strawberry', label: 'Strawberry' },
+                                                                { value: 'vanilla', label: 'Vanilla' },
+                                                                { value: 'chocolate1', label: 'Chocolate' },
+                                                                { value: 'strawberry1', label: 'Strawberry' },
+                                                                { value: 'vanilla1', label: 'Vanilla' },
+                                                                { value: 'chocolate2', label: 'Chocolate' },
+                                                                { value: 'strawberry2', label: 'Strawberry' },
+                                                                { value: 'vanilla2', label: 'Vanilla' },
+                                                            ]}
+                                                            styles={{ control: styles => ({ ...styles, backgroundColor: 'none', borderRadius: 0, border: 'none', borderBottom: '1px solid rgba(0, 0, 0, 0.42)' }), }}
+                                                        />
                                                     </FormControl>
                                                 </ Grid>
                                             </ Grid>
