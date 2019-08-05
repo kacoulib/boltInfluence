@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import withLayout from '../../../lib/withLayout';
+import withAuth from '../../../lib/withAuth';
 import NavPanel from '../../../components/admin/NavPanel';
 
 import Influencers from '../../../components/page/posts/influencers'
@@ -10,10 +11,11 @@ import ListPost from '../../../components/page/posts/list';
 import Faq from '../../../components/page/posts/faq';
 import CreatePost from '../../../components/page/posts/create';
 import PaymentInfo from '../../../components/page/posts/info-payment';
+import { getArticles, getBookList } from '../../../lib/api/http/admin';
 
 
 
-const CustomerIndex = () => {
+const CustomerIndex = (props) => {
 
     const [data, setData] = useState({
         campagneList: [],
@@ -26,10 +28,12 @@ const CustomerIndex = () => {
         influencersList: [
             { _id: '5483752', location: 'Saratoga, CA, USA', interests: [{ name: 'mother', text: 'Mother' }, { name: 'mode', text: 'Mode' }], firstName: 'Sam', lastName: 'James', name: 'Campagne Naked blushed', picture: 'influencer_jones.png', marque: 'L\'Oréal', status: 'doing' },
             { _id: '5483752', location: 'Saratoga, CA, USA', interests: [{ name: 'travel', text: 'Travel' },], firstName: 'Sam', lastName: 'James', name: 'LOréal campagne', picture: 'influencer_jones.png', marque: 'Sephora', status: 'active' },
-            { _id: '5483752', location: 'Saratoga, CA, USA', interests: [{ name: 'travel', text: 'Travel' }, { name: 'mother', text: 'mother' }, { name: 'mode', text: 'Mode' }], firstName: 'Sam', lastName: 'James', name: 'Campagne Naked blushed', picture: 'influencer_jones.png', marque: 'Hilton', status: 'done' }],
+            { _id: '5483752', location: 'Saratoga, CA, USA', interests: [{ name: 'travel', text: 'Travel' }, { name: 'mother', text: 'mother' }, { name: 'mode', text: 'Mode' }], firstName: 'Sam', lastName: 'James', name: 'Campagne Naked blushed', picture: 'influencer_jones.png', marque: 'Hilton', status: 'done' }
+        ],
         selectedInfluencer: null
     })
 
+    console.log(props)
     const loadMore = () => {
         const tmp = data.campagneList.push({ _id: '5483752', name: 'L\'Oréal', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', status: 'En cours d\'inscription' },
             { _id: '5483752', name: 'Séphora', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', status: 'Inscrit' },
@@ -97,5 +101,13 @@ const CustomerIndex = () => {
         </div>
     )
 }
+CustomerIndex.getInitialProps = async ({ req }) => {
+    console.log('--')
+    const res = await getBookList()
+    const json = await res.json()
+    console.log('--', res)
 
-export default withLayout(CustomerIndex);
+    return { stars: json.stargazers_count }
+}
+
+export default withAuth(CustomerIndex);

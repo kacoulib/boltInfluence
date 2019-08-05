@@ -12,8 +12,8 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
 // const { setupMangopay } = require('./utils/mangopay');
-// const instagramAuth = require('./auth/instagram');
-// const googleAuth = require('./auth/google');
+const instagramAuth = require('./auth/instagram');
+const googleAuth = require('./auth/google');
 // const twitterAuth = require('./auth/twitter');
 // const twitchAuth = require('./auth/twitch');
 const basicAuth = require('./auth/basic');
@@ -124,8 +124,8 @@ nextApp.prepare().then(async () => {
     });
   });
 
-  // googleAuth({ app, ROOT_URL });
-  // instagramAuth({ app, ROOT_URL });
+  googleAuth({ app, ROOT_URL });
+  instagramAuth({ app, ROOT_URL });
   // twitterAuth({ app, ROOT_URL });
   // twitchAuth({ app, ROOT_URL });
   basicAuth({ app, nextApp });

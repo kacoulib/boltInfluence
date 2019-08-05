@@ -115,7 +115,6 @@ const FormGenerator = ({ fields, classes, form, onChange, toggleList, setting, a
                         const dimentions = elem.dimension ? elem.dimension : defaultDimension;
                         const elemProps = elem.props;
                         const inputDefaultProps = elemProps && elemProps.defaultValue ? elemProps.defaultValue : '';
-
                         return (
                             <Grid key={key} item {...dimentions}>
                                 <div style={{ paddingBottom: '15px' }}>
@@ -131,6 +130,7 @@ const FormGenerator = ({ fields, classes, form, onChange, toggleList, setting, a
                                                         multiline={elem.type === 'textarea'}
                                                         fullWidth
                                                         defaultValue={form[elem.name] || inputDefaultProps}
+                                                        value={form[elem.name] || inputDefaultProps}
                                                         onChange={handleChange(elem.name)}
                                                         InputLabelProps={{
                                                             FormLabelClasses: {

@@ -133,7 +133,12 @@ const Login = () => {
       </Button>
 
       <div>
-        <FormGenerator fields={fields} form={form} onChange={onChange} onSubmit={onSubmit} />
+        <FormGenerator fields={fields} form={form} onChange={onChange} />
+      </div>
+      <div>
+        <Button variant="contained" type="submit" className='submit large' onClick={() => onSubmit()}>
+          Mettre à jour
+                </Button>
       </div>
     </div>
   );

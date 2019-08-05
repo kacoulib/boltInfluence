@@ -5,6 +5,7 @@ import FormGenerator from '../../form/generator'
 import { buttonStyle } from '../../../utils/variables/css';
 import Button from '@material-ui/core/Button';
 import { choiceList } from '../../../utils/variables/general'
+import { addArticle } from '../../../lib/api/http/admin';
 
 const cardContainer = {
     padding: '1rem',
@@ -25,7 +26,6 @@ const styles = {
 }
 
 const fields = [
-
     {
         label: "Poster / image",
         name: "picture",
@@ -80,14 +80,18 @@ const fields = [
 
 const Index = ({ selectedInfluencer }) => {
 
-    const [form, setForm] = useState({})
+    const [state, setState] = useState({
+        title: 'test',
+        content: 'test',
+        // tags: 'test',
+    })
 
     const onChange = (name, value) => {
         console.log(name, value)
-        setForm(Object.assign({}, form, { [name]: value }))
+        setState(Object.assign({}, state, { [name]: value }))
     };
     const onSubmit = async () => {
-        console.log(form)
+        addArticle(state)
     };
 
 
@@ -101,9 +105,8 @@ const Index = ({ selectedInfluencer }) => {
 
                 <FormGenerator
                     fields={fields}
-                    form={form}
+                    form={state}
                     onChange={onChange}
-                    onSubmit={onSubmit}
                 />
             </Grid>
             <Grid item xs={12} justify='center' className='center-text' style={styles.footer}>
