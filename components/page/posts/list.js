@@ -1,10 +1,12 @@
+import React, { useState, useEffect } from "react";
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types'
 import Stars from '../../../static/img/icon/stars.png'
 import InfluenceurJones from '../../../static/img/pictures/rectangle.png'
 import Button from '@material-ui/core/Button';
 import Link from 'next/link';
-
+import { getArticles, getBookList } from '../../../lib/api/http/admin';
+import Edit from './create'
 
 const cardContainer = {
     padding: '1rem',
@@ -27,18 +29,31 @@ const styles = {
     marqueName: { color: '##5b5b5d' }
 }
 
-const Index = ({ datas, selectedInfluencer, selectInfluencer, loadMore }) => {
+const Index = ({ datas, loadMore }) => {
+    const [state, setState] = useState({ articles: [], selectedArticle: null })
 
+    useEffect(() => {
+        async function getData() {
+            const articles = await getArticles();
+            setState({ ...state, ...articles })
+        }
+        getData()
+    }, [])
 
-    console.log(datas)
+    const handleSelectArticle = (id) => {
+        const tmp = state.articles.find((e) => e._id == id);
+        setState({ ...state, selectedArticle: tmp })
+    }
 
+    if (state.selectedArticle)
+        return (<Edit selected={state.selectedArticle} isEdit={true} />)
     return (
         <Grid container alignItems='center' justify="center" style={styles.container}>
             <Grid item xs={12} sm={12}>
                 <h2>Liste des articles</h2>
             </Grid>
             <Grid item xs={12} sm={12} style={styles.childContainer}>
-                {datas && datas.map((elem, i) => (
+                {state.articles && state.articles.map((elem, i) => (
                     <Grid key={i} container alignItems='center' justify="center" className='influencers_list' style={styles.listContainer}>
                         <Grid item xs={4} sm={4} className='center-text' style={styles.influencer_img_container}>
                             <div className='influencers_img' style={{ backgroundImage: "url(" + InfluenceurJones + ")" }}><div></div>
@@ -46,8 +61,10 @@ const Index = ({ datas, selectedInfluencer, selectInfluencer, loadMore }) => {
                             </div>
                         </Grid>
                         <Grid item xs={8} sm={8} style={styles.influencer_info_container}>
-                            <h2>{elem.name}</h2>
+                            <Grid item xs={4} sm={4} className='text-right'><span className='icon write pointer' onClick={() => handleSelectArticle(elem._id)}></span></Grid>
+                            <h2>{elem.title}</h2>
                             <h3 style={styles.marqueName}>{elem.marque}</h3>
+
                         </Grid>
                         <Grid item container xs={12} sm={12} style={styles.footer}>
                             <Grid item xs={2} sm={2}> <Link prefetch href={'#Aperçu'}><a>Aperçu </a></Link></Grid>

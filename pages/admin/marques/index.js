@@ -14,14 +14,7 @@ import ContactInfo from '../../../components/page/marques/info-contact';
 import MarqueInfo from '../../../components/page/marques/info-marque';
 import PaymentInfo from '../../../components/page/marques/info-payment';
 
-const navList = [
-    { href: 'account', className: 'icon account', text: 'Informations de contact' },
-    { href: 'mark', className: 'icon mark', text: 'Information de marque' },
-    { href: 'payment-information', className: 'icon payment', text: 'Information de paiement' },
-    { href: 'campagne', className: 'icon photos', text: 'Campagnes' },
-    { href: 'influencers', className: 'icon star', text: 'Influenceurs' },
-    { href: 'contact', className: 'icon message', text: 'Contact plateform' },
-]
+
 
 const CustomerIndex = () => {
 
@@ -35,21 +28,22 @@ const CustomerIndex = () => {
         )
         setData(Object.assign({}, data, { influencersList: data.influencersList }))
     }
-
+    const navList = [
+        {
+            href: 'account', className: 'icon account', text: 'Informations de contact', page: <MarquesAgences
+                datas={data.influencersList}
+                loadMore={loadMore}
+            />
+        },
+        { href: 'mark', className: 'icon mark', text: 'Information de marque', page: <Examination /> },
+        { href: 'payment-information', className: 'icon payment', text: 'Information de paiement', page: <Publish /> },
+        { href: 'campagne', className: 'icon photos', text: 'Campagnes', page: <PostValidate /> },
+        { href: 'influencers', className: 'icon star', text: 'Influenceurs', page: <MissionValidate /> },
+        { href: 'contact', className: 'icon message', text: 'Contact plateform' },
+    ]
     return (
         <NavPanel
             navList={navList}
-            pages={[
-                <MarquesAgences
-                    datas={data.influencersList}
-                    loadMore={loadMore}
-                />,
-                <Examination />,
-                <Validation />,
-                <Publish />,
-                <PostValidate />,
-                <MissionValidate />
-            ]}
         />
     )
 }

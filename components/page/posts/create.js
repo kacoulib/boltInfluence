@@ -5,7 +5,7 @@ import FormGenerator from '../../form/generator'
 import { buttonStyle } from '../../../utils/variables/css';
 import Button from '@material-ui/core/Button';
 import { choiceList } from '../../../utils/variables/general'
-import { addArticle } from '../../../lib/api/http/admin';
+import { addArticle, editArticle } from '../../../lib/api/http/admin';
 
 const cardContainer = {
     padding: '1rem',
@@ -39,11 +39,7 @@ const fields = [
         type: 'input',
         required: true,
         props: {
-            list: [{ name: 'Marque1', value: 'marque 1' }, { name: 'Marque2', value: 'second marque' }],
-
             margin: "normal",
-            // variant: "outlined",
-            required: true
         }
     },
     {
@@ -78,23 +74,28 @@ const fields = [
     },
 ]
 
-const Index = ({ selectedInfluencer }) => {
+const defaultState = {
+    title: '',
+    content: '',
+}
 
-    const [state, setState] = useState({
-        title: 'test',
-        content: 'test',
-        // tags: 'test',
-    })
+const Index = ({ selected = defaultState, isEdit = false }) => {
+
+    const [state, setState] = useState(selected)
 
     const onChange = (name, value) => {
         console.log(name, value)
         setState(Object.assign({}, state, { [name]: value }))
     };
     const onSubmit = async () => {
-        addArticle(state)
+        if (isEdit)
+            editArticle(state)
+        else
+            await addArticle(state);
+        if (!isEdit)
+            setState(defaultState)
     };
-
-
+    // console.log(selected)
     return (
         <Grid container alignItems='center' justify="center" style={styles.container} >
             {/* <Grid item xs={12} sm={12}>
@@ -117,8 +118,6 @@ const Index = ({ selectedInfluencer }) => {
         </ Grid>
     )
 }
-Index.propTypes = {
-    selectedInfluencer: PropTypes.object.isRequired,
-}
+
 
 export default Index;

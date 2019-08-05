@@ -108,7 +108,7 @@ class MiniDrawer extends React.Component {
 
         return (
             <div className={classes.root}>
-                <CssBaseline />
+                {/* <CssBaseline />
                 <AppBar
                     position="fixed"
                     className={classNames(classes.appBar, {
@@ -184,7 +184,7 @@ class MiniDrawer extends React.Component {
                             </ListItem>
                         ))}
                     </List>
-                </Drawer>
+                </Drawer> */}
                 <main className={classes.content} style={{ background: skyBlueColor, minHeight: '100vh' }}>
                     <div className={classes.toolbar} />
                     {this.props.children}

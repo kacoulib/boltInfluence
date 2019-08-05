@@ -17,7 +17,7 @@ import { getArticles, getBookList } from '../../../lib/api/http/admin';
 
 const CustomerIndex = (props) => {
 
-    const [data, setData] = useState({
+    const [state, setState] = useState({
         campagneList: [],
         selectedMarqueAgence: null,
 
@@ -25,7 +25,7 @@ const CustomerIndex = (props) => {
         subscribedMarque: 18068, waitingMarque: 5647,
         subscribedCampagne: 5435, waitingCampagne: 6453,
 
-        influencersList: [
+        articles: [
             { _id: '5483752', location: 'Saratoga, CA, USA', interests: [{ name: 'mother', text: 'Mother' }, { name: 'mode', text: 'Mode' }], firstName: 'Sam', lastName: 'James', name: 'Campagne Naked blushed', picture: 'influencer_jones.png', marque: 'L\'Oréal', status: 'doing' },
             { _id: '5483752', location: 'Saratoga, CA, USA', interests: [{ name: 'travel', text: 'Travel' },], firstName: 'Sam', lastName: 'James', name: 'LOréal campagne', picture: 'influencer_jones.png', marque: 'Sephora', status: 'active' },
             { _id: '5483752', location: 'Saratoga, CA, USA', interests: [{ name: 'travel', text: 'Travel' }, { name: 'mother', text: 'mother' }, { name: 'mode', text: 'Mode' }], firstName: 'Sam', lastName: 'James', name: 'Campagne Naked blushed', picture: 'influencer_jones.png', marque: 'Hilton', status: 'done' }
@@ -33,17 +33,21 @@ const CustomerIndex = (props) => {
         selectedInfluencer: null
     })
 
-    console.log(props)
+    useEffect(() => {
+        async function getData() {
+            const articles = await getArticles();
+            console.log('ok', articles)
+            setState({ ...state, ...articles })
+        }
+        getData()
+    }, [])
     const loadMore = () => {
-        const tmp = data.campagneList.push({ _id: '5483752', name: 'L\'Oréal', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', status: 'En cours d\'inscription' },
-            { _id: '5483752', name: 'Séphora', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', status: 'Inscrit' },
-        )
-        setData(Object.assign({}, data, { campagneList: data.campagneList }))
+        // setState(Object.assign({}, state, { campagneList: state.campagneList }))
     }
 
     const selectInfluencer = (id) => {
-        const elem = data.influencersList.find((e) => e._id = id);
-        setData(Object.assign({}, data, { selectedInfluencer: elem }))
+        const elem = state.articles.find((e) => e._id = id);
+        setState(Object.assign({}, state, { selectedInfluencer: elem }))
     }
 
     const navList = [
@@ -55,8 +59,8 @@ const CustomerIndex = (props) => {
                     { href: 'mark', className: 'icon photos', text: 'Créer un article', page: <CreatePost /> },
                     {
                         href: 'account', className: 'icon mark', text: 'Liste des articles', page: <ListPost
-                            datas={data.influencersList}
-                            selectedInfluencer={data.selectedInfluencer}
+                            datas={state.articles}
+                            selectedInfluencer={state.selectedInfluencer}
                             loadMore={loadMore}
                             selectInfluencer={selectInfluencer} />
                     },
@@ -65,34 +69,11 @@ const CustomerIndex = (props) => {
         },
         {
             href: 'account', className: 'icon mark', text: 'Liste des articles', page: <ListPost
-                datas={data.influencersList}
-                selectedInfluencer={data.selectedInfluencer}
+                datas={state.articles}
+                selectedInfluencer={state.selectedInfluencer}
                 loadMore={loadMore}
                 selectInfluencer={selectInfluencer} />
         },
-        // { href: 'payment-information', className: 'icon payment', text: 'Information de paiement', page: <PaymentInfo /> },
-        // {
-        //     href: 'campagne', className: 'icon photos', text: 'Campagnes', page: <Publish />, subMenu: {
-        //         title: 'Campagne', navList: [
-        //             {
-        //                 href: 'my-campagne', className: 'icon payment', text: 'Mes campagnes', page: <ListPost
-        //                     datas={data.influencersList}
-        //                     selectedInfluencer={data.selectedInfluencer}
-        //                     loadMore={loadMore}
-        //                     selectInfluencer={selectInfluencer} />
-        //             },
-        //             { href: 'mark', className: 'icon mark', text: 'Ajouter une campagne', page: <CreateCampagne /> },
-
-        //         ]
-        //     }
-        // },
-        // {
-        //     href: 'influencers', className: 'icon star', text: 'Influenceurs', page: <Influencers datas={data.influencersList}
-        //         selectedInfluencer={data.selectedInfluencer}
-        //         loadMore={loadMore}
-        //         selectInfluencer={selectInfluencer} />
-        // },
-        // { href: 'contact', className: 'icon message', text: 'Contact plateform', page: <MissionValidate /> },
     ]
 
     return (
@@ -101,13 +82,5 @@ const CustomerIndex = (props) => {
         </div>
     )
 }
-CustomerIndex.getInitialProps = async ({ req }) => {
-    console.log('--')
-    const res = await getBookList()
-    const json = await res.json()
-    console.log('--', res)
 
-    return { stars: json.stargazers_count }
-}
-
-export default withAuth(CustomerIndex);
+export default withLayout(CustomerIndex);
