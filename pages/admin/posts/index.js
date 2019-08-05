@@ -9,55 +9,6 @@ import Faq from '../../../components/page/posts/faq';
 import CreatePost from '../../../components/page/create-edit';
 import { choiceList } from '../../../utils/variables/general'
 
-const articleFields = [
-    {
-        label: "Poster / image",
-        name: "picture",
-        type: 'upload',
-        required: true,
-        width: 12,
-    },
-    {
-        label: "Titre",
-        name: "title",
-        type: 'input',
-        required: true,
-        props: {
-            margin: "normal",
-        }
-    },
-    {
-        label: "Catégories",
-        name: "categories",
-        type: 'react-select',
-        required: true,
-        props: {
-            list: [{ name: 'Marque1', value: 'marque 1' }, { name: 'Marque2', value: 'second marque' }],
-        }
-    },
-    {
-        label: "Tags",
-        name: "tags",
-        type: 'react-select',
-        required: true,
-        props: {
-            list: [{ name: 'Marque1', value: 'marque 1' }, { name: 'Marque2', value: 'second marque' }],
-        }
-    },
-    {
-        label: "Contenu",
-        name: "content",
-        type: 'wysiwyg',
-        required: true,
-        props: {
-            list: choiceList,
-            required: true,
-            margin: "normal",
-            variant: "outlined",
-        }
-    },
-]
-
 
 const categoryFields = [
     {
@@ -80,8 +31,75 @@ const categoryFields = [
     },
 ]
 
+
+const tagsFields = [
+    {
+        label: "Titre",
+        name: "title",
+        type: 'input',
+        required: true,
+        props: {
+            margin: "normal",
+        }
+    },
+]
+
+
 const CustomerIndex = () => {
-    const navList = [
+    const articleFields = [
+        {
+            label: "Poster / image",
+            name: "picture",
+            type: 'upload',
+            required: true,
+            width: 12,
+        },
+        {
+            label: "Titre",
+            name: "title",
+            type: 'input',
+            required: true,
+            props: {
+                margin: "normal",
+            }
+        },
+        {
+            label: "Catégories",
+            name: "categories",
+            type: 'react-select',
+            required: true,
+            props: {
+                list: [{ label: 'Marque1', value: 'marque 1' }, { label: 'Marque2', value: 'second marque' }],
+            }
+        },
+        {
+            label: "Tags",
+            name: "tags",
+            type: 'react-select',
+            required: true,
+            props: {
+                list: [{ value: 'chocolate', label: 'Chocolate' },
+                { value: 'strawberry', label: 'Strawberry' },
+                { value: 'vanilla', label: 'Vanilla' },],
+            }
+        },
+        {
+            label: "Contenu",
+            name: "content",
+            type: 'wysiwyg',
+            required: true,
+            props: {
+                list: choiceList,
+                required: true,
+                margin: "normal",
+                variant: "outlined",
+            }
+        },
+    ]
+
+    return (
+        <div id='admin-article'>
+            <NavPanel navList={[
         { href: 'account', className: 'icon ', text: 'F.A.Q', page: <Faq /> },
         {
             href: 'article', className: 'icon photos', text: 'Articles', subMenu: {
@@ -99,11 +117,15 @@ const CustomerIndex = () => {
                 ]
             }
         },
-    ]
-
-    return (
-        <div id='admin-article'>
-            <NavPanel navList={navList} />
+        {
+            href: 'account', className: 'icon mark', text: 'Tags', subMenu: {
+                title: 'Catégories', navList: [
+                    { href: 'mark', className: 'icon photos', text: 'Créer un tag', page: <CreatePost fields={tagsFields} path='/admin/tags' /> },
+                    { href: 'account', className: 'icon mark', text: 'Liste des tags', page: <CategoryList fields={tagsFields} path='/admin/tags' editIdenfier='_id' /> },
+                ]
+            }
+        },
+    ]} />
         </div>
     )
 }

@@ -56,6 +56,7 @@ const Index = ({ loadMore, fields, path, editIdenfier }) => {
                     <Grid key={i} container alignItems='stretch' justify="center" className='influencers_list relative' style={styles.listContainer}>
                         <div className='listActions'>
                             <span className='icon write pointer' onClick={() => handleSelectArticle(elem._id)}></span>
+                            <span className='icon write pointer' onClick={() => handleSelectArticle(elem._id)}></span>
                         </div>
                         <Grid item xs={4} sm={4} className='center-text' style={styles.influencer_img_container}>
                             <div className='influencers_img' style={{ backgroundColor: elem.color }}><div></div>
@@ -65,8 +66,6 @@ const Index = ({ loadMore, fields, path, editIdenfier }) => {
                         <Grid item xs={8} sm={8} style={styles.influencer_info_container}>
                             <h2>{elem.title}</h2>
                             <h3 style={styles.marqueName}>{elem.marque}</h3>
-
-
                         </Grid>
                     </Grid>
                 ))}

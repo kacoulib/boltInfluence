@@ -13,7 +13,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Chip from '@material-ui/core/Chip';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
-import ReactSelect from 'react-select'
+import ReactSelect from './reactSelect'
 import ColorPicker from 'material-ui-color-picker'
 
 /*
@@ -49,6 +49,23 @@ import ColorPicker from 'material-ui-color-picker'
         required: true,
         width: 4
         }
+    ]
+    // ReactSelect
+    const select = {
+
+    {
+        label: "Description",
+        name: "description",
+        type: 'react-select',
+        required: true,
+        width: 4,
+        props: {
+            list: [
+                { value: 'chocolate', label: 'Chocolate' },
+                ...
+            ]
+        }
+    }
     ]
 */
 const styles = theme => ({
@@ -216,21 +233,12 @@ const FormGenerator = ({ fields, classes, form, onChange, toggleList, setting, a
                                                 <Grid item {...labelSpacing}>
                                                     <FormControl className={classes.formControl} required={elem.props && elem.props.required} style={elem.formControlStyle}>
                                                         {elem.label && <span >{elem.label}</span>}
+                                                        {console.log(elemProps.list)}
                                                         <ReactSelect
-                                                            isMulti
-                                                            name="colors"
-                                                            options={[
-                                                                { value: 'chocolate', label: 'Chocolate' },
-                                                                { value: 'strawberry', label: 'Strawberry' },
-                                                                { value: 'vanilla', label: 'Vanilla' },
-                                                                { value: 'chocolate1', label: 'Chocolate' },
-                                                                { value: 'strawberry1', label: 'Strawberry' },
-                                                                { value: 'vanilla1', label: 'Vanilla' },
-                                                                { value: 'chocolate2', label: 'Chocolate' },
-                                                                { value: 'strawberry2', label: 'Strawberry' },
-                                                                { value: 'vanilla2', label: 'Vanilla' },
-                                                            ]}
-                                                            styles={{ control: styles => ({ ...styles, backgroundColor: 'none', borderRadius: 0, border: 'none', borderBottom: '1px solid rgba(0, 0, 0, 0.42)' }), }}
+                                                            name={elem.name}
+                                                            options={elemProps.list}
+                                                            value={form[elem.name]}
+                                                            onChange={(value) => console.log(value, form[elem.name]) && onChange(elem.name, value)}
                                                         />
                                                     </FormControl>
                                                 </ Grid>
@@ -279,11 +287,9 @@ const FormGenerator = ({ fields, classes, form, onChange, toggleList, setting, a
                                                 <Grid item {...labelSpacing}>
                                                     <div>
                                                         <ColorPicker
-                                                            name='color'
-                                                            defaultValue={form[elem.name] || '#000'}
-                                                            // value={this.state.color} - for controlled component
+                                                            name={elem.name}
+                                                            value={form[elem.name] || '#000'}
                                                             onChange={value => onChange(elem.name, value)}
-
                                                         />
                                                     </div>
                                                 </ Grid>
