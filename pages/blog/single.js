@@ -33,9 +33,6 @@ const styles = {
 	contactUsContainer: {
 		paddingTop: '3rem'
 	},
-	categoryList: {
-		paddingTop: '1rem'
-	},
 	contactUs: {
 		backgroundColor: '#D8D8D8',
 		color: 'white'
@@ -121,20 +118,23 @@ const Index = () => {
 				<Grid container item style={styles.contentContainer} className='single-content-container' direction="row-reverse">
 					<Grid item container xs={12} sm={4}>
 						<aside>
-							<Grid item xs={12} sm={12}>
-								<Socials parent={styles.socialListContainer} child={styles.socialList} />
-							</Grid>
-
 							<Grid item container xs={12} sm={12}>
-								<Search />
-							</Grid>
-							<Grid item xs={12} sm={12} style={styles.categoryList}>
-								<h2>Catégories</h2>
-								{displayList(state.categories)}
-							</Grid>
-							<Grid item xs={12} sm={12} style={styles.categoryList}>
-								<h2>Hashtags</h2>
-								{displayList(state.tags)}
+
+								<Grid item xs={12} sm={12}>
+									<Socials parent={styles.socialListContainer} child={styles.socialList} />
+								</Grid>
+
+								<Grid item container xs={12} sm={12}>
+									<Search />
+								</Grid>
+								<Grid item xs={6} sm={12} className='single-categoryList'>
+									<h2>Catégories</h2>
+									{displayList(state.categories)}
+								</Grid>
+								<Grid item xs={6} sm={12} className='single-categoryList'>
+									<h2>Hashtags</h2>
+									{displayList(state.tags)}
+								</Grid>
 							</Grid>
 						</aside>
 					</Grid>

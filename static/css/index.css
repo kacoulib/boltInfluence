@@ -397,6 +397,9 @@ li > a:only-child:after { content: ''; }
     display: inline-block;
     padding: 1rem 3rem;
 }
+#blog .single-categoryList {
+	padding-top: 1rem;
+}
 
 
 /* PUBLIC  */
@@ -887,6 +890,10 @@ button.submit {
         width: 100%;
     }
     .card-bg {
+        padding: 0;
+    }
+    .single-content-container aside {
+        width: 100%;
         padding: 0;
     }
 }
