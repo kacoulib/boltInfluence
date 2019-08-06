@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import Grid from '@material-ui/core/Grid';
-import withLayout from '../lib/withLayout';
-import { darkBlueColor, darkOrangeColor, lightGray } from '../utils/variables/css'
-import Screen1 from '../static/img/screen1.png'
-import Screen2 from '../static/img/screen2.png'
-import Screen4 from '../static/img/screen4.png'
-import Screen3 from '../static/img/screen3.png'
-import Partners from '../components/page/public/partners'
+import withLayout from '../../lib/withLayout';
+import { darkBlueColor, darkOrangeColor, lightGray } from '../../utils/variables/css'
+import Screen1 from '../../static/img/screen1.png'
+import Screen2 from '../../static/img/screen2.png'
+import Screen4 from '../../static/img/screen4.png'
+import Screen3 from '../../static/img/screen3.png'
+import Partners from '../../components/page/public/partners'
 import { Link } from '@material-ui/core';
-import ContactUs from '../components/page/public/contactUs'
+import ContactUs from '../../components/page/public/contactUs'
 
 const styles = {
 	cardContainer: {

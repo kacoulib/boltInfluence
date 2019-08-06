@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import Grid from '@material-ui/core/Grid';
-import withLayout from '../../lib/withLayout';
-import { grayColor } from '../../utils/variables/css'
+import withLayout from '../../../lib/withLayout';
+import { grayColor } from '../../../utils/variables/css'
 import { useRouter } from 'next/router'
 import TextTruncate from 'react-text-truncate';
 import { Link } from '@material-ui/core';
@@ -62,7 +62,7 @@ const Index = () => {
 			author: {
 				firstName: 'Matthieu',
 				lastName: 'Lopez',
-				img: '../../static/img/user.png'
+				img: '../../../static/img/user.png'
 			},
 		},
 		articles,
@@ -133,7 +133,7 @@ const Index = () => {
 											element="p"
 											truncateText="…"
 											text={elem.content}
-											textTruncateChild={<Link href={`/blog/${elem.slug}`}><a title={elem.title} className='red-color'>Lire</a></Link>}
+											textTruncateChild={<Link href={`/notre-methode/blog/${elem.slug}`}><a title={elem.title} className='red-color'>Lire</a></Link>}
 										/>
 									</div>
 									<footer className='text-center' style={styles.footer}>

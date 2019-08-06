@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import Grid from '@material-ui/core/Grid';
-import withLayout from '../../lib/withLayout';
-import Search from '../../components/elements/search'
+import withLayout from '../../../lib/withLayout';
+import Search from '../../../components/elements/search'
 import { Link } from '@material-ui/core';
-import Socials from '../../components/elements/socials';
+import Socials from '../../../components/elements/socials';
 import { useRouter } from 'next/router'
 import moment from 'moment'
 moment.locale('fr')
@@ -69,7 +69,7 @@ const Index = () => {
 	const { article } = router.query
 
 	console.log(article)
-	
+
 	return (
 		<div id='blog'>
 			<div>
@@ -83,7 +83,7 @@ const Index = () => {
 								{moment(article.create_at).format('LLLL')}
 							</p>
 							<div>
-								<img src={article.author && article.author.picture || '../../static/img/user.png'} className='inline-block icon' />
+								<img src={article.author && article.author.picture || '../../../static/img/user.png'} className='inline-block icon' />
 								<h3 className='inline-block vertical-top no-margin' style={styles.fullName}>{article.author}</h3>
 							</div>
 						</Grid>

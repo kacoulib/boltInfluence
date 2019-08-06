@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import Grid from '@material-ui/core/Grid';
-import withLayout from '../lib/withLayout';
-import Screen5 from '../static/img/screen5.png'
-import Screen6 from '../static/img/screen6.png'
-import Partners from '../components/page/public/partners'
-import ContactUs from '../components/page/public/contactUs'
+import withLayout from '../../lib/withLayout';
+import Screen5 from '../../static/img/screen5.png'
+import Screen6 from '../../static/img/screen6.png'
+import Partners from '../../components/page/public/partners'
+import ContactUs from '../../components/page/public/contactUs'
 
 const styles = {
 	cardContainer: {

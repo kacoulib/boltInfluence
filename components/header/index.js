@@ -15,24 +15,25 @@ import Socials from '../elements/socials'
 
 const menuList = [
 	{
-		title: 'Annonceurs', text: "Annonceurs", href: '#Annonceurs', child: [
-			{ title: 'Marque', text: "Marque", href: '#marques', },
-			{ title: 'Agence', text: "Agence", href: '#agence', },
+		title: 'Annonceurs', text: "Annonceurs", href: '/annonceurs', child: [
+			{ title: 'Marque', text: "Marque", href: '/annonceurs', },
+			{ title: 'Agence', text: "Agence", href: '/annonceurs/agence', },
+			{ title: 'Tarifs', text: "Tarifs", href: '/annonceurs/tarifs', },
 		]
 	},
-	{ title: 'Influenceurs', text: "Influenceurs", href: '#Influenceurs' },
-	{ title: "La vidéo d'influence", text: "La vidéo d'influence", href: '#influencers' },
+	{ title: 'Influenceurs', text: "Influenceurs", href: '/influenceurs' },
+	{ title: "La vidéo d'influence", text: "La vidéo d'influence", href: '/video-influenceurs' },
 	{
-		title: 'Notre méthode', text: "Notre méthode", href: '#method', child: [
-			{ title: 'Blog', text: "Blog", href: '#blog', },
+		title: 'Notre méthode', text: "Notre méthode", href: '/notre-methode', child: [
+			{ title: 'Blog', text: "Blog", href: '/notre-methode/blog', },
 		]
 	},
 	{
-		title: 'Contactez-nous', text: "Contactez-nous", href: '#contact', child: [
-			{ title: 'A propos', text: "A propos", href: '#apropos', },
-			{ title: 'Notre méthode', text: "Notre méthode", href: '#method', },
-			{ title: 'Carriere', text: "Carriere", href: '#carriere', },
-			{ title: 'FAQ', text: "FAQ", href: '#faq', },
+		title: 'Contactez-nous', text: "Contactez-nous", href: '/contact', child: [
+			{ title: 'A propos', text: "A propos", href: '/contact/apropos', },
+			{ title: 'Blog', text: "Blog", href: '/contact/blog', },
+			// { title: 'Carriere', text: "Carriere", href: 'contact/carriere', },
+			// { title: 'FAQ', text: "FAQ", href: 'contact/faq', },
 		]
 	},
 ]
@@ -42,7 +43,7 @@ const displayMenuList = (list, i) => (
 		<li key={++i}>
 			<Link href={elem.href}><a title={elem.title}>{elem.text}</a></Link>
 			{elem.child && <>
-				<label for={`drop-${i}`} class="toggle">{elem.text} +</label>
+				<label for={`drop-${i}`} class="toggle-head">{elem.text} +</label>
 				<input type="checkbox" id={`drop-${i}`} />
 				<ul class="nav-dropdown">
 					{displayMenuList(elem.child)}
@@ -67,7 +68,7 @@ const Header = ({ user }) => (
 					<Grid item align="center" sm={10}>
 						<Grid container alignItems="center">
 							<nav>
-								<label for="drop" class="toggle">☰</label>
+								<label for="drop" class="toggle-head">☰</label>
 								<input type="checkbox" id="drop" />
 								<ul class="menu">
 									{displayMenuList(menuList, 0)}

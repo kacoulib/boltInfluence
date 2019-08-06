@@ -35,7 +35,7 @@ body a {
 }
 /* NAV */
 
-.toggle,
+.toggle-head,
 [id^=drop] {
 	display: none;
 }

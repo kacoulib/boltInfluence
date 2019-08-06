@@ -23,11 +23,11 @@ const router = express.Router();
 
 module.exports = (nextApp) => {
 
-  router.get('/blog', handleErrors(async (req, res) => {
+  router.get('/notre-methode/blog', handleErrors(async (req, res) => {
     const articles = await Article.list.bind(Article)()
     const categories = await Category.list.bind(Category)()
 
-    nextApp.render(req, res, '/blog', {
+    nextApp.render(req, res, '/notre-methode/blog', {
       ...articles,
       ...categories,
     })
@@ -42,12 +42,12 @@ module.exports = (nextApp) => {
   }))
 
   router.get(
-    '/blog/:slug',
+    '/notre-methode/blog/:slug',
     handleErrors(async (req, res) => {
       const { slug } = req.params;
       const article = await Article.getBySlug({ slug });
 
-      nextApp.render(req, res, '/blog/single', {
+      nextApp.render(req, res, '/notre-methode/blog/single', {
         ...article,
       })
     }),

@@ -1,10 +1,10 @@
 import React from 'react';
-import withLayout from '../lib/withLayout';
+import withLayout from '../../lib/withLayout';
 import { Grid } from '@material-ui/core';
-import Partners from '../components/page/public/partners'
-import ContactUs from '../components/page/public/contactUs'
+import Partners from '../../components/page/public/partners'
+import ContactUs from '../../components/page/public/contactUs'
 
-import girlboat from '../static/img/pictures/meuf_dans_son_bateau.png';
+import girlboat from '../../static/img/pictures/meuf_dans_son_bateau.png';
 
 const chunk = (array, size) => {
     const chunked_arr = [];

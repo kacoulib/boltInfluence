@@ -1,17 +1,11 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
-import Card from '../components/dataDisplay/others/card'
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Card from '../../components/dataDisplay/others/card'
 import Grid from '@material-ui/core/Grid';
-import withLayout from '../lib/withLayout';
-import { darkBlueColor, darkOrangeColor, lightGray, redColor } from '../utils/variables/css'
-import Search from '../components/elements/search';
-import Rectangle from '../static/img/rectangle.png'
-import FormGenerator from '../components/form/generator';
-import { useRouter } from 'next/router'
+import withLayout from '../../lib/withLayout';
+import { darkBlueColor, darkOrangeColor, lightGray } from '../../utils/variables/css'
+import Rectangle from '../../static/img/rectangle.png'
+import FormGenerator from '../../components/form/generator';
 
 const styles = {
 	expandContainer: {
@@ -70,23 +64,17 @@ const fields = [{
 		padding: 0
 	},
 	props: {
-		list: [],
-		// list: [{ name: 'Mr', value: 'Mr' }, { name: 'Mme', value: 'Mme' }],
+		list: [{ name: 'Mr', value: 'Mr' }, { name: 'Mme', value: 'Mme' }],
 	}
 }]
 
 const Index = () => {
-	const router = useRouter()
-	const { faqs } = router.query;
-	console.log(faqs)
 	const [state, setState] = useState({
-		toogleTeam: false,
-		active: null,
 		teams: [{
 			fullName: 'Joseph NGUYEN',
 			slug: '“La Ref”',
 			job: 'CEO et Co-fondateur',
-			description: 'Joseph n’est pas à son premier coup d’essai. Serial Entrepreneur, il a été associé chez StickyADS.tv revendue à Comcast en 2016. Avec Bolt Influence, il souhaite mettre au service des marques sa vision d’une communication cohérente et adaptée aux usages actuels des consommateurs'
+			description: 'Joseph n’est pas à son premier coup d’essai. Serial Entrepreneur, il a été associé chez StickyADS.tv revendue à Comcast en 2016. Avec Bolt Influence, il souhaite mettre au service des marques sa vision d’une communication cohérente et adaptée aux usages actuels des consommateurs.'
 		},
 		{
 			fullName: 'Morgane SIRGUEY',
@@ -102,17 +90,11 @@ const Index = () => {
 		}]
 	})
 
-	const toggleTeam = (i) => {
-		const active = state.active == i ? null : i;
-		setState({ ...state, active });
-	}
-	const onChange = (name, value) => setState({ ...state, [name]: value })
-
 
 	return (
 		<div className='dots-blue right-bg'>
 			<div className='home-block-padding' style={styles.padding}>
-				<h1 className='bordered-head fullwidth'>À propos</h1>
+				<h1 className='bordered-head fullwidth'>À propos de nous</h1>
 				<Grid container>
 					<Grid container item style={styles.cardContainer}>
 						<Grid item xs={12} sm={6}>
@@ -154,76 +136,26 @@ const Index = () => {
 				</Grid>
 			</div>
 			{/*  */}
-			<div style={styles.faq}>
-				<div className='home-block-padding' style={styles.padding}>
-					<h2 className='bordered-head fullwidth'>FAQ</h2>
-					<p>Vous voulez en savoir plus ?</p>
-					<p className='italic'>Notre FAQ répondra à tous vos questions !</p>
-					<Grid container item style={styles.cardContainer}>
-						<Grid item xs={12} sm={6}>
-							<FormGenerator
-								fields={fields}
-								form={state}
-								label='test'
-								onChange={onChange}
-							/>
-						</Grid>
-
-						<Grid item container xs={12} sm={6} justify="flex-end">
-							<Grid item xs={12} sm={6}>
-								<Search />
-							</Grid>
-						</Grid>
-					</Grid>
-					<div style={styles.expandContainer}>
-						<p>Top 5</p>
-						{faqs && faqs.map((elem, key) => (
-							<ExpansionPanel key={key} style={{ marginBottom: '1rem' }}>
-								<ExpansionPanelSummary
-									expandIcon={<ExpandMoreIcon style={styles.expandIco} />}
-									aria-controls="panel1a-content"
-									id="panel1a-header"
-									style={key % 2 == 0 ? styles.blueHead : styles.orangeHead}
-								>
-									<p style={styles.headP}>{elem.title}</p>
-								</ExpansionPanelSummary>
-								<ExpansionPanelDetails>
-									<p>{elem.content}</p>
-								</ExpansionPanelDetails>
-							</ExpansionPanel>
-						))}
-						<p className='text-right'><a className='red-color'>Montrer tout le FAQ</a></p>
-					</div>
-					<div>
-						<a style={styles.contactUs}>Vous n’avez pas trouvé votre réponse ? Contactez-nous</a>
-					</div>
-				</div>
-			</div>
-			{/*  */}
 
 			<div>
 				<div className='home-block-padding' style={styles.padding}>
 					<h2 className='bordered-head fullwidth'>Notre equipe</h2>
-					<ul className={`home_team ${state.active != null ? 'toggle' : ''}`}>
-						{state.teams.map((elem, key) => {
-							const isActive = state.active == key;
-							return (
-								<li key={key} className={`${isActive ? 'active' : ''}`}>
-									<div className='text-center' style={{ backgroundColor: isActive ? redColor : '' }} onClick={() => toggleTeam(key)}>
-										<div><img src={Rectangle} className='fullwidthe' /></div>
-										<h3>{elem.fullName}</h3>
-										<h4>{elem.slug}</h4>
-										<h5>{elem.job}</h5>
-									</div>
+					<ul className={'home_team toggle'}>
+						{state.teams.map((elem, key) => (
+							<li key={key} className={`active ${key % 2 != 0 ? 'flex-reverse' : ''}`}>
+								<div className='text-center'>
+									<div><img src={Rectangle} /></div>
+									<h3>{elem.fullName}</h3>
+									<h4>{elem.slug}</h4>
+									<h5>{elem.job}</h5>
+								</div>
+								<div>
 									<div>
-										<div>
-											<p>{elem.description}</p>
-											<p></p>
-										</div>
+										<p>{elem.description}</p>
 									</div>
-								</li>
-							)
-						})}
+								</div>
+							</li>
+						))}
 					</ul>
 				</div>
 			</div>
