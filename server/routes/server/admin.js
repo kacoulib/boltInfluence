@@ -3,6 +3,8 @@ const multer = require('multer');
 
 const Article = require('../../models/Article');
 const Category = require('../../models/Category');
+const FAQ = require('../../models/FAQ');
+const Tag = require('../../models/Tag');
 const EmailTemplate = require('../../models/EmailTemplate');
 const Payment = require('../../models/Payment');
 const User = require('../../models/User');
@@ -33,7 +35,9 @@ module.exports = (nextApp) => {
   router.get('/posts', async (req, res) => {
     return nextApp.render(req, res, '/admin/posts', {
       articles: await Article.count(),
-      categories: await Category.count()
+      categories: await Category.count(),
+      tags: await Tag.count(),
+      faqs: await FAQ.count(),
     })
   });
 

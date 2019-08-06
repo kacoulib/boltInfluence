@@ -3,6 +3,8 @@ const multer = require('multer');
 
 const Article = require('../models/Article');
 const Category = require('../models/Category');
+const Tag = require('../models/Tag');
+const FAQ = require('../models/FAQ');
 const EmailTemplate = require('../models/EmailTemplate');
 const Payment = require('../models/Payment');
 const User = require('../models/User');
@@ -237,6 +239,7 @@ router.post(
   }),
 )
 
+// Article
 router.get(
   '/articles/:slug',
   handleErrors(async (req, res) => {
@@ -265,7 +268,7 @@ router.delete(
   }),
 )
 
-
+// Category
 router.get('/categories', listCollection(Category.list.bind(Category)))
 
 router.post(
@@ -289,10 +292,8 @@ router.get(
 router.put(
   '/categories/:id',
   handleErrors(async (req, res) => {
-    console.log(1)
     const { id } = req.params;
     const { title, color } = req.body;
-    console.log(title, color)
 
     const category = await Category.updateById({ title, color, id });
     res.json(category);
@@ -304,6 +305,88 @@ router.delete(
   handleErrors(async (req, res) => {
     const { id } = req.params;
     await Category.deleteByid({ id });
+    res.status(204).end();
+  }),
+)
+
+// Tag
+router.get('/tag', listCollection(Tag.list.bind(Tag)))
+
+router.post(
+  '/tags',
+  handleErrors(async (req, res) => {
+    const { title } = req.body;
+    const tag = await Tag.add({ title });
+    res.json(tag);
+  }),
+)
+
+router.get(
+  '/tags/:id',
+  handleErrors(async (req, res) => {
+    const { id } = req.params;
+    const tag = await Tag.getById({ id });
+    res.json(tag);
+  }),
+)
+
+router.put(
+  '/tags/:id',
+  handleErrors(async (req, res) => {
+    const { id } = req.params;
+    const { title } = req.body;
+
+    const tag = await Tag.updateById({ title, id });
+    res.json(tag);
+  }),
+)
+
+router.delete(
+  '/tags/:id',
+  handleErrors(async (req, res) => {
+    const { id } = req.params;
+    await Tag.deleteByid({ id });
+    res.status(204).end();
+  }),
+)
+
+// FAQ
+router.get('/faq', listCollection(FAQ.list.bind(Tag)))
+
+router.post(
+  '/faqs',
+  handleErrors(async (req, res) => {
+    const { title, content } = req.body;
+    const faq = await FAQ.add({ title, content });
+    res.json(faq);
+  }),
+)
+
+router.get(
+  '/faqs/:id',
+  handleErrors(async (req, res) => {
+    const { id } = req.params;
+    const faq = await FAQ.getById({ id });
+    res.json(faq);
+  }),
+)
+
+router.put(
+  '/faqs/:id',
+  handleErrors(async (req, res) => {
+    const { id } = req.params;
+    const { title, content } = req.body;
+
+    const faq = await FAQ.updateById({ title, content, id });
+    res.json(faq);
+  }),
+)
+
+router.delete(
+  '/faqs/:id',
+  handleErrors(async (req, res) => {
+    const { id } = req.params;
+    await FAQ.deleteByid({ id });
     res.status(204).end();
   }),
 )

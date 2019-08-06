@@ -42,7 +42,7 @@ const Index = ({ datas }) => {
                     <h2>{elem.title}</h2>
                     <Grid container alignItems='center' justify="center" >
                         {elem.card.map((e, j) => (
-                            <Grid key={j + 'elem-child'} item xs={12} sm={4} className='center-text'>
+                            <Grid key={j + 'elem-child'} item xs={12} sm={elem.card.length == 1 ? 12 : 4} className='center-text'>
                                 <div style={j % 2 == 0 ? styles.cardContainer : styles.rightCardContainer}>
                                     {/* <img src={e.icon} style={styles.img} /> */}
                                     <div>{e.text}</div>

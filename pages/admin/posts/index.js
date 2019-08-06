@@ -47,15 +47,38 @@ const tagsFields = [
     },
 ]
 
+const faqsFields = [
+    {
+        label: "Titre",
+        name: "title",
+        type: 'input',
+        required: true,
+        props: {
+            margin: "normal",
+        }
+    },
+    {
+        label: "Contenu",
+        name: "content",
+        type: 'wysiwyg',
+        required: true,
+        props: {
+            margin: "normal",
+            variant: "outlined",
+        }
+    }
+]
+
 
 const CustomerIndex = (props) => {
     const router = useRouter()
-    const { categories, articles } = router.query
+    const { categories, articles, tags, faqs } = router.query
 
     const [state, setState] = useState({
-        categories: categories, waitingInfluencer: 32300,
-        articles: articles, waitingMarque: 5647,
-        subscribedCampagne: 5435, waitingCampagne: 6453,
+        categories,
+        articles,
+        tags,
+        faqs,
 
         influencersList: [],
         selectedInfluencer: null
@@ -132,11 +155,15 @@ const CustomerIndex = (props) => {
                                 },
                                 {
                                     title: 'Catégories',
-                                    card: [{ icon: 'AccountIcon', text: 'Crées', nb: state.categories }, { icon: 'TimeIcon', text: 'En attente', nb: state.waitingInfluencer }]
+                                    card: [{ icon: 'AccountIcon', text: 'Crées', nb: state.categories }]
                                 },
                                 {
-                                    title: 'Campagnes',
-                                    card: [{ icon: 'PostIcon', text: 'Crées', nb: state.subscribedCampagne }, { icon: 'TimeIcon', text: 'En attente', nb: state.waitingCampagne }]
+                                    title: 'Tags',
+                                    card: [{ icon: 'PostIcon', text: 'Crées', nb: state.tags }]
+                                },
+                                {
+                                    title: 'FAQs',
+                                    card: [{ icon: 'PostIcon', text: 'Crées', nb: state.faqs }]
                                 }
                             ]
                         }
@@ -166,7 +193,15 @@ const CustomerIndex = (props) => {
                         ]
                     }
                 },
-                { href: 'account', className: 'icon ', text: 'F.A.Q', page: <Faq /> },
+                {
+                    href: 'account', className: 'icon mark', text: 'F.A.Q', subMenu: {
+                        title: 'Catégories', navList: [
+                            { href: 'mark', className: 'icon photos', text: 'Créer un tag', page: <CreatePost fields={faqsFields} path='/admin/faqs' /> },
+                            { href: 'account', className: 'icon mark', text: 'Liste des tags', page: <CategoryList fields={faqsFields} path='/admin/faqs' editIdenfier='_id' /> },
+                        ]
+                    }
+                },
+                // { href: 'account', className: 'icon ', text: 'F.A.Q', page: <Faq /> },
 
             ]} />
         </div>

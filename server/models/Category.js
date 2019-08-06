@@ -47,7 +47,6 @@ class CategoryClass {
     title,
     color,
   }) {
-    console.log(3, id)
     const category = await this.findById(id );
     if (!category) {
       throw new Error("Category not found");
