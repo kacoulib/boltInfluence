@@ -23,17 +23,21 @@ const mongoSchema = new Schema({
     type: String,
     required: true,
   },
-  author: {
-    type: String,
-    required: true,
-  },
+  // author: {
+  //   type: String,
+  //   required: true,
+  // },
+  categories: [{ type: ObjectId, ref: 'User' }],
   categories: [{ type: ObjectId, ref: 'Category' }],
   tags: [{ type: ObjectId, ref: 'Tag' }],
+  created_at: { type: Date, default: Date.now },
 });
 
 class ArticleClass {
   static async list(where = {}, { offset = 0, limit = 10 } = {}) {
     const articles = await this.find(where)
+      .populate('categories')
+      .populate('tags')
       .sort({ createdAt: -1 })
       .skip(offset)
       .limit(limit)
@@ -72,7 +76,12 @@ class ArticleClass {
   }
 
   static async getBySlug({ slug }) {
-    const article = await this.findOne({ slug });
+    const article = await this.findOne({ slug })
+      .populate('categories')
+      .populate('tags')
+      .exec()
+    // .lean();
+
     if (!article) {
       throw new Error("Article not found");
     }

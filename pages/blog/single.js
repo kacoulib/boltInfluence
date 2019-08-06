@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
 import Head from 'next/head';
 import Grid from '@material-ui/core/Grid';
 import withLayout from '../../lib/withLayout';
 import Search from '../../components/elements/search'
 import { Link } from '@material-ui/core';
 import Socials from '../../components/elements/socials';
+import { useRouter } from 'next/router'
+import moment from 'moment'
+moment.locale('fr')
 
 const styles = {
 	cardContainer: {
@@ -60,56 +62,35 @@ const styles = {
 	}
 }
 
-const displayList = (data) => (<ul>{data && data.map((elem, index) => <li key={index}><Link href={`/category=${elem.id}`}><a title={elem.name}>{elem.name}</a></Link></li>)}</ul>)
+const displayList = (data, prefix = '') => (<ul>{data && data.map((elem, index) => <li key={index}><Link href={`/category=${elem.id}`}><a title={elem.title}>{`${prefix}${elem.title}`}</a></Link></li>)}</ul>)
 
 const Index = () => {
-	const [state, setState] = useState({
-		cover: {
-			title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit. ',
-			img: '../static/img/team.jpg',
-			content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit. ',
-			date: 'Mercredi 13 Juin, 2019',
-			author: {
-				firstName: 'Matthieu',
-				lastName: 'Lopez',
-				img: '../../static/img/user.png'
-			},
-		},
-		categories: [
-			{ name: 'Sport', id: 'Onglet1' },
-			{ name: 'Voyage', id: 'Onglet2' },
-			{ name: 'Santé', id: 'Onglet3' },
-		],
-		tags: [
-			{ name: '#Sport', id: 'Onglet1' },
-			{ name: '#Voyage', id: 'Onglet2' },
-			{ name: '#Santé', id: 'Onglet3' },
-		],
-	})
-	const toggleCategory = (id) => setState({ ...state, ...{ filterCategory: id != state.filterCategory ? id : null } });
-	const filtedArticles = state.filterCategory ? state.articles.filter((e) => e.category.id == state.filterCategory) : state.articles
+	const router = useRouter()
+	const { article } = router.query
 
+	console.log(article)
+	
 	return (
 		<div id='blog'>
 			<div>
-				<h2 style={styles.verticalPadding}><span>Blog</span></h2>
+				<h2 style={styles.verticalPadding}><Link href='/blog'><a title='blog'>{'<'}</a></Link><span>Blog</span></h2>
 				<Grid container item style={styles.cardContainer}>
 					<Grid item container xs={12} sm={12} className='text-center'>
 						<Grid item xs={12} sm={2}></Grid>
 						<Grid item xs={12} sm={8} style={styles.padding}>
-							<h1 className='red-color' style={styles.title}>{state.cover.title}</h1>
+							<h1 className='red-color' style={styles.title}>{article.title}</h1>
 							<p className='text-center italic' style={styles.date}>
-								{state.cover.date}
+								{moment(article.create_at).format('LLLL')}
 							</p>
 							<div>
-								<img src={state.cover.author.img} className='inline-block icon' />
-								<h3 className='inline-block vertical-top no-margin' style={styles.fullName}>{state.cover.author.firstName} {state.cover.author.lastName}</h3>
+								<img src={article.author && article.author.picture || '../../static/img/user.png'} className='inline-block icon' />
+								<h3 className='inline-block vertical-top no-margin' style={styles.fullName}>{article.author}</h3>
 							</div>
 						</Grid>
 						<Grid item xs={12} sm={2}></Grid>
 					</Grid>
 					<Grid item xs={12} sm={12}>
-						<img src={state.cover.img} className='inline-block fullwidth' />
+						<img src={article.picture} className='inline-block fullwidth' />
 					</Grid>
 				</Grid>
 			</div>
@@ -129,11 +110,11 @@ const Index = () => {
 								</Grid>
 								<Grid item xs={6} sm={12} className='single-categoryList'>
 									<h2>Catégories</h2>
-									{displayList(state.categories)}
+									{displayList(article.categories)}
 								</Grid>
 								<Grid item xs={6} sm={12} className='single-categoryList'>
 									<h2>Hashtags</h2>
-									{displayList(state.tags)}
+									{displayList(article.tags, '#')}
 								</Grid>
 							</Grid>
 						</aside>

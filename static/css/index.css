@@ -328,7 +328,7 @@ li > a:only-child:after { content: ''; }
 }
 .filter.active {
     border: 1px solid #F13F4B;
-    background-color: #F13F4B;
+    box-shadow: 5px 5px 5px #c5c4c4;
     color: white;
 }
 

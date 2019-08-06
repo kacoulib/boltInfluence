@@ -34,11 +34,14 @@ module.exports = (nextApp) => {
   }))
 
   router.get(
-    '/articles/:slug',
+    '/blog/:slug',
     handleErrors(async (req, res) => {
       const { slug } = req.params;
       const article = await Article.getBySlug({ slug });
-      res.json(article);
+
+      nextApp.render(req, res, '/blog/single', {
+        ...article,
+      })
     }),
   )
   router.get('/posts', async (req, res) => {

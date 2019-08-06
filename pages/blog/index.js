@@ -4,7 +4,11 @@ import Grid from '@material-ui/core/Grid';
 import withLayout from '../../lib/withLayout';
 import { grayColor } from '../../utils/variables/css'
 import { useRouter } from 'next/router'
+import TextTruncate from 'react-text-truncate';
+import { Link } from '@material-ui/core';
+import moment from 'moment'
 
+moment.locale('fr')
 const styles = {
 	cardContainer: {
 		padding: '3rem 0',
@@ -61,54 +65,12 @@ const Index = () => {
 				img: '../../static/img/user.png'
 			},
 		},
-		articles: [{
-			title: 'Titre',
-			category: { name: 'Onglet1', id: 'Onglet1' },
-			content: 'Lorem ipsum dolor sit sit amet, consectetur adipiscing elit. Suspendisse vel ligula velit, molestie sitela amet pretium consectetur. sit amet pretium consectetur…',
-			img: '../static/img/gray-rectangle.jpg',
-			date: 'Mercredi 13 Juin, 2019'
-		}, {
-			title: 'Titre',
-			category: { name: 'Onglet2', id: 'Onglet2' },
-			content: 'Lorem ipsum dolor sit sit amet, consectetur adipiscing elit. Suspendisse vel ligula velit, molestie sitela amet pretium consectetur. sit amet pretium consectetur…',
-			img: '../static/img/gray-rectangle.jpg',
-			date: 'Mercredi 13 Juin, 2019'
-		}, {
-			title: 'Titre',
-			category: { name: 'Onglet1', id: 'Onglet1' },
-			content: 'Lorem ipsum dolor sit sit amet, consectetur adipiscing elit. Suspendisse vel ligula velit, molestie sitela amet pretium consectetur. sit amet pretium consectetur…',
-			img: '../static/img/gray-rectangle.jpg',
-			date: 'Mercredi 13 Juin, 2019'
-		}, {
-			title: 'Titre',
-			category: { name: 'Onglet2', id: 'Onglet2' },
-			content: 'Lorem ipsum dolor sit sit amet, consectetur adipiscing elit. Suspendisse vel ligula velit, molestie sitela amet pretium consectetur. sit amet pretium consectetur…',
-			img: '../static/img/gray-rectangle.jpg',
-			date: 'Mercredi 13 Juin, 2019'
-		},
-		{
-			title: 'Titre',
-			category: { name: 'Onglet1', id: 'Onglet1' },
-			content: 'Lorem ipsum dolor sit sit amet, consectetur adipiscing elit. Suspendisse vel ligula velit, molestie sitela amet pretium consectetur. sit amet pretium consectetur…',
-			img: '../static/img/gray-rectangle.jpg',
-			date: 'Mercredi 13 Juin, 2019'
-		}, {
-			title: 'Titre',
-			category: { name: 'Onglet3', id: 'Onglet3' },
-			content: 'Lorem ipsum dolor sit sit amet, consectetur adipiscing elit. Suspendisse vel ligula velit, molestie sitela amet pretium consectetur. sit amet pretium consectetur…',
-			img: '../static/img/gray-rectangle.jpg',
-			date: 'Mercredi 13 Juin, 2019'
-		},],
-		categories: [
-			{ name: 'Onglet 1', id: 'Onglet1', nb: 3, color: 'red' },
-			{ name: 'Onglet 2', id: 'Onglet2', nb: 2, color: 'blue' },
-			{ name: 'Onglet 3', id: 'Onglet3', nb: 1, color: 'done' },
-			{ name: 'Onglet 4', id: 'Onglet4', nb: 0, color: 'new' },
-		],
+		articles,
+		categories,
 		filterCategory: null
 	})
 	const toggleCategory = (id) => setState({ ...state, ...{ filterCategory: id != state.filterCategory ? id : null } });
-	const filtedArticles = state.filterCategory ? state.articles.filter((e) => e.category.id == state.filterCategory) : state.articles
+	const filtedArticles = state.filterCategory ? state.articles.filter((e) => e.categories.find(j => j._id == state.filterCategory)) : state.articles
 
 	return (
 		<div id='blog'>
@@ -136,10 +98,10 @@ const Index = () => {
 					<Grid container item xs={12} sm={3}></Grid>
 					<Grid container item xs={12} sm={6}>
 						{state.categories && state.categories.map((e, i) => (
-							<Grid item key={i} container xs={12} sm={3} style={styles.p} onClick={() => toggleCategory(e.id)}>
-								<Grid item key={i} container xs={12} className={`filter ${e.color} ${state.filterCategory == e.id ? 'active' : ''}`} justify="space-between" >
-									<div>{e.name}</div>
-									<div>{e.nb}</div>
+							<Grid item key={i} container xs={12} sm={3} style={styles.p} onClick={() => toggleCategory(e._id)}>
+								<Grid item key={i} container xs={12} className={`filter ${e.color} ${state.filterCategory == e._id ? 'active' : ''}`} style={{ border: `1px solid ${e.color}`, }} justify="space-between" >
+									<div style={{ color: e.color }}>{e.title}</div>
+									<div style={{ backgroundColor: e.color }}>{e.nb || 3}</div>
 								</Grid>
 							</Grid>
 						))}
@@ -151,20 +113,31 @@ const Index = () => {
 			<div>
 				<Grid container item style={styles.filterContainer}>
 					{filtedArticles && filtedArticles.map((elem, index) => {
-						let color = state.categories.find(e => e.id == elem.category.id);
+						let color = state.categories.find(e => e._id == elem.categories._id);
 						color = color ? color.color : '';
 
 						return (
 							<Grid key={index} item container xs={12} sm={4} justify="center" alignItems="center" style={styles.filter}>
 								<article className='gray-border'>
-									<header><img src={elem.img} className='fullwidth' /></header>
+									<header><img src={elem.picture} className='fullwidth' /></header>
 									<div style={styles.p}>
-										<div className='text-center'><span className={`article-ategory ${color}`}>{elem.category.name}</span></div>
+										{elem.categories.map((e, i) =>
+											<div key={i} className='text-center inline-block'>
+												<span className={`article-ategory ${color}`} style={{ backgroundColor: e.color }}>{e.title}</span>
+											</div>
+										)}
 										<h1>{elem.title}</h1>
-										<p>{elem.content}</p>
+										{/* <p>{elem.content}</p> */}
+										<TextTruncate
+											line={5}
+											element="p"
+											truncateText="…"
+											text={elem.content}
+											textTruncateChild={<Link href={`/blog/${elem.slug}`}><a title={elem.title} className='red-color'>Lire</a></Link>}
+										/>
 									</div>
 									<footer className='text-center' style={styles.footer}>
-										{elem.date}
+										{moment(elem.created_at).format('LLLL')}
 									</footer>
 								</article>
 							</Grid>
