@@ -237,7 +237,7 @@ const FormGenerator = ({ fields, classes, form, onChange, toggleList, setting, a
                                                             name={elem.name}
                                                             options={elemProps.list}
                                                             value={form[elem.name]}
-                                                            onChange={(value) => console.log(value, form[elem.name]) && onChange(elem.name, value)}
+                                                            onChange={(value) => onChange(elem.name, value) && console.log(value, form[elem.name])}
                                                         />
                                                     </FormControl>
                                                 </ Grid>

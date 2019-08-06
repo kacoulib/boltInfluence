@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Grid from '@material-ui/core/Grid';
 import withLayout from '../../lib/withLayout';
 import { grayColor } from '../../utils/variables/css'
+import { useRouter } from 'next/router'
 
 const styles = {
 	cardContainer: {
@@ -46,6 +47,9 @@ const styles = {
 
 
 const Index = () => {
+	const router = useRouter()
+	const { categories, articles } = router.query
+
 	const [state, setState] = useState({
 		cover: {
 			title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit. ',

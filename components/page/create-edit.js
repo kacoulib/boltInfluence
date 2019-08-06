@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types'
 import FormGenerator from '../form/generator'
 import Button from '@material-ui/core/Button';
 import { customRequest } from '../../lib/api/http/index';
+import { buildToArray, buildFromArray } from '../form/reactSelect'
 
 const cardContainer = {
     padding: '1rem',
@@ -33,13 +34,27 @@ const Index = ({ selected = {}, isEdit = false, onSubmit, fields, path, editIden
 
     const [state, setState] = useState(selected)
 
+    useEffect(() => {
+        const newState = { ...state }
+
+        isEdit && fields && fields.map(elem => {
+            if (elem.type == 'react-select') {
+                newState[elem.name] = elem.props.list.filter(e => state[elem.name].includes(e.value));
+            }
+        })
+        setState(newState)
+    }, [])
     const onChange = (name, value) => value && setState({ ...state, [name]: value });
 
+
     const handleOnSubmit = async () => {
-        console.log(state)
-        if (isEdit)
-            path += '/' + state[editIdenfier]
-        await customRequest({ path, state, method: isEdit ? 'PUT' : 'POST' })
+        const newState = { ...state }
+        fields && fields.map(elem => {
+            if (elem.type == 'react-select')
+                newState[elem.name] = buildToArray(state[elem.name]);
+        })
+
+        await customRequest({ path: isEdit ? `${path}/${newState[editIdenfier]}` : path, state: newState, method: isEdit ? 'PUT' : 'POST' })
         if (!isEdit)
             setState(selected)
     };

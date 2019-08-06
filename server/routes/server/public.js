@@ -23,24 +23,30 @@ const router = express.Router();
 
 module.exports = (nextApp) => {
 
-  router.use((req, res, next) => {
-    if (!req.user || !isAdmin(req.user)) {
-      res.status(401).json({ error: 'Unauthorized' });
-      return;
-    }
-    next();
-  });
-
-  // router.get('/posts', ()=>listCollection(User.listInfluencers.bind(User)));
-  router.get('/posts', async (req, res) => {
+  router.get('/blog', handleErrors(async (req, res) => {
+    const articles = await Article.list.bind(Article)()
     const categories = await Category.list.bind(Category)()
-    const tags = await Tag.list.bind(Tag)()
 
-    return nextApp.render(req, res, '/admin/posts', {
-      articlesLength: await Article.count(),
+    nextApp.render(req, res, '/blog', {
+      ...articles,
       ...categories,
-      ...tags,
-      faqsLength: await FAQ.count(),
+    })
+  }))
+
+  router.get(
+    '/articles/:slug',
+    handleErrors(async (req, res) => {
+      const { slug } = req.params;
+      const article = await Article.getBySlug({ slug });
+      res.json(article);
+    }),
+  )
+  router.get('/posts', async (req, res) => {
+    return nextApp.render(req, res, '/admin/posts', {
+      articles: await Article.count(),
+      categories: await Category.count(),
+      tags: await Tag.count(),
+      faqs: await FAQ.count(),
     })
   });
 

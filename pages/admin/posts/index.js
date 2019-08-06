@@ -72,18 +72,19 @@ const faqsFields = [
 
 const CustomerIndex = (props) => {
     const router = useRouter()
-    const { categories, articles, tags, faqs } = router.query
+    const { categories, articlesLength, tags, faqsLength } = router.query
 
     const [state, setState] = useState({
         categories,
-        articles,
+        articlesLength,
         tags,
-        faqs,
+        faqsLength,
 
         influencersList: [],
         selectedInfluencer: null
     });
-    console.log(state, categories)
+    console.log(categories)
+    // console.log(state, buildFromArray(categories))
     // console.log('props', props)
     // async function getData() {
     //     const { categories } = await customRequest({ path: '/admin/categories' });
@@ -114,7 +115,7 @@ const CustomerIndex = (props) => {
             type: 'react-select',
             required: true,
             props: {
-                list: [{ label: 'Marque1', value: 'marque 1' }, { label: 'Marque2', value: 'second marque' }],
+                list: buildFromArray(categories, 'title', '_id'),
             }
         },
         {
@@ -123,9 +124,7 @@ const CustomerIndex = (props) => {
             type: 'react-select',
             required: true,
             props: {
-                list: [{ value: 'chocolate', label: 'Chocolate' },
-                { value: 'strawberry', label: 'Strawberry' },
-                { value: 'vanilla', label: 'Vanilla' },],
+                list: buildFromArray(tags, 'title', '_id'),
             }
         },
         {
@@ -134,8 +133,6 @@ const CustomerIndex = (props) => {
             type: 'wysiwyg',
             required: true,
             props: {
-                list: choiceList,
-                required: true,
                 margin: "normal",
                 variant: "outlined",
             }
@@ -151,19 +148,19 @@ const CustomerIndex = (props) => {
                             [
                                 {
                                     title: 'Articles',
-                                    card: [{ icon: 'FeedIcon', text: 'Crées', nb: state.articles }]
+                                    card: [{ icon: 'FeedIcon', text: 'Crées', nb: state.articlesLength }]
                                 },
                                 {
                                     title: 'Catégories',
-                                    card: [{ icon: 'AccountIcon', text: 'Crées', nb: state.categories }]
+                                    card: [{ icon: 'AccountIcon', text: 'Crées', nb: state.categories.length }]
                                 },
                                 {
                                     title: 'Tags',
-                                    card: [{ icon: 'PostIcon', text: 'Crées', nb: state.tags }]
+                                    card: [{ icon: 'PostIcon', text: 'Crées', nb: state.tags.length }]
                                 },
                                 {
                                     title: 'FAQs',
-                                    card: [{ icon: 'PostIcon', text: 'Crées', nb: state.faqs }]
+                                    card: [{ icon: 'PostIcon', text: 'Crées', nb: state.faqsLength }]
                                 }
                             ]
                         }

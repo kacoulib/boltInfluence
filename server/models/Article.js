@@ -13,7 +13,6 @@ const mongoSchema = new Schema({
   },
   picture: {
     type: String,
-    required: true,
   },
   slug: {
     type: String,
@@ -28,11 +27,8 @@ const mongoSchema = new Schema({
     type: String,
     required: true,
   },
-  social_medias: [{
-    //
-  }],
   categories: [{ type: ObjectId, ref: 'Category' }],
-  tags: [{ type: ObjectId, ref: 'Tags' }],
+  tags: [{ type: ObjectId, ref: 'Tag' }],
 });
 
 class ArticleClass {
@@ -50,16 +46,16 @@ class ArticleClass {
    * @param {String} options.title
    * @param {String} options.content
    * @param {String} options.author
-   * @param {Array<String>} options.social_medias
    * @param {Array<String>} options.tags
+   * @param {Array<String>} options.categories
    */
   static async add({
     title,
     content,
     author,
     picture,
-    social_medias,
     tags,
+    categories
   }) {
     const slug = await generateSlug(this, title);
     const articleDoc = await this.create({
@@ -68,8 +64,8 @@ class ArticleClass {
       slug,
       content,
       author,
-      // social_medias,
       tags,
+      categories
     });
     const article = articleDoc.toObject();
     return { article };
@@ -89,15 +85,17 @@ class ArticleClass {
     picture,
     content,
     tags,
+    categories
   }) {
     const { article } = await this.getBySlug({ slug });
 
     if (title) article.title = title;
     if (content) article.content = content;
     if (tags) article.tags = tags;
+    if (categories) article.categories = categories;
     if (picture) article.picture = picture;
 
-    const hasChanges = Boolean(title || content || tags || picture);
+    const hasChanges = Boolean(title || content || tags || categories || picture);
 
     if (hasChanges) {
       await article.save();

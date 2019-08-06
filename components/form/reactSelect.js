@@ -19,11 +19,18 @@ const ReactSelectComp = ({ name, value, onChange, options }) => (
         styles={styles}
     />
 )
-export const buildFromArray = (datas, label, value) => {
+export const buildFromArray = (datas, label, value) => datas && datas.map(elem => ({ label: elem[label], value: elem[value] }));
+
+export const buildFieldArray = (datas, label, value) => datas && datas.map(elem => ({ label: elem[label], value: elem[value] }));
+
+export const buildToArray = (datas) => {
     const newData = [];
 
-    datas && datas.map(elem => newData.push({ label: elem[label], value: elem[value] }))
+    datas && datas.map(elem => {
+        newData.push(elem.value)
+    })
     return newData;
 }
+
 
 export default ReactSelectComp

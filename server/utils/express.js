@@ -31,15 +31,13 @@ const listCollection = (listFn) =>
     res.json(await listFn({ offset, limit }));
   });
 
-const serverListCollection = (nextApp, listFn) =>
-  handleErrors((req, res) => {
+const serverListCollection = (nextApp, path, listFn) =>
+  handleErrors(async (req, res) => {
     let { offset, limit } = req.query;
 
     offset = Number(offset) || undefined;
     limit = Number(limit) || undefined;
-
-    console.log('nextApp-----------------', req.pathname)
-    return nextApp.render(req, res, '/admin/posts', { '---------': 'tata' })
+    return nextApp.render(req, res, path, await listFn({ offset, limit }))
   });
 
 /**
