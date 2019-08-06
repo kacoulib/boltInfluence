@@ -33,6 +33,14 @@ module.exports = (nextApp) => {
     })
   }))
 
+  router.get('/', handleErrors(async (req, res) => {
+    const faqs = await FAQ.list.bind(FAQ)()
+
+    nextApp.render(req, res, '/', {
+      ...faqs,
+    })
+  }))
+
   router.get(
     '/blog/:slug',
     handleErrors(async (req, res) => {

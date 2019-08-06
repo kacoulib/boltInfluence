@@ -11,6 +11,7 @@ import { darkBlueColor, darkOrangeColor, lightGray, redColor } from '../utils/va
 import Search from '../components/elements/search';
 import Rectangle from '../static/img/rectangle.png'
 import FormGenerator from '../components/form/generator';
+import { useRouter } from 'next/router'
 
 const styles = {
 	expandContainer: {
@@ -74,6 +75,9 @@ const fields = [{
 }]
 
 const Index = () => {
+	const router = useRouter()
+	const { faqs } = router.query;
+	console.log(faqs)
 	const [state, setState] = useState({
 		toogleTeam: false,
 		active: null,
@@ -172,77 +176,21 @@ const Index = () => {
 					</Grid>
 					<div style={styles.expandContainer}>
 						<p>Top 5</p>
-						<ExpansionPanel style={{ marginBottom: '1rem' }}>
-							<ExpansionPanelSummary
-								expandIcon={<ExpandMoreIcon style={styles.expandIco} />}
-								aria-controls="panel1a-content"
-								id="panel1a-header"
-								style={styles.blueHead}
-							>
-								<p style={styles.headP}>Qui sont Bolt Influencer ?</p>
-							</ExpansionPanelSummary>
-							<ExpansionPanelDetails>
-								<p>
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit, molestie sit amet pretium consectetur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit, molestie sit amet pretium consectetur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit, molestie sit amet pretium consectetur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula.
-							</p>
-							</ExpansionPanelDetails>
-						</ExpansionPanel>
-						<ExpansionPanel style={{ marginBottom: '1rem' }}>
-							<ExpansionPanelSummary
-								expandIcon={<ExpandMoreIcon style={styles.expandIco} />}
-								aria-controls="panel1a-content"
-								id="panel1a-header"
-								style={styles.orangeHead}
-							>
-								<p style={styles.headP}>Comment devenir membre ?</p>
-							</ExpansionPanelSummary>
-							<ExpansionPanelDetails>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.</p>
-							</ExpansionPanelDetails>
-						</ExpansionPanel>
-						<ExpansionPanel style={{ marginBottom: '1rem' }}>
-							<ExpansionPanelSummary
-								expandIcon={<ExpandMoreIcon style={styles.expandIco} />}
-								aria-controls="panel1a-content"
-								id="panel1a-header"
-								style={styles.blueHead}
-							>
-								<p style={styles.headP}>Qui sont Bolt Influencer ?</p>
-							</ExpansionPanelSummary>
-							<ExpansionPanelDetails>
-								<p>
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit, molestie sit amet pretium consectetur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit, molestie sit amet pretium consectetur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit, molestie sit amet pretium consectetur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula.
-							</p>
-							</ExpansionPanelDetails>
-						</ExpansionPanel>
-						<ExpansionPanel style={{ marginBottom: '1rem' }}>
-							<ExpansionPanelSummary
-								expandIcon={<ExpandMoreIcon style={styles.expandIco} />}
-								aria-controls="panel1a-content"
-								id="panel1a-header"
-								style={styles.orangeHead}
-							>
-								<p style={styles.headP}>Comment devenir membre ?</p>
-							</ExpansionPanelSummary>
-							<ExpansionPanelDetails>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.</p>
-							</ExpansionPanelDetails>
-						</ExpansionPanel>
-						<ExpansionPanel style={{ marginBottom: '1rem' }}>
-							<ExpansionPanelSummary
-								expandIcon={<ExpandMoreIcon style={styles.expandIco} />}
-								aria-controls="panel1a-content"
-								id="panel1a-header"
-								style={styles.blueHead}
-							>
-								<p style={styles.headP}>Qui sont Bolt Influencer ?</p>
-							</ExpansionPanelSummary>
-							<ExpansionPanelDetails>
-								<p>
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit, molestie sit amet pretium consectetur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit, molestie sit amet pretium consectetur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit, molestie sit amet pretium consectetur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula.
-							</p>
-							</ExpansionPanelDetails>
-						</ExpansionPanel>
+						{faqs && faqs.map((elem, key) => (
+							<ExpansionPanel key={key} style={{ marginBottom: '1rem' }}>
+								<ExpansionPanelSummary
+									expandIcon={<ExpandMoreIcon style={styles.expandIco} />}
+									aria-controls="panel1a-content"
+									id="panel1a-header"
+									style={key % 2 == 0 ? styles.blueHead : styles.orangeHead}
+								>
+									<p style={styles.headP}>{elem.title}</p>
+								</ExpansionPanelSummary>
+								<ExpansionPanelDetails>
+									<p>{elem.content}</p>
+								</ExpansionPanelDetails>
+							</ExpansionPanel>
+						))}
 						<p className='text-right'><a className='red-color'>Montrer tout le FAQ</a></p>
 					</div>
 					<div>

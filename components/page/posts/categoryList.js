@@ -29,19 +29,21 @@ const styles = {
     marqueName: { color: '##5b5b5d' }
 }
 
-const Index = ({ loadMore, fields, path, editIdenfier }) => {
-    const [state, setState] = useState({ categories: [], selectedArticle: null })
+const Index = ({ fields, path, editIdenfier, title, showImg = true, requestProp }) => {
+    const [state, setState] = useState({ [requestProp]: [], selectedArticle: null })
 
     useEffect(() => {
         async function getData() {
-            const categories = await customRequest({ path: '/admin/categories' });
-            setState({ ...state, ...categories })
+            const tmp = await customRequest({ path });
+            console.log({ ...tmp })
+            setState({ ...state, ...tmp })
         }
         getData()
     }, [])
 
+    const loadMore = () => console.log('loading...')
     const handleSelectArticle = (id) => {
-        const tmp = state.categories.find((e) => e._id == id);
+        const tmp = state[requestProp].find((e) => e._id == id);
         setState({ ...state, selectedArticle: tmp })
     }
     if (state.selectedArticle)
@@ -49,20 +51,19 @@ const Index = ({ loadMore, fields, path, editIdenfier }) => {
     return (
         <Grid container alignItems='center' justify="center" style={styles.container} >
             <Grid item xs={12} sm={12}>
-                <h2>Liste des catégories</h2>
+                <h2>{title}</h2>
             </Grid>
             <Grid item xs={12} sm={12} style={styles.childContainer}>
-                {state.categories && state.categories.map((elem, i) => (
+                {state[requestProp] && state[requestProp].map((elem, i) => (
                     <Grid key={i} container alignItems='stretch' justify="center" className='influencers_list relative' style={styles.listContainer}>
                         <div className='listActions'>
                             <span className='icon write pointer' onClick={() => handleSelectArticle(elem._id)}></span>
-                            <span className='icon write pointer' onClick={() => handleSelectArticle(elem._id)}></span>
                         </div>
-                        <Grid item xs={4} sm={4} className='center-text' style={styles.influencer_img_container}>
+                        {showImg && <Grid item xs={4} sm={4} className='center-text' style={styles.influencer_img_container}>
                             <div className='influencers_img' style={{ backgroundColor: elem.color }}><div></div>
                                 {/* <img src={elem.picture || InfluenceurJones} /> */}
                             </div>
-                        </Grid>
+                        </Grid>}
                         <Grid item xs={8} sm={8} style={styles.influencer_info_container}>
                             <h2>{elem.title}</h2>
                             <h3 style={styles.marqueName}>{elem.marque}</h3>
@@ -74,10 +75,6 @@ const Index = ({ loadMore, fields, path, editIdenfier }) => {
         </ Grid>
     )
 }
-Index.propTypes = {
-    datas: PropTypes.object.isRequired,
-    selectInfluencer: PropTypes.func.isRequired,
-    loadMore: PropTypes.func
-}
+
 
 export default Index;

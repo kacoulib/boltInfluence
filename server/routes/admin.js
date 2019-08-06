@@ -310,7 +310,7 @@ router.delete(
 )
 
 // Tag
-router.get('/tag', listCollection(Tag.list.bind(Tag)))
+router.get('/tags', listCollection(Tag.list.bind(Tag)))
 
 router.post(
   '/tags',
@@ -351,7 +351,7 @@ router.delete(
 )
 
 // FAQ
-router.get('/faq', listCollection(FAQ.list.bind(Tag)))
+router.get('/faqs', listCollection(FAQ.list.bind(FAQ)))
 
 router.post(
   '/faqs',

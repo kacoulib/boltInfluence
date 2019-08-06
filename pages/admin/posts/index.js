@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import withLayout from '../../../lib/withLayout';
 import withAuth from '../../../lib/withAuth';
 import NavPanel from '../../../components/admin/NavPanel';
 
@@ -7,7 +6,6 @@ import PostList from '../../../components/page/posts/list';
 import CategoryList from '../../../components/page/posts/categoryList';
 import Faq from '../../../components/page/posts/faq';
 import CreatePost from '../../../components/page/create-edit';
-import { choiceList } from '../../../utils/variables/general'
 import { customRequest } from '../../../lib/api/http/index';
 import { buildFromArray } from '../../../components/form/reactSelect'
 import Home from '../../../components/page/home';
@@ -178,15 +176,32 @@ const CustomerIndex = (props) => {
                     href: 'account', className: 'icon mark', text: 'Categories', subMenu: {
                         title: 'Catégories', navList: [
                             { href: 'mark', className: 'icon photos', text: 'Créer un article', page: <CreatePost fields={categoryFields} path='/admin/categories' /> },
-                            { href: 'account', className: 'icon mark', text: 'Liste des Catégories', page: <CategoryList fields={categoryFields} path='/admin/categories' editIdenfier='_id' /> },
+                            {
+                                href: 'account', className: 'icon mark', text: 'Liste des Catégories', page: <CategoryList
+                                    fields={categoryFields}
+                                    path='/admin/categories'
+                                    editIdenfier='_id'
+                                    title='Liste des catégories'
+                                    requestProp='categories'
+                                />
+                            },
                         ]
                     }
                 },
                 {
                     href: 'account', className: 'icon mark', text: 'Tags', subMenu: {
-                        title: 'Catégories', navList: [
+                        title: 'Tags', navList: [
                             { href: 'mark', className: 'icon photos', text: 'Créer un tag', page: <CreatePost fields={tagsFields} path='/admin/tags' /> },
-                            { href: 'account', className: 'icon mark', text: 'Liste des tags', page: <CategoryList fields={tagsFields} path='/admin/tags' editIdenfier='_id' /> },
+                            {
+                                href: 'account', className: 'icon mark', text: 'Liste des tags', page: <CategoryList
+                                    fields={tagsFields}
+                                    path='/admin/tags'
+                                    editIdenfier='_id'
+                                    showImg={false}
+                                    title='Liste des tags'
+                                    requestProp='tags'
+                                />
+                            },
                         ]
                     }
                 },
@@ -194,7 +209,16 @@ const CustomerIndex = (props) => {
                     href: 'account', className: 'icon mark', text: 'F.A.Q', subMenu: {
                         title: 'Catégories', navList: [
                             { href: 'mark', className: 'icon photos', text: 'Créer un tag', page: <CreatePost fields={faqsFields} path='/admin/faqs' /> },
-                            { href: 'account', className: 'icon mark', text: 'Liste des tags', page: <CategoryList fields={faqsFields} path='/admin/faqs' editIdenfier='_id' /> },
+                            {
+                                href: 'account', className: 'icon mark', text: 'Liste des tags', page: <CategoryList
+                                    fields={faqsFields}
+                                    path='/admin/faqs'
+                                    editIdenfier='_id'
+                                    showImg={false}
+                                    title='Liste des F.A.Q'
+                                    requestProp='faqs'
+                                />
+                            },
                         ]
                     }
                 },

@@ -80,7 +80,6 @@ class ArticleClass {
       .populate('categories')
       .populate('tags')
       .exec()
-    // .lean();
 
     if (!article) {
       throw new Error("Article not found");
