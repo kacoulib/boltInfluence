@@ -31,6 +31,17 @@ const listCollection = (listFn) =>
     res.json(await listFn({ offset, limit }));
   });
 
+const serverListCollection = (nextApp, listFn) =>
+  handleErrors((req, res) => {
+    let { offset, limit } = req.query;
+
+    offset = Number(offset) || undefined;
+    limit = Number(limit) || undefined;
+
+    console.log('nextApp-----------------', req.pathname)
+    return nextApp.render(req, res, '/admin/posts', { '---------': 'tata' })
+  });
+
 /**
  * @param {(options: { slug: String, file: String }) => any} fn
  * @param {String} slugKey - In which property is the User slug
@@ -60,4 +71,5 @@ module.exports = {
   verifyKyc,
   verifyKycUser,
   verifyKycParams,
+  serverListCollection
 };

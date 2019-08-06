@@ -18,6 +18,7 @@ const googleAuth = require('./auth/google');
 // const twitchAuth = require('./auth/twitch');
 const basicAuth = require('./auth/basic');
 const routes = require('./routes');
+const serverRoutes = require('./routes/server');
 const User = require('./models/User');
 
 const logger = require('./logs');
@@ -134,6 +135,7 @@ nextApp.prepare().then(async () => {
   //   next();
   // });
   routes(app, nextApp);
+  serverRoutes(app, nextApp);
 
   app.get('/logout', (req, res) => {
     req.logout();
@@ -143,7 +145,6 @@ nextApp.prepare().then(async () => {
 
   app.get('*', (req, res) => {
     const url = URL_MAP[req.path];
-
     if (url) {
       nextApp.render(req, res, url);
     } else {

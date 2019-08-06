@@ -233,7 +233,6 @@ const FormGenerator = ({ fields, classes, form, onChange, toggleList, setting, a
                                                 <Grid item {...labelSpacing}>
                                                     <FormControl className={classes.formControl} required={elem.props && elem.props.required} style={elem.formControlStyle}>
                                                         {elem.label && <span >{elem.label}</span>}
-                                                        {console.log(elemProps.list)}
                                                         <ReactSelect
                                                             name={elem.name}
                                                             options={elemProps.list}
