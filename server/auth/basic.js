@@ -6,7 +6,7 @@ const UserModel = require('../models/User');
 const auth = ({ app }) => {
   const verify = async (req, email, password, cb) => {
     const {
-      body: { firstName, lastName /* , companyName */ },
+      body: { firstName, lastName, role /* , companyName */ },
     } = req;
 
     try {
@@ -15,6 +15,7 @@ const auth = ({ app }) => {
         lastName,
         email,
         password,
+        role,
       });
       //   let company = await CompanyModel.findOne({ name: companyName });
       //   if (!company)

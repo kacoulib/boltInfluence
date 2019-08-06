@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const _ = require('lodash');
 
+const Ubo = require('./Ubo');
 const Stat = require('./Stat');
 const KycValidation = require('./KycValidation');
 const SocialMediaToken = require('./SocialMediaToken');
@@ -23,6 +24,9 @@ const {
   createWallet,
   createOrUpdateIbanBankAccount,
   preregisterCard,
+  // createOrUpdateUbo,
+  createUboDeclaration,
+  submitUboDeclaration,
 } = require('../utils/mangopay');
 const { getStats } = require('../utils/socialmedias');
 const logger = require('../logs');
@@ -347,10 +351,13 @@ class UserClass {
     return _.pick(user, this.publicFields());
   }
 
-  static async signInOrSignUpViaEmail({ email, password, avatarUrl, firstName, lastName }) {
+  static async signInOrSignUpViaEmail({ email, password, avatarUrl, firstName, lastName, role }) {
     // Authenticating via email + password
     let user = await this.findOne({ email });
     if (!user) {
+      if (!role || !isBusiness({ role })) {
+        throw new Error('Signing up with an email means you need a business role.');
+      }
       // If we don't know the user
       // Then create it and use the newly created one
       user = (await this.add({
@@ -358,7 +365,7 @@ class UserClass {
         password,
         firstName,
         lastName,
-        role: Influencer,
+        role,
         picture: avatarUrl,
       })).user;
       user = user.toObject();
@@ -517,64 +524,140 @@ class UserClass {
     return owned;
   }
 
-  static async createOrUpdateUboBySlug({
-    slug,
-    firstName,
-    lastName,
-    address,
-    city,
-    postalCode,
-    country,
-    nationality,
-    birthday,
-    birthcountry,
-    birthcity,
-  }) {
-    const user = await this.findOne({ slug });
+  static async getUbosBySlug({ slug }) {
+    const user = await this.findOne({ slug })
+      .select('_id')
+      .lean();
+
     if (!user) {
       throw new Error('User not found');
     }
-    if (firstName) user.ubo.firstName = firstName;
-    if (lastName) user.ubo.lastName = lastName;
-    if (address) user.ubo.address = address;
-    if (city) user.ubo.city = city;
-    if (postalCode) user.ubo.postalCode = postalCode;
-    if (country) user.ubo.country = country;
-    if (nationality) user.ubo.nationality = nationality;
-    if (birthday) user.ubo.birthday = birthday;
-    if (birthcountry) user.birthcountry = birthcountry;
-    if (birthcity) user.birthcity = birthcity;
-    const hasChanges = Boolean(
-      firstName ||
-        lastName ||
-        address ||
-        city ||
-        postalCode ||
-        country ||
-        nationality ||
-        birthday ||
-        birthcountry ||
-        birthcity,
-    );
-    if (hasChanges) {
-      await user.save();
-      if (
-        user.ubo.firstName &&
-        user.ubo.lastName &&
-        user.ubo.address &&
-        user.ubo.city &&
-        user.ubo.postalCode &&
-        user.ubo.country &&
-        user.ubo.nationality &&
-        user.ubo.birthday &&
-        user.ubo.birthcountry &&
-        user.ubo.birthcity
-      ) {
-        // TODO: Call updateOrCreateUbo from mangopay ../utils/mangopay and save possible new ids
-        // TODO: Create a method to submit the UBO.
-      }
-    }
+
+    const { ubos } = await Ubo.getAllByUserId({ user: user._id });
+
+    return { ubos };
   }
+
+  static async createOrUpdateUbosBySlug({ slug, ubos }) {
+    const user = await this.findOne({ slug })
+      .select('_id')
+      .lean();
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    return Ubo.createOrUpdateManyByUserId({ user: user._id, ubos });
+  }
+
+  static async submitUboDeclarationBySlug({ slug }) {
+    const user = await this.findOne({ slug })
+      .select(['_id', 'mangopay.id', 'mangopay.uboDeclaration'])
+      .lean();
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    const { ubos } = await Ubo.getAllByUserId({ user: user._id });
+
+    // TODO: Create/Update the Ubos, submit the UboDeclaration
+    // If there's already a UboDeclaration waiting, throw an error
+    await submitUboDeclaration({
+      user: user.mangopay.id,
+      uboDeclaration: user.mangopay.uboDeclaration,
+    });
+  }
+
+  // static async submitUboDeclarationBySlug({ slug }) {
+  //   const user = await this.findOne({ slug })
+  //     .select(['mangopay.id', 'mangopay.ubo', 'mangopay.uboDeclaration'])
+  //     .lean();
+  //   if (!user) {
+  //     throw new Error('User not found');
+  //   }
+  //   if (!user.mangopay.ubo || !user.mangopay.uboDeclaration) {
+  //     throw new Error('User has no UBO to submit');
+  //   }
+  //   const { uboDeclaration } = await submitUboDeclaration({
+  //     user: user.mangopay.id,
+  //     ubos: [user.mangopay.ubo],
+  //     uboDeclaration: user.mangopay.uboDeclaration,
+  //   });
+  //   console.log(uboDeclaration);
+  // }
+
+  // static async createOrUpdateUboBySlug({
+  //   slug,
+  //   firstName,
+  //   lastName,
+  //   address,
+  //   city,
+  //   postalCode,
+  //   country,
+  //   nationality,
+  //   birthday,
+  //   birthcountry,
+  //   birthcity,
+  // }) {
+  //   const user = await this.findOne({ slug });
+  //   if (!user) {
+  //     throw new Error('User not found');
+  //   }
+  //   if (firstName) user.ubo.firstName = firstName;
+  //   if (lastName) user.ubo.lastName = lastName;
+  //   if (address) user.ubo.address = address;
+  //   if (city) user.ubo.city = city;
+  //   if (postalCode) user.ubo.postalCode = postalCode;
+  //   if (country) user.ubo.country = country;
+  //   if (nationality) user.ubo.nationality = nationality;
+  //   if (birthday) user.ubo.birthday = birthday;
+  //   if (birthcountry) user.ubo.birthcountry = birthcountry;
+  //   if (birthcity) user.ubo.birthcity = birthcity;
+  //   const hasChanges = Boolean(
+  //     firstName ||
+  //       lastName ||
+  //       address ||
+  //       city ||
+  //       postalCode ||
+  //       country ||
+  //       nationality ||
+  //       birthday ||
+  //       birthcountry ||
+  //       birthcity,
+  //   );
+  //   if (hasChanges) {
+  //     await user.save();
+  //   }
+  //   if (
+  //     user.ubo.firstName &&
+  //     user.ubo.lastName &&
+  //     user.ubo.address &&
+  //     user.ubo.city &&
+  //     user.ubo.postalCode &&
+  //     user.ubo.country &&
+  //     user.ubo.nationality &&
+  //     user.ubo.birthday &&
+  //     user.ubo.birthcountry &&
+  //     user.ubo.birthcity
+  //   ) {
+  //     try {
+  //       const { ubo, uboDeclaration } = await createOrUpdateUbo({
+  //         ...user.ubo,
+  //         user: user.mangopay.id,
+  //         ubo: user.mangopay.ubo,
+  //         uboDeclaration: user.mangopay.uboDeclaration,
+  //       });
+  //       user.mangopay.ubo = ubo.Id;
+  //       user.mangopay.uboDeclaration = uboDeclaration.Id;
+  //       await user.save();
+  //     } catch (err) {
+  //       console.error(err);
+  //       throw err;
+  //     }
+  //   }
+  //   console.log(user.toObject());
+  // }
 }
 mongoSchema.loadClass(UserClass);
 
@@ -638,6 +721,17 @@ mongoSchema.pre('save', async function userPreSaveMangopayWallet() {
     description: `User ${user.slug}`,
   });
   user.mangopay.wallet = wallet.Id;
+});
+
+mongoSchema.pre('save', async function userPreSaveMangopayUboDeclaration() {
+  const user = this;
+
+  if (!user.mangopay.id || user.mangopay.uboDeclaration) {
+    return;
+  }
+
+  const { uboDeclaration } = await createUboDeclaration({ user: user.mangopay.id });
+  user.mangopay.uboDeclaration = uboDeclaration.Id;
 });
 
 mongoSchema.pre('save', async function userPreSaveMangopayBankAccount() {

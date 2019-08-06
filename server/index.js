@@ -33,8 +33,8 @@ const MONGO_URL = process.env.MONGO_URL_TEST;
 
 const mangopayConfig = {
   clientId: process.env.MANGOPAY_CLIENTID,
-  clientPassword: process.env.MANGOPAY_PASSWORD,
-  // debugMode: dev,
+  clientApiKey: process.env.MANGOPAY_APIKEY,
+  debugMode: dev,
 };
 if (process.env.MANGOPAY_BASE_URL) {
   mangopayConfig.baseUrl = process.env.MANGOPAY_BASE_URL;

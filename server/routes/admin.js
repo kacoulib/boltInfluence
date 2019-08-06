@@ -88,6 +88,53 @@ router.post(
   verifyKycParams(User.addArticlesOfAssociationBySlug.bind(User)),
 );
 
+router.get(
+  '/users/:slug/ubos',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    const ubos = await User.getUbosBySlug({ slug });
+    res.json(ubos);
+  }),
+);
+
+router.post(
+  '/users/:slug/ubos',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    const ubos = req.body;
+    const newUbos = await User.createOrUpdateUbosBySlug({ slug, ubos });
+    res.json(newUbos);
+  }),
+);
+
+router.put(
+  '/users/:slug/ubos',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    await User.submitUboDeclarationBySlug({ slug });
+    res.status(204).end();
+  }),
+);
+
+// router.post(
+//   '/users/:slug/ubo',
+//   handleErrors(async (req, res) => {
+//     const { slug } = req.params;
+//     const options = req.body;
+//     await User.createOrUpdateUboBySlug({ ...options, slug });
+//     res.status(204).end();
+//   }),
+// );
+
+// router.put(
+//   '/users/:slug/ubo',
+//   handleErrors(async (req, res) => {
+//     const { slug } = req.params;
+//     await User.submitUboDeclarationBySlug({ slug });
+//     res.status(204).end();
+//   }),
+// );
+
 router.get('/campaigns', listCollection(Campaign.list.bind(Campaign)));
 
 router.post(
@@ -227,7 +274,7 @@ router.get(
   }),
 );
 
-router.get('/articles', listCollection(Article.list.bind(Article)))
+router.get('/articles', listCollection(Article.list.bind(Article)));
 
 router.post(
   '/articles',
@@ -237,7 +284,7 @@ router.post(
     const article = await Article.add({ title, picture, content, tags, categories, social_medias, author: `${firstName} ${lastName}` });
     res.json(article);
   }),
-)
+);
 
 // Article
 router.get(
@@ -247,7 +294,7 @@ router.get(
     const article = await Article.getBySlug({ slug });
     res.json(article);
   }),
-)
+);
 
 router.put(
   '/articles/:slug',
@@ -257,7 +304,7 @@ router.put(
     const article = await Article.updateBySlug({ title, picture, content, tags, categories, slug });
     res.json(article);
   }),
-)
+);
 
 router.delete(
   '/articles/:slug',
@@ -266,7 +313,7 @@ router.delete(
     await Article.deleteBySlug({ slug });
     res.status(204).end();
   }),
-)
+);
 
 // Category
 router.get('/categories', listCollection(Category.list.bind(Category)))
