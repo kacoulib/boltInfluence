@@ -115,7 +115,6 @@ nextApp.prepare().then(async () => {
   });
 
   passport.deserializeUser((id, cb) => {
-    console.log('Id', id);
     User.findById(id, User.publicFields(), (err, user) => {
       if (err) {
         return cb(err);
@@ -143,12 +142,12 @@ nextApp.prepare().then(async () => {
 
 
   app.get('*', (req, res) => {
-    const url = URL_MAP[req.path];
-    if (url) {
-      nextApp.render(req, res, url);
-    } else {
-      handle(req, res);
-    }
+    // const url = URL_MAP[req.path];
+    // if (url) {
+    //   nextApp.render(req, res, url);
+    // } else {
+    handle(req, res);
+    // }
   });
 
   server.listen(port, (err) => {

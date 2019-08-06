@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Grid from '@material-ui/core/Grid';
 import withLayout from '../../../lib/withLayout';
@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import TextTruncate from 'react-text-truncate';
 import { Link } from '@material-ui/core';
 import moment from 'moment'
+import { customRequest } from '../../../lib/api/http/index';
 
 moment.locale('fr')
 const styles = {
@@ -50,7 +51,7 @@ const styles = {
 }
 
 
-const Index = () => {
+const Index = (props) => {
 	const router = useRouter()
 	const { categories, articles } = router.query
 
@@ -68,6 +69,15 @@ const Index = () => {
 		articles,
 		categories,
 		filterCategory: null
+	})
+	useEffect(() => {
+		if (!categories && !articles) {
+			const query = async () => {
+				const tmp = await customRequest({ path: '/public/articles' })
+				setState({ ...state, ...tmp })
+			}
+			query()
+		}
 	})
 	const toggleCategory = (id) => setState({ ...state, ...{ filterCategory: id != state.filterCategory ? id : null } });
 	const filtedArticles = state.filterCategory ? state.articles.filter((e) => e.categories.find(j => j._id == state.filterCategory)) : state.articles
@@ -133,7 +143,7 @@ const Index = () => {
 											element="p"
 											truncateText="…"
 											text={elem.content}
-											textTruncateChild={<Link href={`/notre-methode/blog/${elem.slug}`}><a title={elem.title} className='red-color'>Lire</a></Link>}
+											textTruncateChild={<Link href={`/notre-methode/blog/${elem.slug}`}><a title={elem.title} className='red-color'><span>Lire</span></a></Link>}
 										/>
 									</div>
 									<footer className='text-center' style={styles.footer}>

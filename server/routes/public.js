@@ -5,6 +5,7 @@ const Payment = require('../models/Payment');
 const PaymentOperation = require('../models/PaymentOperation');
 const CampaignOffer = require('../models/CampaignOffer');
 const Article = require('../models/Article');
+const Category = require('../models/Category');
 const { isTransferIn, isTransferOut } = require('../../utils/variables/paymentoperation');
 const { handleErrors, listCollection } = require('../utils/express');
 const logger = require('../logs');
@@ -120,7 +121,12 @@ router.get(
   ),
 );
 
-router.get('/articles', listCollection(Article.list.bind(Article)))
+router.get('/articles', handleErrors(async (req, res) => {
+  const articles = await Article.list.bind(Article)()
+  const categories = await Category.list.bind(Category)()
+
+  res.json({ ...articles, ...categories, });
+}))
 
 router.get(
   '/articles/:slug',

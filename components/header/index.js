@@ -31,7 +31,6 @@ const menuList = [
 	{
 		title: 'Contactez-nous', text: "Contactez-nous", href: '/contact', child: [
 			{ title: 'A propos', text: "A propos", href: '/contact/apropos', },
-			{ title: 'Blog', text: "Blog", href: '/contact/blog', },
 			// { title: 'Carriere', text: "Carriere", href: 'contact/carriere', },
 			// { title: 'FAQ', text: "FAQ", href: 'contact/faq', },
 		]
@@ -39,7 +38,7 @@ const menuList = [
 ]
 
 const displayMenuList = (list, i) => (
-	list.map((elem, index) => (
+	list.map((elem) => (
 		<li key={++i}>
 			<Link href={elem.href}><a title={elem.title}>{elem.text}</a></Link>
 			{elem.child && <>
