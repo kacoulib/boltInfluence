@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Grid from '@material-ui/core/Grid';
 import withLayout from '../../../lib/withLayout';
 import { grayColor } from '../../../utils/variables/css'
+import { useRouter } from 'next/router'
 import TextTruncate from 'react-text-truncate';
 import { Link } from '@material-ui/core';
 import moment from 'moment'
@@ -66,15 +67,7 @@ const Index = ({ articles, categories }) => {
 		categories,
 		filterCategory: null
 	})
-	useEffect(() => {
-		if (!categories && !articles) {
-			const query = async () => {
-				const tmp = await customRequest({ path: '/public/articles' })
-				setState({ ...state, ...tmp })
-			}
-			query()
-		}
-	})
+
 	const toggleCategory = (id) => setState({ ...state, ...{ filterCategory: id != state.filterCategory ? id : null } });
 	const filtedArticles = state.filterCategory ? state.articles.filter((e) => e.categories.find(j => j._id == state.filterCategory)) : state.articles
 
@@ -156,7 +149,7 @@ const Index = ({ articles, categories }) => {
 Index.getInitialProps = async () => {
 	const blogs = await customRequest({ path: '/public/blogs' });
 
-	return { blogs }
+	return blogs
 }
 
 
