@@ -475,7 +475,9 @@ li > a:only-child:after { content: ''; }
     border: 3px solid #F13F4B;
     color: #fff;
 }
-.bordered-head, .full-bordered-head {
+.bordered-head,
+.black-bordered-head,
+.full-bordered-head {
     position: relative;
     margin: 0;
     padding: 1rem 0 .3rem;
@@ -483,6 +485,7 @@ li > a:only-child:after { content: ''; }
     line-height: 2.5rem;
 }
 
+.black-bordered-head::after,
 .full-bordered-head::after,
 .bordered-head::after {
     content: '';
@@ -491,6 +494,9 @@ li > a:only-child:after { content: ''; }
     bottom: 0;
     border-bottom: 2px solid #F13F4B;
     width: 75px;
+}
+.black-bordered-head::after {
+    border-bottom: 2px solid #000;
 }
 .full-bordered-head::after {
     width: 100%;

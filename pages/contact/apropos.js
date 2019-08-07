@@ -9,6 +9,8 @@ import Grid from '@material-ui/core/Grid';
 import withLayout from '../../lib/withLayout';
 import { darkBlueColor, darkOrangeColor, lightGray, redColor } from '../../utils/variables/css'
 import Search from '../../components/elements/search';
+import Image01 from '../../static/img/c-est-quoi.jpeg'
+import Image02 from '../../static/img/comment-ca-marche.jpeg'
 import Rectangle from '../../static/img/rectangle.png'
 import FormGenerator from '../../components/form/generator';
 import { useRouter } from 'next/router'
@@ -78,7 +80,6 @@ const fields = [{
 const Index = () => {
 	const router = useRouter()
 	const { faqs } = router.query;
-	console.log(faqs)
 	const [state, setState] = useState({
 		toogleTeam: false,
 		active: null,
@@ -86,19 +87,22 @@ const Index = () => {
 			fullName: 'Joseph NGUYEN',
 			slug: '“La Ref”',
 			job: 'CEO et Co-fondateur',
-			description: 'Joseph n’est pas à son premier coup d’essai. Serial Entrepreneur, il a été associé chez StickyADS.tv revendue à Comcast en 2016. Avec Bolt Influence, il souhaite mettre au service des marques sa vision d’une communication cohérente et adaptée aux usages actuels des consommateurs'
+			description: 'Joseph n’est pas à son premier coup d’essai. Serial Entrepreneur, il a été associé chez StickyADS.tv revendue à Comcast en 2016. Avec Bolt Influence, il souhaite mettre au service des marques sa vision d’une communication cohérente et adaptée aux usages actuels des consommateurs',
+			img: '../../static/img/pictures/joseph.jpeg'
 		},
 		{
 			fullName: 'Morgane SIRGUEY',
 			slug: '“La créa”',
 			job: 'Chargée des influenceurs et Co-fondatrice ',
-			description: 'Issue du monde culinaire et entrepreneuriale, Morgane apporte à Bolt Influence la créativité dont la communication a besoin. Également blogueuse, son bagage social media lui permet de vous accompagner lors du choix stratégique des influenceurs qui représenteront votre marque.'
+			description: 'Issue du monde culinaire et entrepreneuriale, Morgane apporte à Bolt Influence la créativité dont la communication a besoin. Également blogueuse, son bagage social media lui permet de vous accompagner lors du choix stratégique des influenceurs qui représenteront votre marque.',
+			img: '../../static/img/pictures/morgane.jpeg'
 		},
 		{
 			fullName: 'Thomas VAN’T WOUT',
 			slug: '“l’arpenteur”',
 			job: '',
-			description: 'Thomas a fait toutes ses armes dans le monde digital pour de grands comptes comme des projets entrepreneurials. Lui-même influenceur, il permet à Bolt Influence de se positionner comme un interlocuteur privilégié pour toutes les marques désireuses de communiquer auprès des communautés sociales.'
+			description: 'Thomas a fait toutes ses armes dans le monde digital pour de grands comptes comme des projets entrepreneurials. Lui-même influenceur, il permet à Bolt Influence de se positionner comme un interlocuteur privilégié pour toutes les marques désireuses de communiquer auprès des communautés sociales.',
+			img: '../../static/img/pictures/thomas.jpeg'
 		}]
 	})
 
@@ -116,7 +120,7 @@ const Index = () => {
 				<Grid container>
 					<Grid container item style={styles.cardContainer}>
 						<Grid item xs={12} sm={6}>
-							<Card title="Bolt Influence, c’est quoi ?" color='blue' />
+							<Card src={Image01} title="Bolt Influence, c’est quoi ?" color='blue' />
 						</Grid>
 						<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 							<Grid item xs={12} sm={8}>
@@ -148,7 +152,7 @@ const Index = () => {
 							</Grid>
 						</Grid>
 						<Grid item xs={12} sm={6}>
-							<Card title="Comment ça marche ?" color='red' />
+							<Card src={Image02} title="Comment ça marche ?" color='red' />
 						</Grid>
 					</Grid>
 				</Grid>
@@ -210,7 +214,7 @@ const Index = () => {
 							return (
 								<li key={key} className={`${isActive ? 'active' : ''}`}>
 									<div className='text-center' style={{ backgroundColor: isActive ? redColor : '' }} onClick={() => toggleTeam(key)}>
-										<div><img src={Rectangle} className='fullwidthe' /></div>
+										<div><img src={elem.img} className='fullwidth' /></div>
 										<h3>{elem.fullName}</h3>
 										<h4>{elem.slug}</h4>
 										<h5>{elem.job}</h5>

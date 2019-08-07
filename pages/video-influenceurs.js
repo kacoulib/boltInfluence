@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import Grid from '@material-ui/core/Grid';
 import withLayout from '../lib/withLayout';
 import Screen5 from '../static/img/screen5.png'
@@ -36,6 +36,38 @@ const Index = () => {
 
 	return (
 		<div>
+			<NextSeo
+				title="Using More of Config"
+				description="This example uses more of the available config options."
+				canonical="https://www.canonical.ie/"
+				openGraph={{
+					url: 'https://www.url.ie/a',
+					title: 'Open Graph Title',
+					description: 'Open Graph Description',
+					images: [
+						{
+							url: 'https://www.example.ie/og-image-01.jpg',
+							width: 800,
+							height: 600,
+							alt: 'Og Image Alt',
+						},
+						{
+							url: 'https://www.example.ie/og-image-02.jpg',
+							width: 900,
+							height: 800,
+							alt: 'Og Image Alt Second',
+						},
+						{ url: 'https://www.example.ie/og-image-03.jpg' },
+						{ url: 'https://www.example.ie/og-image-04.jpg' },
+					],
+					site_name: 'SiteName',
+				}}
+				twitter={{
+					handle: '@handle',
+					site: '@site',
+					cardType: 'summary_large_image',
+				}}
+			/>
 			<div className='card-bg lines-blue no-repeat right'>
 				<div className='home-block-padding' style={styles.padding}>
 					<h1 className='text-center red-color'>La vidéo un média d’avenir</h1>

@@ -1,39 +1,17 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
-import Card from '../components/dataDisplay/others/card'
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Grid from '@material-ui/core/Grid';
 import withLayout from '../lib/withLayout';
-import { darkBlueColor, darkOrangeColor, lightGray, redColor } from '../utils/variables/css'
-import Search from '../components/elements/search';
-import Rectangle from '../static/img/rectangle.png'
-import FormGenerator from '../components/form/generator';
-import { useRouter } from 'next/router'
+import Screen01 from '../static/img/screen01.png'
+import Screen02 from '../static/img/screen02.png'
+import Screen03 from '../static/img/screen03.png'
+import Carousel from '../components/dataDisplay/others/carousel';
+import ContactUs from '../components/page/public/contactUs'
 
 const styles = {
-	expandContainer: {
-		backgroundColor: 'white',
-		borderRadius: 5,
-		padding: '1rem'
-	},
-	blueHead: {
-		backgroundColor: darkBlueColor,
-		margin: 0,
-		color: 'white'
-	},
-	orangeHead: {
-		backgroundColor: darkOrangeColor,
-		margin: 0,
-		color: 'white'
-	},
-	headP: {
-		margin: 0
-	},
-	expandIco: {
-		color: 'white'
+	cardContainer: {
+		padding: '5rem 0',
+		// marginBottom: '3rem'
 	},
 	padding: {
 		padding: '1rem 2rem',
@@ -41,191 +19,152 @@ const styles = {
 	p: {
 		padding: '0 1rem'
 	},
-	cardContainer: {
-		marginBottom: '3rem'
+	partnersTitle: {
+		padding: '0 0 1rem'
 	},
-	faq: {
-		backgroundColor: '#DEDEE8'
+	contactUsContainer: {
+		paddingTop: '0rem'
 	},
 	contactUs: {
-		display: 'inline-block',
-		margin: '2rem 0',
-		padding: '.5rem 1rem',
-		border: '1px solid gray',
-		backgroundColor: lightGray,
+		backgroundColor: '#D8D8D8',
+		color: 'white'
+	},
+	h3: {
+		fontSize: '1.5rem',
+		marginBottom: '3rem'
+	},
+	testimonialContainer: {
+		position: 'relative'
+	},
+	testimonial: {
+		position: 'absolute',
+		backgroundColor: 'rgba(99, 99, 99, 0.33)',
+		color: 'white',
+		width: '100%',
+		padding: '1rem',
+		margin: 0,
+		bottom: 0
+	},
+	testimonialTitle: {
+		fontSize: '2rem'
+	},
+	carouselImg: {
+		width: '100%'
 	}
 }
 
-const fields = [{
-	label: "Sélectionner",
-	name: "name",
-	type: 'select',
-	required: true,
-	width: 4,
-	disableUnderline: true,
-	formControlStyle: {
-		borderRadius: '5px',
-		backgroundColor: 'white',
-		boxShadow: '0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12)',
-		padding: 0
-	},
-	props: {
-		list: [],
-		// list: [{ name: 'Mr', value: 'Mr' }, { name: 'Mme', value: 'Mme' }],
-	}
-}]
 
 const Index = () => {
-	const router = useRouter()
-	const { faqs } = router.query;
-	console.log(faqs)
-	const [state, setState] = useState({
-		toogleTeam: false,
-		active: null,
-		teams: [{
-			fullName: 'Joseph NGUYEN',
-			slug: '“La Ref”',
-			job: 'CEO et Co-fondateur',
-			description: 'Joseph n’est pas à son premier coup d’essai. Serial Entrepreneur, il a été associé chez StickyADS.tv revendue à Comcast en 2016. Avec Bolt Influence, il souhaite mettre au service des marques sa vision d’une communication cohérente et adaptée aux usages actuels des consommateurs'
-		},
-		{
-			fullName: 'Morgane SIRGUEY',
-			slug: '“La créa”',
-			job: 'Chargée des influenceurs et Co-fondatrice ',
-			description: 'Issue du monde culinaire et entrepreneuriale, Morgane apporte à Bolt Influence la créativité dont la communication a besoin. Également blogueuse, son bagage social media lui permet de vous accompagner lors du choix stratégique des influenceurs qui représenteront votre marque.'
-		},
-		{
-			fullName: 'Thomas VAN’T WOUT',
-			slug: '“l’arpenteur”',
-			job: '',
-			description: 'Thomas a fait toutes ses armes dans le monde digital pour de grands comptes comme des projets entrepreneurials. Lui-même influenceur, il permet à Bolt Influence de se positionner comme un interlocuteur privilégié pour toutes les marques désireuses de communiquer auprès des communautés sociales.'
-		}]
-	})
-
-	const toggleTeam = (i) => {
-		const active = state.active == i ? null : i;
-		setState({ ...state, active });
-	}
-	const onChange = (name, value) => setState({ ...state, [name]: value })
-
+	const onSubmit = () => console.log('submit')
 
 	return (
-		<div className='dots-blue right-bg'>
-			<div className='home-block-padding' style={styles.padding}>
-				<h1 className='bordered-head fullwidth'>À propos</h1>
-				<Grid container>
+		<div>
+			<div className='text-center'>
+				<div className='home-block-padding' style={styles.padding}>
+					<h2 className='text-center'>Comment rendons-nous l’influence marketing scalable ?</h2>
 					<Grid container item style={styles.cardContainer}>
 						<Grid item xs={12} sm={6}>
-							<Card title="Bolt Influence, c’est quoi ?" color='blue' />
+							<img src={Screen01} />
 						</Grid>
 						<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 							<Grid item xs={12} sm={8}>
-								<p style={styles.p}>Chez Bolt Influence, nous souhaitons vous proposer les outils et les services qui vous aideront à piloter vos campagnes de Marketing d’influenceur.</p>
+								<h2>Stratégie de <span className='black-bordered-head'>contenu</span></h2>
+								<div>
+									<p className='no-margin'>Lignes éditoriales</p>
+									<p className='no-margin'>Stratégie de plateforme</p>
+									<p className='no-margin'>Production</p>
+									<p className='no-margin'>Edition</p>
+								</div>
 							</Grid>
 						</Grid>
 					</Grid>
-					<Grid container item style={styles.cardContainer}>
-						<Grid item container xs={12} sm={6} justify="center" alignItems="center">
-							<Grid item container xs={12} sm={8} justify="center" alignItems="center">
-								<Grid item xs={2} sm={2} >
-									<span className='circle-dot'>1</span>
-								</Grid>
-								<Grid item xs={10} sm={10}>
-									<p>Identifier et contacter les influenceurs pertinents par rapport à votre marquer et éviter les “faux” influenceurs</p>
-								</Grid>
-								<Grid item xs={2} sm={2} >
-									<span className='circle-dot'>2</span>
-								</Grid>
-								<Grid item xs={10} sm={10}>
-									<p>Créer des campagnes, les piloter et extraire des statistiques.</p>
-								</Grid>
-								<Grid item xs={2} sm={2} >
-									<span className='circle-dot'>3</span>
-								</Grid>
-								<Grid item xs={10} sm={10}>
-									<p>Accompagner les influenceurs en leur offrant un contact privilégié afin de vous accompagner dans votre croissance.</p>
-								</Grid>
-							</Grid>
+				</div>
+			</div>
+			{/*  */}
+			<div className='text-center'>
+				<Grid container item style={styles.cardContainer} className='light-gray-bg'>
+					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
+						<Grid item container xs={12} sm={8} className='text-center'>
+							<h2><span className='black-bordered-head'>Data</span> et Technologie</h2>
+							<div>
+								<p className='no-margin'>Search infleunceurs</p>
+								<p className='no-margin'>Prévention de la fraude</p>
+								<p className='no-margin'>Affinité infleunceurs/marque</p>
+								<p className='no-margin'>Audience et analytics</p>
+							</div>
 						</Grid>
-						<Grid item xs={12} sm={6}>
-							<Card title="Comment ça marche ?" color='red' />
+					</Grid>
+					<Grid item xs={12} sm={6} className='text-center'>
+						<img src={Screen02} />
+					</Grid>
+				</Grid>
+			</div>
+			{/*  */}
+			<div className='home-block-padding' style={styles.padding} className='card-bg dot-pink reverse no-repeat text-center'>
+				<h1 className='red-color'>Le format In-vidéo</h1>
+				<Grid container item style={styles.cardContainer}>
+					<Grid item xs={12} sm={6}>
+						<img src={Screen03} />
+					</Grid>
+					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
+						<Grid item xs={12} sm={8}>
+							<h2>Managment et <span className='black-bordered-head'>optimization</span></h2>
+							<p className='no-margin'>Relation influenceurs</p>
+							<p className='no-margin'>Account managment</p>
+							<p className='no-margin'>Qualité de service</p>
+							<p className='no-margin'>Logistique</p>
 						</Grid>
 					</Grid>
 				</Grid>
 			</div>
 			{/*  */}
-			<div style={styles.faq}>
-				<div className='home-block-padding' style={styles.padding}>
-					<h2 className='bordered-head fullwidth'>FAQ</h2>
-					<p>Vous voulez en savoir plus ?</p>
-					<p className='italic'>Notre FAQ répondra à tous vos questions !</p>
-					<Grid container item style={styles.cardContainer}>
-						<Grid item xs={12} sm={6}>
-							<FormGenerator
-								fields={fields}
-								form={state}
-								label='test'
-								onChange={onChange}
-							/>
-						</Grid>
+			<div>
+				<Grid container item style={styles.cardContainer}>
+					<div className='lines-black no-repeat right card-bg fullwidth text-center'>
 
-						<Grid item container xs={12} sm={6} justify="flex-end">
-							<Grid item xs={12} sm={6}>
-								<Search />
-							</Grid>
-						</Grid>
-					</Grid>
-					<div style={styles.expandContainer}>
-						<p>Top 5</p>
-						{faqs && faqs.map((elem, key) => (
-							<ExpansionPanel key={key} style={{ marginBottom: '1rem' }}>
-								<ExpansionPanelSummary
-									expandIcon={<ExpandMoreIcon style={styles.expandIco} />}
-									aria-controls="panel1a-content"
-									id="panel1a-header"
-									style={key % 2 == 0 ? styles.blueHead : styles.orangeHead}
-								>
-									<p style={styles.headP}>{elem.title}</p>
-								</ExpansionPanelSummary>
-								<ExpansionPanelDetails>
-									<p>{elem.content}</p>
-								</ExpansionPanelDetails>
-							</ExpansionPanel>
-						))}
-						<p className='text-right'><a className='red-color'>Montrer tout le FAQ</a></p>
+						<h2 style={styles.testimonialTitle}><span className='full-bordered-head'>Client</span></h2>
+
+						<Carousel>
+							<div style={styles.testimonialContainer}>
+								<div style={styles.testimonialContainer}>
+									<img src={Screen01} style={styles.carouselImg} />
+									<h3 style={styles.testimonial}>Loremp impsum Phrase deux</h3>
+								</div>
+							</div>
+							<div style={styles.testimonialContainer}>
+								<div style={styles.testimonialContainer}>
+									<img src={Screen02} style={styles.carouselImg} />
+									<h3 style={styles.testimonial}>Loremp impsum Phrase deux</h3>
+								</div>
+							</div>
+							<div style={styles.testimonialContainer}>
+								<div style={styles.testimonialContainer}>
+									<img src={Screen01} style={styles.carouselImg} />
+									<h3 style={styles.testimonial}>Loremp impsum Phrase deux</h3>
+								</div>
+							</div>
+							<div style={styles.testimonialContainer}>
+								<div style={styles.testimonialContainer}>
+									<img src={Screen02} style={styles.carouselImg} />
+									<h3 style={styles.testimonial}>Loremp impsum Phrase deux</h3>
+								</div>
+							</div>
+
+						</Carousel>
 					</div>
-					<div>
-						<a style={styles.contactUs}>Vous n’avez pas trouvé votre réponse ? Contactez-nous</a>
-					</div>
-				</div>
+				</Grid>
 			</div>
 			{/*  */}
-
-			<div>
-				<div className='home-block-padding' style={styles.padding}>
-					<h2 className='bordered-head fullwidth'>Notre equipe</h2>
-					<ul className={`home_team ${state.active != null ? 'toggle' : ''}`}>
-						{state.teams.map((elem, key) => {
-							const isActive = state.active == key;
-							return (
-								<li key={key} className={`${isActive ? 'active' : ''}`}>
-									<div className='text-center' style={{ backgroundColor: isActive ? redColor : '' }} onClick={() => toggleTeam(key)}>
-										<div><img src={Rectangle} className='fullwidthe' /></div>
-										<h3>{elem.fullName}</h3>
-										<h4>{elem.slug}</h4>
-										<h5>{elem.job}</h5>
-									</div>
-									<div>
-										<div>
-											<p>{elem.description}</p>
-											<p></p>
-										</div>
-									</div>
-								</li>
-							)
-						})}
-					</ul>
-				</div>
+			<div style={styles.contactUsContainer} className='text-center'>
+				<Grid container >
+					<Grid item xs={12} sm={2}></Grid>
+					<Grid item xs={12} sm={8}>
+						<ContactUs onSubmit={onSubmit}>
+							<h3 style={styles.h3}>Marketer intéressé ?  contactez-nous</h3>
+						</ContactUs>
+					</Grid>
+					<Grid item xs={12} sm={2}></Grid>
+				</Grid>
 			</div>
 		</div>
 	)

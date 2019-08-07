@@ -5,6 +5,7 @@ const Payment = require('../models/Payment');
 const PaymentOperation = require('../models/PaymentOperation');
 const CampaignOffer = require('../models/CampaignOffer');
 const Article = require('../models/Article');
+const FAQ = require('../models/FAQ');
 const Category = require('../models/Category');
 const { isTransferIn, isTransferOut } = require('../../utils/variables/paymentoperation');
 const { handleErrors, listCollection } = require('../utils/express');
@@ -136,5 +137,13 @@ router.get(
     res.json(article);
   }),
 )
+
+router.get('/faq/search', handleErrors(async (req, res) => {
+  const faqs = await FAQ.list.bind(FAQ)()
+
+  nextApp.render(req, res, '/contact/apropos', {
+    ...faqs,
+  })
+}))
 
 module.exports = router;

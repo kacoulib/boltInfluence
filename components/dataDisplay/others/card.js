@@ -12,7 +12,7 @@ const styles = {
 }
 const CardComp = ({ src, title, color }) => (
     <div className='text-center publicCard'>
-        <img src={Rectangle} alt={title} />
+        <img src={src || Rectangle} alt={title} />
         <h3 style={styles[color]}>{title}</h3>
     </div>
 )

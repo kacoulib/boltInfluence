@@ -115,7 +115,7 @@ const fields = [{
 ]
 
 
-const Contactus = ({ onSubmit, linkText = 'Contact' }) => {
+const Contactus = (props) => {
     const [state, setState] = useState({
         firstname: '',
         lastname: '',
@@ -133,8 +133,10 @@ const Contactus = ({ onSubmit, linkText = 'Contact' }) => {
     return (
         <div id='contact-us'>
             <div className='center-text'>
-                <h3>Intéressé par une démo ? Contactez-nous</h3>
-                <h4>Vous êtes un influenceur ? <Link><a className='red-color'> Inscrivez-vous par ici</a></Link></h4>
+                {props.children ? props.children : (<>
+                    <h3>Intéressé par une démo ? Contactez-nous</h3>
+                    <h4>Vous êtes un influenceur ? <Link><a className='red-color'> Inscrivez-vous par ici</a></Link></h4></>
+                )}
             </div>
 
             <FormGenerator
@@ -143,7 +145,7 @@ const Contactus = ({ onSubmit, linkText = 'Contact' }) => {
                 onChange={onChange}
             />
             <p id='submit-contact' className='text-right'>
-                <Link ><a className='red-btn' onClick={handleSubmit}>{linkText}</a></Link>
+                <Link ><a className='red-btn' onClick={handleSubmit}>{props.linkText || 'Contact'}</a></Link>
             </p>
         </div>
     )

@@ -33,10 +33,10 @@ module.exports = (nextApp) => {
     })
   }))
 
-  router.get('/', handleErrors(async (req, res) => {
+  router.get('/contact/apropos', handleErrors(async (req, res) => {
     const faqs = await FAQ.list.bind(FAQ)()
 
-    nextApp.render(req, res, '/', {
+    nextApp.render(req, res, '/contact/apropos', {
       ...faqs,
     })
   }))
