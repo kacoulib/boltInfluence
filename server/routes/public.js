@@ -122,12 +122,14 @@ router.get(
   ),
 );
 
-router.get('/articles', handleErrors(async (req, res) => {
-  const articles = await Article.list.bind(Article)()
-  const categories = await Category.list.bind(Category)()
+router.get(
+  '/articles',
+  handleErrors(async (req, res) => {
+    const articles = await Article.list.bind(Article)()
+    const categories = await Category.list.bind(Category)()
 
-  res.json({ ...articles, ...categories, });
-}))
+    res.json({ ...articles, ...categories, });
+  }))
 
 router.get(
   '/articles/:slug',
@@ -143,9 +145,18 @@ router.get('/faqs', listCollection(FAQ.list.bind(FAQ)))
 router.get('/faq/search', handleErrors(async (req, res) => {
   const faqs = await FAQ.list.bind(FAQ)
 
-  nextApp.render(req, res, '/contact/apropos', {
-    ...faqs,
-  })
+  // nextApp.render(req, res, '/contact/apropos', {
+  //   ...faqs,
+  // })
 }))
+
+router.get(
+  '/blogs',
+  handleErrors(async (req, res) => {
+    const articles = await Article.list.bind(Article)()
+    const categories = await Category.list.bind(Category)()
+
+    res.json({ ...articles, ...categories });
+  }))
 
 module.exports = router;

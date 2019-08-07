@@ -68,7 +68,6 @@ const Index = () => {
 	const router = useRouter()
 	const { article } = router.query
 
-	console.log(article)
 
 	return (
 		<div id='blog'>

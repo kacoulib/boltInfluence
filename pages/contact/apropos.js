@@ -13,7 +13,6 @@ import Image01 from '../../static/img/c-est-quoi.jpeg'
 import Image02 from '../../static/img/comment-ca-marche.jpeg'
 import Rectangle from '../../static/img/rectangle.png'
 import FormGenerator from '../../components/form/generator';
-import { useRouter } from 'next/router'
 import { customRequest } from '../../lib/api/http'
 
 const styles = {
@@ -79,9 +78,6 @@ const fields = [{
 }]
 
 const Index = ({ faqs: { faqs } }) => {
-	const router = useRouter()
-	// const { faqs } = router.query;
-	// console.log(props)
 	const [state, setState] = useState({
 		toogleTeam: false,
 		active: null,

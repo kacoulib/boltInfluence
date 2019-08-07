@@ -3,7 +3,6 @@ import Head from 'next/head';
 import Grid from '@material-ui/core/Grid';
 import withLayout from '../../../lib/withLayout';
 import { grayColor } from '../../../utils/variables/css'
-import { useRouter } from 'next/router'
 import TextTruncate from 'react-text-truncate';
 import { Link } from '@material-ui/core';
 import moment from 'moment'
@@ -51,10 +50,7 @@ const styles = {
 }
 
 
-const Index = (props) => {
-	const router = useRouter()
-	const { categories, articles } = router.query
-
+const Index = ({ articles, categories }) => {
 	const [state, setState] = useState({
 		cover: {
 			title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit. ',
@@ -137,7 +133,6 @@ const Index = (props) => {
 											</div>
 										)}
 										<h1>{elem.title}</h1>
-										{/* <p>{elem.content}</p> */}
 										<TextTruncate
 											line={5}
 											element="p"
@@ -158,6 +153,12 @@ const Index = (props) => {
 		</div>
 	)
 }
+Index.getInitialProps = async () => {
+	const blogs = await customRequest({ path: '/public/blogs' });
+
+	return { blogs }
+}
+
 
 
 export default withLayout(Index);
