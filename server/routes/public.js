@@ -138,8 +138,10 @@ router.get(
   }),
 )
 
+router.get('/faqs', listCollection(FAQ.list.bind(FAQ)))
+
 router.get('/faq/search', handleErrors(async (req, res) => {
-  const faqs = await FAQ.list.bind(FAQ)()
+  const faqs = await FAQ.list.bind(FAQ)
 
   nextApp.render(req, res, '/contact/apropos', {
     ...faqs,

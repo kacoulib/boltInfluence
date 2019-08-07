@@ -163,7 +163,7 @@ const FormGenerator = ({ fields, classes, form, onChange, toggleList, setting, a
                                                         {...elemProps}
                                                         rows={8}
                                                         rowsMax={10}
-                                                        // underlineStyle={{ display: 'none' }}
+                                                    // underlineStyle={{ display: 'none' }}
                                                     />
                                                 </Grid>
                                             </Grid>
@@ -199,9 +199,9 @@ const FormGenerator = ({ fields, classes, form, onChange, toggleList, setting, a
                                                 <Grid item {...labelSpacing}>
                                                     <FormControl className={classes.formControl} required={elem.props && elem.props.required} style={elem.formControlStyle}>
                                                         <InputLabel htmlFor={elem.name}>{elem.label}</InputLabel>
-                                                        < Select
+                                                        <Select
                                                             multiple={elemProps.multiple}
-                                                            value={form[elem.name]}
+                                                            value={form[elem.name] || ''}
                                                             onChange={handleChange(elem.name)}
                                                             input={<Input id={elem.name} />}
                                                             renderValue={selected => elemProps.multiple ? (

@@ -14,6 +14,7 @@ import Image02 from '../../static/img/comment-ca-marche.jpeg'
 import Rectangle from '../../static/img/rectangle.png'
 import FormGenerator from '../../components/form/generator';
 import { useRouter } from 'next/router'
+import { customRequest } from '../../lib/api/http'
 
 const styles = {
 	expandContainer: {
@@ -77,9 +78,10 @@ const fields = [{
 	}
 }]
 
-const Index = () => {
+const Index = ({ faqs: { faqs } }) => {
 	const router = useRouter()
-	const { faqs } = router.query;
+	// const { faqs } = router.query;
+	// console.log(props)
 	const [state, setState] = useState({
 		toogleTeam: false,
 		active: null,
@@ -233,6 +235,11 @@ const Index = () => {
 			</div>
 		</div>
 	)
+}
+Index.getInitialProps = async () => {
+	const faqs = await customRequest({ path: '/public/faqs' });
+
+	return { faqs }
 }
 
 

@@ -16,8 +16,8 @@ const mongoSchema = new Schema({
 });
 
 class FAQClass {
-  static async list(where = {}, { offset = 0, limit = 10 } = {}) {
-    const faqs = await this.find(where)
+  static async list({ offset = 0, limit = 5 } = {}) {
+    const faqs = await this.find()
       .sort({ createdAt: -1 })
       .skip(offset)
       .limit(limit)
