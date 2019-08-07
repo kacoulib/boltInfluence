@@ -135,7 +135,7 @@ const Contactus = (props) => {
             <div className='center-text'>
                 {props.children ? props.children : (<>
                     <h3>Intéressé par une démo ? Contactez-nous</h3>
-                    <h4>Vous êtes un influenceur ? <Link><a className='red-color'> Inscrivez-vous par ici</a></Link></h4></>
+                    <h4>Vous êtes un influenceur ? <Link href='#'><a title='#' className='red-color'> Inscrivez-vous par ici</a></Link></h4></>
                 )}
             </div>
 
@@ -145,7 +145,7 @@ const Contactus = (props) => {
                 onChange={onChange}
             />
             <p id='submit-contact' className='text-right'>
-                <Link ><a className='red-btn' onClick={handleSubmit}>{props.linkText || 'Contact'}</a></Link>
+                <Link href='#'><a title='#' className='red-btn' onClick={handleSubmit}>{props.linkText || 'Contact'}</a></Link>
             </p>
         </div>
     )

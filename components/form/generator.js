@@ -145,10 +145,10 @@ const FormGenerator = ({ fields, classes, form, onChange, toggleList, setting, a
                                                     <TextField
                                                         type={elem.type}
                                                         label={showLabel ? '' : elem.label}
-                                                        underlineStyle={false}
+                                                        // underlineStyle={false}
                                                         multiline={elem.type === 'textarea'}
                                                         fullWidth
-                                                        defaultValue={form[elem.name] || inputDefaultProps}
+                                                        // defaultValue={form[elem.name] || inputDefaultProps}
                                                         value={form[elem.name] || inputDefaultProps}
                                                         onChange={handleChange(elem.name)}
                                                         InputLabelProps={{
@@ -163,7 +163,7 @@ const FormGenerator = ({ fields, classes, form, onChange, toggleList, setting, a
                                                         {...elemProps}
                                                         rows={8}
                                                         rowsMax={10}
-                                                        underlineStyle={{ display: 'none' }}
+                                                        // underlineStyle={{ display: 'none' }}
                                                     />
                                                 </Grid>
                                             </Grid>

@@ -36,16 +36,15 @@ const menuList = [
 		]
 	},
 ]
-
 const displayMenuList = (list, i) => (
 	list.map((elem) => (
 		<li key={++i}>
 			<Link href={elem.href}><a title={elem.title}>{elem.text}</a></Link>
 			{elem.child && <>
-				<label for={`drop-${i}`} class="toggle-head">{elem.text} +</label>
+				<label htmlFor={`drop-${i}`} className="toggle-head">{elem.text} +</label>
 				<input type="checkbox" id={`drop-${i}`} />
-				<ul class="nav-dropdown">
-					{displayMenuList(elem.child)}
+				<ul className="nav-dropdown">
+					{displayMenuList(elem.child, i)}
 				</ul>
 			</>
 			}
@@ -67,9 +66,9 @@ const Header = ({ user }) => (
 					<Grid item align="center" sm={10}>
 						<Grid container alignItems="center">
 							<nav>
-								<label for="drop" class="toggle-head">☰</label>
+								<label htmlFor="drop" className="toggle-head">☰</label>
 								<input type="checkbox" id="drop" />
-								<ul class="menu">
+								<ul className="menu">
 									{displayMenuList(menuList, 0)}
 								</ul>
 							</nav>
