@@ -104,7 +104,7 @@ nextApp.prepare().then(async () => {
 
 
   app.use((req, res, next) => {
-    console.log('Sess:', req.sessionID);
+    // console.log('Sess:', req.sessionID);
     next();
   });
 
