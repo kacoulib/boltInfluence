@@ -47,6 +47,7 @@
     "multer": "^1.4.2",
     "next": "8.1.0",
     "next-images": "^1.1.1",
+    "next-seo": "^2.0.0",
     "node-instagram": "^4.3.0",
     "node-pinterest": "0.0.4",
     "nprogress": "0.2.0",
