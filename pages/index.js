@@ -131,7 +131,7 @@ const Index = () => {
 				</Grid>
 			</div>
 			{/*  */}
-			<div style={styles.padding} className='card-bg circle-pink bottom no-repeat text-center'>
+			<div style={styles.padding} className='card-bg circle-pink bottom text-center'>
 				<h1 className='red-color'>Le format In-vidéo</h1>
 				<Grid container item style={styles.cardContainer}>
 					<Grid item xs={12} sm={6}>

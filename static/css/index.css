@@ -6,13 +6,16 @@ ul {
 a, a:hover {
     text-decoration: none;
 }
+#body {
+    background-color: #fff;
+}
 body {
     font-family: 'Montserrat', sans-serif;
     color: #222;
     margin: 0px auto;
     font-weight: 300;
     line-height: 1.5em;
-    background-color: #F7F9FC;
+    /* background-color: #F7F9FC; */
 }
 body, html {
     width: 100vw;
@@ -874,16 +877,26 @@ button.submit {
 .card-bg.top-dots-white::before {
     background-image: url('../img/top-dots-white.png');
 }
-.dots-pink-double {
-    background-size: 100% 100%;
-    background-image: url('../img/dots-pink.png'), url('../img/dots-pink-right.png');
-    background-repeat: no-repeat;
-    background-position: center;
-}
 .card-bg.flip::before {
     transform: rotateX(180deg)
 }
 
+/* .dots-pink-double{
+    position: relative
+}
+.dots-pink-double::before, .dots-pink-double::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.dots-pink-double::before {
+    background-size: 100% 100%;
+    background-image: url('../img/dots-pink.png'), url('../img/dots-pink-right.png');
+    background-repeat: no-repeat;
+    background-position: center;
+} */
 
 
 

@@ -135,8 +135,8 @@ const Contactus = (props) => {
         <div id='contact-us'>
             <div className='center-text'>
                 {props.children ? props.children : (<>
-                    <h3>Intéressé par une démo ? Contactez-nous</h3>
-                    <h4>Vous êtes un influenceur ? <Link href='#'><a title='#' className='red-color'> Inscrivez-vous par ici</a></Link></h4></>
+                    <h2>Intéressé par une démo ? Contactez-nous</h2>
+                    <h3>Vous êtes un influenceur ? <Link href='#'><a title='#' className='red-color'> Inscrivez-vous par ici</a></Link></h3></>
                 )}
             </div>
 

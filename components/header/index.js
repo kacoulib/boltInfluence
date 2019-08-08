@@ -1,11 +1,9 @@
 import PropTypes from 'prop-types';
-import Link from 'next/link';
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
-
-// import Button from '@material-ui/core/Button';
-import { styleToolbar, styleToolbarLink, greenBorder, redBorder } from '../SharedStyles';
+import { Link } from '../../server/routes/next-routes'
+import { styleToolbarLink} from '../SharedStyles';
 import styles from '../SharedStyles';
 import logo from '../../static/img/logo.png'
 import userIconWhite from '../../static/img/userIconWhite.js';

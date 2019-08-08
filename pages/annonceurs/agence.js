@@ -4,34 +4,23 @@ import { Grid } from '@material-ui/core';
 import Partners from '../../components/page/public/partners'
 import ContactUs from '../../components/page/public/contactUs'
 
-import girlboat from '../../static/img/pictures/meuf_dans_son_bateau.png';
+import girlboat from '../../static/img/girl-in-boat.jpg';
 
-const chunk = (array, size) => {
-    const chunked_arr = [];
-    let index = 0;
-    while (index < array.length) {
-        chunked_arr.push(array.slice(index, size + index));
-        index += size;
+const styles = {
+    leftContainer: {
+        padding: '6.5em',
+    },
+    title: {
+        lineHeight: '2rem'
+    },
+    double: {
+        padding: 0,
+        height: '100%',
+        width: '100%'
+    },
+    contactUs: {
+        padding: '2em 0',
     }
-    return chunked_arr;
-}
-
-const PartnerGrid = (props) => {
-    console.log("length rowBrand", props.rowBrand)
-
-    return (
-        <Grid id={"partner"} container item xs={12}>
-            {
-                props.rowBrand.map((brand, idx) => {
-                    return (
-                        <Grid item container xs={3} justify={'center'} style={{ padding: "1em" }} key={idx}>
-                            <img src={brand} alt="demo" className="logo" />
-                        </Grid>
-                    );
-                })
-            }
-        </Grid>
-    );
 }
 
 const AnnonceDemo = () => {
@@ -41,17 +30,25 @@ const AnnonceDemo = () => {
     return (
         <Grid container>
             <Grid id="description" container>
-                <Grid container item sm={6} xs={12} alignItems="center" alignContent="center" style={{ height: "400px" }}>
-                    <h2 className="text-center"> En incarnant votre marque, les influenceurs la rendent plus vivante et sensible</h2>
+                <Grid container item sm={6} xs={12} alignItems="center" alignContent="center" style={styles.leftContainer}>
+                    <h1 className="text-center" style={styles.title}> En incarnant votre marque, les influenceurs la rendent plus vivante et sensible</h1>
                     <p className="text-center">
                         Grâce à leur communauté, vous obtenez un moyen privilégié d'échange avec vos clients et futurs clients.
                     </p>
                 </Grid>
-                <Grid container item sm={6} xs={12} className="dots-pink-double" alignItems="center">
-                    <img src={girlboat} alt="demo" />
+                <Grid container item sm={6} xs={12} alignItems="center" style={styles.double}>
+                    <div className='card-bg dots-pink' style={styles.double}>
+                        <Grid item container className='card-bg dots-pink reverse-all' style={styles.double}>
+                            <Grid item container className='card-bg dots-pink reverse-all' style={styles.double}>
+                                <Grid item container alignItems="center" alignContent="center" style={styles.double}>
+                                    <img src={girlboat} alt="" className='auto' />
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </div>
                 </Grid>
             </Grid>
-            <Grid id="form-demo" container alignContent="center">
+            <Grid container alignContent="center" style={styles.contactUs}>
                 <Grid item xs={12} sm={2} className='text-center'></Grid>
                 <Grid item xs={12} sm={8} className='text-center'>
                     <ContactUs onSubmit={onSubmit} />
