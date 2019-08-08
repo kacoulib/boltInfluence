@@ -27,7 +27,7 @@ const styles = {
 		padding: '0 0 1rem'
 	},
 	contactUsContainer: {
-		paddingTop: '0rem'
+		margin: '4rem 0 0'
 	},
 	contactUs: {
 		backgroundColor: '#D8D8D8',
@@ -149,7 +149,7 @@ const Index = () => {
 				</Grid>
 			</div>
 			{/*  */}
-			<div>
+			{/* <div>
 				<Grid container item style={styles.cardContainer}>
 					<div className='light-gray-bg lines-black flip right card-bg fullwidth text-center' style={styles.carousel}>
 
@@ -184,7 +184,7 @@ const Index = () => {
 						</Carousel>
 					</div>
 				</Grid>
-			</div>
+			</div> */}
 			{/*  */}
 			<div style={styles.contactUsContainer} className='text-center'>
 				<Grid container >
