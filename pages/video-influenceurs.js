@@ -38,8 +38,8 @@ const Index = () => {
 	return (
 		<div>
 			<NextSeo
-				title="Using More of Config"
-				description="This example uses more of the available config options."
+				title="Bolt Influence video influence"
+				description="Le format in-video est un placement de produits innovant pour les campagnes de marketing d’influencue de la marque. mesure et impactant, il offre un espace inedit au sein même des contenus des influenceurs."
 			/>
 			<div className='card-bg lines-blue no-repeat right'>
 				<div className='home-block-padding' style={styles.padding}>

@@ -4,6 +4,8 @@ import FormGenerator from '../../form/generator'
 import { lightGray } from '../../../utils/variables/css';
 import PropTypes from 'prop-types';
 import Btn from '../../elements/btn'
+import { customRequest } from '../../../lib/api/http'
+import FormValidator from '../../../lib/form/validator'
 
 const fields = [{
     label: "Prénom *",
@@ -128,8 +130,10 @@ const Contactus = (props) => {
         message: '',
     })
     const onChange = (name, value) => setState({ ...state, [name]: value })
-    const handleSubmit = () => {
-        console.log(state)
+    const handleSubmit = async () => {
+        return console.log(FormValidator({ fields, form: state }))
+        const res = await customRequest({ path: '/public/contact', state });
+        console.log(res)
     }
     return (
         <div id='contact-us'>

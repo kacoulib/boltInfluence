@@ -5,6 +5,7 @@ import Partners from '../../components/page/public/partners'
 import ContactUs from '../../components/page/public/contactUs'
 
 import girlboat from '../../static/img/girl-in-boat.jpg';
+import { NextSeo } from 'next-seo';
 
 const styles = {
     leftContainer: {
@@ -29,6 +30,10 @@ const AnnonceDemo = () => {
 
     return (
         <Grid container>
+            <NextSeo
+                title="Bolt Influence Agences"
+                description="Vous êtes un annonceur ou une agence, Bolt Influence vous conseille sur la sélection rapide et authentique d’influenceurs ayant un ROI bien supérieur à une campagne de publicité classique."
+            />
             <Grid id="description" container>
                 <Grid container item sm={6} xs={12} alignItems="center" alignContent="center" style={styles.leftContainer}>
                     <h1 className="text-center" style={styles.title}> En incarnant votre marque, les influenceurs la rendent plus vivante et sensible</h1>

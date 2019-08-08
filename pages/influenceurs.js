@@ -10,6 +10,7 @@ import Screen11 from '../static/img/screen11.png'
 import { Link } from '@material-ui/core';
 import Carousel from '../components/dataDisplay/others/carousel';
 import { darkBlueColor, darkOrangeColor, lightGray } from '../utils/variables/css'
+import { NextSeo } from 'next-seo';
 
 const styles = {
 	cardContainer: {
@@ -51,6 +52,10 @@ const Index = () => {
 
 	return (
 		<div>
+			<NextSeo
+				title="Bolt Influence Influenceurs"
+				description="Une plateforme de marketing d'influence authentique offrant de nouveaux partenariats rémunérés avec des marques. Vous êtes un influenceur, venez dévoiler tout votre talent au sein de la plateforme Bolt Influence."
+			/>
 			<div className='card-bg dots-pink no-repeat reverse left'>
 				<div className='home-block-padding' style={styles.padding}>
 					<h1 className='text-center'><span className='bordered-head'>Trouvez et postulez</span> à de nombreuses campagnes</h1>

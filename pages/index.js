@@ -9,6 +9,8 @@ import ScreenHome from '../static/img/home.jpg'
 import Carousel from '../components/dataDisplay/others/carousel';
 import ContactUs from '../components/page/public/contactUs'
 import Btn from '../components/elements/btn'
+import { NextSeo } from 'next-seo';
+import { Link } from '../server/routes/next-routes'
 
 const styles = {
 	cardContainer: {
@@ -77,13 +79,17 @@ const Index = () => {
 
 	return (
 		<div>
+			<NextSeo
+				title="Bolt Influence"
+				description="Bolt Influence est la plateforme/agence de marketing d’influence référente qui permet de connecter les marques et les influenceurs sur Instagram, Tik Tok, Youtube, Twitch"
+			/>
 			<div style={styles.marginBottom}>
 				<Grid container item className='relative'>
 					<img src={ScreenHome} className='fullwidth' />
 					<Grid item container xs={12} sm={5} justify="center" alignItems="center" style={styles.hover}>
 						<Grid item xs={12} sm={12} className='text-center' style={styles.homeTextContainer}>
 							<h1 className='white-color'>Tirez le meilleur de l’influence marketing grâce à la vidéo</h1>
-							<Btn text="Démarrez" />
+							<Btn text="Démarrez" href='#contact-us' />
 						</Grid>
 					</Grid>
 				</Grid>

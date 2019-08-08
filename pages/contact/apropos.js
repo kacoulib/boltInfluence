@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Head from 'next/head';
 import Card from '../../components/dataDisplay/others/card'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -11,7 +10,6 @@ import { darkBlueColor, darkOrangeColor, lightGray, redColor } from '../../utils
 import Search from '../../components/elements/search';
 import Image01 from '../../static/img/c-est-quoi.jpeg'
 import Image02 from '../../static/img/comment-ca-marche.jpeg'
-import Rectangle from '../../static/img/rectangle.png'
 import FormGenerator from '../../components/form/generator';
 import { customRequest } from '../../lib/api/http'
 
@@ -178,7 +176,7 @@ const Index = ({ faqs: { faqs } }) => {
 						</Grid>
 					</Grid>
 					<div style={styles.expandContainer}>
-						<p>Top 5</p>
+						<p className='bold'>Top 5</p>
 						{faqs && faqs.map((elem, key) => (
 							<ExpansionPanel key={key} style={{ marginBottom: '1rem' }}>
 								<ExpansionPanelSummary
