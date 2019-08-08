@@ -3,12 +3,10 @@ import Head from 'next/head';
 import Grid from '@material-ui/core/Grid';
 import withLayout from '../../../lib/withLayout';
 import { grayColor } from '../../../utils/variables/css'
-import { useRouter } from 'next/router'
 import TextTruncate from 'react-text-truncate';
-import { Link } from '@material-ui/core';
 import moment from 'moment'
 import { customRequest } from '../../../lib/api/http/index';
-
+import { Link } from '../../../server/routes/next-routes'
 moment.locale('fr')
 const styles = {
 	cardContainer: {
@@ -131,7 +129,7 @@ const Index = ({ articles, categories }) => {
 											element="p"
 											truncateText="…"
 											text={elem.content}
-											textTruncateChild={<Link href={`/notre-methode/blog/${elem.slug}`}><a title={elem.title} className='red-color'><span>Lire</span></a></Link>}
+											textTruncateChild={<Link route='notre-methode/blog/single' params={{ slug: elem.title }}><a title={elem.title} className='red-color'><span>Lire</span></a></Link>}
 										/>
 									</div>
 									<footer className='text-center' style={styles.footer}>

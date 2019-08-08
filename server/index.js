@@ -10,6 +10,7 @@ const compression = require('compression')
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
+const nextRoutes = require('./routes/next-routes')
 
 // const { setupMangopay } = require('./utils/mangopay');
 const instagramAuth = require('./auth/instagram');
@@ -70,7 +71,7 @@ const URL_MAP = {
 };
 
 const nextApp = next({ dev });
-const handle = nextApp.getRequestHandler();
+const handle = nextRoutes.getRequestHandler(nextApp);
 
 nextApp.prepare().then(async () => {
   app.use(compression())

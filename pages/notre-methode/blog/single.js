@@ -4,8 +4,10 @@ import withLayout from '../../../lib/withLayout';
 import Search from '../../../components/elements/search'
 import { Link } from '@material-ui/core';
 import Socials from '../../../components/elements/socials';
-import { useRouter } from 'next/router'
 import moment from 'moment'
+import { customRequest } from '../../../lib/api/http/index';
+
+
 moment.locale('fr')
 
 const styles = {
@@ -64,10 +66,9 @@ const styles = {
 
 const displayList = (data, prefix = '') => (<ul>{data && data.map((elem, index) => <li key={index}><Link href={`/category=${elem.id}`}><a title={elem.title}>{`${prefix}${elem.title}`}</a></Link></li>)}</ul>)
 
-const Index = () => {
-	const router = useRouter()
-	const { article } = router.query
-
+const Index = ({ article }) => {
+	console.log(article)
+	article = article || {}
 
 	return (
 		<div id='blog'>
@@ -132,6 +133,16 @@ const Index = () => {
 		</div>
 	)
 }
-
+Index.getInitialProps = async ({ query, req }) => {
+	let article;
+	if (req)
+		article = {article: query.article};
+	else {
+		article = await customRequest({ path: `/public/articles/${query.slug}` });
+		// console.log(await article.json())
+	}
+	console.log('-----', article)
+	return article
+}
 
 export default withLayout(Index);

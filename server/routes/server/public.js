@@ -1,21 +1,8 @@
 const express = require('express');
-const multer = require('multer');
 
 const Article = require('../../models/Article');
 const Category = require('../../models/Category');
 const FAQ = require('../../models/FAQ');
-const Tag = require('../../models/Tag');
-const EmailTemplate = require('../../models/EmailTemplate');
-const Payment = require('../../models/Payment');
-const User = require('../../models/User');
-const Campaign = require('../../models/Campaign');
-const CampaignOffer = require('../../models/CampaignOffer');
-const Brand = require('../../models/Brand');
-const logger = require('../../logs');
-const { isAdmin } = require('../../../utils/variables/user');
-// const { isAdmin } = require('../../../../utils/variables/user');
-const { registerCard } = require('../../utils/mangopay');
-const { kycFileUpload } = require('../../utils/multer');
 const { handleErrors, listCollection, serverListCollection, verifyKycParams } = require('../../utils/express');
 
 const router = express.Router();
@@ -52,14 +39,14 @@ module.exports = (nextApp) => {
       })
     }),
   )
-  router.get('/posts', async (req, res) => {
-    return nextApp.render(req, res, '/admin/posts', {
-      articles: await Article.count(),
-      categories: await Category.count(),
-      tags: await Tag.count(),
-      faqs: await FAQ.count(),
-    })
-  });
+  // router.get('/posts', async (req, res) => {
+  //   return nextApp.render(req, res, '/admin/posts', {
+  //     articles: await Article.count(),
+  //     categories: await Category.count(),
+  //     tags: await Tag.count(),
+  //     faqs: await FAQ.count(),
+  //   })
+  // });
 
   return router
 }
