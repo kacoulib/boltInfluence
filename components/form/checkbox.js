@@ -3,9 +3,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types'
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
-import FormLabel from '@material-ui/core/FormLabel';
 import { withStyles } from '@material-ui/core/styles';
 import { orangeColor } from '../../utils/variables/css'
 

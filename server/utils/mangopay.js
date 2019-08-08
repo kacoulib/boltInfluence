@@ -1,5 +1,11 @@
 const MangoPay = require('mangopay2-nodejs-sdk');
 
+const CREATED = 'CREATED';
+const VALIDATION_ASKED = 'VALIDATION_ASKED';
+const INCOMPLETE = 'INCOMPLETE';
+const VALIDATED = 'VALIDATED';
+const REFUSED = 'REFUSED';
+
 let api = null;
 
 const setupMangopay = (options) => {
@@ -146,6 +152,41 @@ const createCardDirectPayIn = async ({
 };
 
 /**
+ * Create a MangoPay BankWire Direct PayIn
+ * @param {Object} options
+ * @param {String} options.user
+ * @param {String} options.creditedWallet
+ * @param {Number} options.amount
+ * @param {String} options.currency
+ */
+const createBankWireDirectPayIn = async ({
+  user,
+  creditedWallet,
+  amount,
+  currency = 'EUR',
+} = {}) => {
+  const model = new api.models.PayIn({
+    AuthorId: user,
+    CreditedWalletId: creditedWallet,
+    PaymentType: 'BANK_WIRE',
+    PaymentDetails: new api.models.PayInPaymentDetailsBankWire({
+      DeclaredDebitedFunds: new api.models.Money({
+        Currency: currency,
+        Amount: amount,
+      }),
+      DeclaredFees: new api.models.Money({
+        Currency: currency,
+        Amount: 0,
+      }),
+    }),
+    ExecutionType: 'DIRECT',
+    ExecutionDetails: new api.models.PayInExecutionDetailsDirect({}),
+  });
+  const payin = await api.PayIns.create(model);
+  return { payin };
+};
+
+/**
  * Create a MangoPay Transfer between two Wallets
  * @param {Object} options
  * @param {String} options.debitedUser - ID of the User to debit
@@ -262,15 +303,182 @@ const createPayOut = async ({
   return { payout };
 };
 
+/**
+ * Get a MangoPay UBO
+ * @param {Object} options
+ * @param {String} options.user - User ID
+ * @param {String} options.ubo - UBO ID
+ */
+const getUbo = async ({ user, ubotDeclaration, ubo: uboId }) => {
+  const ubo = await api.UboDeclarations.getUbo(user, ubotDeclaration, uboId);
+  return { ubo };
+};
+
+/**
+ * Get a MangoPay UBO Declaration
+ * @param {Object} options
+ * @param {String} options.user - User ID
+ * @param {String} options.ubo - UBO ID
+ */
+const getUboDeclaration = async ({ user, uboDeclaration: uboDeclarationId }) => {
+  const uboDeclaration = await api.UboDeclarations.getUbo(user, uboDeclarationId);
+  return { uboDeclaration };
+};
+
+const createUboDeclaration = async ({ user }) => {
+  const uboDeclaration = await api.UboDeclarations.create(user);
+  return { uboDeclaration };
+};
+
+const createUbo = async ({
+  user,
+  uboDeclaration,
+  firstName,
+  lastName,
+  address,
+  city,
+  postalCode,
+  country,
+  nationality,
+  birthday,
+  birthcountry,
+  birthcity,
+}) => {
+  const model = new api.models.Ubo({
+    FirstName: firstName,
+    LastName: lastName,
+    Address: new api.models.Address({
+      AddressLine1: address,
+      City: city,
+      PostalCode: postalCode,
+      Country: country,
+    }),
+    Nationality: nationality,
+    Birthday: birthday,
+    Birthplace: new api.models.Birthplace({
+      City: birthcity,
+      Country: birthcountry,
+    }),
+  });
+  const ubo = await api.UboDeclarations.createUbo(user, uboDeclaration, model);
+  return { ubo };
+};
+
+const submitUboDeclaration = async ({ user, uboDeclaration: uboDeclarationId }) => {
+  const model = new api.models.UboDeclaration({
+    Id: uboDeclarationId,
+    Status: VALIDATION_ASKED,
+  });
+  const uboDeclaration = await api.UboDeclarations.update(user, model);
+  return { uboDeclaration };
+};
+
+const updateUbo = async ({
+  user,
+  uboDeclaration,
+  ubo: uboId,
+  firstName,
+  lastName,
+  address,
+  city,
+  postalCode,
+  country,
+  nationality,
+  birthday,
+  birthcountry,
+  birthcity,
+}) => {
+  const model = new api.models.Ubo({
+    Id: uboId,
+    FirstName: firstName,
+    LastName: lastName,
+    Address: new api.models.Address({
+      AddressLine1: address,
+      City: city,
+      PostalCode: postalCode,
+      Country: country,
+    }),
+    Nationality: nationality,
+    Birthday: birthday,
+    Birthplace: new api.models.Birthplace({
+      City: birthcity,
+      Country: birthcountry,
+    }),
+  });
+  const ubo = await api.UboDeclarations.updateUbo(user, uboDeclaration, model);
+  return { ubo };
+};
+
+const createOrUpdateUbo = async ({
+  user,
+  uboDeclaration: uboDeclarationId,
+  ubo: uboId,
+  firstName,
+  lastName,
+  address,
+  city,
+  postalCode,
+  country,
+  nationality,
+  birthday,
+  birthcountry,
+  birthcity,
+}) => {
+  if (uboId && !uboDeclarationId) {
+    throw new Error('Ubo specified without corresponding UboDeclaration');
+  }
+  let uboDeclaration;
+  if (uboDeclarationId) {
+    uboDeclaration = (await getUboDeclaration({ user, uboDeclaration: uboDeclarationId }))
+      .uboDeclaration;
+  } else {
+    uboDeclaration = (await createUboDeclaration({ user })).uboDeclaration;
+  }
+  let forceNewUbo = false;
+  if (uboDeclaration.Status !== CREATED && uboDeclaration.Status !== INCOMPLETE) {
+    uboDeclaration = (await createUboDeclaration({ user })).uboDeclaration;
+    forceNewUbo = true;
+  }
+  const uboParams = {
+    user,
+    uboDeclaration: uboDeclaration.Id,
+    firstName,
+    lastName,
+    address,
+    city,
+    postalCode,
+    country,
+    nationality,
+    birthday,
+    birthcountry,
+    birthcity,
+  };
+  let ubo;
+  if (forceNewUbo || !uboId) {
+    ubo = (await createUbo(uboParams)).ubo;
+  } else {
+    ubo = (await updateUbo(uboParams)).ubo;
+  }
+  return { ubo, uboDeclaration };
+};
+
 module.exports = {
   getMangopay,
   setupMangopay,
   createWallet,
   createOrUpdateIbanBankAccount,
   createCardDirectPayIn,
+  createBankWireDirectPayIn,
   preregisterCard,
   registerCard,
   createTransfer,
   getWallet,
   createPayOut,
+  getUbo,
+  getUboDeclaration,
+  createUboDeclaration,
+  createUbo,
+  submitUboDeclaration,
+  updateUbo,
+  createOrUpdateUbo,
 };

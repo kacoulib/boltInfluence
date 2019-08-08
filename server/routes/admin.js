@@ -1,6 +1,12 @@
 const express = require('express');
 const multer = require('multer');
 
+const Article = require('../models/Article');
+const Category = require('../models/Category');
+const Tag = require('../models/Tag');
+const FAQ = require('../models/FAQ');
+const EmailTemplate = require('../models/EmailTemplate');
+const Payment = require('../models/Payment');
 const User = require('../models/User');
 const Campaign = require('../models/Campaign');
 const CampaignOffer = require('../models/CampaignOffer');
@@ -8,47 +14,10 @@ const Brand = require('../models/Brand');
 const logger = require('../logs');
 const { isAdmin } = require('../../utils/variables/user');
 const { registerCard } = require('../utils/mangopay');
+const { kycFileUpload } = require('../utils/multer');
+const { handleErrors, listCollection, verifyKycParams } = require('../utils/express');
 
 const router = express.Router();
-const kycUpload = multer({
-  storage: multer.memoryStorage(),
-  limits: {
-    fields: 0,
-    fileSize: 7e6, // 7 MB
-    files: 1,
-  },
-});
-
-/**
- * Creates a middleware that tries to execute a function
- * and catch eventual errors to send them as a json response
- * @param {(req: Request, res: Response) => any} fn
- * @returns {(res: Request, res: Response) => any}
- */
-const handleErrors = (fn) => async (req, res) => {
-  try {
-    await fn(req, res);
-  } catch (err) {
-    logger.error(err);
-    res.status(400).json({ error: err.message || err.Message || err.toString() });
-  }
-};
-
-/**
- * Creates a middleware that extract listing parameters,
- * pass them to a listing function and return the result
- * as a json response
- * @param {(req: Request, res: Response) => any} listFn
- */
-const listCollection = (listFn) =>
-  handleErrors(async (req, res) => {
-    let { offset, limit } = req.query;
-
-    offset = Number(offset) || undefined;
-    limit = Number(limit) || undefined;
-
-    res.json(await listFn({ offset, limit }));
-  });
 
 router.use((req, res, next) => {
   if (!req.user || !isAdmin(req.user)) {
@@ -83,6 +52,14 @@ router.put(
   }),
 );
 
+router.get('/user/:slug/payments', (req, res) =>
+  listCollection((listingOptions) => {
+    const { slug: user } = req.params;
+
+    return Payment.listForUserBySlug({ user }, listingOptions);
+  })(req, res),
+);
+
 router.post(
   '/users/:slug/preregister-card',
   handleErrors(async (req, res) => {
@@ -95,26 +72,20 @@ router.post(
 
 router.post(
   '/users/:slug/kyc-identity',
-  kycUpload.single('document'),
-  handleErrors(async (req, res) => {
-    const { slug } = req.params;
-    const file = req.file.buffer.toString('base64');
-
-    await User.addIdentityProofBySlug({ slug, file });
-    res.status(204).end();
-  }),
+  kycFileUpload,
+  verifyKycParams(User.addIdentityProofBySlug.bind(User)),
 );
 
 router.post(
   '/users/:slug/kyc-registration',
-  kycUpload.single('document'),
-  handleErrors(async (req, res) => {
-    const { slug } = req.params;
-    const file = req.file.buffer.toString('base64');
+  kycFileUpload,
+  verifyKycParams(User.addRegistrationProofBySlug.bind(User)),
+);
 
-    await User.addRegistrationProofBySlug({ slug, file });
-    res.status(204).end();
-  }),
+router.post(
+  '/users/:slug/kyc-association',
+  kycFileUpload,
+  verifyKycParams(User.addArticlesOfAssociationBySlug.bind(User)),
 );
 
 router.get('/campaigns', listCollection(Campaign.list.bind(Campaign)));
@@ -206,11 +177,20 @@ router.post(
 );
 
 router.post(
+  '/campaignoffers/:slug/fund-wire',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    const payin = await CampaignOffer.fundWithBankWireBySlug({ slug });
+    res.json(payin);
+  }),
+);
+
+router.post(
   '/campaignoffers/:slug/validate',
   handleErrors(async (req, res) => {
     const { slug } = req.params;
     await CampaignOffer.freeFundsBySlug({ slug });
-    res.json({ message: 'Hey' });
+    res.status(204).end();
   }),
 );
 
@@ -233,6 +213,183 @@ router.post(
     res.status(204).end();
   }),
 );
+
+router.get('/payments', listCollection(Payment.list.bind(Payment, {})));
+
+router.get('/emailtemplates', listCollection(EmailTemplate.list.bind(EmailTemplate)));
+
+router.get(
+  '/emailtemplates/:slug',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    const template = await EmailTemplate.getBySlug({ slug });
+    return res.json(template);
+  }),
+);
+
+router.get('/articles', listCollection(Article.list.bind(Article)))
+
+router.post(
+  '/articles',
+  handleErrors(async (req, res) => {
+    const { firstName, lastName } = req.user;
+    const { title, picture, content, tags, categories, social_medias } = req.body;
+    const article = await Article.add({ title, picture, content, tags, categories, social_medias, author: `${firstName} ${lastName}` });
+    res.json(article);
+  }),
+)
+
+// Article
+router.get(
+  '/articles/:slug',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    const article = await Article.getBySlug({ slug });
+    res.json(article);
+  }),
+)
+
+router.put(
+  '/articles/:slug',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    const { title, picture, content, tags, categories } = req.body;
+    const article = await Article.updateBySlug({ title, picture, content, tags, categories, slug });
+    res.json(article);
+  }),
+)
+
+router.delete(
+  '/articles/:slug',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    await Article.deleteBySlug({ slug });
+    res.status(204).end();
+  }),
+)
+
+// Category
+router.get('/categories', listCollection(Category.list.bind(Category)))
+
+router.post(
+  '/categories',
+  handleErrors(async (req, res) => {
+    const { title, color } = req.body;
+    const category = await Category.add({ title, color });
+    res.json(category);
+  }),
+)
+
+router.get(
+  '/categories/:id',
+  handleErrors(async (req, res) => {
+    const { id } = req.params;
+    const category = await Category.getById({ id });
+    res.json(category);
+  }),
+)
+
+router.put(
+  '/categories/:id',
+  handleErrors(async (req, res) => {
+    const { id } = req.params;
+    const { title, color } = req.body;
+
+    const category = await Category.updateById({ title, color, id });
+    res.json(category);
+  }),
+)
+
+router.delete(
+  '/categories/:id',
+  handleErrors(async (req, res) => {
+    const { id } = req.params;
+    await Category.deleteByid({ id });
+    res.status(204).end();
+  }),
+)
+
+// Tag
+router.get('/tags', listCollection(Tag.list.bind(Tag)))
+
+router.post(
+  '/tags',
+  handleErrors(async (req, res) => {
+    const { title } = req.body;
+    const tag = await Tag.add({ title });
+    res.json(tag);
+  }),
+)
+
+router.get(
+  '/tags/:id',
+  handleErrors(async (req, res) => {
+    const { id } = req.params;
+    const tag = await Tag.getById({ id });
+    res.json(tag);
+  }),
+)
+
+router.put(
+  '/tags/:id',
+  handleErrors(async (req, res) => {
+    const { id } = req.params;
+    const { title } = req.body;
+
+    const tag = await Tag.updateById({ title, id });
+    res.json(tag);
+  }),
+)
+
+router.delete(
+  '/tags/:id',
+  handleErrors(async (req, res) => {
+    const { id } = req.params;
+    await Tag.deleteByid({ id });
+    res.status(204).end();
+  }),
+)
+
+// FAQ
+router.get('/faqs', listCollection(FAQ.list.bind(FAQ)))
+
+router.post(
+  '/faqs',
+  handleErrors(async (req, res) => {
+    const { title, content } = req.body;
+    const faq = await FAQ.add({ title, content });
+    res.json(faq);
+  }),
+)
+
+router.get(
+  '/faqs/:id',
+  handleErrors(async (req, res) => {
+    const { id } = req.params;
+    const faq = await FAQ.getById({ id });
+    res.json(faq);
+  }),
+)
+
+router.put(
+  '/faqs/:id',
+  handleErrors(async (req, res) => {
+    const { id } = req.params;
+    const { title, content } = req.body;
+
+    const faq = await FAQ.updateById({ title, content, id });
+    res.json(faq);
+  }),
+)
+
+router.delete(
+  '/faqs/:id',
+  handleErrors(async (req, res) => {
+    const { id } = req.params;
+    await FAQ.deleteByid({ id });
+    res.status(204).end();
+  }),
+)
 
 module.exports = router;
 

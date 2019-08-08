@@ -4,7 +4,7 @@ const CampaignOffer = require('./CampaignOffer');
 const User = require('./User');
 const { languageCodeList, civilityList } = require('../../utils/variables/general');
 const { PaymentExecutionList } = require('../../utils/variables/payment');
-const { isInfluencer } = require('../../utils/variables/user');
+const { isInfluencer, isBrand, isAgency } = require('../../utils/variables/user');
 const generateSlug = require('../utils/slugify');
 
 const { Schema } = mongoose;
@@ -69,22 +69,19 @@ const mongoSchema = new Schema({
   //   // Other Social Medias
   // },
   location: {
-    type: {
-      latitude: {
-        type: Number,
-        required: true,
-      },
-      longitude: {
-        type: Number,
-        required: true,
-      },
-      radius: {
-        type: Number,
-        required: true,
-        min: 1,
-      },
+    latitude: {
+      type: Number,
+      required: true,
     },
-    required: true,
+    longitude: {
+      type: Number,
+      required: true,
+    },
+    radius: {
+      type: Number,
+      required: true,
+      min: 1,
+    },
   },
   paymentExecution: {
     type: String,
@@ -102,8 +99,8 @@ class CampaignClass {
    * @param {Number} options.offset - Amount of Campaigns to skip
    * @param {Number} options.limit - Amount of Campaigns to return
    */
-  static async list({ offset = 0, limit = 10 } = {}) {
-    const campaigns = await this.find({})
+  static async list(where, { offset = 0, limit = 10 } = {}) {
+    const campaigns = await this.find(where)
       .sort({ createdAt: -1 })
       .skip(offset)
       .limit(limit)
@@ -112,22 +109,40 @@ class CampaignClass {
     return { campaigns };
   }
 
+  static async listForUserById({ userId }, listingOptions) {
+    const user = await User.findById(userId).select(['role', 'brand', 'agency']);
+    let where;
+
+    if (isBrand(user)) {
+      where = { brand: user.brand };
+    } else if (isAgency(user)) {
+      where = { brand: { $in: user.agency } };
+    }
+    if (!where) {
+      return { campaigns: [] };
+    }
+    return this.list(where, listingOptions);
+  }
+
   /**
    * Get a Campaign by its slug
    * @param {Object} params
    * @param {String} params.slug - The slug of the Campaign to get
+   * @param {Boolean=} [params.showOffers]
    */
-  static async getBySlug({ slug }) {
+  static async getBySlug({ slug, showOffers = true } = {}) {
     const campaignDoc = await this.findOne({ slug }).populate('brand');
     if (!campaignDoc) {
       throw new Error('Campaign not found');
     }
     const campaign = campaignDoc.toObject();
-    const offerDocs = await CampaignOffer.find({ campaign: campaign._id }).populate(
-      'user',
-      User.publicFields(),
-    );
-    campaign.offers = offerDocs.map((doc) => doc.toObject());
+    if (showOffers) {
+      const offerDocs = await CampaignOffer.find({ campaign: campaign._id }).populate(
+        'user',
+        User.publicFields(),
+      );
+      campaign.offers = offerDocs.map((doc) => doc.toObject());
+    }
     return { campaign };
   }
 
@@ -189,6 +204,63 @@ class CampaignClass {
     const offer = await CampaignOffer.add({ campaign, user });
 
     return offer;
+  }
+
+  /**
+   * Update a Campaign by its slug
+   * @param {Object} options
+   * @param {String} options.slug - The slug of the Campaign to update
+   * @param {String} [options.title]
+   * @param {String} [options.description]
+   * @param {Number} [options.budget]
+   * @param {String} [options.video]
+   * @param {Array<String>} [options.pictures]
+   * @param {String} [options.audienceGender]
+   * @param {Number} [options.audienceAge]
+   * @param {String} [options.audienceLanguage]
+   * @param {String} [options.audienceCountry]
+   * @param {Object} [options.location]
+   * @param {Number} options.location.latitude
+   * @param {Number} options.location.longitude
+   * @param {Number} options.location.radius
+   * @param {String} [options.paymentExecution]
+   */
+  static async updateBySlug({ slug, ...updates }) {
+    const campaignDoc = await this.findOne({ slug });
+    if (!campaignDoc) {
+      throw new Error('Campaign not found');
+    }
+    Object.entries(updates)
+      .filter(([_, value]) => value !== undefined)
+      .forEach(([key, value]) => {
+        campaignDoc[key] = value;
+      });
+    await campaignDoc.save();
+    const campaign = campaignDoc.toObject();
+    return { campaign };
+  }
+
+  static async ownedBySlug({ user: userSlug, campaign: campaignSlug }) {
+    const campaign = await this.findOne({ slug: campaignSlug })
+      .select(['brand'])
+      .lean();
+
+    if (!campaign) {
+      return false;
+    }
+    return User.hasBrandById({ brandId: campaign.brand, user: userSlug });
+  }
+
+  static async ownedByOfferSlug({ user: userSlug, offer: offerSlug }) {
+    const offer = await CampaignOffer.findOne({ slug: offerSlug })
+      .populate('campaign')
+      .select(['campaign.brand', 'campaign.user'])
+      .lean();
+
+    if (!offer || !offer.campaign) {
+      return false;
+    }
+    return User.hasBrandById({ brandId: offer.campaign.brand, user: userSlug });
   }
 }
 mongoSchema.loadClass(CampaignClass);

@@ -8,12 +8,7 @@ import Publish from '../../../components/page/process/publish';
 import PostValidate from '../../../components/page/process/post-validate';
 import { getInfluencerList } from '../../../lib/api/http/admin'
 
-const navList = [
-    { href: 'home', className: 'icon home', text: 'Acceuil' },
-    { href: 'account', className: 'icon account', text: 'Influencers' },
-    { href: 'publish', className: 'icon feed', text: 'Marques & Agences' },
-    { href: 'post-validate', className: 'icon post', text: 'Campagne' },
-]
+
 
 const CustomerIndex = (props) => {
     const [data, setData] = useState({
@@ -34,7 +29,7 @@ const CustomerIndex = (props) => {
     }
 
     const selectInfluencer = (id) => {
-        const elem = data.influencersList.find((e) => e._id = id);
+        const elem = data.influencersList.find((e) => e._id == id);
         setData(Object.assign({}, data, { selectedInfluencer: elem }))
     }
 
@@ -47,23 +42,31 @@ const CustomerIndex = (props) => {
     //             console.log(tmp)
     //         })
     // }, [])
+    const navList = [
+        {
+            href: 'home', className: 'icon home', text: 'Acceuil', page: <Home
+                datas={{
+                    subscribedInfluencer: data.subscribedInfluencer, waitingInfluencer: data.waitingInfluencer,
+                    subscribedMarque: data.subscribedMarque, waitingMarque: data.waitingMarque,
+                    subscribedCampagne: data.subscribedCampagne, waitingCampagne: data.waitingCampagne,
+                }}
+            />
+        },
+        {
+            href: 'account', className: 'icon account', text: 'Influencers', page: <Influencers
+                datas={data.influencersList}
+                selectedInfluencer={data.selectedInfluencer}
+                loadMore={loadMore}
+                selectInfluencer={selectInfluencer}
+            />,
+        },
+        { href: 'publish', className: 'icon feed', text: 'Marques & Agences', page: <Publish />, },
+        { href: 'post-validate', className: 'icon post', text: 'Campagne', page: <PostValidate />, },
+    ]
     return (
         <NavPanel
             navList={navList}
             index={index}
-            pages={[
-                <Home
-                    datas={{
-                        subscribedInfluencer: data.subscribedInfluencer, waitingInfluencer: data.waitingInfluencer,
-                        subscribedMarque: data.subscribedMarque, waitingMarque: data.waitingMarque,
-                        subscribedCampagne: data.subscribedCampagne, waitingCampagne: data.waitingCampagne,
-                    }}
-                />,
-
-                <Influencers datas={data.influencersList} selectedInfluencer={data.selectedInfluencer} loadMore={loadMore} selectInfluencer={selectInfluencer} />,
-                <Publish />,
-                <PostValidate />,
-            ]}
         />
     )
 }

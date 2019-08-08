@@ -1,40 +1,43 @@
 import Link from 'next/link';
 import Grid from '@material-ui/core/Grid';
-import styles from '../SharedStyles';
-
-
 import logo from '../../static/img/logo.png';
-
-
+import Socials from '../../components/elements/socials'
 
 // style={{border: '1px solid red'}}
 
 
-function Footer({ user }) {
-
-	return (
-		<div>
-			<Grid container style={styles.footer} alignItems="center" justify="center">
-				<Grid item sm={12}  align="center">
-					<img src={logo} />
-				</Grid>
-				<Grid item sm={3}  align="center">
-					<div><Link><a style={styles.footerLink}>Mon profil</a></Link></div>
-					<div><Link><a style={styles.footerLink}>À propos</a></Link></div>
-					<div><Link>Les campagnes</Link></div>
-				</Grid>
-				<Grid item sm={3}  align="center">
-					<div><Link>À découvrir</Link></div>
-					<div><Link>Programmez vos posts</Link></div>
-				</Grid>
-				<Grid item sm={3}  align="center">
-					<div><Link>Suivez noous</Link></div>
-				</Grid>
+const Footer = () => (
+	<footer id='footer' className='card-bg dots-white bottom'>
+		<Grid container alignItems="center" justify="center" align='center'>
+			<Grid item sm={12} xs={12}>
+				<Link href='/'><a title='home logo'><img src={logo} /></a></Link>
 			</Grid>
+			<Grid item sm={4} xs={6}>
+				<ul>
+					<li><Link href='/annonceurs'><a title='Annonceurs'>Annonceurs</a></Link></li>
+					<li><Link href='/influenceurs'><a title='Influenceurs'>Influenceurs</a></Link></li>
+					<li><Link href="/about">La vidéo d'influence</Link></li>
+				</ul>
+			</Grid>
+			<Grid item sm={4} xs={6}>
+				<ul>
+					<li><Link href="/about"><a title='Notre méthode'>Notre méthode</a></Link></li>
+					<li><Link href="/contact"><a title='contact'>Contactez-nous</a></Link></li>
+				</ul>
+			</Grid>
+			<Grid item sm={4} xs={12}>
+				<ul>
+					<li><Link href="/about"><a title='Suivez noous'>Suivez nous</a></Link></li>
+					<li>
+						<Socials />
+					</li>
+
+				</ul>
+			</Grid>
+		</Grid>
 
 
-		</div>
-	);
-}
+	</footer>
+);
 
 export default Footer;

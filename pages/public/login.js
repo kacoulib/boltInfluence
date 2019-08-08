@@ -121,9 +121,24 @@ const Login = () => {
         <span className="fa fa-twitch" style={styles.buttonIcon} />
         Twitch
       </Button>
+      <br />
+      <Button variant="contained" style={styleLoginButton} href="/auth/pinterest">
+        <span className="fa fa-pinterest" style={styles.buttonIcon} />
+        Pinterest
+      </Button>
+      <br />
+      <Button variant="contained" style={styleLoginButton} href="/auth/facebook">
+        <span className="fa fa-facebook" style={styles.buttonIcon} />
+        Facebook
+      </Button>
 
       <div>
-        <FormGenerator fields={fields} form={form} onChange={onChange} onSubmit={onSubmit} />
+        <FormGenerator fields={fields} form={form} onChange={onChange} />
+      </div>
+      <div>
+        <Button variant="contained" type="submit" className='submit large' onClick={() => onSubmit()}>
+          Mettre à jour
+                </Button>
       </div>
     </div>
   );

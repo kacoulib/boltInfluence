@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
+const { ObjectId } = Schema.Types;
 
 const mongoSchema = new Schema({
   name: {
@@ -33,6 +34,30 @@ class BrandClass {
       .skip(offset)
       .limit(limit);
     return { brands };
+  }
+
+  /**
+   * Update a Brand
+   * @param {Object} options
+   * @param {ObjectId} options.brandId
+   * @param {String} options.name
+   * @param {String} options.contact
+   * @param {String} options.picture
+   * @param {String} options.description
+   */
+  static async updateById({ brandId, ...updates }) {
+    const brandDoc = await this.findById(brandId);
+    if (!brandDoc) {
+      throw new Error('Brand not found');
+    }
+    Object.entries(updates)
+      .filter(([_, value]) => value !== undefined)
+      .forEach(([key, value]) => {
+        brandDoc[key] = value;
+      });
+    await brandDoc.save();
+    const brand = brandDoc.toObject();
+    return { brand };
   }
 }
 mongoSchema.loadClass(BrandClass);

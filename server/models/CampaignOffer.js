@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+const Stat = require('./Stat');
 const Payment = require('./Payment');
 const PaymentOperation = require('./PaymentOperation');
 const User = require('./User');
@@ -15,20 +16,28 @@ const {
   isAwaitingFunding,
   isOngoing,
   isAwaitingValidation,
+  isValidated,
+  isDisputed,
 } = require('../../utils/variables/campaignoffer');
 const generateSlug = require('../utils/slugify');
 const {
   createWallet,
   getWallet,
   createCardDirectPayIn,
+  createBankWireDirectPayIn,
   createTransfer,
 } = require('../utils/mangopay');
 const logger = require('../logs');
 const { Failed } = require('../../utils/variables/payment');
 const { PayIn, TransferOut } = require('../../utils/variables/paymentoperation');
+const { Open, Close } = require('../../utils/variables/stat');
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
+
+/**
+ * @typedef {import('../utils/socialmedias').Stats} Stats
+ */
 
 const mongoSchema = new Schema({
   campaign: {
@@ -68,8 +77,23 @@ class CampaignOfferClass {
     const offers = await this.find(where)
       .sort({ createdAt: -1 })
       .skip(offset)
-      .limit(limit);
+      .limit(limit)
+      .populate('campaign')
+      .populate('user', User.publicFields())
+      .lean();
     return { offers };
+  }
+
+  static async listForInfluencerBySlug({ user: userSlug }, listingOptions) {
+    const { userId: user } = await User.getIdBySlug({ slug: userSlug });
+    if (!user) {
+      return { offers: [] };
+    }
+    return this.list({ user }, listingOptions);
+  }
+
+  static async listForInfluencerById({ user }, listingOptions) {
+    return this.list({ user }, listingOptions);
   }
 
   /**
@@ -108,6 +132,11 @@ class CampaignOfferClass {
     if (!isProposed(off)) {
       throw new Error('Offer is not a proposal.');
     }
+
+    const { stats } = await User.getStatsById({ userId: offer.user });
+    await Stat.addOrUpdateManyForOfferById(
+      stats.map((s) => ({ offerId: off._id, offerStatus: Open, ...s })),
+    );
 
     const { wallet } = await createWallet({
       owner: process.env.MANGOPAY_BOLT_USERID,
@@ -182,7 +211,7 @@ class CampaignOfferClass {
       },
       [AwaitingValidation]: {
         [Disputed]: null,
-        [Validated]: null,
+        // [Validated]: null, This transition is done automatically when the influencer's payment is complete.
       },
       // [Disputed]: {},
       // [Validated]: {},
@@ -240,18 +269,81 @@ class CampaignOfferClass {
       operationType: PayIn,
       operationId: payin.Id,
     });
-    // logger.info(payment.toObject());
-    // logger.info(payin);
-    // logger.info(paymentOperation);
   }
 
-  static async fundWithBankwireBySlug({ slug }) {
-    // Create a MangoPay Bankwire PayIn to user's
-    // wallet
-    // Make it so there's a transfer to the offer's
-    // wallet once the wire is processed
-    // Make it so the offer transitions to the
-    // Ongoing status once the transfer is processed
+  static async fundWithBankWireBySlug({ slug }) {
+    const offer = await this.findOne({ slug }).populate('campaign');
+
+    if (!offer) {
+      throw new Error('CampaignOffer not found');
+    }
+    if (!isAwaitingFunding(offer)) {
+      throw new Error('CampaignOffer is not waiting any funding.');
+    }
+
+    const user = await User.findOne({ brand: offer.campaign.brand }).select('mangopay');
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+    if (!user.mangopay.wallet) {
+      throw new Error('User has no wallet');
+    }
+
+    const { payment } = await Payment.add({
+      offer: offer._id,
+      amount: offer.campaign.budget,
+      debitedUser: user._id,
+    });
+
+    let payin;
+    try {
+      payin = (await createBankWireDirectPayIn({
+        user: user.mangopay.id,
+        amount: offer.campaign.budget,
+        creditedWallet: user.mangopay.wallet,
+      })).payin;
+    } catch (err) {
+      logger.error(err);
+      payment.status = Failed;
+      await payment.save();
+      throw err;
+    }
+
+    const { paymentOperation } = await PaymentOperation.add({
+      payment: payment._id,
+      operationType: PayIn,
+      operationId: payin.Id,
+    });
+    const {
+      WireReference: reference,
+      BankAccount: {
+        OwnerAddress: {
+          AddressLine1: address,
+          City: city,
+          PostalCode: postalCode,
+          Country: country,
+        },
+        OwnerName: owner,
+        Type: type,
+        IBAN: iban,
+        BIC: bic,
+      },
+    } = payin;
+    
+    return {
+      payin: {
+        address,
+        city,
+        postalCode,
+        country,
+        owner,
+        type,
+        iban,
+        bic,
+        reference,
+      },
+    };
   }
 
   static async validateFundsById({ offerId }) {
@@ -340,6 +432,55 @@ class CampaignOfferClass {
       funds = { amount: wallet.Balance.Amount, currency: wallet.Balance.Currency };
     }
     return { funds };
+  }
+
+  /**
+   * Get the different stats of the influencers. Before the
+   * offer is accepted, the stats are the latest. Then there are
+   * open and close snapshots. They are snapshots taken when the
+   * offer was accepted and when it was completed.
+   * @param {Object} options
+   * @param {String} options.slug
+   * @returns {Promise<{
+   *   stats: { latest: Array<Stats> } | { open: Array<Stats>, close?: Array<Stats> }
+   * }>}
+   */
+  static async getStatsBySlug({ slug }) {
+    const offer = await this.findOne({ slug });
+    if (!offer) {
+      throw new Error('Campaign Offer not found');
+    }
+    let stats;
+    if (isProposed(offer)) {
+      stats = {
+        latest: (await Stat.getAllForUserById({ userId: offer.user })).stats,
+      };
+    } else {
+      // Handle OPEN
+      stats = {
+        open: (await Stat.getAllForOfferById({ offerId: offer._id, offerStatus: Open })).stats,
+      };
+    }
+    if (isAwaitingValidation(offer) || isValidated(offer) || isDisputed(offer)) {
+      // Handle CLOSE
+      stats.close = (await Stat.getAllForOfferById({
+        offerId: offer._id,
+        offerStatus: Close,
+      })).stats;
+    }
+    return stats;
+  }
+
+  /**
+   * @param {Object} options
+   * @param {ObjectId} options.userId - User ID
+   * @param {String} options.offer - Campaign Offer slug
+   */
+  static async ownedByUserId({ userId, offer: offerSlug }) {
+    const offer = await this.findOne({ slug: offerSlug, user: userId })
+      .select('_id')
+      .lean();
+    return !!offer;
   }
 }
 

@@ -6,17 +6,20 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-
+const compression = require('compression')
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-const { setupMangopay } = require('./utils/mangopay');
+const nextRoutes = require('./routes/next-routes')
+
+// const { setupMangopay } = require('./utils/mangopay');
 const instagramAuth = require('./auth/instagram');
 const googleAuth = require('./auth/google');
-const twitterAuth = require('./auth/twitter');
-const twitchAuth = require('./auth/twitch');
+// const twitterAuth = require('./auth/twitter');
+// const twitchAuth = require('./auth/twitch');
 const basicAuth = require('./auth/basic');
 const routes = require('./routes');
+const serverRoutes = require('./routes/server');
 const User = require('./models/User');
 
 const logger = require('./logs');
@@ -36,7 +39,7 @@ const mangopayConfig = {
 if (process.env.MANGOPAY_BASE_URL) {
   mangopayConfig.baseUrl = process.env.MANGOPAY_BASE_URL;
 }
-console.log(setupMangopay(mangopayConfig).config);
+// console.log(setupMangopay(mangopayConfig).config);
 
 const options = {
   useNewUrlParser: true,
@@ -68,9 +71,10 @@ const URL_MAP = {
 };
 
 const nextApp = next({ dev });
-const handle = nextApp.getRequestHandler();
+const handle = nextRoutes.getRequestHandler(nextApp);
 
 nextApp.prepare().then(async () => {
+  app.use(compression())
   const MongoStore = mongoSessionStore(session);
   const sess = {
     name: 'builderbook.sid',
@@ -92,13 +96,18 @@ nextApp.prepare().then(async () => {
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
   });
-
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(bodyParser.json({ limit: '50mb' }));
+  app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
   app.use(cookieParser());
   app.use(session(sess));
   app.use(passport.initialize());
   app.use(passport.session());
+
+
+  app.use((req, res, next) => {
+    // console.log('Sess:', req.sessionID);
+    next();
+  });
 
   // await insertTemplates();
 
@@ -107,7 +116,6 @@ nextApp.prepare().then(async () => {
   });
 
   passport.deserializeUser((id, cb) => {
-    console.log('Id', id);
     User.findById(id, User.publicFields(), (err, user) => {
       if (err) {
         return cb(err);
@@ -118,28 +126,29 @@ nextApp.prepare().then(async () => {
 
   googleAuth({ app, ROOT_URL });
   instagramAuth({ app, ROOT_URL });
-  twitterAuth({ app, ROOT_URL });
-  twitchAuth({ app, ROOT_URL });
+  // twitterAuth({ app, ROOT_URL });
+  // twitchAuth({ app, ROOT_URL });
   basicAuth({ app, nextApp });
   // app.use((req, res, next) => {
   //   console.log('USER:', req.user);
   //   next();
   // });
-  routes(app);
+  routes(app, nextApp);
+  serverRoutes(app, nextApp);
 
   app.get('/logout', (req, res) => {
     req.logout();
     res.redirect('/login');
   });
 
-  app.get('*', (req, res) => {
-    const url = URL_MAP[req.path];
 
-    if (url) {
-      nextApp.render(req, res, url);
-    } else {
-      handle(req, res);
-    }
+  app.get('*', (req, res) => {
+    // const url = URL_MAP[req.path];
+    // if (url) {
+    //   nextApp.render(req, res, url);
+    // } else {
+    handle(req, res);
+    // }
   });
 
   server.listen(port, (err) => {

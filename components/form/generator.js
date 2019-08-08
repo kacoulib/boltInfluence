@@ -7,13 +7,67 @@ import { withStyles } from '@material-ui/core/styles';
 import ChipList from '../../components/form/chipList';
 import Select from '@material-ui/core/Select';
 import Radio from './radio';
+import Upload from './upload';
 import Checkbox from './checkbox';
 import InputLabel from '@material-ui/core/InputLabel';
 import Chip from '@material-ui/core/Chip';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
+import ReactSelect from './reactSelect'
+import ColorPicker from 'material-ui-color-picker'
 
+/*
 
+    <FormGenerator
+        fields={fieldsMarque}
+        form={form}
+        onChange={onChange}
+        setting={{ showLabel: { xs: 6 } }}
+    />
+
+    // input
+    const form = [{ //input
+        label: "Nom de la marque",
+        name: "name",
+        type: 'input',
+        required: true,
+        disableUnderline: true,
+        width: 4,
+        formControlStyle: {},
+        props: {
+            style: {},
+        },
+    }]
+
+    // select
+    const select = {
+
+    {
+        label: "Description",
+        name: "description",
+        type: 'textarea',
+        required: true,
+        width: 4
+        }
+    ]
+    // ReactSelect
+    const select = {
+
+    {
+        label: "Description",
+        name: "description",
+        type: 'react-select',
+        required: true,
+        width: 4,
+        props: {
+            list: [
+                { value: 'chocolate', label: 'Chocolate' },
+                ...
+            ]
+        }
+    }
+    ]
+*/
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -27,8 +81,17 @@ const styles = theme => ({
         width: 100,
     },
     formControl: {
-        margin: theme.spacing.unit,
+        padding: theme.spacing.unit,
         width: '100%',
+    },
+    inputControl: {
+        backgoundColor: 'red'
+    },
+    formLabel: {
+        paddingLeft: '1rem'
+    },
+    InputLabelProps: {
+        paddingLeft: '1rem'
     },
     control: {
         padding: theme.spacing.unit,
@@ -53,7 +116,7 @@ const MenuProps = {
     },
 };
 
-const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, setting, align = 'center' }) => {
+const FormGenerator = ({ fields, classes, form, onChange, toggleList, setting, align = 'center' }) => {
 
     const textTypes = ['input', 'password', 'email', 'number', 'textarea', 'date', 'datetime-local'],
         spacing = 16,
@@ -64,14 +127,13 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
     const labelSpacing = showLabel ? setting.showLabel : defaultDimension;
 
     return (
-        <form onSubmit={(e) => { e.preventDefault(); onSubmit() }}>
+        <form onSubmit={(e) => { e.preventDefault(); }}>
             <FormControl className={classes.container} required={true}>
                 <Grid container className={classes.root} spacing={spacing} alignItems="center">
                     {fields && fields.map((elem, key) => {
                         const dimentions = elem.dimension ? elem.dimension : defaultDimension;
                         const elemProps = elem.props;
                         const inputDefaultProps = elemProps && elemProps.defaultValue ? elemProps.defaultValue : '';
-
                         return (
                             <Grid key={key} item {...dimentions}>
                                 <div style={{ paddingBottom: '15px' }}>
@@ -83,13 +145,25 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                                     <TextField
                                                         type={elem.type}
                                                         label={showLabel ? '' : elem.label}
-
+                                                        // underlineStyle={false}
                                                         multiline={elem.type === 'textarea'}
                                                         fullWidth
-                                                        defaultValue={form[elem.name] || inputDefaultProps}
+                                                        // defaultValue={form[elem.name] || inputDefaultProps}
+                                                        value={form[elem.name] || inputDefaultProps}
                                                         onChange={handleChange(elem.name)}
+                                                        InputLabelProps={{
+                                                            FormLabelClasses: {
+                                                                root: classes.InputLabelProps
+                                                            }
+                                                        }}
+                                                        InputProps={{
+                                                            disableUnderline: !!elem.disableUnderline
+                                                        }}
                                                         style={{ paddingRight: '15px' }}
                                                         {...elemProps}
+                                                        rows={8}
+                                                        rowsMax={10}
+                                                    // underlineStyle={{ display: 'none' }}
                                                     />
                                                 </Grid>
                                             </Grid>
@@ -123,11 +197,11 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                                 {showLabel && <Grid item {...labelSpacing}>{elem.label}</Grid>}
 
                                                 <Grid item {...labelSpacing}>
-                                                    <FormControl className={classes.formControl} required={elem.props && elem.props.required}>
+                                                    <FormControl className={classes.formControl} required={elem.props && elem.props.required} style={elem.formControlStyle}>
                                                         <InputLabel htmlFor={elem.name}>{elem.label}</InputLabel>
-                                                        < Select
+                                                        <Select
                                                             multiple={elemProps.multiple}
-                                                            value={form[elem.name]}
+                                                            value={form[elem.name] || ''}
                                                             onChange={handleChange(elem.name)}
                                                             input={<Input id={elem.name} />}
                                                             renderValue={selected => elemProps.multiple ? (
@@ -138,7 +212,8 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                                                 </div>
                                                             ) : selected}
                                                             MenuProps={MenuProps}
-                                                            {...elemProps}
+                                                            // {...elemProps}
+                                                            disableUnderline={!!elem.disableUnderline}
                                                             required={true}
                                                         >
                                                             {elemProps.list && elemProps.list.map((elem, key) => (
@@ -147,6 +222,23 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                                                 </MenuItem>
                                                             ))}
                                                         </Select>
+                                                    </FormControl>
+                                                </ Grid>
+                                            </ Grid>
+                                        )
+                                        || elem.type == 'react-select' && (
+                                            <Grid container>
+                                                {showLabel && <Grid item {...labelSpacing}>{elem.label}</Grid>}
+
+                                                <Grid item {...labelSpacing}>
+                                                    <FormControl className={classes.formControl} required={elem.props && elem.props.required} style={elem.formControlStyle}>
+                                                        {elem.label && <span >{elem.label}</span>}
+                                                        <ReactSelect
+                                                            name={elem.name}
+                                                            options={elemProps.list}
+                                                            value={form[elem.name]}
+                                                            onChange={(value) => onChange(elem.name, value) && console.log(value, form[elem.name])}
+                                                        />
                                                     </FormControl>
                                                 </ Grid>
                                             </ Grid>
@@ -170,7 +262,7 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                                 <Grid item {...labelSpacing}>
 
                                                     <div>
-                                                        <Radio {...elemProps} name={elem.name} label={showLabel ? '' : elem.label} value={form[elem.name]} onChange={onChange} />
+                                                        <Radio name={elem.name} label={showLabel ? '' : elem.label} value={form[elem.name]} onChange={onChange} {...elemProps} />
                                                     </div>
                                                 </ Grid>
                                             </ Grid>
@@ -182,7 +274,33 @@ const FormGenerator = ({ fields, classes, form, onChange, onSubmit, toggleList, 
                                                 <Grid item {...labelSpacing}>
 
                                                     <div>
-                                                        <Checkbox {...elemProps} name={elem.name} label={elem.label} value={form[elem.name]} onChange={onChange} />
+                                                        <Checkbox name={elem.name} label={elem.label} value={form[elem.name]} onChange={onChange} {...elemProps} />
+                                                    </div>
+                                                </ Grid>
+                                            </ Grid>
+                                        )
+                                        || elem.type == 'color' && (
+                                            <Grid container>
+                                                {showLabel && <Grid item {...labelSpacing}>{elem.label}</Grid>}
+
+                                                <Grid item {...labelSpacing}>
+                                                    <div>
+                                                        <ColorPicker
+                                                            name={elem.name}
+                                                            value={form[elem.name] || '#000'}
+                                                            onChange={value => onChange(elem.name, value)}
+                                                        />
+                                                    </div>
+                                                </ Grid>
+                                            </ Grid>
+                                        )
+                                        || elem.type == 'upload' && (
+                                            <Grid container>
+                                                {showLabel && <Grid item {...labelSpacing}>{elem.label}</Grid>}
+
+                                                <Grid item {...labelSpacing}>
+                                                    <div>
+                                                        <Upload name={elem.name} label={elem.label} defaultValue={form[elem.name]} value={form[elem.name]} onChange={value => onChange(elem.name, value)} {...elemProps} />
                                                     </div>
                                                 </ Grid>
                                             </ Grid>
@@ -204,7 +322,6 @@ FormGenerator.propTypes = {
     fields: PropTypes.arrayOf(PropTypes.object).isRequired,
     form: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired,
     setting: PropTypes.object,
     toggleList: PropTypes.func,
     align: PropTypes.string

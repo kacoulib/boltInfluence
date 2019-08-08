@@ -4,7 +4,11 @@ const KycValidation = require('../models/KycValidation');
 const Payment = require('../models/Payment');
 const PaymentOperation = require('../models/PaymentOperation');
 const CampaignOffer = require('../models/CampaignOffer');
+const Article = require('../models/Article');
+const FAQ = require('../models/FAQ');
+const Category = require('../models/Category');
 const { isTransferIn, isTransferOut } = require('../../utils/variables/paymentoperation');
+const { handleErrors, listCollection } = require('../utils/express');
 const logger = require('../logs');
 // const Book = require('../models/Book');
 // const Chapter = require('../models/Chapter');
@@ -118,37 +122,41 @@ router.get(
   ),
 );
 
-// router.get('/books', async (req, res) => {
-//   try {
-//     const books = await Book.list();
-//     res.json(books);
-//   } catch (err) {
-//     res.json({ error: err.message || err.toString() });
-//   }
-// });
+router.get(
+  '/articles',
+  handleErrors(async (req, res) => {
+    const articles = await Article.list.bind(Article)()
+    const categories = await Category.list.bind(Category)()
 
-// router.get('/books/:slug', async (req, res) => {
-//   try {
-//     const book = await Book.getBySlug({ slug: req.params.slug, userId: req.user && req.user.id });
-//     res.json(book);
-//   } catch (err) {
-//     res.json({ error: err.message || err.toString() });
-//   }
-// });
+    res.json({ ...articles, ...categories, });
+  }))
 
-// router.get('/get-chapter-detail', async (req, res) => {
-//   try {
-//     const { bookSlug, chapterSlug } = req.query;
-//     const chapter = await Chapter.getBySlug({
-//       bookSlug,
-//       chapterSlug,
-//       userId: req.user && req.user.id,
-//       isAdmin: req.user && req.user.isAdmin,
-//     });
-//     res.json(chapter);
-//   } catch (err) {
-//     res.json({ error: err.message || err.toString() });
-//   }
-// });
+router.get(
+  '/articles/:slug',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    const article = await Article.getBySlug({ slug });
+    res.json(article);
+  }),
+)
+
+router.get('/faqs', listCollection(FAQ.list.bind(FAQ)))
+
+router.get('/faq/search', handleErrors(async (req, res) => {
+  const faqs = await FAQ.list.bind(FAQ)
+
+  // nextApp.render(req, res, '/contact/apropos', {
+  //   ...faqs,
+  // })
+}))
+
+router.get(
+  '/blogs',
+  handleErrors(async (req, res) => {
+    const articles = await Article.list.bind(Article)()
+    const categories = await Category.list.bind(Category)()
+
+    res.json({ ...articles, ...categories });
+  }))
 
 module.exports = router;
