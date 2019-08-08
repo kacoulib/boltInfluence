@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Link } from '@material-ui/core';
 import FormGenerator from '../../form/generator'
 import { lightGray } from '../../../utils/variables/css';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import Btn from '../../elements/btn'
 
 const fields = [{
     label: "Prénom *",
@@ -145,7 +146,7 @@ const Contactus = (props) => {
                 onChange={onChange}
             />
             <p id='submit-contact' className='text-right'>
-                <Link href='#'><a title='#' className='red-btn' onClick={handleSubmit}>{props.linkText || 'Contact'}</a></Link>
+                <Btn onClick={handleSubmit} text={props.linkText} />
             </p>
         </div>
     )
