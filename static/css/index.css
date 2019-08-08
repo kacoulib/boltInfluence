@@ -603,6 +603,9 @@ li > a:only-child:after { content: ''; }
 .fullwidth {
     width: 100%;
 }
+.white-color {
+    color: #fff;
+}
 .red-color {
     color: #F13F4B;
 }
@@ -621,7 +624,7 @@ li > a:only-child:after { content: ''; }
 .red-btn,
 button.submit {
     background-color: #F13F4B;
-    padding: .8rem;
+    padding: .8rem 2rem;
     color: white;
 }
 .red-btn {
@@ -865,6 +868,9 @@ button.submit {
 .card-bg.dots-white::before {
     background-image: url('../img/dots-white.png');
 }
+.card-bg.circle-pink::before {
+    background-image: url('../img/circle-pink.png');
+}
 .card-bg.top-dots-white::before {
     background-image: url('../img/top-dots-white.png');
 }
@@ -873,6 +879,9 @@ button.submit {
     background-image: url('../img/dots-pink.png'), url('../img/dots-pink-right.png');
     background-repeat: no-repeat;
     background-position: center;
+}
+.card-bg.flip::before {
+    transform: rotateX(180deg)
 }
 
 

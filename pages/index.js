@@ -5,13 +5,17 @@ import withLayout from '../lib/withLayout';
 import Screen01 from '../static/img/screen01.png'
 import Screen02 from '../static/img/screen02.png'
 import Screen03 from '../static/img/screen03.png'
+import ScreenHome from '../static/img/home.jpg'
 import Carousel from '../components/dataDisplay/others/carousel';
 import ContactUs from '../components/page/public/contactUs'
+import Btn from '../components/elements/btn'
 
 const styles = {
 	cardContainer: {
 		padding: '5rem 0',
-		// marginBottom: '3rem'
+	},
+	marginBottom: {
+		marginBottom: '3rem'
 	},
 	padding: {
 		padding: '1rem 2rem',
@@ -46,10 +50,24 @@ const styles = {
 		bottom: 0
 	},
 	testimonialTitle: {
-		fontSize: '2rem'
+		fontSize: '2rem',
+		marginBottom: '2rem'
 	},
 	carouselImg: {
 		width: '100%'
+	},
+	hover: {
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		height: '100%'
+	},
+	homeTextContainer: {
+		transform: 'translateY(-50%)',
+		lineHeight: '2rem'
+	},
+	carousel: {
+		padding: '2rem 0 3.5rem'
 	}
 }
 
@@ -59,9 +77,22 @@ const Index = () => {
 
 	return (
 		<div>
+			<div style={styles.marginBottom}>
+				<Grid container item className='relative'>
+					<img src={ScreenHome} className='fullwidth' />
+					<Grid item container xs={12} sm={5} justify="center" alignItems="center" style={styles.hover}>
+						<Grid item xs={12} sm={12} className='text-center' style={styles.homeTextContainer}>
+							<h1 className='white-color'>Tirez le meilleur de l’influence marketing grâce à la vidéo</h1>
+							<Btn text="Démarrez" />
+						</Grid>
+					</Grid>
+				</Grid>
+			</div>
+			{/*  */}
 			<div className='text-center'>
-				<div className='home-block-padding' style={styles.padding}>
+				<div style={styles.padding}>
 					<h2 className='text-center'>Comment rendons-nous l’influence marketing scalable ?</h2>
+
 					<Grid container item style={styles.cardContainer}>
 						<Grid item xs={12} sm={6}>
 							<img src={Screen01} />
@@ -84,7 +115,7 @@ const Index = () => {
 			<div className='text-center'>
 				<Grid container item style={styles.cardContainer} className='light-gray-bg'>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
-						<Grid item container xs={12} sm={8} className='text-center'>
+						<Grid item xs={12} sm={8} className='text-center'>
 							<h2><span className='black-bordered-head'>Data</span> et Technologie</h2>
 							<div>
 								<p className='no-margin'>Search infleunceurs</p>
@@ -100,7 +131,7 @@ const Index = () => {
 				</Grid>
 			</div>
 			{/*  */}
-			<div className='home-block-padding' style={styles.padding} className='card-bg dot-pink reverse no-repeat text-center'>
+			<div style={styles.padding} className='card-bg circle-pink bottom no-repeat text-center'>
 				<h1 className='red-color'>Le format In-vidéo</h1>
 				<Grid container item style={styles.cardContainer}>
 					<Grid item xs={12} sm={6}>
@@ -120,7 +151,7 @@ const Index = () => {
 			{/*  */}
 			<div>
 				<Grid container item style={styles.cardContainer}>
-					<div className='lines-black no-repeat right card-bg fullwidth text-center'>
+					<div className='light-gray-bg lines-black flip right card-bg fullwidth text-center' style={styles.carousel}>
 
 						<h2 style={styles.testimonialTitle}><span className='full-bordered-head'>Client</span></h2>
 
