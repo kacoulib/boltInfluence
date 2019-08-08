@@ -3,7 +3,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 import { Link } from '../../server/routes/next-routes'
-import { styleToolbarLink} from '../SharedStyles';
+import { styleToolbarLink } from '../SharedStyles';
 import styles from '../SharedStyles';
 import logo from '../../static/img/logo.png'
 import userIconWhite from '../../static/img/userIconWhite.js';
@@ -59,7 +59,7 @@ const Header = ({ user }) => (
 				</Grid>
 				<Grid container item sm={12} xs={12} alignItems="center" justify="center">
 					<Grid item align="center" sm={1} xs={12}>
-						<Link href='/'><a title='home logo'><img src={logo} /></a></Link>
+						<Link href='/'><a title='home logo'><img src={logo} className='fullwidth' /></a></Link>
 					</Grid>
 					<Grid item align="center" sm={10}>
 						<Grid container alignItems="center">

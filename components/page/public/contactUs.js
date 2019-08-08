@@ -150,7 +150,7 @@ const Contactus = (props) => {
                 onChange={onChange}
             />
             <p id='submit-contact' className='text-right'>
-                <Btn onClick={handleSubmit} text={props.linkText} />
+                <Btn onClick={handleSubmit} href="#contact-us" text={props.linkText} />
             </p>
         </div>
     )
