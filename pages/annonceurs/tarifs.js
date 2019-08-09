@@ -5,7 +5,7 @@ import withLayout from '../../lib/withLayout';
 import Screen7 from '../../static/img/screen7.png'
 import Screen8 from '../../static/img/screen8.png'
 import Screen9 from '../../static/img/screen9.png'
-import { Link } from '@material-ui/core';
+import { Link } from '../../server/routes/next-routes';
 import { darkBlueColor, darkOrangeColor, lightGray } from '../../utils/variables/css'
 
 const styles = {

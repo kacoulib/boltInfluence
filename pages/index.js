@@ -10,7 +10,6 @@ import Carousel from '../components/dataDisplay/others/carousel';
 import ContactUs from '../components/page/public/contactUs'
 import Btn from '../components/elements/btn'
 import { NextSeo } from 'next-seo';
-import { Link } from '../server/routes/next-routes'
 
 const styles = {
 	cardContainer: {
