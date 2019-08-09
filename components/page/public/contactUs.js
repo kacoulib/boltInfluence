@@ -72,23 +72,7 @@ const fields = [{
         }
     }
 },
-{
-    label: "- Veuillez sélectionner un secteur d'activité -",
-    name: "activity",
-    type: 'select',
-    required: true,
-    disableUnderline: true,
-    formControlStyle: {
-        backgroundColor: lightGray
-    },
-    props: {
-        list: [{ name: 'Mr', value: 'Mr' }, { name: 'Mme', value: 'Mme' }],
-        style: {
-            // padding: 5,
-            backgroundColor: lightGray,
-        },
-    }
-},
+
 {
     label: "Titre professionnel *",
     name: "job",
@@ -114,7 +98,24 @@ const fields = [{
             backgroundColor: lightGray,
         }
     }
-}
+},
+{
+    label: "- Veuillez sélectionner un secteur d'activité -",
+    name: "activity",
+    type: 'select',
+    required: true,
+    disableUnderline: true,
+    formControlStyle: {
+        backgroundColor: lightGray
+    },
+    props: {
+        list: [{ name: 'Mr', value: 'Mr' }, { name: 'Mme', value: 'Mme' }],
+        style: {
+            // padding: 5,
+            backgroundColor: lightGray,
+        },
+    }
+},
 ]
 
 
