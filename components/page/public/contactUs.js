@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from '@material-ui/core';
+// import { Link } from '@material-ui/core';
+import { Link } from '../../../server/routes/next-routes'
 import FormGenerator from '../../form/generator'
 import { lightGray } from '../../../utils/variables/css';
 import PropTypes from 'prop-types';

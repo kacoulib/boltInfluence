@@ -81,7 +81,7 @@ const styles = theme => ({
         width: 100,
     },
     formControl: {
-        padding: theme.spacing.unit,
+        padding: theme.spacing(1),
         width: '100%',
     },
     inputControl: {
@@ -94,7 +94,7 @@ const styles = theme => ({
         paddingLeft: '1rem'
     },
     control: {
-        padding: theme.spacing.unit,
+        padding: theme.spacing(1),
     },
     chips: {
         display: 'flex',
@@ -119,7 +119,7 @@ const MenuProps = {
 const FormGenerator = ({ fields, classes, form, onChange, toggleList, setting, align = 'center' }) => {
 
     const textTypes = ['input', 'password', 'email', 'number', 'textarea', 'date', 'datetime-local'],
-        spacing = 16,
+        spacing = 4,
         defaultDimension = { xs: 12 };
 
     const handleChange = (name) => ({ target: { value } }) => onChange(name, value)
@@ -152,9 +152,9 @@ const FormGenerator = ({ fields, classes, form, onChange, toggleList, setting, a
                                                         value={form[elem.name] || inputDefaultProps}
                                                         onChange={handleChange(elem.name)}
                                                         InputLabelProps={{
-                                                            FormLabelClasses: {
-                                                                root: classes.InputLabelProps
-                                                            }
+                                                            // FormLabelClasses: {
+                                                            //     root: classes.InputLabelProps
+                                                            // }
                                                         }}
                                                         InputProps={{
                                                             disableUnderline: !!elem.disableUnderline
