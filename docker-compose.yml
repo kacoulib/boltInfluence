@@ -1,0 +1,42 @@
+version: '3'
+services:
+  mongo:
+    image: mongo:4
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
+  app:
+    build:
+      context: ./
+      args:
+        NODE_ENV: production
+    image: app
+    restart: always
+    ports:
+      - 3000:3000
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      MONGO_URL_PROD: mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@mongo/boltInfluence?retryWrites=true
+      MANGOPAY_CLIENTID:
+      MANGOPAY_APIKEY:
+      MANGOPAY_BOLT_USERID:
+      Google_clientId:
+      Google_clientSecret:
+      Github_Test_ClientID:
+      Github_Test_SecretKey:
+      Instagram_clientId:
+      Instagram_clientSecret:
+      Twitter_consumerKey:
+      Twitter_consumerSecret:
+      Twitch_clientId:
+      Twitch_clientSecret:
+      Pinterest_clientId:
+      Pinterest_clientSecret:
+      CONTACT_RECIPIENT:
+      MAIL_HOST:
+      MAIL_PORT:
+      MAIL_SECURE:
+      MAIL_USER:
+      MAIL_PASS:

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const _ = require('lodash');
 
+const CenterOfInterest = require('./CenterOfInterest');
 const Ubo = require('./Ubo');
 const Stat = require('./Stat');
 const KycValidation = require('./KycValidation');
@@ -84,6 +85,7 @@ const mongoSchema = new Schema({
       // enum: UserSituations
     },
     languages: [{ type: String, enum: languageCodeList }],
+    centersOfInterest: [{ type: ObjectId, ref: 'CenterOfInterest' }],
     // socialMedias: {
     //   google: SocialToken,
     //   instagram: SocialToken
@@ -183,7 +185,15 @@ class UserClass {
       .limit(limit)
       .populate('brand')
       .populate('agency')
-      .select(this.publicFields());
+      .populate('influencer.centersOfInterest')
+      .select(this.publicFields())
+      .lean();
+    users.forEach(u => {
+      if (u.influencer && u.influencer.centersOfInterest) {
+        u.influencer.centersOfInterest =
+          u.influencer.centersOfInterest.map(coi => coi.name);
+      }
+    });
     return { users };
   }
 
@@ -247,11 +257,16 @@ class UserClass {
     const userDoc = await this.findOne({ slug })
       .select(this.publicFields())
       .populate('brand')
-      .populate('agency');
+      .populate('agency')
+      .populate('influencer.centersOfInterest');
     if (!userDoc) {
       throw new Error('User not found');
     }
     const user = userDoc.toObject();
+    if (user.influencer && user.influencer.centersOfInterest) {
+      user.influencer.centersOfInterest =
+        user.influencer.centersOfInterest.map(coi => coi.name);
+    }
     return { user };
   }
 
@@ -268,10 +283,21 @@ class UserClass {
       throw new Error('User not found');
     }
     Object.entries(updates)
-      .filter(([_, value]) => value !== undefined)
+      .filter(([key, value]) => value !== undefined && !['influencer'].includes(key))
       .forEach(([key, value]) => {
         userDoc[key] = value;
       });
+    if (updates.influencer && updates.influencer.centersOfInterest) {
+      if (!Array.isArray(updates.influencer.centersOfInterest)) {
+        throw new Error('centersOfInterest must be an array')
+      }
+      const ids = await Promise.all(
+        updates.influencer.centersOfInterest.map(coi => CenterOfInterest.getIdByName({
+          name: coi
+        }))
+      );
+      userDoc.influencer.centersOfInterest = ids;
+    }
     await userDoc.save();
     const user = _.pick(userDoc.toObject(), this.publicFields());
     return { user };
@@ -726,7 +752,7 @@ mongoSchema.pre('save', async function userPreSaveMangopayWallet() {
 mongoSchema.pre('save', async function userPreSaveMangopayUboDeclaration() {
   const user = this;
 
-  if (!user.mangopay.id || user.mangopay.uboDeclaration) {
+  if (!isBusiness(user) || !user.mangopay.id || user.mangopay.uboDeclaration) {
     return;
   }
 

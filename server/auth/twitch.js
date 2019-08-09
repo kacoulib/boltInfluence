@@ -5,6 +5,7 @@ const { redirecAfterAuth } = require('./index');
 const User = require('../models/User');
 const logger = require('../logs');
 const { Twitch } = require('../utils/twitch');
+const { storeSignUpInfos, consumeSignUpInfos } = require('../utils/express');
 
 const auth = ({ app, ROOT_URL }) => {
   const uri = '/auth/twitch/oauth2callback';
@@ -65,9 +66,18 @@ const auth = ({ app, ROOT_URL }) => {
     ),
   );
 
-  app.get('/auth/twitch', passport.authenticate('twitch', { scope: ['user:read:email'] }));
+  app.get(
+    '/auth/twitch',
+    storeSignUpInfos,
+    passport.authenticate('twitch', { scope: ['user:read:email'] }),
+  );
 
-  app.get(uri, passport.authenticate('twitch', { failureRedirect: '/login' }), redirecAfterAuth);
+  app.get(
+    uri,
+    passport.authenticate('twitch', { failureRedirect: '/login' }),
+    consumeSignUpInfos,
+    redirecAfterAuth,
+  );
 };
 
 module.exports = auth;

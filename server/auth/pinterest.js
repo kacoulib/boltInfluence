@@ -4,6 +4,7 @@ const PDK = require('node-pinterest');
 
 const User = require('../models/User');
 const { redirecAfterAuth } = require('./index');
+const { storeSignUpInfos, consumeSignUpInfos } = require('../utils/express');
 
 function auth({ ROOT_URL, app }) {
   const uri = '/auth/pinterest/oauth2callback';
@@ -47,13 +48,19 @@ function auth({ ROOT_URL, app }) {
 
   app.get(
     '/auth/pinterest',
+    storeSignUpInfos,
     passport.authenticate('pinterest', { failureRedirect: '/login' }),
     function(req, res) {
       res.redirect('/');
     },
   );
 
-  app.get(uri, passport.authenticate('pinterest', { failureRedirect: '/login' }), redirecAfterAuth);
+  app.get(
+    uri,
+    passport.authenticate('pinterest', { failureRedirect: '/login' }),
+    consumeSignUpInfos,
+    redirecAfterAuth,
+  );
 }
 
 module.exports = auth;
