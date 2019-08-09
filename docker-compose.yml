@@ -34,6 +34,8 @@ services:
       Twitch_clientSecret:
       Pinterest_clientId:
       Pinterest_clientSecret:
+      Facebook_clientId:
+      Facebook_clientSecret:
       CONTACT_RECIPIENT:
       MAIL_HOST:
       MAIL_PORT:
