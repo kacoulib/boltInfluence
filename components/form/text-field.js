@@ -47,7 +47,6 @@ TextFieldComp.propTypes = {
     type: PropTypes.string.isRequired,
     value: PropTypes.any.isRequired,
     onChange: PropTypes.func.isRequired,
-    dimension: PropTypes.object,
     showLabel: PropTypes.bool,
     unableUnderline: PropTypes.bool,
     unableBoxShadow: PropTypes.bool,

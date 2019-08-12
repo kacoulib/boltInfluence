@@ -20,7 +20,6 @@ const WysiwygComp = ({ name, value, onChange, label, showLabel }) => {
 
     return (
         <FormElementWrapper label={label} showLabel={showLabel}>
-
             <div className="container">
                 <ReactMde
                     onChange={(value) => onChange(name, value)}
@@ -42,6 +41,5 @@ WysiwygComp.propTypes = {
     onChange: PropTypes.func.isRequired,
     showLabel: PropTypes.bool,
     label: PropTypes.string,
-    dimension: PropTypes.object,
 }
 export default WysiwygComp
