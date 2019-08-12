@@ -240,15 +240,15 @@ const FormGenerator = ({ fields, classes, state, onChange, toggleList, settings,
                                         </ Grid>
                                     )
                                     || elem.type == 'upload' && (
-                                        <Grid container>
-                                            {showLabel && <Grid item {...labelSpacing}>{elem.label}</Grid>}
-
-                                            <Grid item {...labelSpacing}>
-                                                <div>
-                                                    <Upload name={elem.name} label={elem.label} defaultValue={state[elem.name]} value={state[elem.name]} onChange={value => onChange(elem.name, value)} {...elemProps} />
-                                                </div>
-                                            </ Grid>
-                                        </ Grid>
+                                        <Upload
+                                            name={elem.name}
+                                            defaultValue={state[elem.name]}
+                                            label={elem.label}
+                                            showLabel={showLabel}
+                                            value={state[elem.name]}
+                                            onChange={value => onChange(elem.name, value)}
+                                            {...elemProps}
+                                        />
                                     )
                                 }
                             </Grid>
