@@ -13,27 +13,31 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-const TextFieldComp = ({ name, label, type, value, onChange, showLabel, unableUnderline, unableBoxShadow = true }) => {
+const strinkTypes = ['date', 'datetime', 'time'];
+
+const TextFieldComp = ({ name, label, type, value, onChange, showLabel, unableUnderline = false, unableBoxShadow = true, elemProps }) => {
     const classes = useStyles();
-    const variant = unableBoxShadow ? "outlined" : "standard"
+    const variant = unableUnderline ? "standard" : "outlined"
 
     return (
         <FormElementWrapper label={label} showLabel={showLabel}>
             <TextField
                 multiple
                 type={type}
-                label={showLabel ? '' : label}
+                label={showLabel ? '' : !strinkTypes.includes(type) && label}
                 multiline={type === 'textarea'}
                 fullWidth
+                floatingLabelFixed={true}
                 value={value}
                 onChange={onChange(name)}
                 InputProps={{
                     disableUnderline: !!unableUnderline,
                 }}
-                className={classes.textField}
+                className={unableBoxShadow ? classes.textField : ''}
                 style={{ width: '100%' }}
                 rows={8}
                 variant={variant}
+                {...elemProps}
                 rowsMax={10}
             />
         </FormElementWrapper>
