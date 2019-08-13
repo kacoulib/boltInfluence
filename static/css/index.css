@@ -726,6 +726,7 @@ button.submit {
     background-repeat: no-repeat;
 }
 .icon,
+.btn-icon .icon,
 .tiny-icon {
     display: inline-block;
     width: 1.5rem;
@@ -738,6 +739,78 @@ button.submit {
     width: 1rem;
     height: 1rem;;
 }
+.btn-icon {
+    margin: 5px;
+    padding: 1rem;
+    border-radius: 5px;
+    text-transform: none;
+    cursor: pointer;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    color: white;
+    background-color: #F32732;
+}
+.btn-icon .icon {
+    width: 30px;
+    height: 20px;
+}
+.icon-facebook {
+    background-color: #4267b2;
+}
+.icon-twitter {
+    background-color: #38A1F3;
+}
+.icon-pinterest {
+    background-color: #BD081C;
+}
+.icon-linkedin {
+    background-color: #0077B5;
+}
+.icon-youtube {
+    background-color: #ED3833;
+}
+.icon-twitch {
+    background-color: #6441a4;
+}
+.icon-tiktok {
+    background-color: #161618;
+}
+.icon-instagram {
+    color: white;
+    background: #f09433;
+    background: -moz-linear-gradient(10deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    background: -webkit-linear-gradient(10deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+    background: linear-gradient(10deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=#f09433, endColorstr=#bc1888,GradientType=1);
+}
+.icon-instagram .icon{
+    background-image: url('../img/icon/btn-instagram.png');
+}
+.icon-facebook .icon{
+    background-image: url('../img/icon/btn-facebook.png');
+}
+.icon-pinterest .icon{
+    background-image: url('../img/icon/btn-pinterest.png');
+}
+.icon-tiktok .icon{
+    background-image: url('../img/icon/btn-tiktok.png');
+}
+.icon-twitch .icon{
+    background-image: url('../img/icon/btn-twitch.png');
+}
+.icon-twitter .icon{
+    background-image: url('../img/icon/btn-twitter.png');
+}
+.icon-youtube .icon{
+    background-image: url('../img/icon/btn-youtube.png');
+}
+.icon-linkedin .icon{
+    background-image: url('../img/icon/btn-linkedin.png');
+}
+.icon-blog .icon{
+    background-image: url('../img/icon/btn-blog.png');
+}
+/*  */
 .valide-black {
     background-image: url('../img/icon/valide-black.png');
 }
