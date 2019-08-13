@@ -97,17 +97,22 @@ const Index = () => {
         birthday: '',
         interest: '',
         open: true,
-        subscribe: true,
+        subscribe: false,
+        errors: [],
+        selectedSocial: null,
+        submitToggle: false
     })
 
     const toggle = (name) => setState({ ...state, [name]: !state[name] });
 
     const onChange = (name, value) => setState({ ...state, [name]: value })
-    const handleSubmit = (socialName) => {
-        if (FormValidator({ fields, state }))
-            Router.pushRoute(`/auth/${socialName}?${encodeURI(JSON.stringify(LeanForm({ fields, state })))}`)
-    }
+    const handleSubmit = () => {
+        const errors = FormValidator({ fields, state });
 
+        if (!errors.length && state.selectedSocial)
+            return Router.pushRoute(`/auth/${state.selectedSocial}?${encodeURI(JSON.stringify(LeanForm({ fields, state })))}`)
+        setState({ ...state, errors, submitToggle: true })
+    }
     return (
         <Dialog maxWidth={false} aria-labelledby="simple-dialog-title" open={state.open} >
             <div id='subscribe'>
@@ -126,22 +131,23 @@ const Index = () => {
                                 fields={fields}
                                 state={state}
                                 onChange={onChange}
+                                errors={state.errors}
                                 settings={settings}
                             />
                             <p className='italic'>*Champs obligatoire</p>
                         </Grid>
                         <div id='minimum'>
-                            <h3 className='inline-block auto'>Minimum connexion à un compte</h3>
+                            <h3 className={`inline-block auto ${state.submitToggle && !state.selectedSocial ? 'red-color' : ''}`}>Minimum connexion à un compte</h3>
                         </div>
                         <Grid container justify="center" alignItems="center" className='text-center'>
-                            <Grid item xs={6} sm={6}><SocialBtn type='facebook' text='Facebook' onClick={() => handleSubmit('facebook')} /></Grid>
-                            <Grid item xs={6} sm={6}><SocialBtn type='instagram' text='Instagram' onClick={() => handleSubmit('instagram')} /></Grid>
-                            <Grid item xs={6} sm={6}><SocialBtn type='youtube' text='Youtube' onClick={() => handleSubmit('youtube')} /></Grid>
-                            <Grid item xs={6} sm={6}><SocialBtn type='twitter' text='Twitter' onClick={() => handleSubmit('ywitter')} /></Grid>
-                            <Grid item xs={6} sm={6}><SocialBtn type='twitch' text='Twitch' onClick={() => handleSubmit('twitch')} /></Grid>
-                            <Grid item xs={6} sm={6}><SocialBtn type='pinterest' text='Pinterest' onClick={() => handleSubmit('pinterest')} /></Grid>
-                            <Grid item xs={6} sm={6}><SocialBtn type='tiktok' text='Tiktok' onClick={() => handleSubmit('tiktok')} /></Grid>
-                            <Grid item xs={6} sm={6}><SocialBtn type='linkedin' text='Linkedin' onClick={() => handleSubmit('linkedin')} /></Grid>
+                            <Grid item sm={6} xs={12}><SocialBtn type='facebook' text='Facebook' onClick={() => onChange('selectedSocial', 'facebook')} /></Grid>
+                            <Grid item sm={6} xs={12}><SocialBtn type='instagram' text='Instagram' onClick={() => onChange('selectedSocial', 'instagram')} /></Grid>
+                            <Grid item sm={6} xs={12}><SocialBtn type='youtube' text='Youtube' onClick={() => onChange('selectedSocial', 'youtube')} /></Grid>
+                            <Grid item sm={6} xs={12}><SocialBtn type='twitter' text='Twitter' onClick={() => onChange('selectedSocial', 'ywitter')} /></Grid>
+                            <Grid item sm={6} xs={12}><SocialBtn type='twitch' text='Twitch' onClick={() => onChange('selectedSocial', 'twitch')} /></Grid>
+                            <Grid item sm={6} xs={12}><SocialBtn type='pinterest' text='Pinterest' onClick={() => onChange('selectedSocial', 'pinterest')} /></Grid>
+                            <Grid item sm={6} xs={12}><SocialBtn type='tiktok' text='Tiktok' onClick={() => onChange('selectedSocial', 'tiktok')} /></Grid>
+                            <Grid item sm={6} xs={12}><SocialBtn type='linkedin' text='Linkedin' onClick={() => onChange('selectedSocial', 'linkedin')} /></Grid>
                         </Grid>
                         <div className='link-container text-center' id="submit">
                             <Btn text="Envoyer & fermer" onClick={handleSubmit} />
@@ -149,19 +155,22 @@ const Index = () => {
                     </div>
                     :
                     <div>
-                        <Grid container justify="center" alignItems="center">
-                            <Grid item xs={12} sm={6} className='text-center'>
-                                <div className='text-container'>
-                                    <h2>S'abonner maintenant</h2>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-                                    <div className='link-container'>
-                                        <Btn text="S'abonner maintenant" onClick={() => toggle('subscribe')} />
-                                    </div>
-                                </div>
-                            </Grid>
+                        <Grid container justify="center" alignItems="center" direction="row-reverse">
                             <Grid item xs={12} sm={6}>
                                 <div className='text-container'>
                                     <img src={InfluencersPicture} className='fullwidth' />
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} sm={6} className='text-center'>
+                                <div className='text-container'>
+                                    <h2>Pré-inscrivez-vous</h2>
+                                    <p>Vous rêvez d’une plateforme authentique offrant de nouveaux partenariats rémunérés avec des marques ?<br />
+                                        Dévoilez tout votre talent au sein de la plateforme Bolt.<br />
+                                        Nous vous attendons avec impatience.<br />
+                                        XoXo by l’équipe de Bolt Influence !</p>
+                                    <div className='link-container'>
+                                        <Btn text="Pré-inscrivez-vous" onClick={() => toggle('subscribe')} />
+                                    </div>
                                 </div>
                             </Grid>
                         </Grid>
@@ -195,7 +204,8 @@ const Index = () => {
                 #subscribe h2 {
                     display: inline-block;
                     text-transform: uppercase;
-                    font-size: 3rem;
+                    font-size: 2rem;
+                    padding: 0 5px;
                     color: #20263d;
                     background-color: #fff;
                 }
@@ -210,8 +220,12 @@ const Index = () => {
                     padding: 1rem;
                     text-align: center;
                 }
+               #subscribe img {
+                max-width: 350px;
+                width: 100%;
+               }
             `}</style>
-        </Dialog>
+        </Dialog >
     )
 }
 export default Index
