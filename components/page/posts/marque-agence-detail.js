@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import FormGenerator from '../../form/generator'
@@ -68,17 +68,17 @@ const fieldsMarque = [
 
 const Index = ({ selectedMarqueAgence }) => {
 
-    const [form,setForm] = useState(selectedMarqueAgence)
+    const [state, setState] = useState(selectedMarqueAgence)
 
     const onChange = (name, value) => {
         console.log(name, value);
-        setForm(Object.assign({}, form, { [name]: value}))
+        setState(Object.assign({}, state, { [name]: value }))
     }
 
     const onSubmit = async () => {
-        console.log(form);
+        console.log(state);
     }
-    
+
     return (
         <Grid container alignItems='center' justify="center" style={styles.container} >
             <Grid item xs={12} sm={12} style={styles.childContainer}>
@@ -91,10 +91,10 @@ const Index = ({ selectedMarqueAgence }) => {
             <div>
                 <FormGenerator
                     fields={fieldsContact}
-                    form={form}
+                    state={state}
                     onChange={onChange}
                     onSubmit={onSubmit}
-                    setting={{ showLabel: { xs: 6 } }}
+                    settings={{ showLabel: { xs: 6 } }}
                 />
             </div>
 
@@ -105,10 +105,10 @@ const Index = ({ selectedMarqueAgence }) => {
             <div>
                 <FormGenerator
                     fields={fieldsMarque}
-                    form={form}
+                    state={state}
                     onChange={onChange}
                     onSubmit={onSubmit}
-                    setting={{ showLabel: { xs: 6 } }}
+                    settings={{ showLabel: { xs: 6 } }}
                 />
             </div>
             <Grid item xs={12}>

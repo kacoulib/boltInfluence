@@ -132,7 +132,7 @@ const Contactus = (props) => {
     })
     const onChange = (name, value) => setState({ ...state, [name]: value })
     const handleSubmit = async () => {
-        return console.log(FormValidator({ fields, form: state }))
+        return console.log(FormValidator({ fields, state }))
         const res = await customRequest({ path: '/public/contact', state });
         console.log(res)
     }
@@ -147,7 +147,7 @@ const Contactus = (props) => {
 
             <FormGenerator
                 fields={fields}
-                form={state}
+                state={state}
                 onChange={onChange}
             />
             <p id='submit-contact' className='text-right'>

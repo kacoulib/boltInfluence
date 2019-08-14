@@ -8,6 +8,7 @@ import moment from 'moment'
 import { customRequest } from '../../../lib/api/http/index';
 import { Link } from '../../../server/routes/next-routes'
 moment.locale('fr')
+
 const styles = {
 	cardContainer: {
 		padding: '3rem 0',

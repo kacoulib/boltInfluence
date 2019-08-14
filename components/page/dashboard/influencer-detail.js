@@ -84,14 +84,14 @@ const fields = [
 
 const Index = ({ selectedInfluencer }) => {
 
-    const [form, setForm] = useState(selectedInfluencer)
+    const [state, setState] = useState(selectedInfluencer)
 
     const onChange = (name, value) => {
         console.log(name, value)
-        setForm(Object.assign({}, form, { [name]: value }))
+        setState(Object.assign({}, state, { [name]: value }))
     };
     const onSubmit = async () => {
-        console.log(form)
+        console.log(state)
     };
 
 
@@ -107,10 +107,10 @@ const Index = ({ selectedInfluencer }) => {
             <div>
                 <FormGenerator
                     fields={fields}
-                    form={form}
+                    state={state}
                     onChange={onChange}
                     onSubmit={onSubmit}
-                    setting={{ showLabel: { xs: 6 } }}
+                    settings={{ showLabel: { xs: 6 } }}
                 />
             </div>
             <Grid item xs={12}>

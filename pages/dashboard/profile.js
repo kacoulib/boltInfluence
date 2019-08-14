@@ -10,12 +10,12 @@ import { profileField } from '../../utils/variables/fields/profile'
 const MyBooks = (props) => {
     const { user } = props;
 
-    const [form, setForm] = useState(Object.assign({ check: 'Mr', languages: [], civility: [], firstName: 'karim' }, { ...user }))
+    const [state, setState] = useState(Object.assign({ check: 'Mr', languages: [], civility: [], firstName: 'karim' }, { ...user }))
 
-    const onChange = (name, value) => setForm(Object.assign({}, form, { [name]: value }));
+    const onChange = (name, value) => setState(Object.assign({}, state, { [name]: value }));
     const onSubmit = async () => {
 
-        console.log(form)
+        console.log(state)
     };
     return (
         <div style={{ padding: '10px 45px' }}>
@@ -31,7 +31,7 @@ const MyBooks = (props) => {
             <div style={{ textAlign: 'left' }}>
                 <FormGenerator
                     fields={profileField}
-                    form={form}
+                    state={state}
                     onChange={onChange}
                     onSubmit={onSubmit}
                     align={'initial'}
