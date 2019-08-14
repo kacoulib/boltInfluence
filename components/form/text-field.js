@@ -15,13 +15,14 @@ const useStyles = makeStyles(theme => ({
 
 const strinkTypes = ['date', 'datetime', 'time'];
 
-const TextFieldComp = ({ name, label, type, value, onChange, showLabel, unableUnderline = false, unableBoxShadow = true, elemProps }) => {
+const TextFieldComp = ({ name, label, type, value, onChange, showLabel, unableUnderline = false, unableBoxShadow = true, error = false, elemProps }) => {
     const classes = useStyles();
     const variant = unableUnderline ? "standard" : "outlined"
 
     return (
         <FormElementWrapper label={label} showLabel={showLabel}>
             <TextField
+                error={error}
                 multiple
                 type={type}
                 label={showLabel ? '' : !strinkTypes.includes(type) && label}

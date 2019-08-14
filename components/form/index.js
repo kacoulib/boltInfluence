@@ -6,7 +6,7 @@ const defaultDimension = { xs: 12, ms: 12 }
 
 const LableWrapper = ({ label, ...props }) => {
     return (
-        <Grid container justify="space-between" alignItems="center">
+        <Grid container justify="space-between" alignItems="center" alignContent='center'>
             <Grid item {...labelDimension}>{label}</Grid>
             <Grid item {...labelDimension}>{props.children}</Grid>
         </Grid>

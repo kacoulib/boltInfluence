@@ -22,6 +22,7 @@ import TextField from './text-field'
         fields={fieldsMarque}
         state={state}
         onChange={onChange}
+        errors={[]}
         settings={{ showLabel: { xs: 6 } }}
     />
 
@@ -106,7 +107,7 @@ const styles = theme => ({
 });
 
 
-const FormGenerator = ({ fields, classes, state, onChange, toggleList, settings, align = 'center' }) => {
+const FormGenerator = ({ fields, classes, state, onChange, toggleList, settings = {}, errors = [], align = 'center' }) => {
 
     const textTypes = ['input', 'password', 'email', 'number', 'textarea', 'date', 'datetime-local'],
         selectTypes = ['select'],
@@ -125,6 +126,7 @@ const FormGenerator = ({ fields, classes, state, onChange, toggleList, settings,
                         const dimentions = elem.dimension ? elem.dimension : defaultDimension;
                         const elemProps = elem.props;
                         const inputDefaultProps = elemProps && elemProps.defaultValue ? elemProps.defaultValue : '';
+                        const error = errors.includes(elem.name);
                         const elemSettings = {
                             unableUnderline: settings.unableUnderline,
                             unableBoxShadow: settings.unableBoxShadow
@@ -134,6 +136,7 @@ const FormGenerator = ({ fields, classes, state, onChange, toggleList, settings,
                             <Grid key={key} item {...dimentions}>
                                 {textTypes.includes(elem.type) && (
                                     <TextField
+                                        error={error}
                                         onChange={handleChange}
                                         showLabel={showLabel}
                                         value={state[elem.name] || inputDefaultProps}
@@ -143,6 +146,7 @@ const FormGenerator = ({ fields, classes, state, onChange, toggleList, settings,
                                 )
                                     || elem.type == 'wysiwyg' && (
                                         <Wysiwyg
+                                            error={error}
                                             value={state[elem.name]}
                                             onChange={onChange}
                                             showLabel={showLabel}
@@ -163,6 +167,7 @@ const FormGenerator = ({ fields, classes, state, onChange, toggleList, settings,
                                     )
                                     || selectTypes.includes(elem.type) && (
                                         <Select
+                                            error={error}
                                             onChange={handleChange}
                                             showLabel={showLabel}
                                             value={state[elem.name] || inputDefaultProps}
@@ -241,6 +246,7 @@ const FormGenerator = ({ fields, classes, state, onChange, toggleList, settings,
                                     )
                                     || elem.type == 'upload' && (
                                         <Upload
+                                            error={error}
                                             name={elem.name}
                                             defaultValue={state[elem.name]}
                                             label={elem.label}
@@ -273,6 +279,7 @@ FormGenerator.propTypes = {
     fields: PropTypes.arrayOf(PropTypes.object).isRequired,
     state: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
+    errors: PropTypes.array,
     settings: PropTypes.object,
     toggleList: PropTypes.func,
     align: PropTypes.string

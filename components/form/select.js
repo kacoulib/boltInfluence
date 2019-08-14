@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
 
 }))
 const fullwidth = {
-    width: '100%'
+    width: '100%',
 }
 const labelStyle = {
     paddingLeft: 10
@@ -34,21 +34,24 @@ const MenuProps = {
         },
     },
 };
-const SelectType = ({ name, label, type, value, list, onChange, showLabel, unableUnderline, multiple, unableBoxShadow = true, classes }) => (
+const SelectType = ({ name, label, type, value, list, onChange, showLabel, unableUnderline, multiple, unableBoxShadow = true, error = false, classes, elemProps }) => (
     <FormElementWrapper label={label} showLabel={showLabel}>
         <FormControl
-            style={fullwidth}
+            style={elemProps.style ? { ...elemProps.style, ...fullwidth } : fullwidth}
+
         >
             {!showLabel ? <InputLabel htmlFor={name} style={labelStyle}>{label}</InputLabel> : ''}
             <Select
+                error={error}
                 multiple={multiple}
                 value={value ? value : multiple ? [] : ''}
                 onChange={onChange(name)}
-                input={unableBoxShadow ? <OutlinedInput id={name} /> : <Input id={name} />}
+                input={!unableBoxShadow && !unableUnderline ? <OutlinedInput id={name} /> : <Input id={name} />}
                 disableUnderline={!!unableUnderline}
                 required={true}
                 style={fullwidth}
-                className={classes.select}
+                className={unableBoxShadow ? classes.select : ''}
+            // {...elemProps}
             >
                 {list && list.map((elem, key) => (
                     <MenuItem key={`${elem.name}-${key}`} value={elem.name}>
