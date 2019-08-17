@@ -697,98 +697,98 @@ mongoSchema.pre('save', async function userPreSavePassword() {
   user.password = await bcrypt.hash(user.password, salt);
 });
 
-mongoSchema.pre('save', async function userPreSaveMangopayUser() {
-  const user = this;
-  const checkProperties = [
-    'role',
-    'dateOfBirth',
-    'country',
-    'placeOfBirth',
-    'firstName',
-    'lastName',
-    'companyName',
-    'companyEmail',
-    'siret',
-  ];
-  const hasAll = checkProperties.every((p) => !!user[p]);
-  const hasOneModified = checkProperties.some((p) => user.isModified(p));
-  if (!hasAll || !hasOneModified || (!isInfluencer(user) && !isBusiness(user))) {
-    return;
-  }
-  const mangopay = getMangopay();
-  const mangopayUserModel = new mangopay.models.UserLegal({
-    Name: user.companyName,
-    Email: user.companyEmail,
-    CompanyNumber: user.siret,
-    LegalPersonType: isInfluencer(user) ? 'SOLETRADER' : 'BUSINESS',
-    LegalRepresentativeFirstName: user.firstName,
-    LegalRepresentativeLastName: user.lastName,
-    LegalRepresentativeBirthday: Math.trunc(user.dateOfBirth.getTime() / 1000),
-    LegalRepresentativeNationality: user.placeOfBirth,
-    LegalRepresentativeCountryOfResidence: user.country,
-  });
-  if (!user.mangopay.id) {
-    const mangopayUser = await mangopay.Users.create(mangopayUserModel);
-    user.mangopay.id = mangopayUser.Id;
-  } else {
-    await mangopay.Users.update({ ...mangopayUserModel, Id: user.mangopay.id });
-  }
-});
+// mongoSchema.pre('save', async function userPreSaveMangopayUser() {
+//   const user = this;
+//   const checkProperties = [
+//     'role',
+//     'dateOfBirth',
+//     'country',
+//     'placeOfBirth',
+//     'firstName',
+//     'lastName',
+//     'companyName',
+//     'companyEmail',
+//     'siret',
+//   ];
+//   const hasAll = checkProperties.every((p) => !!user[p]);
+//   const hasOneModified = checkProperties.some((p) => user.isModified(p));
+//   if (!hasAll || !hasOneModified || (!isInfluencer(user) && !isBusiness(user))) {
+//     return;
+//   }
+//   const mangopay = getMangopay();
+//   const mangopayUserModel = new mangopay.models.UserLegal({
+//     Name: user.companyName,
+//     Email: user.companyEmail,
+//     CompanyNumber: user.siret,
+//     LegalPersonType: isInfluencer(user) ? 'SOLETRADER' : 'BUSINESS',
+//     LegalRepresentativeFirstName: user.firstName,
+//     LegalRepresentativeLastName: user.lastName,
+//     LegalRepresentativeBirthday: Math.trunc(user.dateOfBirth.getTime() / 1000),
+//     LegalRepresentativeNationality: user.placeOfBirth,
+//     LegalRepresentativeCountryOfResidence: user.country,
+//   });
+//   if (!user.mangopay.id) {
+//     const mangopayUser = await mangopay.Users.create(mangopayUserModel);
+//     user.mangopay.id = mangopayUser.Id;
+//   } else {
+//     await mangopay.Users.update({ ...mangopayUserModel, Id: user.mangopay.id });
+//   }
+// });
 
-mongoSchema.pre('save', async function userPreSaveMangopayWallet() {
-  const user = this;
+// mongoSchema.pre('save', async function userPreSaveMangopayWallet() {
+//   const user = this;
+// 
+//   if (!user.mangopay.id || user.mangopay.wallet) {
+//     return;
+//   }
+// 
+//   const { wallet } = await createWallet({
+//     owner: user.mangopay.id,
+//     description: `User ${user.slug}`,
+//   });
+//   user.mangopay.wallet = wallet.Id;
+// });
 
-  if (!user.mangopay.id || user.mangopay.wallet) {
-    return;
-  }
+// mongoSchema.pre('save', async function userPreSaveMangopayUboDeclaration() {
+//   const user = this;
+// 
+//   if (!isBusiness(user) || !user.mangopay.id || user.mangopay.uboDeclaration) {
+//     return;
+//   }
+// 
+//   const { uboDeclaration } = await createUboDeclaration({ user: user.mangopay.id });
+//   user.mangopay.uboDeclaration = uboDeclaration.Id;
+// });
 
-  const { wallet } = await createWallet({
-    owner: user.mangopay.id,
-    description: `User ${user.slug}`,
-  });
-  user.mangopay.wallet = wallet.Id;
-});
-
-mongoSchema.pre('save', async function userPreSaveMangopayUboDeclaration() {
-  const user = this;
-
-  if (!isBusiness(user) || !user.mangopay.id || user.mangopay.uboDeclaration) {
-    return;
-  }
-
-  const { uboDeclaration } = await createUboDeclaration({ user: user.mangopay.id });
-  user.mangopay.uboDeclaration = uboDeclaration.Id;
-});
-
-mongoSchema.pre('save', async function userPreSaveMangopayBankAccount() {
-  const user = this;
-
-  if (
-    !user.mangopay.id ||
-    !user.iban ||
-    !user.bic ||
-    !user.address ||
-    !user.city ||
-    !user.country ||
-    !user.postalCode ||
-    !user.firstName ||
-    !user.lastName
-  ) {
-    return;
-  }
-  const { bankAccount } = await createOrUpdateIbanBankAccount({
-    user: user.mangopay.id,
-    name: `${user.firstName} ${user.lastName}`,
-    address: user.address,
-    city: user.city,
-    country: user.country,
-    postalCode: user.postalCode,
-    iban: user.iban,
-    bic: user.bic,
-    oldBankAccountId: user.mangopay.bankAccount,
-  });
-  user.mangopay.bankAccount = bankAccount.Id;
-});
+// mongoSchema.pre('save', async function userPreSaveMangopayBankAccount() {
+//   const user = this;
+// 
+//   if (
+//     !user.mangopay.id ||
+//     !user.iban ||
+//     !user.bic ||
+//     !user.address ||
+//     !user.city ||
+//     !user.country ||
+//     !user.postalCode ||
+//     !user.firstName ||
+//     !user.lastName
+//   ) {
+//     return;
+//   }
+//   const { bankAccount } = await createOrUpdateIbanBankAccount({
+//     user: user.mangopay.id,
+//     name: `${user.firstName} ${user.lastName}`,
+//     address: user.address,
+//     city: user.city,
+//     country: user.country,
+//     postalCode: user.postalCode,
+//     iban: user.iban,
+//     bic: user.bic,
+//     oldBankAccountId: user.mangopay.bankAccount,
+//   });
+//   user.mangopay.bankAccount = bankAccount.Id;
+// });
 
 const User = mongoose.model('User', mongoSchema);
 

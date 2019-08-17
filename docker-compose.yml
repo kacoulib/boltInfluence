@@ -12,6 +12,7 @@ services:
     environment:
       NODE_ENV: production
       PORT: 3000
+      MANGOPAY_BASE_URL: https://api.mangopay.com
       ROOT_URL:
       MONGO_URL_PROD:
       MANGOPAY_CLIENTID:

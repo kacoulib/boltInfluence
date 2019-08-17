@@ -39,7 +39,7 @@ const mangopayConfig = {
 if (process.env.MANGOPAY_BASE_URL) {
   mangopayConfig.baseUrl = process.env.MANGOPAY_BASE_URL;
 }
-console.log(setupMangopay(mangopayConfig).config);
+// console.log(setupMangopay(mangopayConfig).config);
 
 const options = {
   useNewUrlParser: true,
