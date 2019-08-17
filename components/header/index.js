@@ -51,43 +51,46 @@ const displayMenuList = (list, i) => (
 	))
 )
 
-const Header = ({ user }) => (
-	<header id='header'>
-		<Toolbar>
-			<Grid container alignItems="center" justify="center">
-				<Grid container item sm={12} xs={12} alignItems="center" justify="center">
-					<img src={iconFlagFr} style={styles.iconFlagFr} />
-				</Grid>
-				<Grid container item sm={12} xs={12} alignItems="center" justify="center">
-					<Grid item align="center" sm={1} xs={12}>
-						<Link href='/'><a title='home logo'><img src={logo} className='fullwidth' /></a></Link>
+const Header = ({ user }) => {
+	console.log('oooo')
+	return (
+		<header id='header'>
+			<Toolbar>
+				<Grid container alignItems="center" justify="center">
+					<Grid container item sm={12} xs={12} alignItems="center" justify="center">
+						<img src={iconFlagFr} style={styles.iconFlagFr} />
 					</Grid>
-					<Grid item align="center" sm={10}>
-						<Grid container alignItems="center">
-							<nav>
-								<label htmlFor="drop" className="toggle-head">☰</label>
-								<input type="checkbox" id="drop" />
-								<ul className="menu">
-									{displayMenuList(menuList, 0)}
-								</ul>
-							</nav>
+					<Grid container item sm={12} xs={12} alignItems="center" justify="center">
+						<Grid item align="center" sm={1} xs={12}>
+							<Link href='/'><a title='home logo'><img src={logo} className='fullwidth' /></a></Link>
+						</Grid>
+						<Grid item align="center" sm={10}>
+							<Grid container alignItems="center">
+								<nav>
+									<label htmlFor="drop" className="toggle-head">☰</label>
+									<input type="checkbox" id="drop" />
+									<ul className="menu">
+										{displayMenuList(menuList, 0)}
+									</ul>
+								</nav>
 
+							</Grid>
+						</Grid>
+						<Grid item style={{ padding: '10px', textAlign: 'right' }} sm={1} xs={12}>
+							<Avatar style={styles.avatar} src={userIconWhite} />
 						</Grid>
 					</Grid>
-					<Grid item style={{ padding: '10px', textAlign: 'right' }} sm={1} xs={12}>
-						<Avatar style={styles.avatar} src={userIconWhite} />
+					<Grid container item sm={12} xs={12} direction="row" alignItems="center" justify="center">
+						<Grid item style={styleToolbarLink} sm={12} xs={12}>
+							<Socials fill='white' /* parent={styles.socialListContainer} child={styles.socialList} */ />
+						</Grid>
 					</Grid>
 				</Grid>
-				<Grid container item sm={12} xs={12} direction="row" alignItems="center" justify="center">
-					<Grid item style={styleToolbarLink} sm={12} xs={12}>
-						<Socials fill='white' /* parent={styles.socialListContainer} child={styles.socialList} */ />
-					</Grid>
-				</Grid>
-			</Grid>
-		</Toolbar>
+			</Toolbar>
 
-	</header>
-)
+		</header>
+	)
+}
 
 Header.propTypes = {
 	user: PropTypes.shape({
