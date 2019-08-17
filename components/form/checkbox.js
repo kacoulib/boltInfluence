@@ -7,7 +7,10 @@ import FormGroup from '@material-ui/core/FormGroup';
 import { withStyles } from '@material-ui/core/styles';
 import { orangeColor } from '../../utils/variables/css'
 
-const styles = theme => ({
+const styles = {
+    group: {
+        textAlign: 'left'
+    },
     root: {
         display: 'flex',
     },
@@ -17,26 +20,26 @@ const styles = theme => ({
         }
     },
     checked: {}
-});
+};
 
-const CheckboxType = ({ classes, label, value, onChange, name = '', style }) => {
-    const [val, setValue] = useState(value)
+const CheckboxType = ({ classes, label, value, onChange, name = '' }) => {
+    // const [val, setValue] = useState(value)
 
-    const handleChange = ({ target: { value } }) => {
-        setValue(value);
-        onChange(name, value)
-    };
+    // const handleChange = ({ target: { value } }) => {
+    //     setValue(value);
+    //     console.log('(', value, ')')
+    //     onChange(name, value)
+    // };
 
-    console.log(label)
+    console.log(name, ' ', value)
 
-    style = Object.assign({ display: 'flex', flexDirection: 'row' }, style)
 
     return (
 
-        <FormGroup row>
+        <FormGroup row classes={{ root: classes.group }}>
             <FormControlLabel
                 control={
-                    <Checkbox checked={val} onChange={handleChange} value="checkedA" classes={{ root: classes.Checkbox, checked: classes.checked }}
+                    <Checkbox checked={value} onChange={onChange(name)} value={value} classes={{ root: classes.Checkbox, checked: classes.checked }}
                     />
                 }
                 label={label}
@@ -49,7 +52,7 @@ CheckboxType.propTypes = {
     onChange: PropTypes.func.isRequired,
     name: PropTypes.string.isRequired,
     label: PropTypes.string,
-    value: PropTypes.string,
+    value: PropTypes.bool,
 }
 
 export default withStyles(styles)(CheckboxType)

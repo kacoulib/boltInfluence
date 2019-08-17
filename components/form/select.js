@@ -34,7 +34,7 @@ const MenuProps = {
         },
     },
 };
-const SelectType = ({ name, label, type, value, list, onChange, showLabel, unableUnderline, multiple, unableBoxShadow = true, error = false, classes, elemProps }) => (
+const SelectType = ({ name, label, type, value, list, onChange, showLabel, unableUnderline, multiple, unableBoxShadow = true, error = false, classes, elemProps = {} }) => (
     <FormElementWrapper label={label} showLabel={showLabel}>
         <FormControl
             style={elemProps.style ? { ...elemProps.style, ...fullwidth } : fullwidth}

@@ -655,6 +655,9 @@ button.submit {
 .text-right {
     text-align: right;
 }
+.text-left {
+    text-align: left;
+}
 .upload-container h6 {
     padding-left: 1rem;
     vertical-align: top;
