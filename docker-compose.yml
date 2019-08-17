@@ -12,6 +12,7 @@ services:
     environment:
       NODE_ENV: production
       PORT: 3000
+      ROOT_URL:
       MONGO_URL_PROD:
       MANGOPAY_CLIENTID:
       MANGOPAY_APIKEY:
