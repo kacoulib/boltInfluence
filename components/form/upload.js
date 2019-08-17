@@ -1,35 +1,32 @@
 
 import defaultUserImage from "../../static/img/upload-image.png";
+import { FormElementWrapper } from './index'
+import { useState } from "react";
+import PropTypes from 'prop-types'
 
-export default class PictureUpload extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            imageUpdated: false,
-            imagePreviewUrl: props.defaultValue || defaultUserImage
-        };
-    }
-
-    handleImageChange = (e) => {
+const UploadImageComp = ({ name, value, onChange, label, showLabel }) => {
+    const [state, setState] = useState({
+        imageUpdated: false,
+        imagePreviewUrl: value || defaultUserImage
+    })
+    const handleImageChange = (e) => {
         e.preventDefault();
         let reader = new FileReader();
         let file = e.target.files[0];
         reader.onloadend = () => {
-            this.setState({ imagePreviewUrl: reader.result, imageUpdated: true });
-            this.props.onChange && this.props.onChange(reader.result)
+            setState({ imagePreviewUrl: reader.result, imageUpdated: true });
+            onChange && onChange(reader.result)
         };
         if (file)
             reader.readAsDataURL(file);
     }
 
-    render() {
-        let { defaultImage, resetImage, label } = this.props;
-        let { imagePreviewUrl, imageUpdated } = this.state;
+    let { imagePreviewUrl, imageUpdated } = state;
 
-        if (defaultImage && (!imageUpdated || resetImage))
-            imagePreviewUrl = defaultImage;
-
-        return (
+    if (value && imageUpdated)
+        imagePreviewUrl = value;
+    return (
+        <FormElementWrapper label={label} showLabel={showLabel}>
             <div className="upload-container">
                 <div className="upload inline-block">
                     <img
@@ -37,10 +34,19 @@ export default class PictureUpload extends React.Component {
                         className="upload-src"
                         alt="..."
                     />
-                    <input type="file" onChange={e => this.handleImageChange(e)} />
+                    <input type="file" name={name} onChange={e => handleImageChange(e)} />
                 </div>
-                <h6 className="inline-block">{label}</h6>
+                {!showLabel && <h6 className="inline-block">{label}</h6>}
             </div>
-        );
-    }
+        </FormElementWrapper>
+
+    );
 }
+UploadImageComp.propTypes = {
+    name: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+    showLabel: PropTypes.bool,
+    label: PropTypes.string,
+}
+export default UploadImageComp

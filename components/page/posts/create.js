@@ -106,7 +106,7 @@ const Index = ({ selected = defaultState, isEdit = false }) => {
 
                 <FormGenerator
                     fields={fields}
-                    form={state}
+                    state={state}
                     onChange={onChange}
                 />
             </Grid>

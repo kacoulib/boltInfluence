@@ -37,14 +37,14 @@ const fields = [
 
 const Index = ({ selectedInfluencer }) => {
 
-    const [form, setForm] = useState({})
+    const [state, setState] = useState({})
 
     const onChange = (name, value) => {
         console.log(name, value)
-        setForm(Object.assign({}, form, { [name]: value }))
+        setState(Object.assign({}, state, { [name]: value }))
     };
     const onSubmit = async () => {
-        console.log(form)
+        console.log(state)
     };
 
 
@@ -57,10 +57,10 @@ const Index = ({ selectedInfluencer }) => {
             <Grid item xs={12} sm={12}>
                 <FormGenerator
                     fields={fields}
-                    form={form}
+                    state={state}
                     onChange={onChange}
                     onSubmit={onSubmit}
-                    setting={{ showLabel: { xs: 6 } }}
+                    settings={{ showLabel: { xs: 6 } }}
                 />
             </Grid>
             <Grid item xs={12} justify='center' className='center-text' style={styles.cancel}><a className='red-color'>Arrêter l'abonnement  (30 jours)</a>

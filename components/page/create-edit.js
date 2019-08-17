@@ -65,7 +65,7 @@ const Index = ({ selected = {}, isEdit = false, onSubmit, fields, path, editIden
             </Grid> */}
 
             <Grid item xs={12} sm={12}>
-                <FormGenerator fields={fields} form={state} onChange={onChange} />
+                <FormGenerator fields={fields} state={state} onChange={onChange} />
             </Grid>
             <Grid item xs={12} justify='center' className='center-text' style={styles.footer}>
                 <Button variant="contained" type="submit" className='submit large' onClick={() => onSubmit ? onSubmit(state) : handleOnSubmit()}>

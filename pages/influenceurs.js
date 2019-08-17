@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import Head from 'next/head';
 import Grid from '@material-ui/core/Grid';
 import withLayout from '../lib/withLayout';
@@ -7,10 +6,11 @@ import Screen8 from '../static/img/screen8.png'
 import Screen9 from '../static/img/screen9.png'
 import Screen10 from '../static/img/screen10.jpg'
 import Screen11 from '../static/img/screen11.png'
-import { Link } from '@material-ui/core';
+import { Link } from '../server/routes/next-routes';
 import Carousel from '../components/dataDisplay/others/carousel';
 import { darkBlueColor, darkOrangeColor, lightGray } from '../utils/variables/css'
 import { NextSeo } from 'next-seo';
+import Preregister from '../components/features/pre-register'
 
 const styles = {
 	cardContainer: {
@@ -45,11 +45,7 @@ const styles = {
 		width: '100%'
 	}
 }
-
-
 const Index = () => {
-	const onSubmit = () => console.log('submit')
-
 	return (
 		<div>
 			<NextSeo
@@ -149,6 +145,7 @@ const Index = () => {
 					</div>
 				</Grid>
 			</div>
+			<Preregister />
 		</div>
 	)
 }

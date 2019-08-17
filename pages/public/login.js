@@ -71,7 +71,7 @@ const fields = [
 ];
 
 const Login = () => {
-  const [form, setForm] = useState({
+  const [state, setState] = useState({
     firstName: 'Karim',
     lastName: 'Coulibaly',
     email: 'kacoulib@gmail.com',
@@ -81,9 +81,9 @@ const Login = () => {
   });
 
   const onChange = (name) => ({ target: { value } }) =>
-    setForm(Object.assign({}, form, { [name]: value }));
+    setState(Object.assign({}, state, { [name]: value }));
   const onSubmit = async () => {
-    const { login } = await basicAuth(form);
+    const { login } = await basicAuth(state);
 
     if (login) window.location = '/dashboard';
   };
@@ -133,7 +133,7 @@ const Login = () => {
       </Button>
 
       <div>
-        <FormGenerator fields={fields} form={form} onChange={onChange} />
+        <FormGenerator fields={fields} state={state} onChange={onChange} />
       </div>
       <div>
         <Button variant="contained" type="submit" className='submit large' onClick={() => onSubmit()}>

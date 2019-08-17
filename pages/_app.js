@@ -71,7 +71,7 @@ class MyApp extends App {
                     <CssBaseline />
                     <DefaultSeo
                         title='Bolt Influencer'
-                        description='Bolt Influence est la plateforme/agence de marketing d’influence référente qui permet de connecter les marques et les influenceurs sur Instagram, Tik Tok, Youtube, Twitch'
+                        description='Bolt Influence est la plateforme/agence de marketing d’influence référente qui permet de connecter les marques et les influenceurs sur Instagram, Tik Tok, Youtube, Twitch...'
                         openGraph={{
                             type: 'website',
                             locale: 'fr_FR',

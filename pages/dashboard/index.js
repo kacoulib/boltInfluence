@@ -29,7 +29,7 @@ const fields = [
 ]
 
 const MyBooks = () => {
-  const [form, setForm] = useState({
+  const [state, setState] = useState({
 
     firstName: "Karim",
     lastName: "Coulibaly",
@@ -39,7 +39,7 @@ const MyBooks = () => {
     phone: "0645100284",
   })
 
-  const onChange = (name) => ({ target: { value } }) => setForm(Object.assign({}, form, { [name]: value }));
+  const onChange = (name) => ({ target: { value } }) => setState(Object.assign({}, state, { [name]: value }));
   const onSubmit = async () => {
 
     console.log(res)
@@ -69,7 +69,7 @@ const MyBooks = () => {
 
         <FormGenerator
           fields={fields}
-          form={form}
+          state={state}
           onChange={onChange}
           onSubmit={onSubmit}
           toggleList={toggleList}

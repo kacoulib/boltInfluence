@@ -163,7 +163,7 @@ const Index = ({ faqs: { faqs } }) => {
 						<Grid item xs={12} sm={6}>
 							<FormGenerator
 								fields={fields}
-								form={state}
+								state={state}
 								label='test'
 								onChange={onChange}
 							/>
