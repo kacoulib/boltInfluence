@@ -68,7 +68,7 @@ io.on('connect', (socket) => {
 });
 
 const port = process.env.PORT || 8000;
-const ROOT_URL = `http://localhost:${port}`;
+const ROOT_URL = process.env.ROOT_URL || `http://localhost:${port}`;
 
 const URL_MAP = {
   '/login': '/public/login',
