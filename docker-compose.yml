@@ -1,0 +1,38 @@
+version: '3'
+services:
+  app:
+    build:
+      context: ./
+      args:
+        NODE_ENV: production
+    image: app
+    restart: always
+    ports:
+      - 3000:3000
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      MONGO_URL_PROD:
+      MANGOPAY_CLIENTID:
+      MANGOPAY_APIKEY:
+      MANGOPAY_BOLT_USERID:
+      Google_clientId:
+      Google_clientSecret:
+      Github_Test_ClientID:
+      Github_Test_SecretKey:
+      Instagram_clientId:
+      Instagram_clientSecret:
+      Twitter_consumerKey:
+      Twitter_consumerSecret:
+      Twitch_clientId:
+      Twitch_clientSecret:
+      Pinterest_clientId:
+      Pinterest_clientSecret:
+      Facebook_clientId:
+      Facebook_clientSecret:
+      CONTACT_RECIPIENT:
+      MAIL_HOST:
+      MAIL_PORT:
+      MAIL_SECURE:
+      MAIL_USER:
+      MAIL_PASS:

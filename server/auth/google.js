@@ -4,6 +4,7 @@ const { google } = require('googleapis');
 
 const User = require('../models/User');
 const { redirecAfterAuth } = require('./index');
+const { storeSignUpInfos, consumeSignUpInfos } = require('../utils/express');
 
 function auth({ ROOT_URL, app }) {
   const verify = async (accessToken, refreshToken, profile, verified) => {
@@ -73,6 +74,7 @@ function auth({ ROOT_URL, app }) {
 
   app.get(
     '/auth/google',
+    storeSignUpInfos,
     passport.authenticate('google', {
       scope: ['profile', 'email', 'https://www.googleapis.com/auth/youtube.readonly'],
       prompt: 'select_account',
@@ -84,6 +86,7 @@ function auth({ ROOT_URL, app }) {
     passport.authenticate('google', {
       failureRedirect: '/login',
     }),
+    consumeSignUpInfos,
     redirecAfterAuth,
   );
 }

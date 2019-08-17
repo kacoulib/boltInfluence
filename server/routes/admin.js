@@ -1,6 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 
+const CenterOfInterest = require('../models/CenterOfInterest');
 const Article = require('../models/Article');
 const Category = require('../models/Category');
 const Tag = require('../models/Tag');
@@ -87,6 +88,53 @@ router.post(
   kycFileUpload,
   verifyKycParams(User.addArticlesOfAssociationBySlug.bind(User)),
 );
+
+router.get(
+  '/users/:slug/ubos',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    const ubos = await User.getUbosBySlug({ slug });
+    res.json(ubos);
+  }),
+);
+
+router.post(
+  '/users/:slug/ubos',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    const ubos = req.body;
+    const newUbos = await User.createOrUpdateUbosBySlug({ slug, ubos });
+    res.json(newUbos);
+  }),
+);
+
+router.put(
+  '/users/:slug/ubos',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+    await User.submitUboDeclarationBySlug({ slug });
+    res.status(204).end();
+  }),
+);
+
+// router.post(
+//   '/users/:slug/ubo',
+//   handleErrors(async (req, res) => {
+//     const { slug } = req.params;
+//     const options = req.body;
+//     await User.createOrUpdateUboBySlug({ ...options, slug });
+//     res.status(204).end();
+//   }),
+// );
+
+// router.put(
+//   '/users/:slug/ubo',
+//   handleErrors(async (req, res) => {
+//     const { slug } = req.params;
+//     await User.submitUboDeclarationBySlug({ slug });
+//     res.status(204).end();
+//   }),
+// );
 
 router.get('/campaigns', listCollection(Campaign.list.bind(Campaign)));
 
@@ -227,7 +275,7 @@ router.get(
   }),
 );
 
-router.get('/articles', listCollection(Article.list.bind(Article)))
+router.get('/articles', listCollection(Article.list.bind(Article)));
 
 router.post(
   '/articles',
@@ -237,7 +285,7 @@ router.post(
     const article = await Article.add({ title, picture, content, tags, categories, social_medias, author: `${firstName} ${lastName}` });
     res.json(article);
   }),
-)
+);
 
 // Article
 router.get(
@@ -247,7 +295,7 @@ router.get(
     const article = await Article.getBySlug({ slug });
     res.json(article);
   }),
-)
+);
 
 router.put(
   '/articles/:slug',
@@ -257,7 +305,7 @@ router.put(
     const article = await Article.updateBySlug({ title, picture, content, tags, categories, slug });
     res.json(article);
   }),
-)
+);
 
 router.delete(
   '/articles/:slug',
@@ -266,7 +314,7 @@ router.delete(
     await Article.deleteBySlug({ slug });
     res.status(204).end();
   }),
-)
+);
 
 // Category
 router.get('/categories', listCollection(Category.list.bind(Category)))
@@ -387,6 +435,52 @@ router.delete(
   handleErrors(async (req, res) => {
     const { id } = req.params;
     await FAQ.deleteByid({ id });
+    res.status(204).end();
+  }),
+)
+
+// Center Of Interest
+router.get(
+  '/centersofinterest',
+  handleErrors(async (req, res) => {
+    const centersOfInterest = await CenterOfInterest.getAll();
+    res.json(centersOfInterest);
+  }),
+);
+
+router.post(
+  '/centersofinterest',
+  handleErrors(async (req, res) => {
+    const { name } = req.body;
+    const centerOfInterest = await CenterOfInterest.add({ name });
+    res.json(centerOfInterest);
+  }),
+);
+
+router.get(
+  '/centersofinterest/:name',
+  handleErrors(async (req, res) => {
+    const { name } = req.params;
+    const centerOfInterest = await CenterOfInterest.getByName({ name });
+    res.json(centerOfInterest);
+  }),
+);
+
+router.put(
+  '/centersofinterest/:name',
+  handleErrors(async (req, res) => {
+    const { name: origName } = req.params;
+    const { name: newName } = req.body;
+    const centerOfInterest = await CenterOfInterest.updateByName({ origName, newName });
+    res.json(centerOfInterest)
+  }),
+)
+
+router.delete(
+  '/centersofinterest/:name',
+  handleErrors(async (req, res) => {
+    const { name } = req.params;
+    const centerOfInterest = await CenterOfInterest.deleteByName({ name});
     res.status(204).end();
   }),
 )

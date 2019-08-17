@@ -1,5 +1,7 @@
 const express = require('express');
+const escape = require('escape-html');
 
+const EmailTemplate = require('../models/EmailTemplate');
 const KycValidation = require('../models/KycValidation');
 const Payment = require('../models/Payment');
 const PaymentOperation = require('../models/PaymentOperation');
@@ -9,6 +11,7 @@ const FAQ = require('../models/FAQ');
 const Category = require('../models/Category');
 const { isTransferIn, isTransferOut } = require('../../utils/variables/paymentoperation');
 const { handleErrors, listCollection } = require('../utils/express');
+const { sendMail } = require('../utils/nodemailer');
 const logger = require('../logs');
 // const Book = require('../models/Book');
 // const Chapter = require('../models/Chapter');
@@ -125,11 +128,12 @@ router.get(
 router.get(
   '/articles',
   handleErrors(async (req, res) => {
-    const articles = await Article.list.bind(Article)()
-    const categories = await Category.list.bind(Category)()
+    const articles = await Article.list.bind(Article)();
+    const categories = await Category.list.bind(Category)();
 
-    res.json({ ...articles, ...categories, });
-  }))
+    res.json({ ...articles, ...categories });
+  }),
+);
 
 router.get(
   '/articles/:slug',
@@ -138,25 +142,55 @@ router.get(
     const article = await Article.getBySlug({ slug });
     res.json(article);
   }),
-)
+);
 
-router.get('/faqs', listCollection(FAQ.list.bind(FAQ)))
+router.get('/faqs', listCollection(FAQ.list.bind(FAQ)));
 
-router.get('/faq/search', handleErrors(async (req, res) => {
-  const faqs = await FAQ.list.bind(FAQ)
+router.get(
+  '/faq/search',
+  handleErrors(async (req, res) => {
+    const faqs = await FAQ.list.bind(FAQ);
 
-  // nextApp.render(req, res, '/contact/apropos', {
-  //   ...faqs,
-  // })
-}))
+    // nextApp.render(req, res, '/contact/apropos', {
+    //   ...faqs,
+    // })
+  }),
+);
 
 router.get(
   '/blogs',
   handleErrors(async (req, res) => {
-    const articles = await Article.list.bind(Article)()
-    const categories = await Category.list.bind(Category)()
+    const articles = await Article.list();
+    const categories = await Category.list();
 
     res.json({ ...articles, ...categories });
-  }))
+  }),
+);
+
+router.post(
+  '/contact',
+  handleErrors(async (req, res) => {
+    const { firstName, lastName, email, phoneNumber, company, /* sector?, */ position, message } = req.body;
+    const params = {
+      firstName: escape(firstName),
+      lastName: escape(lastName),
+      email: escape(email),
+      phoneNumber: escape(phoneNumber),
+      company: escape(company),
+      position: escape(position),
+      message: escape(message),
+    }
+    const { template } = await EmailTemplate.getFilledBySlug({
+      slug: "contact",
+      params,
+    });
+    await sendMail({
+      to: process.env.CONTACT_RECIPIENT,
+      subject: template.subject,
+      content: template.message,
+    });
+    res.status(204).end();
+  }),
+)
 
 module.exports = router;

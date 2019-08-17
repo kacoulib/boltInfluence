@@ -3,30 +3,40 @@ const express = require('express');
 const Article = require('../../models/Article');
 const Category = require('../../models/Category');
 const FAQ = require('../../models/FAQ');
-const { handleErrors, listCollection, serverListCollection, verifyKycParams } = require('../../utils/express');
+const {
+  handleErrors,
+  listCollection,
+  serverListCollection,
+  verifyKycParams,
+} = require('../../utils/express');
 
 const router = express.Router();
 
-
 module.exports = (nextApp) => {
+  router.get(
+    '/notre-methode/blog',
+    handleErrors(async (req, res) => {
+      console.log('NOTRE METHODE BLOG');
+      const articles = await Article.list.bind(Article)();
+      const categories = await Category.list.bind(Category)();
 
-  router.get('/notre-methode/blog', handleErrors(async (req, res) => {
-    const articles = await Article.list.bind(Article)()
-    const categories = await Category.list.bind(Category)()
+      nextApp.render(req, res, '/notre-methode/blog', {
+        ...articles,
+        ...categories,
+      });
+    }),
+  );
 
-    nextApp.render(req, res, '/notre-methode/blog', {
-      ...articles,
-      ...categories,
-    })
-  }))
+  router.get(
+    '/contact/apropos',
+    handleErrors(async (req, res) => {
+      const faqs = await FAQ.list.bind(FAQ)();
 
-  router.get('/contact/apropos', handleErrors(async (req, res) => {
-    const faqs = await FAQ.list.bind(FAQ)()
-
-    nextApp.render(req, res, '/contact/apropos', {
-      ...faqs,
-    })
-  }))
+      nextApp.render(req, res, '/contact/apropos', {
+        ...faqs,
+      });
+    }),
+  );
 
   router.get(
     '/notre-methode/blog/:slug',
@@ -36,9 +46,9 @@ module.exports = (nextApp) => {
 
       nextApp.render(req, res, '/notre-methode/blog/single', {
         ...article,
-      })
+      });
     }),
-  )
+  );
   // router.get('/posts', async (req, res) => {
   //   return nextApp.render(req, res, '/admin/posts', {
   //     articles: await Article.count(),
@@ -48,8 +58,8 @@ module.exports = (nextApp) => {
   //   })
   // });
 
-  return router
-}
+  return router;
+};
 
 /* TODO: Add input validation to routes */
 /* TODO Front:
