@@ -22,9 +22,10 @@ const menuList = [
 	{ title: 'Influenceurs', text: "Influenceurs", href: '/influenceurs' },
 	{ title: "La vidéo d'influence", text: "La vidéo d'influence", href: '/video-influenceurs' },
 	{
-		title: 'Notre méthode', text: "Notre méthode", href: '/notre-methode', child: [
-			{ title: 'Blog', text: "Blog", href: '/notre-methode/blog', },
-		]
+		title: 'Notre méthode', text: "Notre méthode", href: '/notre-methode',
+		// child: [
+		// 	{ title: 'Blog', text: "Blog", href: '/notre-methode/blog', },
+		// ]
 	},
 	{
 		title: 'Contactez-nous', text: "Contactez-nous", href: '/contact', child: [
