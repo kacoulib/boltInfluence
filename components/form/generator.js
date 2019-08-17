@@ -9,10 +9,6 @@ import Select from './select';
 import Radio from './radio';
 import Upload from './upload';
 import Checkbox from './checkbox';
-import InputLabel from '@material-ui/core/InputLabel';
-import Chip from '@material-ui/core/Chip';
-import Input from '@material-ui/core/Input';
-import MenuItem from '@material-ui/core/MenuItem';
 import ReactSelect from './reactSelect'
 import ColorPicker from 'material-ui-color-picker'
 import TextField from './text-field'
@@ -25,49 +21,6 @@ import TextField from './text-field'
         errors={[]}
         settings={{ showLabel: { xs: 6 } }}
     />
-
-    // input
-    const form = [{ //input
-        label: "Nom de la marque",
-        name: "name",
-        type: 'input',
-        required: true,
-        disableUnderline: true,
-        width: 4,
-        formControlStyle: {},
-        props: {
-            style: {},
-        },
-    }]
-
-    // select
-    const select = {
-
-    {
-        label: "Description",
-        name: "description",
-        type: 'textarea',
-        required: true,
-        width: 4
-        }
-    ]
-    // ReactSelect
-    const select = {
-
-    {
-        label: "Description",
-        name: "description",
-        type: 'react-select',
-        required: true,
-        width: 4,
-        props: {
-            list: [
-                { value: 'chocolate', label: 'Chocolate' },
-                ...
-            ]
-        }
-    }
-    ]
 */
 const styles = theme => ({
     root: {
@@ -127,13 +80,11 @@ const FormGenerator = ({ fields, classes, state, onChange, toggleList, settings 
                         const elemProps = elem.props;
                         const inputDefaultProps = elemProps && elemProps.defaultValue ? elemProps.defaultValue : '';
                         const error = errors.includes(elem.name);
-                        const elemSettings = {
-                            unableUnderline: settings.unableUnderline,
-                            unableBoxShadow: settings.unableBoxShadow
-                        }
+                        const elemSettings = settings
+                        const containerStyle = elem.type == 'checkbox' ? { paddingTop: 0, paddingBottom: 0 } : {}
 
                         return (
-                            <Grid key={key} item {...dimentions}>
+                            <Grid key={key} item {...dimentions} style={containerStyle}>
                                 {textTypes.includes(elem.type) && (
                                     <TextField
                                         error={error}
@@ -218,16 +169,7 @@ const FormGenerator = ({ fields, classes, state, onChange, toggleList, settings 
                                         </ Grid>
                                     )
                                     || elem.type == 'checkbox' && (
-                                        <Grid container>
-                                            {showLabel && <Grid item {...labelSpacing}>{elem.label}</Grid>}
-
-                                            <Grid item {...labelSpacing}>
-
-                                                <div>
-                                                    <Checkbox name={elem.name} label={elem.label} value={state[elem.name]} onChange={onChange} {...elemProps} />
-                                                </div>
-                                            </ Grid>
-                                        </ Grid>
+                                        <Checkbox name={elem.name} label={elem.label} value={state[elem.name]} onChange={handleChange} {...elemProps} />
                                     )
                                     || elem.type == 'color' && (
                                         <Grid container>
