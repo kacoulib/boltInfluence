@@ -15,7 +15,6 @@ const fields = [{
     required: true,
     props: {
         style: {
-            padding: 5,
             backgroundColor: lightGray,
         }
     }
@@ -28,7 +27,6 @@ const fields = [{
     required: true,
     props: {
         style: {
-            padding: 5,
             backgroundColor: lightGray,
         }
     }
@@ -41,7 +39,6 @@ const fields = [{
     disableUnderline: true,
     props: {
         style: {
-            padding: 5,
             backgroundColor: lightGray,
         }
     }
@@ -54,7 +51,6 @@ const fields = [{
     required: true,
     props: {
         style: {
-            padding: 5,
             backgroundColor: lightGray,
         }
     }
@@ -67,7 +63,6 @@ const fields = [{
     required: true,
     props: {
         style: {
-            padding: 5,
             backgroundColor: lightGray,
         }
     }
@@ -81,7 +76,6 @@ const fields = [{
     required: true,
     props: {
         style: {
-            padding: 5,
             backgroundColor: lightGray,
         }
     }
@@ -94,7 +88,6 @@ const fields = [{
     disableUnderline: true,
     props: {
         style: {
-            padding: 5,
             backgroundColor: lightGray,
         }
     }
@@ -107,7 +100,6 @@ const fields = [{
     list: [{ name: 'Mr', value: 'Mr' }, { name: 'Mme', value: 'Mme' }],
     props: {
         style: {
-            // padding: 5,
             backgroundColor: lightGray,
         },
     }

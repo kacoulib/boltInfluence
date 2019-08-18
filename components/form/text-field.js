@@ -38,7 +38,7 @@ const TextFieldComp = ({ name, label, type, value, onChange, showLabel, unableUn
                 // style={{ width: '100%' }}
                 rows={8}
                 variant={variant}
-                // {...elemProps}
+                {...elemProps}
                 rowsMax={10}
             />
         </FormElementWrapper>
