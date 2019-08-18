@@ -104,12 +104,8 @@ const fields = [{
     name: "activity",
     type: 'select',
     required: true,
-    disableUnderline: true,
-    formControlStyle: {
-        backgroundColor: lightGray
-    },
+    list: [{ name: 'Mr', value: 'Mr' }, { name: 'Mme', value: 'Mme' }],
     props: {
-        list: [{ name: 'Mr', value: 'Mr' }, { name: 'Mme', value: 'Mme' }],
         style: {
             // padding: 5,
             backgroundColor: lightGray,

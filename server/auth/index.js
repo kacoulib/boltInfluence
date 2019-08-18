@@ -6,7 +6,7 @@ module.exports = {
 
         if (req.isAuthenticated() && user) {
             if (RoleList.includes(user.role))
-                res.redirect('/dashboard')
+                res.redirect('/admin/posts')
             else
                 req.logout();
         } else {

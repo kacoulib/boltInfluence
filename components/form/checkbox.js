@@ -23,23 +23,12 @@ const styles = {
 };
 
 const CheckboxType = ({ classes, label, value, onChange, name = '' }) => {
-    // const [val, setValue] = useState(value)
-
-    // const handleChange = ({ target: { value } }) => {
-    //     setValue(value);
-    //     console.log('(', value, ')')
-    //     onChange(name, value)
-    // };
-
-    console.log(name, ' ', value)
-
-
+    
     return (
-
         <FormGroup row classes={{ root: classes.group }}>
             <FormControlLabel
                 control={
-                    <Checkbox checked={value} onChange={onChange(name)} value={value} classes={{ root: classes.Checkbox, checked: classes.checked }}
+                    <Checkbox checked={value} onChange={() => onChange(name, !value)} value={value} classes={{ root: classes.Checkbox, checked: classes.checked }}
                     />
                 }
                 label={label}

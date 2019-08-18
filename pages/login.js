@@ -96,10 +96,10 @@ const Login = () => {
     //   window.location = '/dashboard';
   };
   const socialsList = ['facebook', 'instagram', 'youtube', 'twitter', 'twitch', 'pinterest', 'tiktok', 'linkedin'];
-  console.log(state)
+
   return (
-    <div id="login" style={{ textAlign: 'center', padding: '0 20px' }} className='card-bg dots-pink reverse left'>
-      <h1>{state.showRegister ? 'S’inscrire' : 'Connexion'}</h1>
+    <div id="login" className='card-bg dots-pink reverse left'>
+      <h1 className='text-center'>{state.showRegister ? 'S’inscrire' : 'Connexion'}</h1>
       <Grid container className='text-center'>
         <Grid item sm={6} xs={6} justify="center" alignItems="center" className='text-center'>
           <h2>Réseau social</h2>
@@ -110,7 +110,7 @@ const Login = () => {
         <Grid container item sm={6} xs={6} justify="center" className='text-center'>
           <ul id='social_container'>
             {socialsList && socialsList.map((elem, index) => (
-              <li key={index}><SocialBtn type={elem} text={Ucfirst(elem)} /></li>
+              <li key={index}><SocialBtn type={elem} text={Ucfirst(elem)} href={`/auth/${elem}`} /></li>
             ))}
           </ul>
         </Grid>
@@ -133,6 +133,9 @@ const Login = () => {
       </Grid>
 
       <style jsx>{`
+        #login {
+          padding: 2rem 0;
+        }
         .dots-pink::before {
           opacity: .5;
         }
@@ -147,7 +150,7 @@ const Login = () => {
           margin: .5rem 0;
         }
         #submit {
-          padding: 1rem;
+          padding: 1.5rem;
         }
       `}</style>
     </div>
