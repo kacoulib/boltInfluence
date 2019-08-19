@@ -39,9 +39,9 @@ const menuList = [
 const displayMenuList = (list, i) => (
 	list.map((elem) => (
 		<li key={++i}>
-			<Link href={elem.href}><a title={elem.title}>{elem.text}</a></Link>
+			<Link href={elem.href}><a className={`${elem.child ? 'to-hide menu-link' : ''}`} title={elem.title}><span>{elem.text}</span>{elem.child && <span className='triangle down'></span>}</a></Link>
 			{elem.child && <>
-				<label htmlFor={`drop-${i}`} className="toggle-head">{elem.text} +</label>
+				<label htmlFor={`drop-${i}`} className="toggle-head menu-link"><span>{elem.text}</span> <span className='triangle down'></span></label>
 				<input type="checkbox" id={`drop-${i}`} />
 				<ul className="nav-dropdown">
 					{displayMenuList(elem.child, i)}
@@ -52,18 +52,21 @@ const displayMenuList = (list, i) => (
 	))
 )
 
-const Header = ({ user }) => (
+const Header = () => (
 	<header id='header'>
 		<Toolbar>
 			<Grid container alignItems="center" justify="center">
 				<Grid container item sm={12} xs={12} alignItems="center" justify="center">
-					<img src={iconFlagFr} style={styles.iconFlagFr} />
+					<img src={iconFlagFr} style={styles.iconFlagFr} className='responsive-hide' />
+					<Link href='/'><a title='home BoltInfluence'><img src={logo} id='logo' className='responsive-show' /></a></Link>
+
 				</Grid>
 				<Grid container item sm={12} xs={12} alignItems="center" justify="center">
-					<Grid item align="center" sm={1} xs={12}>
-						<Link href='/'><a title='home BoltInfluence'><img src={logo} className='fullwidth' /></a></Link>
+					<Grid item align="center" sm={1} xs={2} id='menu-left'>
+						<img src={iconFlagFr} style={styles.iconFlagFr} className='responsive-show' />
+						<Link href='/'><a title='home BoltInfluence'><img src={logo} id='logo' className='responsive-hide' /></a></Link>
 					</Grid>
-					<Grid item align="center" sm={10}>
+					<Grid item align="center" sm={10} xs={8}>
 						<Grid container alignItems="center">
 							<nav>
 								<label htmlFor="drop" className="toggle-head">☰</label>
@@ -75,7 +78,7 @@ const Header = ({ user }) => (
 
 						</Grid>
 					</Grid>
-					<Grid item style={{ padding: '10px', textAlign: 'right' }} sm={1} xs={12}>
+					<Grid item style={{ padding: '10px', textAlign: 'right' }} sm={1} xs={2} id='menu-right'>
 						<Link href='/login'><a title='login'><Avatar style={styles.avatar} src={userIconWhite} /></a></Link>
 					</Grid>
 				</Grid>

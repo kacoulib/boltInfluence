@@ -66,44 +66,47 @@ const Index = () => {
 	const [state, setState] = useState({
 		activeTarif: 1,
 		tarifs: [{
-			title: 'Basic',
-			description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit.',
-			list: ['Lorem ipsum dolor sit amet', 'Lorem ipsum dolor sit amet', 'Lorem ipsum dolor sit amet', 'Lorem ipsum dolor sit amet']
+			title: 'Startups',
+			description: 'Prix : 199€',
+			href: '#',
+			list: ["Accès à X influenceurs", "1 compte unique, langues illimitées, 1 marque", "Gestion de campagnes et rapports personnalisés sur les retombées (Youtube, Instagram, Twitter, Facebook)", "Création illimitée de campagne (choix de 25 influenceurs maximum)", "Choix des influenceurs selon le profil, les centre d’intérêts, l’âge, le tarif, …", "Support email et téléphonique", "Abonnement sans engagement (résiliation en un clic)", "Recherche d’influenceurs limitée à 100 par mois avec le détail"]
 		}, {
-			title: 'Pro',
-			description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit.',
-			list: ['Lorem ipsum dolor sit amet', 'Lorem ipsum dolor sit amet', 'Lorem ipsum dolor sit amet', 'Lorem ipsum dolor sit amet']
+			title: 'Marque',
+			description: 'Prix : Nous consulter',
+			href: '/annonceurs',
+			list: ["Accès à l’ensemble des influenceurs de la plateforme avec leurs statistiques détaillées + possibilité d’export CSV + PDF", "Comptes illimités", "Gestion de campagnes et rapports personnalisés sur les retombées (Tik Tok, Youtube, Instagram, Twitch, Snapchat, Twitter, Facebook, Linkedin, Pinterest, blog) + possibilité d’export CSV + PDF	", "Outil de détection des faux influenceurs pour des campagnes authentiques.", "Création illimitée de campagne (nombre influenceurs illimités)", "Une validation avant la publication des influenceurs de leurs contenus photos et/ou vidéos", "Choix des influenceurs selon le profil, le centre d’intérêt, l’âge, le tarif, …", "Support email et téléphonique avec un contact privilégié", "Abonnement sans engagement (résiliation en un clic)", "Possibilité de créer des campagnes avec une rémunération pour les influenceurs ou de la dotation de produits", "Un conseiller unique et dédié par mail et téléphone tout au long de vos campagnes", "Accéder à la nouvelle technologie « In Video » pour un placement de produit innovant pour vos campagnes de marketing d’influence"]
 		}, {
-			title: 'Entreprise',
-			description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit.',
-			list: ['Lorem ipsum dolor sit amet', 'Lorem ipsum dolor sit amet', 'Lorem ipsum dolor sit amet', 'Lorem ipsum dolor sit amet']
+			title: 'Agence',
+			description: 'Prix : Nous consulter',
+			href: '/annonceurs/agence',
+			list: ["Accès à l’ensemble des influenceurs de la plateforme avec leurs statistiques détaillées + possibilité d’export CSV + PDF", "Possibilité d’avoir plusieurs comptes de marques", "Comptes illimités", "Gestion de campagnes et rapports personnalisés sur les retombées par compte de marques (Tik Tok, Youtube, Instagram, Twitch, Snapchat, Twitter, Facebook, Linkedin, Pinterest, blog) + possibilité d’export CSV + PDF	", "Outil de détection des faux influenceurs pour des campagnes authentiques.", "Création illimitée de campagne (nombre influenceurs illimités)", "Une validation avant la publication des influenceurs de leurs contenus photos et/ou vidéos", "Choix des influenceurs selon le profil, le centre d’intérêt, l’âge, le tarif, …", "Support email et téléphonique avec un contact privilégié", "Abonnement sans engagement (résiliation en un clic)", "Possibilité de créer des campagnes avec une rémunération pour les influenceurs ou de la dotation de produits", "Un conseiller unique et dédié par mail et téléphone tout au long de vos campagnes", "Accéder à la nouvelle technologie « In Video » pour un placement de produit innovant pour vos campagnes de marketing d’influence."]
 		}],
 		advantages: [{
 			title: 'La plateforme',
 			list: [
-				{ title: 'Lorem opsum dolor sit', basic: 'Pas de frais', pro: 'Pas de frais', entreprise: 'Pas de frais' },
-				{ title: 'Lorem opsum dolor sit', basic: '3', pro: '5', entreprise: '10' },
-				{ title: 'Lorem opsum dolor sit', basic: <span className='tiny-icon valide-black'></span>, pro: <span className='tiny-icon valide-black'></span>, entreprise: 'Pas de frais' },
-				{ title: 'Lorem opsum dolor sit', basic: '', pro: <span className='tiny-icon valide-black'></span>, entreprise: <span className='tiny-icon valide-black'></span> },
-				{ title: 'Lorem opsum dolor sit', basic: <span className='tiny-icon valide-black'></span>, pro: <span className='tiny-icon valide-black'></span>, entreprise: 'Pas de frais' },
+				{ title: 'Lorem opsum dolor sit', Startups: 'Pas de frais', Marque: 'Pas de frais', Agence: 'Pas de frais' },
+				{ title: 'Lorem opsum dolor sit', Startups: '3', Marque: '5', Agence: '10' },
+				{ title: 'Lorem opsum dolor sit', Startups: <span className='tiny-icon valide-black'></span>, Marque: <span className='tiny-icon valide-black'></span>, Agence: 'Pas de frais' },
+				{ title: 'Lorem opsum dolor sit', Startups: '', Marque: <span className='tiny-icon valide-black'></span>, Agence: <span className='tiny-icon valide-black'></span> },
+				{ title: 'Lorem opsum dolor sit', Startups: <span className='tiny-icon valide-black'></span>, Marque: <span className='tiny-icon valide-black'></span>, Agence: 'Pas de frais' },
 			]
 		}, {
 			title: 'Influenceurs',
 			list: [
-				{ title: 'Lorem opsum dolor sit', basic: 'Pas de frais', pro: 'Pas de frais', entreprise: 'Pas de frais' },
-				{ title: 'Lorem opsum dolor sit', basic: '3', pro: '5', entreprise: '10' },
-				{ title: 'Lorem opsum dolor sit', basic: <span className='tiny-icon valide-black'></span>, pro: <span className='tiny-icon valide-black'></span>, entreprise: 'Pas de frais' },
-				{ title: 'Lorem opsum dolor sit', basic: '', pro: <span className='tiny-icon valide-black'></span>, entreprise: <span className='tiny-icon valide-black'></span> },
-				{ title: 'Lorem opsum dolor sit', basic: <span className='tiny-icon valide-black'></span>, pro: <span className='tiny-icon valide-black'></span>, entreprise: 'Pas de frais' },
+				{ title: 'Lorem opsum dolor sit', Startups: 'Pas de frais', Marque: 'Pas de frais', Agence: 'Pas de frais' },
+				{ title: 'Lorem opsum dolor sit', Startups: '3', Marque: '5', Agence: '10' },
+				{ title: 'Lorem opsum dolor sit', Startups: <span className='tiny-icon valide-black'></span>, Marque: <span className='tiny-icon valide-black'></span>, Agence: 'Pas de frais' },
+				{ title: 'Lorem opsum dolor sit', Startups: '', Marque: <span className='tiny-icon valide-black'></span>, Agence: <span className='tiny-icon valide-black'></span> },
+				{ title: 'Lorem opsum dolor sit', Startups: <span className='tiny-icon valide-black'></span>, Marque: <span className='tiny-icon valide-black'></span>, Agence: 'Pas de frais' },
 			]
 		}, {
-			title: 'Entreprise',
+			title: 'Agence',
 			list: [
-				{ title: 'Lorem opsum dolor sit', basic: 'Pas de frais', pro: 'Pas de frais', entreprise: 'Pas de frais' },
-				{ title: 'Lorem opsum dolor sit', basic: '3', pro: '5', entreprise: '10' },
-				{ title: 'Lorem opsum dolor sit', basic: <span className='tiny-icon valide-black'></span>, pro: <span className='tiny-icon valide-black'></span>, entreprise: 'Pas de frais' },
-				{ title: 'Lorem opsum dolor sit', basic: '', pro: <span className='tiny-icon valide-black'></span>, entreprise: <span className='tiny-icon valide-black'></span> },
-				{ title: 'Lorem opsum dolor sit', basic: <span className='tiny-icon valide-black'></span>, pro: <span className='tiny-icon valide-black'></span>, entreprise: 'Pas de frais' },
+				{ title: 'Lorem opsum dolor sit', Startups: 'Pas de frais', Marque: 'Pas de frais', Agence: 'Pas de frais' },
+				{ title: 'Lorem opsum dolor sit', Startups: '3', Marque: '5', Agence: '10' },
+				{ title: 'Lorem opsum dolor sit', Startups: <span className='tiny-icon valide-black'></span>, Marque: <span className='tiny-icon valide-black'></span>, Agence: 'Pas de frais' },
+				{ title: 'Lorem opsum dolor sit', Startups: '', Marque: <span className='tiny-icon valide-black'></span>, Agence: <span className='tiny-icon valide-black'></span> },
+				{ title: 'Lorem opsum dolor sit', Startups: <span className='tiny-icon valide-black'></span>, Marque: <span className='tiny-icon valide-black'></span>, Agence: 'Pas de frais' },
 			]
 		}],
 	})
@@ -121,9 +124,9 @@ const Index = () => {
 						{state.tarifs && state.tarifs.map((elem, index) => (
 							<li key={index} className={index == state.activeTarif ? 'active-tarif' : ''} onMouseOver={() => handleActive(index)}>
 								<h2 className='red-color text-center'>{elem.title}</h2>
-								<p className='justify'>{elem.description}</p>
+								<p className='justify bold text-center'>{elem.description}</p>
 								<div className='center-text auto'>
-									<Link href='#'><a title='Demander une démo' className='red-btn' style={styles.button}>Demander une démo</a></Link>
+									<Link href={elem.href}><a title='Demander une démo' className='red-btn' style={styles.button}>Demander une démo</a></Link>
 								</div>
 								<ul>
 									{elem.list && elem.list.map((e, i) => (<li><span className='tiny-icon valide-red'></span><p className='inline-block'>{e}</p></li>))}
@@ -140,9 +143,9 @@ const Index = () => {
 					<Grid container item>
 						<Grid container item xs={4} sm={8}></Grid>
 						<Grid container item xs={8} sm={4} style={styles.tableHead} className='text-center bold'>
-							<Grid item xs={4} sm={4}>Basic</Grid>
-							<Grid item xs={4} sm={4}>Pro</Grid>
-							<Grid item xs={4} sm={4}>Entreprise</Grid>
+							<Grid item xs={4} sm={4}>Startups</Grid>
+							<Grid item xs={4} sm={4}>Marque</Grid>
+							<Grid item xs={4} sm={4}>Agence</Grid>
 						</Grid>
 					</Grid>
 					{state.advantages && state.advantages.map((elem, index) => (
@@ -152,9 +155,9 @@ const Index = () => {
 								<Grid container item key={i} className={i % 2 == 0 ? 'light-gray-bg' : ''} style={styles.verticalPadding}>
 									<Grid item xs={4} sm={8}>{e.title}</Grid>
 									<Grid item container xs={8} sm={4} className='text-center'>
-										<Grid item xs={4} sm={4}>{e.basic}</Grid>
-										<Grid item xs={4} sm={4}>{e.pro}</Grid>
-										<Grid item xs={4} sm={4}>{e.entreprise}</Grid>
+										<Grid item xs={4} sm={4}>{e.Startups}</Grid>
+										<Grid item xs={4} sm={4}>{e.Marque}</Grid>
+										<Grid item xs={4} sm={4}>{e.Agence}</Grid>
 									</Grid>
 								</Grid>
 							))}

@@ -30,14 +30,25 @@ body a {
     background: #252b40;
     z-index: 3;
 }
-#header a {
+#header a, .menu label {
     color: #FFF;
 	text-align: center;
 	font-weight: bold;
 	font-size: 1rem;
 }
 /* NAV */
-
+.menu-link span:nth-child(1) {
+    padding-right: 5px;
+}
+.menu-link span {
+    vertical-align: middle;
+}
+#menu-left img {
+    width: 100%;
+}
+.toggle-head {
+    color: #FFF;
+}
 .toggle-head,
 [id^=drop] {
 	display: none;
@@ -136,8 +147,8 @@ nav ul ul ul li {
 
 	
 /* Change ' +' in order to change the Dropdown symbol */
-li > a:after { content:  ' +'; }
-li > a:only-child:after { content: ''; }
+/* li > a:after { content:  ' +'; }
+li > a:only-child:after { content: ''; } */
 
 
 /* Media Queries
@@ -205,12 +216,6 @@ li > a:only-child:after { content: ''; }
 		font-size:17px; 
 	}
   
-  
-	nav ul li ul li .toggle,
-	nav ul ul a {
-		background-color: #212121; 
-	}
-
 	/* Hide Dropdowns by Default */
 	nav ul ul {
 		float: none;
@@ -600,6 +605,26 @@ li > a:only-child:after { content: ''; }
 }
 
 /* OTHER */
+.triangle {
+    border: solid white;
+    border-width: 0 1px 1px 0;
+    display: inline-block;
+    padding: 3px;
+}
+.triangle.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+.triangle.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+.responsive-show {
+    display: none!important;
+}
+.responsive-hide {
+    display: block!important;
+}
 .divider {
     position: relative;
 }
@@ -1011,6 +1036,35 @@ button.submit {
 
 
 @media all and (max-width : 400px) {
+
+    #menu-left {
+        margin-right: auto;
+        text-align: left;
+    }
+    #menu-left img {
+        width: initial;
+    }
+    .responsive-show {
+        display: block!important;
+    }
+    .responsive-hide {
+        display: none!important;
+    }
+    nav > .toggle-head {
+        font-size: 1.5rem
+    }
+    .toggle-head {
+        display: block;
+    }
+    a.to-hide {
+        display: none;
+    }
+    .MuiAvatar-root {
+        margin-left: auto;
+    }
+    #header nav a, #header ul li label {
+        padding: 5px;
+    }
     #home #contact-us {
         padding: 1rem;
     }
