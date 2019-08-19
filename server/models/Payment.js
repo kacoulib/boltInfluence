@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const User = require('./User');
+const Commission = require('./Commission');
 const PaymentOperation = require('./PaymentOperation');
 const { isAwaitingFunding, isAwaitingValidation } = require('../../utils/variables/campaignoffer');
 const {
@@ -12,6 +13,7 @@ const {
   PaymentExecutionList,
   PaymentStatusList,
 } = require('../../utils/variables/payment');
+const { CommissionPlaces } = require('../../utils/variables/commission');
 const { TransferIn, PayOut } = require('../../utils/variables/paymentoperation');
 const { createTransfer, createPayOut } = require('../utils/mangopay');
 const logger = require('../logs');
@@ -147,6 +149,7 @@ class PaymentClass {
     if (!payment.debitedUser.mangopay.id || !payment.debitedUser.mangopay.wallet) {
       throw new Error('User cannot be debited');
     }
+    const fees = await Commission.get(CommissionPlaces.TRANSFER_IN_ESCROW);
 
     let transfer;
 
@@ -156,6 +159,7 @@ class PaymentClass {
         debitedWallet: payment.debitedUser.mangopay.wallet,
         creditedWallet: payment.offer.mangopay.wallet,
         amount: payment.amount,
+        fees,
       })).transfer;
     } catch (err) {
       logger.error(err);
@@ -222,6 +226,7 @@ class PaymentClass {
     ) {
       throw new Error('User cannot be credited');
     }
+    const fees = await Commission.get(CommissionPlaces.BANKWIRE_PAYOUT);
 
     let payout;
 
@@ -231,6 +236,7 @@ class PaymentClass {
         debitedWallet: payment.creditedUser.mangopay.wallet,
         bankAccount: payment.creditedUser.mangopay.bankAccount,
         amount: payment.amount,
+        fees,
       })).payout;
     } catch (err) {
       logger.error(err);

@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const Stat = require('./Stat');
 const Payment = require('./Payment');
+const Commission = require('./Commission');
 const PaymentOperation = require('./PaymentOperation');
 const User = require('./User');
 const {
@@ -30,6 +31,7 @@ const {
 const logger = require('../logs');
 const { Failed } = require('../../utils/variables/payment');
 const { PayIn, TransferOut } = require('../../utils/variables/paymentoperation');
+const { CommissionPlaces } = require('../../utils/variables/commission');
 const { Open, Close } = require('../../utils/variables/stat');
 
 const { Schema } = mongoose;
@@ -244,6 +246,7 @@ class CampaignOfferClass {
     if (!user.mangopay.wallet) {
       throw new Error('User has no wallet');
     }
+    const fees = await Commission.get(CommissionPlaces.CARD_DIRECT_PAYIN);
     const { payment } = await Payment.add({
       offer: offer._id,
       amount: offer.campaign.budget,
@@ -256,6 +259,7 @@ class CampaignOfferClass {
         card,
         amount: offer.campaign.budget,
         creditedWallet: user.mangopay.wallet,
+        fees,
       })).payin;
     } catch (err) {
       logger.error(err);
@@ -289,6 +293,7 @@ class CampaignOfferClass {
     if (!user.mangopay.wallet) {
       throw new Error('User has no wallet');
     }
+    const fees = await Commission.get(CommissionPlaces.BANKWIRE_DIRECT_PAYIN);
 
     const { payment } = await Payment.add({
       offer: offer._id,
@@ -302,6 +307,7 @@ class CampaignOfferClass {
         user: user.mangopay.id,
         amount: offer.campaign.budget,
         creditedWallet: user.mangopay.wallet,
+        fees,
       })).payin;
     } catch (err) {
       logger.error(err);
@@ -330,7 +336,7 @@ class CampaignOfferClass {
         BIC: bic,
       },
     } = payin;
-    
+
     return {
       payin: {
         address,
@@ -380,6 +386,7 @@ class CampaignOfferClass {
     if (!user.mangopay.wallet || !user.mangopay.bankAccount) {
       throw new Error('User cannot receive payment');
     }
+    const fees = await Commission.get(CommissionPlaces.TRANSFER_OUT_ESCROW);
 
     const { payment } = await Payment.add({
       offer: offer._id,
@@ -394,6 +401,7 @@ class CampaignOfferClass {
         debitedWallet: offer.mangopay.wallet,
         creditedWallet: user.mangopay.wallet,
         amount: offer.campaign.budget,
+        fees,
       })).transfer;
     } catch (err) {
       logger.error(err);

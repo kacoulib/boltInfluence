@@ -19,6 +19,15 @@ const getMangopay = () => {
 };
 
 /**
+ * Apply fees to an amount of money
+ * @param {Number} amount
+ * @param {Number} fees
+ */
+const applyFees = (amount, fees) => {
+  return Math.round(amount * fees);
+};
+
+/**
  * Create a MangoPay Wallet with a single owner
  * @param {Object} options
  * @param {String} options.owner - Wallet's owner
@@ -114,6 +123,7 @@ const createOrUpdateIbanBankAccount = async ({
  * @param {Number} options.amount - Amount of money to pay
  * @param {String} options.creditedWallet - ID of the wallet to credit
  * @param {String} options.description - Statement Description
+ * @param {Number} [options.fees] - The fees to apply to the transaction
  * @param {String} [options.currency] - Currency used for the PayIn
  * @returns {Promise<String>} The newly created PayIn ID
  */
@@ -123,6 +133,7 @@ const createCardDirectPayIn = async ({
   amount,
   creditedWallet,
   description,
+  fees = 0,
   currency = 'EUR',
 } = {}) => {
   const model = new api.models.PayIn({
@@ -133,7 +144,7 @@ const createCardDirectPayIn = async ({
     }),
     Fees: new api.models.Money({
       Currency: currency,
-      Amount: 0,
+      Amount: applyFees(amount, fees),
     }),
     CreditedWalletId: creditedWallet,
     PaymentType: 'CARD',
@@ -157,12 +168,14 @@ const createCardDirectPayIn = async ({
  * @param {String} options.user
  * @param {String} options.creditedWallet
  * @param {Number} options.amount
- * @param {String} options.currency
+ * @param {Number} [options.fees] - The fees to apply to the transaction
+ * @param {String} [options.currency]
  */
 const createBankWireDirectPayIn = async ({
   user,
   creditedWallet,
   amount,
+  fees = 0,
   currency = 'EUR',
 } = {}) => {
   const model = new api.models.PayIn({
@@ -176,7 +189,7 @@ const createBankWireDirectPayIn = async ({
       }),
       DeclaredFees: new api.models.Money({
         Currency: currency,
-        Amount: 0,
+        Amount: applyFees(amount, fees),
       }),
     }),
     ExecutionType: 'DIRECT',
@@ -194,6 +207,7 @@ const createBankWireDirectPayIn = async ({
  * @param {String} [options.creditedUser] - ID of the User to credit
  * @param {String} options.creditedWallet - ID of the Wallet to credit
  * @param {Number} options.amount - Amount of money to transfer
+ * @param {Number} [options.fees] - The fees to apply to the transaction
  * @param {String} [options.currency] - Currency used for the transfer
  */
 const createTransfer = async ({
@@ -202,6 +216,7 @@ const createTransfer = async ({
   creditedUser,
   creditedWallet,
   amount,
+  fees = 0,
   currency = 'EUR',
 } = {}) => {
   const model = new api.models.Transfer({
@@ -214,7 +229,7 @@ const createTransfer = async ({
     }),
     Fees: new api.models.Money({
       Currency: currency,
-      Amount: 0,
+      Amount: applyFees(amount, fees),
     }),
   });
   const transfer = await api.Transfers.create(model);
@@ -271,6 +286,7 @@ const getWallet = async ({ wallet: walletId }) => {
  * @param {String} options.debitedWallet - Debited Wallet ID
  * @param {String} options.bankAccount - Credited Bank Account ID
  * @param {Number} options.amount - Amount to PayOut
+ * @param {Number} [options.fees] - The fees to apply to the transaction
  * @param {String} [options.reference] - BankWire Reference
  */
 const createPayOut = async ({
@@ -279,6 +295,7 @@ const createPayOut = async ({
   bankAccount,
   amount,
   reference,
+  fees = 0,
   currency = 'EUR',
 } = {}) => {
   const model = new api.models.PayOut({
@@ -295,7 +312,7 @@ const createPayOut = async ({
     }),
     Fees: new api.models.Money({
       Currency: currency,
-      Amount: 0,
+      Amount: applyFees(amount, fees),
     }),
   });
   const payout = await api.PayOuts.create(model);
