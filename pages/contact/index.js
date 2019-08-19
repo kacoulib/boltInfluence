@@ -72,7 +72,7 @@ const fields = [{
 	}
 }]
 
-const Index = ({ faqs: { faqs } }) => {
+const Index = ({ faqs: { faqs } = {} } = {}) => {
 	const [state, setState] = useState({
 		toogleTeam: false,
 		active: null,
@@ -228,9 +228,14 @@ const Index = ({ faqs: { faqs } }) => {
 	)
 }
 Index.getInitialProps = async () => {
-	const faqs = await customRequest({ path: '/public/faqs' });
+	try {
+		const faqs = await customRequest({ path: '/public/faqs' });
 
-	return { faqs }
+		return { faqs }
+	}
+	catch (err) {
+		return {}
+	}
 }
 
 
