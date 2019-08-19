@@ -81,7 +81,6 @@ const CustomerIndex = (props) => {
         influencersList: [],
         selectedInfluencer: null
     });
-    console.log(categories)
     // console.log(state, buildFromArray(categories))
     // console.log('props', props)
     // async function getData() {
@@ -229,4 +228,4 @@ const CustomerIndex = (props) => {
     )
 }
 
-export default withAuth(CustomerIndex);
+export default withAuth(CustomerIndex, { adminRequired: true });

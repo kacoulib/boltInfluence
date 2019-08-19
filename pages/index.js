@@ -63,10 +63,6 @@ const styles = {
 		left: 0,
 		height: '100%'
 	},
-	homeTextContainer: {
-		transform: 'translateY(-50%)',
-		lineHeight: '2rem'
-	},
 	carousel: {
 		padding: '2rem 0 3.5rem'
 	}
@@ -77,7 +73,7 @@ const Index = () => {
 	const onSubmit = () => console.log('submit')
 
 	return (
-		<div>
+		<div id="home">
 			<NextSeo
 				title="Bolt Influence"
 				description="Bolt Influence est la plateforme/agence de marketing d’influence référente qui permet de connecter les marques et les influenceurs sur Instagram, Tik Tok, Youtube, Twitch"
@@ -86,7 +82,7 @@ const Index = () => {
 				<Grid container item className='relative'>
 					<img src={ScreenHome} className='fullwidth' />
 					<Grid item container xs={12} sm={5} justify="center" alignItems="center" style={styles.hover}>
-						<Grid item xs={12} sm={12} className='text-center' style={styles.homeTextContainer}>
+						<Grid item xs={12} sm={12} className='text-center' id='homeTextContainer'>
 							<h1 className='white-color'>Tirez le meilleur de l’influence marketing grâce à la vidéo</h1>
 							<Btn text="Démarrez" href='#contact-us' />
 						</Grid>
@@ -118,8 +114,8 @@ const Index = () => {
 			</div>
 			{/*  */}
 			<div className='text-center'>
-				<Grid container item style={styles.cardContainer} className='light-gray-bg'>
-					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
+				<Grid container item style={styles.cardContainer} className='light-gray-bg' >
+					<Grid item container xs={12} sm={6} justify="center" alignItems="center" >
 						<Grid item xs={12} sm={8} className='text-center'>
 							<h2><span className='black-bordered-head'>Data</span> et Technologie</h2>
 							<div>
@@ -130,7 +126,7 @@ const Index = () => {
 							</div>
 						</Grid>
 					</Grid>
-					<Grid item xs={12} sm={6} className='text-center'>
+					<Grid item xs={12} sm={6} className='text-center' style={styles.padding}>
 						<img src={Screen02} />
 					</Grid>
 				</Grid>

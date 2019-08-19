@@ -58,7 +58,7 @@ nav > ul {
 }
 #logo {
 	display: block;
-	padding: 0 30px;
+	padding: 0;
 	float: left;
 	font-size:20px;
 	line-height: 60px;
@@ -148,7 +148,8 @@ li > a:only-child:after { content: ''; }
 	#logo {
 		display: block;
 		padding: 0;
-		width: 100%;
+        width: auto;
+        margin: auto;
 		text-align: center;
 		float: none;
 	}
@@ -319,6 +320,21 @@ li > a:only-child:after { content: ''; }
     border-bottom: 1px solid #D8D8D8;
 
 }
+/* Home  */
+#homeTextContainer {
+    transform: translateY(-50%);
+	line-height: 2rem
+}
+/* Login  */
+#login > div{
+    max-width: 960px;
+    margin: auto;
+}
+#login .divider:first-of-type {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
 /* Campagne  */
 .filter {
     border: 1px solid;
@@ -565,6 +581,7 @@ li > a:only-child:after { content: ''; }
     transition: transform .2s;
     cursor: pointer;
     width: 33%;
+    vertical-align: top;
 }
 .tarif-list-container > li.active-tarif {
     transform: scale(1.2);
@@ -575,8 +592,25 @@ li > a:only-child:after { content: ''; }
 .tarif-list-container li .tiny-icon {
     margin-right: 1rem;
 }
+.tarif-list-container li span, .tarif-list-container li p {
+    vertical-align: middle;
+}
+.tarif-list-container li p {
+    max-width: calc(100% - 32px);
+}
 
 /* OTHER */
+.divider {
+    position: relative;
+}
+.divider::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-bottom: 1px solid #e0e0e0;
+}
 .relative {
     position: relative;
 }
@@ -977,6 +1011,22 @@ button.submit {
 
 
 @media all and (max-width : 400px) {
+    #home #contact-us {
+        padding: 1rem;
+    }
+    #home #submit-contact {
+        text-align: center;
+    }
+    #home img {
+        width: 100%;
+    }
+    #home .card-bg::before {
+        opacity: .3;
+    }
+    #homeTextContainer {
+        transform: translateY(0%);
+        line-height: 2rem
+    }
     .home_team li {
         display: block;
         width: 100%;
