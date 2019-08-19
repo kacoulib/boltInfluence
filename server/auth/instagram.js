@@ -4,6 +4,7 @@ const Instagram = require('node-instagram').default;
 
 const User = require('../models/User');
 const { redirecAfterAuth } = require('./index');
+const { storeSignUpInfos, consumeSignUpInfos } = require('../utils/express');
 
 function auth({ ROOT_URL, app }) {
   const uri = '/auth/instagram/oauth2callback';
@@ -50,13 +51,19 @@ function auth({ ROOT_URL, app }) {
 
   app.get(
     '/auth/instagram',
+    storeSignUpInfos,
     passport.authenticate('instagram', { failureRedirect: '/login' }),
     function(req, res) {
       res.redirect('/');
     },
   );
 
-  app.get(uri, passport.authenticate('instagram', { failureRedirect: '/login' }), redirecAfterAuth);
+  app.get(
+    uri,
+    passport.authenticate('instagram', { failureRedirect: '/login' }),
+    consumeSignUpInfos,
+    redirecAfterAuth,
+  );
 }
 
 module.exports = auth;

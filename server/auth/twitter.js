@@ -5,6 +5,7 @@ const Twitter = require('twitter');
 const { redirecAfterAuth } = require('./index');
 const User = require('../models/User');
 const logger = require('../logs');
+const { storeSignUpInfos, consumeSignUpInfos } = require('../utils/express');
 
 const auth = ({ app, ROOT_URL }) => {
   const uri = '/auth/twitter/oauthcallback';
@@ -66,9 +67,18 @@ const auth = ({ app, ROOT_URL }) => {
     ),
   );
 
-  app.get('/auth/twitter', passport.authenticate('twitter'));
+  app.get(
+    '/auth/twitter',
+    storeSignUpInfos,
+    passport.authenticate('twitter'),
+  );
 
-  app.get(uri, passport.authenticate('twitter', { failureRedirect: '/login' }), redirecAfterAuth);
+  app.get(
+    uri,
+    passport.authenticate('twitter', { failureRedirect: '/login' }),
+    consumeSignUpInfos,
+    redirecAfterAuth,
+  );
 };
 
 module.exports = auth;

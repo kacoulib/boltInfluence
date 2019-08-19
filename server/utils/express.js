@@ -1,4 +1,5 @@
 const logger = require('../logs');
+const User = require('../models/User');
 
 /**
  * Creates a middleware that tries to execute a function
@@ -63,11 +64,48 @@ const verifyKycUser = (fn) => verifyKyc(fn, 'user');
  */
 const verifyKycParams = (fn) => verifyKyc(fn, 'params');
 
+const storeSignUpInfos = handleErrors((req, res, next) => {
+  const { firstName, lastName, birthday, postalCode, centersOfInterest } = req.query;
+  console.log("AAA");
+  if (firstName || lastName || birthday || postalCode || centersOfInterest) {
+    console.log("BBB");
+    req.session.signUpInfos = {
+      firstName,
+      lastName,
+      birthday,
+      postalCode,
+      centersOfInterest: Array.isArray(centersOfInterest) ? centersOfInterest : [centersOfInterest],
+    };
+  }
+  console.log("CCC");
+  next();
+});
+
+const consumeSignUpInfos = handleErrors(async (req, res, next) => {
+  if (req.session.signUpInfos) {
+    const { firstName, lastName, birthday, postalCode, centersOfInterest } = req.session.signUpInfos;
+    const { user } = await User.updateBySlug({
+      slug: req.user.slug,
+      firstName, lastName,
+      dateOfBirth: birthday,
+      postalCode,
+      influencer: {
+        centersOfInterest
+      }
+    });
+    req.user = user;
+    delete req.session.signUpInfos;
+  }
+  next();
+});
+
 module.exports = {
   handleErrors,
   listCollection,
   verifyKyc,
   verifyKycUser,
   verifyKycParams,
-  serverListCollection
+  serverListCollection,
+  storeSignUpInfos,
+  consumeSignUpInfos,
 };
