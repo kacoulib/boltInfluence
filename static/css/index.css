@@ -555,9 +555,7 @@ li > a:only-child:after { content: ''; } */
 #contact-us {
     padding-bottom: 3rem;
 }
-#contact-page #search {
-    margin-top: 1rem;
-}
+
 /* ADMIN  */
 .influencers_list {
     background-color: #F4F3F8;
@@ -1056,6 +1054,9 @@ button.submit {
 
 
 @media all and (max-width : 400px) {
+    #contact-page #search {
+        margin-top: 1rem;
+    }
     .circle-dot {
         height: 3rem;
         width: 3rem;
