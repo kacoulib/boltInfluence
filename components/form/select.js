@@ -40,17 +40,18 @@ const MenuProps = {
         },
     }
 };
-const SelectType = ({ name, label, type, value, list, onChange, showLabel, unableUnderline, multiple, unableBoxShadow = true, error = false, classes, elemProps = {} }) => {
-    console.log(elemProps)
+const SelectType = ({ name, label, type, value, list, onChange, showLabel, unableUnderline, multiple, unableBoxShadow = true, error = false, classes, labelPosition = {}, elemProps = {} }) => {
+    if (unableBoxShadow)
+        elemProps.style = { ...{ boxShadow: '0px 2px 5px #bfbfbf' }, ...elemProps.style };
+
     return (
-        <FormElementWrapper label={label} showLabel={showLabel}>
+        <FormElementWrapper label={label} showLabel={showLabel} labelPosition={labelPosition}>
             <FormControl
                 style={elemProps.style ? { ...elemProps.style, ...fullwidth } : fullwidth}
-
+                error={error}
             >
                 {!showLabel ? <InputLabel htmlFor={name} style={labelStyle}>{label}</InputLabel> : ''}
                 <Select
-                    error={error}
                     multiple={multiple}
                     value={value ? value : multiple ? [] : ''}
                     onChange={onChange(name)}
