@@ -145,7 +145,7 @@ const Index = () => {
 					</div>
 				</Grid>
 			</div>
-			{/* <Preregister /> */}
+			<Preregister />
 		</div>
 	)
 }

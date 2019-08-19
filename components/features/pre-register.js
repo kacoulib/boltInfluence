@@ -34,7 +34,6 @@ const fields = [
                 backgroundColor: '#fff',
                 borderRadius: 5
             },
-            unableBoxShadow: false
         }
     },
     {

@@ -63,15 +63,12 @@ const fields = [{
 	required: true,
 	width: 4,
 	disableUnderline: true,
-	formControlStyle: {
-		borderRadius: '5px',
-		backgroundColor: 'white',
-		boxShadow: '0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12)',
-		padding: 0
-	},
+	list: [],
 	props: {
-		list: [],
-		// list: [{ name: 'Mr', value: 'Mr' }, { name: 'Mme', value: 'Mme' }],
+		style: {
+			borderRadius: 5,
+			backgroundColor: 'white'
+		}
 	}
 }]
 
@@ -110,7 +107,7 @@ const Index = ({ faqs: { faqs } }) => {
 
 
 	return (
-		<div className='dots-blue right-bg'>
+		<div className='dots-blue right-bg' id='contact-page'>
 			<div className='home-block-padding' style={styles.padding}>
 				<h1 className='bordered-head fullwidth'>À propos</h1>
 				<Grid container>
@@ -169,7 +166,7 @@ const Index = ({ faqs: { faqs } }) => {
 							/>
 						</Grid>
 
-						<Grid item container xs={12} sm={6} justify="flex-end">
+						<Grid item container xs={12} sm={6} justify="flex-end" id='search'>
 							<Grid item xs={12} sm={6}>
 								<Search />
 							</Grid>
