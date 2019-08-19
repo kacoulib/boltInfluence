@@ -50,7 +50,7 @@ const styles = {
 }
 
 
-const Index = ({ articles, categories }) => {
+const Index = ({ articles = [], categories = [] }) => {
 	const [state, setState] = useState({
 		cover: {
 			title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit. ',
@@ -144,9 +144,13 @@ const Index = ({ articles, categories }) => {
 	)
 }
 Index.getInitialProps = async () => {
-	const blogs = await customRequest({ path: '/public/blogs' });
+	try {
+		const blogs = await customRequest({ path: '/public/blogs' });
 
-	return blogs
+		return blogs
+	} catch (err) {
+		return {}
+	}
 }
 
 
