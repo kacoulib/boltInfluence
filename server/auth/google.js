@@ -72,7 +72,7 @@ function auth({ ROOT_URL, app }) {
   );
 
   app.get(
-    '/auth/google',
+    '/auth/youtube',
     passport.authenticate('google', {
       scope: ['profile', 'email', 'https://www.googleapis.com/auth/youtube.readonly'],
       prompt: 'select_account',

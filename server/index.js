@@ -15,8 +15,10 @@ const nextRoutes = require('./routes/next-routes')
 // const { setupMangopay } = require('./utils/mangopay');
 const instagramAuth = require('./auth/instagram');
 const googleAuth = require('./auth/google');
-// const twitterAuth = require('./auth/twitter');
-// const twitchAuth = require('./auth/twitch');
+const facebookAuth = require('./auth/facebook');
+const twitterAuth = require('./auth/twitter');
+const twitchAuth = require('./auth/twitch');
+const pinterestAuth = require('./auth/pinterest');
 const basicAuth = require('./auth/basic');
 const routes = require('./routes');
 const serverRoutes = require('./routes/server');
@@ -126,8 +128,10 @@ nextApp.prepare().then(async () => {
 
   googleAuth({ app, ROOT_URL });
   instagramAuth({ app, ROOT_URL });
-  // twitterAuth({ app, ROOT_URL });
-  // twitchAuth({ app, ROOT_URL });
+  facebookAuth({ app, ROOT_URL });
+  twitterAuth({ app, ROOT_URL });
+  twitchAuth({ app, ROOT_URL });
+  pinterestAuth({ app, ROOT_URL });
   basicAuth({ app, nextApp });
   // app.use((req, res, next) => {
   //   console.log('USER:', req.user);
