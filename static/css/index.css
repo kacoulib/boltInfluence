@@ -5,6 +5,7 @@ ul {
 }
 a, a:hover {
     text-decoration: none;
+    cursor: pointer;
 }
 #body {
     background-color: #fff;
@@ -30,14 +31,25 @@ body a {
     background: #252b40;
     z-index: 3;
 }
-#header a {
+#header a, .menu label {
     color: #FFF;
 	text-align: center;
 	font-weight: bold;
 	font-size: 1rem;
 }
 /* NAV */
-
+.menu-link span:nth-child(1) {
+    padding-right: 5px;
+}
+.menu-link span {
+    vertical-align: middle;
+}
+#menu-left img {
+    width: 100%;
+}
+.toggle-head {
+    color: #FFF;
+}
 .toggle-head,
 [id^=drop] {
 	display: none;
@@ -58,7 +70,7 @@ nav > ul {
 }
 #logo {
 	display: block;
-	padding: 0 30px;
+	padding: 0;
 	float: left;
 	font-size:20px;
 	line-height: 60px;
@@ -136,8 +148,8 @@ nav ul ul ul li {
 
 	
 /* Change ' +' in order to change the Dropdown symbol */
-li > a:after { content:  ' +'; }
-li > a:only-child:after { content: ''; }
+/* li > a:after { content:  ' +'; }
+li > a:only-child:after { content: ''; } */
 
 
 /* Media Queries
@@ -148,7 +160,8 @@ li > a:only-child:after { content: ''; }
 	#logo {
 		display: block;
 		padding: 0;
-		width: 100%;
+        width: auto;
+        margin: auto;
 		text-align: center;
 		float: none;
 	}
@@ -204,12 +217,6 @@ li > a:only-child:after { content: ''; }
 		font-size:17px; 
 	}
   
-  
-	nav ul li ul li .toggle,
-	nav ul ul a {
-		background-color: #212121; 
-	}
-
 	/* Hide Dropdowns by Default */
 	nav ul ul {
 		float: none;
@@ -319,6 +326,21 @@ li > a:only-child:after { content: ''; }
     border-bottom: 1px solid #D8D8D8;
 
 }
+/* Home  */
+#homeTextContainer {
+    transform: translateY(-50%);
+	line-height: 2rem
+}
+/* Login  */
+#login > div{
+    max-width: 960px;
+    margin: auto;
+}
+#login .divider:first-of-type {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
 /* Campagne  */
 .filter {
     border: 1px solid;
@@ -533,6 +555,9 @@ li > a:only-child:after { content: ''; }
 #contact-us {
     padding-bottom: 3rem;
 }
+#contact-page #search {
+    margin-top: 1rem;
+}
 /* ADMIN  */
 .influencers_list {
     background-color: #F4F3F8;
@@ -565,6 +590,7 @@ li > a:only-child:after { content: ''; }
     transition: transform .2s;
     cursor: pointer;
     width: 33%;
+    vertical-align: top;
 }
 .tarif-list-container > li.active-tarif {
     transform: scale(1.2);
@@ -575,8 +601,58 @@ li > a:only-child:after { content: ''; }
 .tarif-list-container li .tiny-icon {
     margin-right: 1rem;
 }
+.tarif-list-container li span, .tarif-list-container li p {
+    vertical-align: middle;
+}
+.tarif-list-container li p {
+    max-width: calc(100% - 32px);
+}
 
 /* OTHER */
+#submit-contact {
+    margin-top: 1.8rem;
+}
+.triangle {
+    border: solid white;
+    border-width: 0 1px 1px 0;
+    display: inline-block;
+    padding: 3px;
+}
+.triangle.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+.triangle.left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
+.triangle.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+#blog .triangle {
+    border: solid #5b5b5d;
+    border-width: 0 3px 3px 0;
+    padding: 5px;
+    vertical-align: middle;
+}
+.responsive-show {
+    display: none!important;
+}
+.responsive-hide {
+    display: block!important;
+}
+.divider {
+    position: relative;
+}
+.divider::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-bottom: 1px solid #e0e0e0;
+}
 .relative {
     position: relative;
 }
@@ -676,6 +752,9 @@ button.submit {
 }
 .vertical-top {
     vertical-align: top;
+}
+.vertical-middle {
+    vertical-align: middle;
 }
 .upload h6 {
     padding-left: 1rem;
@@ -887,9 +966,7 @@ button.submit {
 .dots-blue {
     background-image: url('../img/dots-blue.png');
 }
-.dots-blue-down {
-    background-image: url('../img/dots-blue-down.png');
-}
+
 /* .dot-pink {
     background-image: url('../img/dots-pink.png');
 } */
@@ -933,7 +1010,9 @@ button.submit {
 .card-bg.reverse-all::before {
     transform: rotate(180deg);
 }
-
+.card-bg.dots-blue-down::before {
+    background-image: url('../img/dots-blue-down.png');
+}
 .card-bg.dots-pink::before {
     background-image: url('../img/dots-pink.png');
 }
@@ -977,6 +1056,66 @@ button.submit {
 
 
 @media all and (max-width : 400px) {
+    .circle-dot {
+        height: 3rem;
+        width: 3rem;
+    }
+    .responsive-container {
+        padding: 1rem!important;
+    }
+    .responsive-bg-opacity::before {
+        opacity: .3;
+    }
+    #menu-left {
+        margin-right: auto;
+        text-align: left;
+    }
+    #menu-left img {
+        width: initial;
+    }
+    .responsive-show {
+        display: block!important;
+    }
+    .responsive-hide {
+        display: none!important;
+    }
+    nav > .toggle-head {
+        font-size: 1.5rem
+    }
+    .toggle-head {
+        display: block;
+    }
+    a.to-hide {
+        display: none;
+    }
+    .MuiAvatar-root {
+        margin-left: auto;
+    }
+    #header nav a, #header ul li label {
+        padding: 5px;
+    }
+    #contact-us {
+        padding: 1rem;
+    }
+    #home #submit-contact {
+        text-align: center;
+    }
+    #video-influenceurs .home-block-padding > div {
+        padding: 0!important;
+    }
+    #influenceurs img,
+    #video-influenceurs img,
+    #annonceurs img,
+    #home img {
+        width: 100%;
+    }
+    #home .card-bg::before {
+        opacity: .3;
+    }
+    #homeTextContainer {
+        transform: translateY(0%);
+        line-height: 2rem
+    }
     .home_team li {
         display: block;
         width: 100%;

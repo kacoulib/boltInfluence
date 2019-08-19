@@ -93,10 +93,9 @@ const Index = ({ articles, categories }) => {
 			{/*  */}
 			<div>
 				<Grid container alignContent='center' alignItems='center'>
-					<Grid container item xs={12} sm={3}></Grid>
-					<Grid container item xs={12} sm={6}>
+					<Grid container item xs={12} sm={12} justify='center'>
 						{state.categories && state.categories.map((e, i) => (
-							<Grid item key={i} container xs={12} sm={3} style={styles.p} onClick={() => toggleCategory(e._id)}>
+							<Grid item key={i} container xs={6} sm={2} style={styles.p} onClick={() => toggleCategory(e._id)}>
 								<Grid item key={i} container xs={12} className={`filter ${e.color} ${state.filterCategory == e._id ? 'active' : ''}`} style={{ border: `1px solid ${e.color}`, }} justify="space-between" >
 									<div style={{ color: e.color }}>{e.title}</div>
 									<div style={{ backgroundColor: e.color }}>{e.nb || 3}</div>
@@ -104,7 +103,6 @@ const Index = ({ articles, categories }) => {
 							</Grid>
 						))}
 					</Grid>
-					<Grid container item xs={12} sm={3}></Grid>
 				</Grid>
 			</div>
 			{/*  */}
@@ -115,7 +113,7 @@ const Index = ({ articles, categories }) => {
 						color = color ? color.color : '';
 
 						return (
-							<Grid key={index} item container xs={12} sm={4} justify="center" alignItems="center" style={styles.filter}>
+							<Grid key={index} item container xs={12} sm={4} justify="center" alignItems="flex-start" style={styles.filter}>
 								<article className='gray-border'>
 									<header><img src={elem.picture} className='fullwidth' /></header>
 									<div style={styles.p}>

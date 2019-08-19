@@ -9,26 +9,22 @@ import FormValidator from '../../../lib/form/validator'
 
 const fields = [{
     label: "Prénom *",
-    name: "firstname",
+    name: "firstName",
     type: 'input',
-    disableUnderline: true,
     required: true,
     props: {
         style: {
-            padding: 5,
             backgroundColor: lightGray,
         }
     }
 },
 {
     label: "Nom *",
-    name: "lastname",
+    name: "lastName",
     type: 'input',
-    disableUnderline: true,
     required: true,
     props: {
         style: {
-            padding: 5,
             backgroundColor: lightGray,
         }
     }
@@ -38,36 +34,30 @@ const fields = [{
     name: "email",
     type: 'email',
     required: true,
-    disableUnderline: true,
     props: {
         style: {
-            padding: 5,
             backgroundColor: lightGray,
         }
     }
 },
 {
     label: "Téléphone *",
-    name: "phone",
+    name: "phoneNumber",
     type: 'input',
-    disableUnderline: true,
     required: true,
     props: {
         style: {
-            padding: 5,
             backgroundColor: lightGray,
         }
     }
 },
 {
     label: "Société *",
-    name: "agence",
+    name: "company",
     type: 'input',
-    disableUnderline: true,
     required: true,
     props: {
         style: {
-            padding: 5,
             backgroundColor: lightGray,
         }
     }
@@ -75,13 +65,11 @@ const fields = [{
 
 {
     label: "Titre professionnel *",
-    name: "job",
+    name: "position",
     type: 'input',
-    disableUnderline: true,
     required: true,
     props: {
         style: {
-            padding: 5,
             backgroundColor: lightGray,
         }
     }
@@ -91,10 +79,8 @@ const fields = [{
     name: "message",
     type: 'textarea',
     required: true,
-    disableUnderline: true,
     props: {
         style: {
-            padding: 5,
             backgroundColor: lightGray,
         }
     }
@@ -104,35 +90,44 @@ const fields = [{
     name: "activity",
     type: 'select',
     required: true,
-    disableUnderline: true,
-    formControlStyle: {
-        backgroundColor: lightGray
-    },
+    list: [
+        { name: 'employee (non cadre)', value: 'Salarié (non cadre)' },
+        { name: 'cadre', value: 'Cadre' },
+        { name: 'entreprener', value: 'Entrepreneur/autoentrepreneur' },
+        { name: 'liberal', value: 'De profession libérale' },
+        { name: 'art-spectacle', value: 'Profession des arts et spectacles' },
+        { name: 'unemployed', value: 'Sans emploi' },
+        { name: 'Retirement', value: 'Retraité' },
+        { name: 'other', value: 'Autre' }
+    ],
     props: {
-        list: [{ name: 'Mr', value: 'Mr' }, { name: 'Mme', value: 'Mme' }],
         style: {
-            // padding: 5,
+            borderRadius: 5,
             backgroundColor: lightGray,
         },
     }
 },
 ]
-
+const settings = { unableUnderline: false, unableBoxShadow: true }
 
 const Contactus = (props) => {
     const [state, setState] = useState({
-        firstname: '',
-        lastname: '',
+        firstName: '',
+        lastName: '',
         email: '',
-        phone: '',
-        agence: '',
-        activity: '',
-        job: '',
+        phoneNumber: '',
+        company: '',
+        position: '',
         message: '',
+        activity: '',
+        errors: []
     })
     const onChange = (name, value) => setState({ ...state, [name]: value })
     const handleSubmit = async () => {
-        return console.log(FormValidator({ fields, state }))
+        const errors = FormValidator({ fields, state });
+        if (errors.length)
+            return setState({ ...state, errors })
+
         const res = await customRequest({ path: '/public/contact', state });
         console.log(res)
     }
@@ -149,6 +144,8 @@ const Contactus = (props) => {
                 fields={fields}
                 state={state}
                 onChange={onChange}
+                settings={settings}
+                errors={state.errors}
             />
             <p id='submit-contact' className='text-right'>
                 <Btn onClick={handleSubmit} href="#contact-us" text={props.linkText} />

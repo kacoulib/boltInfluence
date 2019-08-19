@@ -15,12 +15,12 @@ const useStyles = makeStyles(theme => ({
 
 const strinkTypes = ['date', 'datetime', 'time'];
 
-const TextFieldComp = ({ name, label, type, value, onChange, showLabel, unableUnderline = false, unableBoxShadow = true, error = false, labelPostion = {}, elemProps }) => {
+const TextFieldComp = ({ name, label, type, value, onChange, showLabel, unableUnderline = false, unableBoxShadow = true, error = false, labelPosition = {}, elemProps }) => {
     const classes = useStyles();
     const variant = unableUnderline ? "standard" : "outlined"
 
     return (
-        <FormElementWrapper label={label} showLabel={showLabel} labelPostion={labelPostion}>
+        <FormElementWrapper label={label} showLabel={showLabel} labelPosition={labelPosition}>
             <TextField
                 error={error}
                 multiple
@@ -35,7 +35,6 @@ const TextFieldComp = ({ name, label, type, value, onChange, showLabel, unableUn
                     disableUnderline: !!unableUnderline,
                 }}
                 className={unableBoxShadow ? classes.textField : ''}
-                style={{ width: '100%' }}
                 rows={8}
                 variant={variant}
                 {...elemProps}

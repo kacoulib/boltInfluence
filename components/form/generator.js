@@ -169,7 +169,7 @@ const FormGenerator = ({ fields, classes, state, onChange, toggleList, settings 
                                         </ Grid>
                                     )
                                     || elem.type == 'checkbox' && (
-                                        <Checkbox name={elem.name} label={elem.label} value={state[elem.name]} onChange={handleChange} {...elemProps} />
+                                        <Checkbox name={elem.name} label={elem.label} value={state[elem.name]} onChange={onChange} {...elemProps} />
                                     )
                                     || elem.type == 'color' && (
                                         <Grid container>

@@ -41,7 +41,7 @@ const AnnonceDemo = () => {
                         Grâce à leur communauté, vous obtenez un moyen privilégié d'échange avec vos clients et futurs clients.
                     </p>
                 </Grid>
-                <Grid container item sm={6} xs={12} alignItems="center" style={styles.double}>
+                <Grid container item sm={6} xs={12} alignItems="center" style={styles.double} className='responsive-hide'>
                     <div className='card-bg dots-pink' style={styles.double}>
                         <Grid item container className='card-bg dots-pink reverse-all' style={styles.double}>
                             <Grid item container className='card-bg dots-pink reverse-all' style={styles.double}>

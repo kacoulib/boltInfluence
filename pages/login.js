@@ -11,34 +11,33 @@ import FormGenerator from '../components/form/generator';
 import SocialBtn from '../components/elements/socialBtn'
 import Btn from '../components/elements/btn'
 import Ucfirst from '../lib/ucfirst'
-import Divider from '@material-ui/core/Divider';
 import { lightGray } from '../utils/variables/css'
 
 const loginFields = [
   {
-    label: "Email*",
+    label: "Adresse e-mail*",
     name: "email",
     type: 'email',
     required: true
   },
   {
-    label: "Password*",
+    label: "Mot de passe*",
     name: "password",
     type: 'password',
     required: true,
   },
 ]
-const settings = { unableBoxShadow: false, showLabel: true, labelPostion: 'top|left' };
+const settings = { unableBoxShadow: false, showLabel: true, labelPosition: 'top|left' };
 
 const registerFields = [
   {
-    label: "Email*",
+    label: "Adresse e-mail*",
     name: "email",
     type: 'email',
     required: true
   },
   {
-    label: "Password*",
+    label: "Mot de passe*",
     name: "password",
     type: 'password',
     required: true,
@@ -59,6 +58,11 @@ const registerFields = [
     label: "J'accepte de recevoir la Newsletter",
     name: 'newsletter',
     type: 'checkbox',
+    props: {
+      style: {
+        fontSize: '.8rem'
+      }
+    }
   },
   {
     label: "J'accepte de recevoir les notifications de nouveaux messages (nouvelle campagne publicitaire)",
@@ -78,61 +82,67 @@ const Login = () => {
     notification: false,
     cgt: false,
     errors: [],
-    showRegister: true
+    showRegister: false
   });
 
   const toggle = (name) => setState({ ...state, [name]: !state[name] });
   const onChange = (name, value) => setState({ ...state, [name]: value })
 
   const onSubmit = async () => {
-    const errors = FormValidator({ fields: state.showRegister ? loginFields : registerFields, state });
+    const fields = state.showRegister ? registerFields : loginFields;
+    const errors = FormValidator({ fields, state });
 
     setState({ ...state, errors })
     if (errors.length)
       return
-    // const { login } = await basicAuth(state);
+    const { login } = await basicAuth(LeanForm({ fields, state }));
 
+    console.log(login)
     // if (login)
     //   window.location = '/dashboard';
   };
   const socialsList = ['facebook', 'instagram', 'youtube', 'twitter', 'twitch', 'pinterest', 'tiktok', 'linkedin'];
-  console.log(state)
-  return (
-    <div id="login" style={{ textAlign: 'center', padding: '0 20px' }} className='card-bg dots-pink reverse left'>
-      <h1>{state.showRegister ? 'S’inscrire' : 'Connexion'}</h1>
-      <Grid container className='text-center'>
-        <Grid item sm={6} xs={6} justify="center" alignItems="center" className='text-center'>
-          <h2>Réseau social</h2>
-        </Grid>
-        <Grid item sm={6} xs={6} justify="center" alignItems="center" className='text-center'>
-          <h2>Avec un email</h2>
-        </Grid>
-        <Grid container item sm={6} xs={6} justify="center" className='text-center'>
-          <ul id='social_container'>
-            {socialsList && socialsList.map((elem, index) => (
-              <li key={index}><SocialBtn type={elem} text={Ucfirst(elem)} /></li>
-            ))}
-          </ul>
-        </Grid>
-        <Grid container item sm={6} xs={6}>
-          <Grid>
-            <FormGenerator
-              fields={state.showRegister ? registerFields : loginFields}
-              state={state}
-              onChange={onChange}
-              errors={state.errors}
-              settings={settings}
-            />
-            <div id='submit'>
-              <Btn text={state.showRegister ? 'Suivant' : 'Connexion'} onClick={onSubmit} />
-            </div>
-          </Grid>
 
+  return (
+    <div id="login" className='card-bg dots-pink reverse left'>
+      <div>
+        <h1 className='text-center'>{state.showRegister ? 'S’inscrire' : 'Connexion'}</h1>
+        <Grid container className='text-center divider' id='container'>
+          <Grid container item sm={6} xs={12}>
+            <Grid sm={12} xs={12}>
+              <h2 className='divider fullwidth'>Réseau social</h2>
+              <ul id='social_container'>
+                {socialsList && socialsList.map((elem, index) => (
+                  <li key={index}><SocialBtn type={elem} text={Ucfirst(elem)} href={`/auth/${elem}`} /></li>
+                ))}
+              </ul>
+            </Grid>
+          </Grid>
+          <Grid container item sm={6} xs={12}>
+            <Grid sm={12} xs={12}>
+              <h2 className='divider'>Avec un email</h2>
+              <div id="form" className='auto'>
+                <FormGenerator
+                  fields={state.showRegister ? registerFields : loginFields}
+                  state={state}
+                  onChange={onChange}
+                  errors={state.errors}
+                  settings={settings}
+                />
+              </div>
+              <div id='submit'>
+                <Btn text={state.showRegister ? 'Suivant' : 'Connexion'} onClick={onSubmit} />
+              </div>
+            </Grid>
+
+          </Grid>
         </Grid>
         <p className='text-center fullwidth'>Vous n'avez pas de compte ? <span className='red-color pointer' onClick={() => toggle('showRegister')}>{state.showRegister ? 'Connectez-vous' : 'Inscrivez-vous'} ici.</span></p>
-      </Grid>
-
+      </div>
       <style jsx>{`
+        #login {
+          padding: 2rem 0;
+        }
         .dots-pink::before {
           opacity: .5;
         }
@@ -140,14 +150,23 @@ const Login = () => {
           margin: 0;
           padding: 1rem 0;
         }
+        #social_container,
+        #form {
+          width: 80%;
+        }
         #social_container {
-          width: 70%;
+          max-width: 300px;
+          margin: auto;
         }
         #social_container li {
           margin: .5rem 0;
         }
         #submit {
-          padding: 1rem;
+          padding: 1.5rem;
+        }
+        h2 {
+          padding-bottom: 1rem;
+          margin-bottom: 1.5rem;
         }
       `}</style>
     </div>

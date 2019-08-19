@@ -16,22 +16,19 @@ const Footer = () => (
 				<ul>
 					<li><Link href='/annonceurs'><a title='Annonceurs'>Annonceurs</a></Link></li>
 					<li><Link href='/influenceurs'><a title='Influenceurs'>Influenceurs</a></Link></li>
-					<li><Link href="/about">La vidéo d'influence</Link></li>
+					<li><Link href="/video-influenceurs">La vidéo d'influence</Link></li>
 				</ul>
 			</Grid>
 			<Grid item sm={4} xs={6}>
 				<ul>
-					<li><Link href="/about"><a title='Notre méthode'>Notre méthode</a></Link></li>
+					<li><Link href="/notre-methode"><a title='Notre méthode'>Notre méthode</a></Link></li>
 					<li><Link href="/contact"><a title='contact'>Contactez-nous</a></Link></li>
 				</ul>
 			</Grid>
 			<Grid item sm={4} xs={12}>
 				<ul>
-					<li><Link href="/about"><a title='Suivez noous'>Suivez nous</a></Link></li>
-					<li>
-						<Socials />
-					</li>
-
+					<li>Suivez nous</li>
+					<li><Socials /></li>
 				</ul>
 			</Grid>
 		</Grid>

@@ -1,14 +1,15 @@
-const { RoleList } = require('../../utils/variables/user')
+const { RoleList, isAdmin } = require('../../utils/variables/user')
 
 module.exports = {
     redirecAfterAuth: (req, res) => {
         const user = req.user;
 
         if (req.isAuthenticated() && user) {
-            if (RoleList.includes(user.role))
-                res.redirect('/dashboard')
+            if (isAdmin(user.role))
+                res.redirect('/admin/posts')
             else
-                req.logout();
+                res.redirect('/influenceurs');
+            // req.logout();
         } else {
             res.redirect('/login');
         }

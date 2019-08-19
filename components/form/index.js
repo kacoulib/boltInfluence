@@ -5,10 +5,10 @@ let labelDimension = { xs: 6, ms: 12 },
     className;
 const defaultDimension = { xs: 12, ms: 12 }
 
-const LableWrapper = ({ label, labelPostion = '', ...props }) => {
-    if (labelPostion.includes && labelPostion.includes('top'))
+const LableWrapper = ({ label, labelPosition = '', ...props }) => {
+    if (labelPosition.includes && labelPosition.includes('top'))
         labelDimension.xs = 12
-    if (labelPostion.includes && labelPostion.includes('left'))
+    if (labelPosition.includes && labelPosition.includes('left'))
         className = 'text-left'
 
     return (

@@ -14,8 +14,6 @@ const mongoSchema = new Schema({
 class TagClass {
   static async list(where = {}, { offset = 0, limit = 10 } = {}) {
 
-    console.log('ok--------', where)
-
     const tags = await this.find(where)
       .sort({ createdAt: -1 })
       .skip(offset)
