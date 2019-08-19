@@ -105,6 +105,12 @@ const Index = () => {
     const toggle = (name) => setState({ ...state, [name]: !state[name] });
 
     const onChange = (name, value) => setState({ ...state, [name]: value })
+
+    const handleSocial = (name, value) => {
+        onChange(name, value);
+        const errors = FormValidator({ fields, state });
+        setState({ ...state, errors })
+    }
     const handleSubmit = () => {
         const errors = FormValidator({ fields, state });
 
@@ -139,14 +145,14 @@ const Index = () => {
                             <h3 className={`inline-block auto ${state.submitToggle && !state.selectedSocial ? 'red-color' : ''}`}>Minimum connexion à un compte</h3>
                         </div>
                         <Grid container justify="center" alignItems="center" className='text-center'>
-                            <Grid item sm={6} xs={12}><SocialBtn type='facebook' text='Facebook' onClick={() => onChange('selectedSocial', 'facebook')} /></Grid>
-                            <Grid item sm={6} xs={12}><SocialBtn type='instagram' text='Instagram' onClick={() => onChange('selectedSocial', 'instagram')} /></Grid>
-                            <Grid item sm={6} xs={12}><SocialBtn type='youtube' text='Youtube' onClick={() => onChange('selectedSocial', 'youtube')} /></Grid>
-                            <Grid item sm={6} xs={12}><SocialBtn type='twitter' text='Twitter' onClick={() => onChange('selectedSocial', 'ywitter')} /></Grid>
-                            <Grid item sm={6} xs={12}><SocialBtn type='twitch' text='Twitch' onClick={() => onChange('selectedSocial', 'twitch')} /></Grid>
-                            <Grid item sm={6} xs={12}><SocialBtn type='pinterest' text='Pinterest' onClick={() => onChange('selectedSocial', 'pinterest')} /></Grid>
-                            <Grid item sm={6} xs={12}><SocialBtn type='tiktok' text='Tiktok' onClick={() => onChange('selectedSocial', 'tiktok')} /></Grid>
-                            <Grid item sm={6} xs={12}><SocialBtn type='linkedin' text='Linkedin' onClick={() => onChange('selectedSocial', 'linkedin')} /></Grid>
+                            <Grid item sm={6} xs={12}><SocialBtn type='facebook' text='Facebook' onClick={() => handleSocial('selectedSocial', 'facebook')} /></Grid>
+                            <Grid item sm={6} xs={12}><SocialBtn type='instagram' text='Instagram' onClick={() => handleSocial('selectedSocial', 'instagram')} /></Grid>
+                            <Grid item sm={6} xs={12}><SocialBtn type='youtube' text='Youtube' onClick={() => handleSocial('selectedSocial', 'youtube')} /></Grid>
+                            <Grid item sm={6} xs={12}><SocialBtn type='twitter' text='Twitter' onClick={() => handleSocial('selectedSocial', 'ywitter')} /></Grid>
+                            <Grid item sm={6} xs={12}><SocialBtn type='twitch' text='Twitch' onClick={() => handleSocial('selectedSocial', 'twitch')} /></Grid>
+                            <Grid item sm={6} xs={12}><SocialBtn type='pinterest' text='Pinterest' onClick={() => handleSocial('selectedSocial', 'pinterest')} /></Grid>
+                            <Grid item sm={6} xs={12}><SocialBtn type='tiktok' text='Tiktok' onClick={() => handleSocial('selectedSocial', 'tiktok')} /></Grid>
+                            <Grid item sm={6} xs={12}><SocialBtn type='linkedin' text='Linkedin' onClick={() => handleSocial('selectedSocial', 'linkedin')} /></Grid>
                         </Grid>
                         <div className='link-container text-center' id="submit">
                             <Btn text="Envoyer & fermer" onClick={handleSubmit} />
