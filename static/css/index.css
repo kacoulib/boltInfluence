@@ -606,6 +606,9 @@ li > a:only-child:after { content: ''; } */
 }
 
 /* OTHER */
+#submit-contact {
+    margin-top: 1.8rem;
+}
 .triangle {
     border: solid white;
     border-width: 0 1px 1px 0;

@@ -35,7 +35,6 @@ const TextFieldComp = ({ name, label, type, value, onChange, showLabel, unableUn
                     disableUnderline: !!unableUnderline,
                 }}
                 className={unableBoxShadow ? classes.textField : ''}
-                // style={{ width: '100%' }}
                 rows={8}
                 variant={variant}
                 {...elemProps}
