@@ -12,6 +12,7 @@ import SocialBtn from '../components/elements/socialBtn'
 import Btn from '../components/elements/btn'
 import Ucfirst from '../lib/ucfirst'
 import { lightGray } from '../utils/variables/css'
+import notify from '../lib/notifier';
 
 const loginFields = [
   {
@@ -95,11 +96,17 @@ const Login = () => {
     setState({ ...state, errors })
     if (errors.length)
       return
-    const { login } = await basicAuth(LeanForm({ fields, state }));
 
-    console.log(login)
-    // if (login)
-    //   window.location = '/dashboard';
+    try {
+
+      const { login, message } = await basicAuth(LeanForm({ fields, state }));
+      if (message)
+        notify(message);
+      if (login)
+        window.location = '/admin';
+
+    } catch (err) {
+    }
   };
   const socialsList = ['facebook', 'instagram', 'youtube', 'twitter', 'twitch', 'pinterest', 'tiktok', 'linkedin'];
 
