@@ -113,7 +113,7 @@ const Index = () => {
         setState({ ...state, errors, submitToggle: true })
     }
     return (
-        <Dialog maxWidth={false} aria-labelledby="simple-dialog-title" open={state.open} >
+        <Dialog maxWidth={false} aria-labelledby="simple-dialog-title" open={state.open} id='dialog'>
             <div id='subscribe'>
                 {state.subscribe ?
                     <div id='socials-slide'>
