@@ -9,6 +9,7 @@ RUN npm install
 
 COPY . .
 
+ARG ROOT_URL
 RUN npm run build
 
 EXPOSE 3000
