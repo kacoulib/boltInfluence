@@ -223,6 +223,18 @@ const Index = () => {
                 max-width: 350px;
                 width: 100%;
                }
+               @media all and (max-width : 400px) {
+               #subscribe {
+                   padding: 1rem 0;
+               }
+                #socials-slide {
+                    width: 100%;
+                }
+                #socials-slide .close {
+                    right: 1rem;
+                    font-size: 1.5rem;
+                }
+               }
             `}</style>
         </Dialog >
     )
