@@ -11,7 +11,6 @@ const fields = [{
     label: "Prénom *",
     name: "firstname",
     type: 'input',
-    disableUnderline: true,
     required: true,
     props: {
         style: {
@@ -23,7 +22,6 @@ const fields = [{
     label: "Nom *",
     name: "lastname",
     type: 'input',
-    disableUnderline: true,
     required: true,
     props: {
         style: {
@@ -36,7 +34,6 @@ const fields = [{
     name: "email",
     type: 'email',
     required: true,
-    disableUnderline: true,
     props: {
         style: {
             backgroundColor: lightGray,
@@ -47,7 +44,6 @@ const fields = [{
     label: "Téléphone *",
     name: "phone",
     type: 'input',
-    disableUnderline: true,
     required: true,
     props: {
         style: {
@@ -59,7 +55,6 @@ const fields = [{
     label: "Société *",
     name: "agence",
     type: 'input',
-    disableUnderline: true,
     required: true,
     props: {
         style: {
@@ -72,7 +67,6 @@ const fields = [{
     label: "Titre professionnel *",
     name: "job",
     type: 'input',
-    disableUnderline: true,
     required: true,
     props: {
         style: {
@@ -85,7 +79,6 @@ const fields = [{
     name: "message",
     type: 'textarea',
     required: true,
-    disableUnderline: true,
     props: {
         style: {
             backgroundColor: lightGray,
@@ -105,7 +98,7 @@ const fields = [{
     }
 },
 ]
-
+const settings = { unableUnderline: false, unableBoxShadow: true }
 
 const Contactus = (props) => {
     const [state, setState] = useState({
@@ -137,6 +130,7 @@ const Contactus = (props) => {
                 fields={fields}
                 state={state}
                 onChange={onChange}
+                settings={settings}
             />
             <p id='submit-contact' className='text-right'>
                 <Btn onClick={handleSubmit} href="#contact-us" text={props.linkText} />

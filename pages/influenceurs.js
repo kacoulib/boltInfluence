@@ -47,12 +47,12 @@ const styles = {
 }
 const Index = () => {
 	return (
-		<div>
+		<div id='influenceurs'>
 			<NextSeo
 				title="Bolt Influence Influenceurs"
 				description="Une plateforme de marketing d'influence authentique offrant de nouveaux partenariats rémunérés avec des marques. Vous êtes un influenceur, venez dévoiler tout votre talent au sein de la plateforme Bolt Influence."
 			/>
-			<div className='card-bg dots-pink no-repeat reverse left'>
+			<div className='card-bg dots-pink no-repeat responsive-bg-opacity reverse left'>
 				<div className='home-block-padding' style={styles.padding}>
 					<h1 className='text-center'><span className='bordered-head'>Trouvez et postulez</span> à de nombreuses campagnes</h1>
 					<Grid container item style={styles.cardContainer}>
@@ -60,8 +60,8 @@ const Index = () => {
 							<Grid item xs={12} sm={8}>
 								<p className='justify' style={styles.p}>Découvrez l’ensemble de notre offre de campagnes rémunérées et commencez à postuler dès aujourd’hui.</p>
 								<div className='center-text'>
-									<Link href='#'><a title='Inscrivez-vous' className='red-btn' style={styles.button}>Inscrivez-vous</a></Link>
-									<div>ou <Link href='#'><a title='connectez-vous'>connectez-vous</a></Link></div>
+									<Link href='/login'><a title='Inscrivez-vous' className='red-btn' style={styles.button}>Inscrivez-vous</a></Link>
+									<div>ou <Link href='/login'><a title='connectez-vous'>connectez-vous</a></Link></div>
 								</div>
 							</Grid>
 						</Grid>
@@ -111,7 +111,7 @@ const Index = () => {
 			{/*  */}
 			<div>
 				<Grid container item style={styles.cardContainer}>
-					<div className='lines-black no-repeat right card-bg fullwidth'>
+					<div className='lines-black no-repeat right card-bg responsive-bg-opacity fullwidth'>
 
 						<h2 style={styles.testimonialTitle}>Testimonials</h2>
 
@@ -145,7 +145,7 @@ const Index = () => {
 					</div>
 				</Grid>
 			</div>
-			<Preregister />
+			{/* <Preregister /> */}
 		</div>
 	)
 }

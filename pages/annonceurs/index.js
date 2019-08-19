@@ -36,7 +36,7 @@ const Index = () => {
 	const onSubmit = () => console.log('submit')
 
 	return (
-		<div className='lines-blue right-bg'>
+		<div id='annonceurs' className='lines-blue right-bg'>
 			<div className='home-block-padding' style={styles.padding}>
 				<h1 className='text-center'>Pilotez vos campagnes de Marketing d’influence en toute <span className='full-bordered-head'>transparence.</span></h1>
 				<Grid container item style={styles.cardContainer}>
@@ -55,11 +55,11 @@ const Index = () => {
 			</div>
 			{/*  */}
 			<div>
-				<Grid container item style={styles.cardContainer} className='dots-blue-down no-repeat'>
-					<Grid item xs={12} sm={6} className='text-center'>
+				<Grid container item style={styles.cardContainer} className='card-bg dots-blue-down responsive-bg-opacity no-repeat'>
+					<Grid item xs={12} sm={6} className='text-center responsive-container'>
 						<img src={Screen2} />
 					</Grid>
-					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
+					<Grid item container xs={12} sm={6} justify="center" alignItems="center" className='responsive-container'>
 						<Grid item container xs={12} sm={8} justify="center" alignItems="center">
 							<h2><span className='full-bordered-head' style={{ padding: 0 }}>Détectez</span> les influenceurs qui correspondent à votre marque</h2>
 							<p className='justify'>Trouver et faites appel à des influenceurs suivant des critères que vous aurez défini.</p>
@@ -84,7 +84,7 @@ const Index = () => {
 			</div>
 			{/*  */}
 			<div>
-				<Grid container item style={styles.cardContainer} className='card-bg dot-pink no-repeat'>
+				<Grid container item style={styles.cardContainer} className='card-bg responsive-bg-opacity dot-pink no-repeat responsive-container'>
 					<Grid item xs={12} sm={6} className='text-center'>
 						<img src={Screen4} />
 					</Grid>

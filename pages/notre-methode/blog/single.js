@@ -68,7 +68,7 @@ const displayList = (data, prefix = '') => (<ul>{data && data.map((elem, index) 
 const Index = ({ article = {} }) => (
 	<div id='blog'>
 		<div>
-			<h2 style={styles.verticalPadding}><Link href='/notre-methode/blog'><a title='blog'>{'<'}</a></Link><span>Blog</span></h2>
+			<h2 style={styles.verticalPadding}><Link href='/notre-methode/blog'><a title='blog'><span className='triangle left vertical-middle'></span><span className='vertical-middle'>Blog</span></a></Link></h2>
 			<Grid container item style={styles.cardContainer}>
 				<Grid item container xs={12} sm={12} className='text-center'>
 					<Grid item xs={12} sm={2}></Grid>

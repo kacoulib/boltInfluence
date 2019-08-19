@@ -5,6 +5,7 @@ ul {
 }
 a, a:hover {
     text-decoration: none;
+    cursor: pointer;
 }
 #body {
     background-color: #fff;
@@ -615,9 +616,19 @@ li > a:only-child:after { content: ''; } */
     transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);
 }
+.triangle.left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
 .triangle.down {
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
+}
+#blog .triangle {
+    border: solid #5b5b5d;
+    border-width: 0 3px 3px 0;
+    padding: 5px;
+    vertical-align: middle;
 }
 .responsive-show {
     display: none!important;
@@ -735,6 +746,9 @@ button.submit {
 }
 .vertical-top {
     vertical-align: top;
+}
+.vertical-middle {
+    vertical-align: middle;
 }
 .upload h6 {
     padding-left: 1rem;
@@ -946,9 +960,7 @@ button.submit {
 .dots-blue {
     background-image: url('../img/dots-blue.png');
 }
-.dots-blue-down {
-    background-image: url('../img/dots-blue-down.png');
-}
+
 /* .dot-pink {
     background-image: url('../img/dots-pink.png');
 } */
@@ -992,7 +1004,9 @@ button.submit {
 .card-bg.reverse-all::before {
     transform: rotate(180deg);
 }
-
+.card-bg.dots-blue-down::before {
+    background-image: url('../img/dots-blue-down.png');
+}
 .card-bg.dots-pink::before {
     background-image: url('../img/dots-pink.png');
 }
@@ -1036,7 +1050,12 @@ button.submit {
 
 
 @media all and (max-width : 400px) {
-
+    .responsive-container {
+        padding: 1rem!important;
+    }
+    .responsive-bg-opacity::before {
+        opacity: .3;
+    }
     #menu-left {
         margin-right: auto;
         text-align: left;
@@ -1065,12 +1084,18 @@ button.submit {
     #header nav a, #header ul li label {
         padding: 5px;
     }
-    #home #contact-us {
+    #contact-us {
         padding: 1rem;
     }
     #home #submit-contact {
         text-align: center;
     }
+    #video-influenceurs .home-block-padding > div {
+        padding: 0!important;
+    }
+    #influenceurs img,
+    #video-influenceurs img,
+    #annonceurs img,
     #home img {
         width: 100%;
     }

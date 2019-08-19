@@ -36,12 +36,12 @@ const Index = () => {
 	const onSubmit = () => console.log('submit')
 
 	return (
-		<div>
+		<div id='video-influenceurs'>
 			<NextSeo
 				title="Bolt Influence video influence"
 				description="Le format in-video est un placement de produits innovant pour les campagnes de marketing d’influencue de la marque. mesure et impactant, il offre un espace inedit au sein même des contenus des influenceurs."
 			/>
-			<div className='card-bg lines-blue no-repeat right'>
+			<div className='card-bg lines-blue no-repeat responsive-bg-opacity right'>
 				<div className='home-block-padding' style={styles.padding}>
 					<h1 className='text-center red-color'>La vidéo un média d’avenir</h1>
 					<Grid container item style={styles.cardContainer}>
@@ -65,7 +65,7 @@ const Index = () => {
 						<img src={Screen6} />
 					</Grid>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
-						<Grid item container xs={12} sm={8}>
+						<Grid item container xs={12} sm={8} className='responsive-container'>
 							<h2><span className='bordered-head'>Un média</span> engageant</h2>
 							<p className='justify'>Les vidéos rencontrent 36% d’engagement de plus que les photos sur Instagram et reçoivent en moyenne 2,1x de commentaires en plus.</p>
 							<p className='italic'>*Etude : 17 instagram stats marketer needs to know in 2019 - Sprout Social.</p>
@@ -90,12 +90,12 @@ const Index = () => {
 			</div>
 			{/*  */}
 			<div className='light-gray-bg'>
-				<Grid container item style={styles.cardContainer} className='card-bg lines-blue reverse-all right no-repeat'>
+				<Grid container item style={styles.cardContainer} className='card-bg lines-blue responsive-bg-opacity reverse-all right no-repeat'>
 					<Grid item xs={12} sm={6} className='text-center'>
 						<img src={Screen6} />
 					</Grid>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
-						<Grid item container xs={12} sm={8}>
+						<Grid item container xs={12} sm={8} className='responsive-container'>
 							<h2><span className='bordered-head'>Intégrez</span> Un format non-intrusif</h2>
 							<p className='justify'>Une étude menée auprès de 1000 personnes a montré que 80% d’entre eux trouvent que ce format offre une bonne visibilité et 70% trouvent que ce mode de publicité est moins intrusif que les pré-roll.</p>
 						</Grid>

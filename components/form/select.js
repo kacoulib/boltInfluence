@@ -33,35 +33,44 @@ const MenuProps = {
             width: 250,
         },
     },
+    select: {
+        [`& fieldset`]: {
+            border: 0,
+            boxShadow: '0px 2px 5px #bfbfbf',
+        },
+    }
 };
-const SelectType = ({ name, label, type, value, list, onChange, showLabel, unableUnderline, multiple, unableBoxShadow = true, error = false, classes, elemProps = {} }) => (
-    <FormElementWrapper label={label} showLabel={showLabel}>
-        <FormControl
-            style={elemProps.style ? { ...elemProps.style, ...fullwidth } : fullwidth}
+const SelectType = ({ name, label, type, value, list, onChange, showLabel, unableUnderline, multiple, unableBoxShadow = true, error = false, classes, elemProps = {} }) => {
+    console.log(elemProps)
+    return (
+        <FormElementWrapper label={label} showLabel={showLabel}>
+            <FormControl
+                style={elemProps.style ? { ...elemProps.style, ...fullwidth } : fullwidth}
 
-        >
-            {!showLabel ? <InputLabel htmlFor={name} style={labelStyle}>{label}</InputLabel> : ''}
-            <Select
-                error={error}
-                multiple={multiple}
-                value={value ? value : multiple ? [] : ''}
-                onChange={onChange(name)}
-                input={!unableBoxShadow && !unableUnderline ? <OutlinedInput id={name} /> : <Input id={name} />}
-                disableUnderline={!!unableUnderline}
-                required={true}
-                style={fullwidth}
-                className={unableBoxShadow ? classes.select : ''}
-            // {...elemProps}
             >
-                {list && list.map((elem, key) => (
-                    <MenuItem key={`${elem.name}-${key}`} value={elem.name}>
-                        {elem.value}
-                    </MenuItem>
-                ))}
-            </Select>
-        </FormControl>
-    </FormElementWrapper>
-)
+                {!showLabel ? <InputLabel htmlFor={name} style={labelStyle}>{label}</InputLabel> : ''}
+                <Select
+                    error={error}
+                    multiple={multiple}
+                    value={value ? value : multiple ? [] : ''}
+                    onChange={onChange(name)}
+                    input={!unableBoxShadow && !unableUnderline ? <OutlinedInput id={name} /> : <Input id={name} />}
+                    disableUnderline={!!!unableUnderline}
+                    required={true}
+                    style={fullwidth}
+                    className={unableBoxShadow ? classes.select : ''}
+                // {...elemProps}
+                >
+                    {list && list.map((elem, key) => (
+                        <MenuItem key={`${elem.name}-${key}`} value={elem.name}>
+                            {elem.value}
+                        </MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
+        </FormElementWrapper>
+    )
+}
 const SelectComp = (props) => {
     const classes = useStyles();
 
