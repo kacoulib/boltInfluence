@@ -4,6 +4,7 @@ const { google } = require('googleapis');
 
 const User = require('../models/User');
 const { redirecAfterAuth } = require('./index');
+const { storeSignUpInfos, consumeSignUpInfos } = require('../utils/express');
 
 function auth({ ROOT_URL, app }) {
   const verify = async (accessToken, refreshToken, profile, verified) => {
@@ -84,6 +85,7 @@ function auth({ ROOT_URL, app }) {
     passport.authenticate('google', {
       failureRedirect: '/login',
     }),
+    consumeSignUpInfos,
     redirecAfterAuth,
   );
 }

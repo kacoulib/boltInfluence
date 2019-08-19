@@ -12,7 +12,7 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const nextRoutes = require('./routes/next-routes')
 
-// const { setupMangopay } = require('./utils/mangopay');
+const { setupMangopay } = require('./utils/mangopay');
 const instagramAuth = require('./auth/instagram');
 const googleAuth = require('./auth/google');
 const facebookAuth = require('./auth/facebook');
@@ -31,12 +31,12 @@ const logger = require('./logs');
 require('dotenv').config();
 
 const dev = process.env.NODE_ENV !== 'production';
-const MONGO_URL = process.env.MONGO_URL_TEST;
+const MONGO_URL = dev ? process.env.MONGO_URL_TEST : process.env.MONGO_URL_PROD;
 
 const mangopayConfig = {
   clientId: process.env.MANGOPAY_CLIENTID,
-  clientPassword: process.env.MANGOPAY_PASSWORD,
-  // debugMode: dev,
+  clientApiKey: process.env.MANGOPAY_APIKEY,
+  debugMode: dev,
 };
 if (process.env.MANGOPAY_BASE_URL) {
   mangopayConfig.baseUrl = process.env.MANGOPAY_BASE_URL;
@@ -48,7 +48,12 @@ const options = {
   useCreateIndex: true,
   useFindAndModify: false,
 };
-mongoose.connect(MONGO_URL, options);
+mongoose
+  .connect(MONGO_URL, options)
+  .catch(err => {
+    logger.error(err.message);
+    process.exit(1);
+  });
 
 // fake DB
 const messages = [];
@@ -65,7 +70,7 @@ io.on('connect', (socket) => {
 });
 
 const port = process.env.PORT || 8000;
-const ROOT_URL = `http://localhost:${port}`;
+const ROOT_URL = process.env.ROOT_URL || `http://localhost:${port}`;
 
 const URL_MAP = {
   '/login': '/public/login',
@@ -107,7 +112,8 @@ nextApp.prepare().then(async () => {
 
 
   app.use((req, res, next) => {
-    // console.log('Sess:', req.sessionID);
+    // console.log('sessionID:', req.sessionID);
+    // console.log("session:", req.session);
     next();
   });
 
