@@ -10,6 +10,7 @@ const compression = require('compression')
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
+const cors = require('cors');
 const nextRoutes = require('./routes/next-routes')
 
 const { setupMangopay } = require('./utils/mangopay');
@@ -98,11 +99,10 @@ nextApp.prepare().then(async () => {
     },
   };
 
-  app.use(function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
-  });
+  app.use(cors({
+    origin: true,
+    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept']
+  }));
   app.use(bodyParser.json({ limit: '50mb' }));
   app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
   app.use(cookieParser());
