@@ -28,7 +28,7 @@ The form generator enable you to generate html form with grid disposition depend
 	fields={fields}
 	state={state}
 	errors={errors}
-	setting={settings}
+	settings={settings}
 	onChange={onChange}
 />
 ```
@@ -58,6 +58,7 @@ The form generator enable you to generate html form with grid disposition depend
 | Property                           | Type                    | Description                                                                                                                                                                          |
 | ---------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `showLabel?`                    | boolean (default false)                | Determines if we need to display form elements labels |
+| `labelPostion?`                    | string                | Position of label e.g('top \| left'). Combine value to put the label on top left position
 | `unableUnderline`                          | boolean (default false)   | Determines the material ui form elements should be underline
 | `unableboxShadow`                          | boolean (default false)   | Determines the material ui form elements bordered with box-shadow
 
