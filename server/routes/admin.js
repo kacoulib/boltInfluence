@@ -274,6 +274,14 @@ router.get(
     return res.json(template);
   }),
 );
+router.post(
+  '/emailtemplate',
+  handleErrors(async (req, res) => {
+    const { name, subject, message } = req.body;
+    const emailTemplate = await EmailTemplate.add({ name, subject, message });
+    res.json(emailTemplate);
+  }),
+);
 
 router.get('/articles', listCollection(Article.list.bind(Article)));
 
@@ -480,7 +488,7 @@ router.delete(
   '/centersofinterest/:name',
   handleErrors(async (req, res) => {
     const { name } = req.params;
-    const centerOfInterest = await CenterOfInterest.deleteByName({ name});
+    const centerOfInterest = await CenterOfInterest.deleteByName({ name });
     res.status(204).end();
   }),
 )
