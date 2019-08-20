@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from '../../../server/routes/next-routes'
-import FormGenerator from '../../form/generator'
+import FormGenerator from '../../formElement/generator'
 import { lightGray } from '../../../utils/variables/css';
 import PropTypes from 'prop-types';
 import Btn from '../../elements/btn'

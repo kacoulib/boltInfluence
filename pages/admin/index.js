@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
+// import { Link } from '../../server/routes/next-routes'
 
 import Button from '@material-ui/core/Button';
 
@@ -10,20 +11,20 @@ import withLayout from '../../lib/withLayout';
 import withAuth from '../../lib/withAuth';
 import { getBookList } from '../../lib/api/http/admin';
 
+const adminPaths = [{ name: 'Posts', href: '/admin/posts' }];
+
 const Index = ({ books }) => (
   <div style={{ padding: '10px 45px' }}>
     <div>
       <h2>Admin</h2>
-      <Link href="/admin/add-book">
+      <Link href="/admin/posts">
         <Button variant="contained">Users</Button>
       </Link>
       <p />
       <ul>
-        {books.map((b) => (
-          <li key={b._id}>
-            <Link as={`/admin/book-detail/${b.slug}`} href={`/admin/book-detail?slug=${b.slug}`}>
-              <a>{b.name}</a>
-            </Link>
+        {adminPaths.map((b) => (
+          <li key={b.name}>
+            <Link href={b.href}><a title={b.name}>{b.name}</a></Link>
           </li>
         ))}
       </ul>
@@ -48,8 +49,8 @@ class IndexWithData extends React.Component {
 
   async componentDidMount() {
     try {
-      const { books } = await getBookList();
-      this.setState({ books }); // eslint-disable-line
+      // const { books } = await getBookList();
+      // this.setState({ books }); // eslint-disable-line
     } catch (err) {
       notify(err);
     }
@@ -60,4 +61,4 @@ class IndexWithData extends React.Component {
   }
 }
 
-export default withAuth(withLayout(IndexWithData), { adminRequired: true });
+export default withAuth(IndexWithData, { adminRequired: true });

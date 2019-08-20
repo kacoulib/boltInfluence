@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Link from 'next/link';
 import { customRequest } from '../../../lib/api/http/index';
 import Edit from '../create-edit'
+import Ucfirst from '../../../lib/ucfirst'
 
 const cardContainer = {
     padding: '1rem',
@@ -29,7 +30,7 @@ const styles = {
     marqueName: { color: '##5b5b5d' }
 }
 
-const Index = ({ fields, path, editIdenfier, title, showImg = true, requestProp }) => {
+const Index = ({ fields, path, editIdenfier, titleIdentifier = 'title', title, showImg = true, requestProp }) => {
     const [state, setState] = useState({ [requestProp]: [], selectedArticle: null })
 
     useEffect(() => {
@@ -65,7 +66,7 @@ const Index = ({ fields, path, editIdenfier, title, showImg = true, requestProp 
                             </div>
                         </Grid>}
                         <Grid item xs={8} sm={8} style={styles.influencer_info_container}>
-                            <h2>{elem.title}</h2>
+                            <h2>{Ucfirst(elem[titleIdentifier])}</h2>
                             <h3 style={styles.marqueName}>{elem.marque}</h3>
                         </Grid>
                     </Grid>

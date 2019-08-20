@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types'
-import FormGenerator from '../../form/generator'
+import FormGenerator from '../../formElement/generator'
 import Button from '@material-ui/core/Button';
 import { choiceList } from '../../../utils/variables/general'
 
