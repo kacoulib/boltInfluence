@@ -7,7 +7,7 @@ import FormValidator, { LeanForm } from '../lib/form/validator'
 
 import withLayout from '../lib/withLayout';
 import { styleLoginButton } from '../components/SharedStyles';
-import FormGenerator from '../components/form/generator';
+import FormGenerator from '../components/formElement/generator';
 import SocialBtn from '../components/elements/socialBtn'
 import Btn from '../components/elements/btn'
 import Ucfirst from '../lib/ucfirst'

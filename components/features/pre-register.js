@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import { customRequest } from '../../lib/api/http'
 import InfluencersPicture from '../../static/img/influenceurs_picture.png'
-import FormGenerator from '../form/generator'
+import FormGenerator from '../formElement/generator'
 import Btn from '../elements/btn'
 import { Grid } from '@material-ui/core';
 import SocialBtn from '../elements/socialBtn'

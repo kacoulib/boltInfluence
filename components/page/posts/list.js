@@ -6,6 +6,7 @@ import InfluenceurJones from '../../../static/img/pictures/rectangle.png'
 import Button from '@material-ui/core/Button';
 import Link from 'next/link';
 import { getArticles, getBookList } from '../../../lib/api/http/admin';
+import { customRequest } from '../../../lib/api/http/index';
 import Edit from '../create-edit'
 
 const cardContainer = {
@@ -34,7 +35,7 @@ const Index = ({ loadMore, fields, path, editIdenfier }) => {
 
     useEffect(() => {
         async function getData() {
-            const articles = await getArticles();
+            const articles = await customRequest({ path });
             setState({ ...state, ...articles })
         }
         getData()

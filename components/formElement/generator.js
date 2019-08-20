@@ -4,7 +4,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Wysiwyg from './wysiwyg'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles';
-import ChipList from '../../components/form/chipList';
+import ChipList from './chipList';
 import Select from './select';
 import Radio from './radio';
 import Upload from './upload';

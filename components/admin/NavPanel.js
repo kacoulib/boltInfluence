@@ -5,13 +5,13 @@ import Grid from '@material-ui/core/Grid';
 import Link from 'next/link';
 
 const NavPanel = ({ navList, index = 0 }) => {
-    const [state, setState] = useState({
+    let [state, setState] = useState({
         index,
         showSubMenu: false,
         subMenuIndex: index,
-    });
-    let nav = navList[state.index].subMenu ? navList[state.index].subMenu.navList : navList;
-    let currentComp;
+    }),
+        nav = navList[state.index].subMenu ? navList[state.index].subMenu.navList : navList,
+        currentComp;
 
     if (state.showSubMenu && navList[state.index].subMenu.navList[state.subMenuIndex])
         currentComp = navList[state.index].subMenu.navList[state.subMenuIndex].page;
@@ -24,6 +24,7 @@ const NavPanel = ({ navList, index = 0 }) => {
         else
             setState({ index, showSubMenu: hasSubMenu || state.showSubMenu, subMenuIndex: 0 })
     }
+    console.log(state)
     return (
         <div id='process'>
             <Grid container>
@@ -38,10 +39,11 @@ const NavPanel = ({ navList, index = 0 }) => {
                 <Grid item xs={12} sm={3}>
                     <ul id='process-nav'>
                         {nav && nav.map((e, i) => {
+                            const currentIndex = state.showSubMenu ? state.subMenuIndex : state.index;
                             return (
                                 <li key={i}>
                                     <Link prefetch href={`#${e.href}`}>
-                                        <a className={i == state.index ? 'orange-color' : 'gray-color'} onClick={() => setNavigation(i, !!e.subMenu)}>
+                                        <a className={i == currentIndex ? 'orange-color' : 'gray-color'} onClick={() => setNavigation(i, !!e.subMenu)}>
                                             <span className={e.className}></span>
                                             <span>{e.text}</span>
                                         </a>

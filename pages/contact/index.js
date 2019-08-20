@@ -10,7 +10,7 @@ import { darkBlueColor, darkOrangeColor, lightGray, redColor } from '../../utils
 import Search from '../../components/elements/search';
 import Image01 from '../../static/img/c-est-quoi.jpeg'
 import Image02 from '../../static/img/comment-ca-marche.jpeg'
-import FormGenerator from '../../components/form/generator';
+import FormGenerator from '../../components/formElement/generator';
 import { customRequest } from '../../lib/api/http'
 
 const styles = {

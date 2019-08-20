@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types'
-import FormGenerator from '../form/generator'
+import FormGenerator from '../formElement/generator'
 import Button from '@material-ui/core/Button';
 import { customRequest } from '../../lib/api/http/index';
-import { buildToArray, buildFromArray } from '../form/reactSelect'
+import { buildToArray, buildFromArray } from '../../utils/datas/convert'
 
 const cardContainer = {
     padding: '1rem',

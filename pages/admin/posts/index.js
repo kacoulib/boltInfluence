@@ -7,7 +7,7 @@ import CategoryList from '../../../components/page/posts/categoryList';
 import Faq from '../../../components/page/posts/faq';
 import CreatePost from '../../../components/page/create-edit';
 import { customRequest } from '../../../lib/api/http/index';
-import { buildFromArray } from '../../../components/form/reactSelect'
+import { buildFromArray } from '../../../utils/datas/convert'
 import Home from '../../../components/page/home';
 import { useRouter } from 'next/router'
 
@@ -67,15 +67,47 @@ const faqsFields = [
     }
 ]
 
+const emailTemplateFields = [
+    {
+        label: "Name",
+        name: "name",
+        type: 'input',
+        required: true,
+        props: {
+            margin: "normal",
+        }
+    },
+    {
+        label: "Subject",
+        name: "subject",
+        type: 'input',
+        required: true,
+        props: {
+            margin: "normal",
+        }
+    },
+    {
+        label: "Message",
+        name: "message",
+        type: 'wysiwyg',
+        required: true,
+        props: {
+            margin: "normal",
+            variant: "outlined",
+        }
+    }
+]
+
 
 const CustomerIndex = (props) => {
-    const router = useRouter()
-    const { categories, articlesLength, tags, faqsLength } = router.query
+    // const router = useRouter()
+    const { categories = [], articlesLength = 0, tags = [], faqsLength = 0, email = [] } = {}
 
     const [state, setState] = useState({
         categories,
         articlesLength,
         tags,
+        email,
         faqsLength,
 
         influencersList: [],
@@ -158,6 +190,10 @@ const CustomerIndex = (props) => {
                                 {
                                     title: 'FAQs',
                                     card: [{ icon: 'PostIcon', text: 'Crées', nb: state.faqsLength }]
+                                },
+                                {
+                                    title: 'Email',
+                                    card: [{ icon: 'PostIcon', text: 'Crées', nb: state.email.length }]
                                 }
                             ]
                         }
@@ -167,7 +203,14 @@ const CustomerIndex = (props) => {
                     href: 'article', className: 'icon photos', text: 'Articles', subMenu: {
                         title: 'Articles', navList: [
                             { href: 'mark', className: 'icon photos', text: 'Créer un article', page: <CreatePost fields={articleFields} path='/admin/articles' /> },
-                            { href: 'account', className: 'icon mark', text: 'Liste des articles', page: <PostList fields={articleFields} path='/admin/articles' editIdenfier='slug' /> },
+                            {
+                                href: 'account', className: 'icon mark', text: 'Liste des articles', page: <PostList
+                                    fields={articleFields}
+                                    path='/admin/articles'
+                                    requestProp='articles'
+                                    editIdenfier='slug'
+                                />
+                            },
                         ]
                     }
                 },
@@ -206,7 +249,7 @@ const CustomerIndex = (props) => {
                 },
                 {
                     href: 'account', className: 'icon mark', text: 'F.A.Q', subMenu: {
-                        title: 'Catégories', navList: [
+                        title: 'F.A.Q', navList: [
                             { href: 'mark', className: 'icon photos', text: 'Créer un tag', page: <CreatePost fields={faqsFields} path='/admin/faqs' /> },
                             {
                                 href: 'account', className: 'icon mark', text: 'Liste des tags', page: <CategoryList
@@ -216,6 +259,24 @@ const CustomerIndex = (props) => {
                                     showImg={false}
                                     title='Liste des F.A.Q'
                                     requestProp='faqs'
+                                />
+                            },
+                        ]
+                    }
+                },
+                {
+                    href: 'account', className: 'icon mark', text: 'Email', subMenu: {
+                        title: 'Email', navList: [
+                            { href: 'mark', className: 'icon photos', text: 'Créer un tag', page: <CreatePost fields={emailTemplateFields} path='/admin/emailtemplate' /> },
+                            {
+                                href: 'account', className: 'icon mark', text: 'Liste des tags', page: <CategoryList
+                                    fields={emailTemplateFields}
+                                    path='/admin/emailtemplates'
+                                    editIdenfier='_id'
+                                    titleIdentifier='name'
+                                    showImg={false}
+                                    title="Liste des templates d'email"
+                                    requestProp='templates'
                                 />
                             },
                         ]
