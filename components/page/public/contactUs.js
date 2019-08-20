@@ -5,7 +5,7 @@ import { lightGray } from '../../../utils/variables/css';
 import PropTypes from 'prop-types';
 import Btn from '../../elements/btn'
 import { customRequest } from '../../../lib/api/http'
-import FormValidator from '../../../lib/form/validator'
+import FormValidator from '../../../lib/formElement/validator'
 
 const fields = [{
     label: "Prénom *",

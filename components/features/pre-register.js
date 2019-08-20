@@ -6,7 +6,7 @@ import FormGenerator from '../formElement/generator'
 import Btn from '../elements/btn'
 import { Grid } from '@material-ui/core';
 import SocialBtn from '../elements/socialBtn'
-import FormValidator, { LeanForm } from '../../lib/form/validator'
+import FormValidator, { LeanForm } from '../../lib/formElement/validator'
 import { Router } from '../../server/routes/next-routes'
 
 const fields = [
