@@ -101,12 +101,13 @@ const emailTemplateFields = [
 
 const CustomerIndex = (props) => {
     // const router = useRouter()
-    const { categories = [], articlesLength = [], tags = [], faqsLength = [] } = {}
+    const { categories = [], articlesLength = 0, tags = [], faqsLength = 0, email = [] } = {}
 
     const [state, setState] = useState({
         categories,
         articlesLength,
         tags,
+        email,
         faqsLength,
 
         influencersList: [],
@@ -189,6 +190,10 @@ const CustomerIndex = (props) => {
                                 {
                                     title: 'FAQs',
                                     card: [{ icon: 'PostIcon', text: 'Crées', nb: state.faqsLength }]
+                                },
+                                {
+                                    title: 'Email',
+                                    card: [{ icon: 'PostIcon', text: 'Crées', nb: state.email.length }]
                                 }
                             ]
                         }
@@ -198,7 +203,14 @@ const CustomerIndex = (props) => {
                     href: 'article', className: 'icon photos', text: 'Articles', subMenu: {
                         title: 'Articles', navList: [
                             { href: 'mark', className: 'icon photos', text: 'Créer un article', page: <CreatePost fields={articleFields} path='/admin/articles' /> },
-                            { href: 'account', className: 'icon mark', text: 'Liste des articles', page: <PostList fields={articleFields} path='/admin/articles' editIdenfier='slug' /> },
+                            {
+                                href: 'account', className: 'icon mark', text: 'Liste des articles', page: <PostList
+                                    fields={articleFields}
+                                    path='/admin/articles'
+                                    requestProp='articles'
+                                    editIdenfier='slug'
+                                />
+                            },
                         ]
                     }
                 },
