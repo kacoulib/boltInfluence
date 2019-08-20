@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Button from '@material-ui/core/Button';
 import { basicAuth } from '../lib/api/http/public';
 import { Grid } from '@material-ui/core';
-import FormValidator, { LeanForm } from '../lib/formElement/validator'
+import FormValidator, { LeanForm } from '../lib/form/validator'
 
 import withLayout from '../lib/withLayout';
 import { styleLoginButton } from '../components/SharedStyles';
