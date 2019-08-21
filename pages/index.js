@@ -81,7 +81,7 @@ const Index = () => {
 			/>
 			<div style={styles.marginBottom}>
 				<Grid container item className='relative' id='home-cover'>
-					<img src={ScreenHome} className='fullwidth' />
+					{/* <img src={ScreenHome} className='fullwidth' /> */}
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center" style={styles.hover}>
 						<Grid item xs={12} sm={12} className='text-center' id='homeTextContainer'>
 							<h1 className='white-color'>Tirez le meilleur de l’influence marketing grâce à la vidéo</h1>

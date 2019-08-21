@@ -122,7 +122,7 @@ const Index = () => {
 					margin-top: 0;
 				}
 				h2:not(.card-title) {
-					margin: 2rem auto;
+					margin: 4rem auto;
 				}
 			`}</style>
 		</div>
