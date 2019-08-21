@@ -7,11 +7,15 @@ a, a:hover {
     text-decoration: none;
     cursor: pointer;
 }
+html {
+    font-size: 16px;
+}
 #body {
+    font-size: 1.3rem;
     background-color: #fff;
 }
 body {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif!important;
     color: #222;
     margin: 0px auto;
     font-weight: 300;
@@ -35,7 +39,7 @@ body a {
     color: #FFF;
 	text-align: center;
 	font-weight: bold;
-	font-size: 1rem;
+	font-size: 1.2rem;
 }
 /* NAV */
 .menu-link span:nth-child(1) {
@@ -65,7 +69,7 @@ nav {
 }
 nav > ul {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     width: 100%;
 }
 #logo {
@@ -98,15 +102,18 @@ nav ul {
 /* Positioning the navigation items inline */
 nav ul li {
 	margin: 0px;
-	display:inline-block;
-	float: left;
+    display: inline-block;
+    position: relative;
+    /* float: left; */
+    /* width: 20%; */
+    flex: 1 1 0;
 	background-color: #252b40;
-	}
+}
 
 /* Styling the links */
 nav a {
 	display:block;
-	padding:14px 20px;	
+	padding: 14px 0;	
 	color:#FFF;
 	font-size:17px;
 	text-decoration:none;
@@ -119,7 +126,8 @@ nav ul ul {
 	display: none;
 	position: absolute; 
 	/* has to be the same number as the "line-height" of "nav a" */
-	top: 100%; 
+    top: 100%; 
+    width: 100%;
 }
 	
 /* Display Dropdowns on Hover */
@@ -517,7 +525,7 @@ li > a:only-child:after { content: ''; } */
     position: absolute;
     left: 0;
     bottom: 0;
-    border-bottom: 2px solid #F13F4B;
+    border-bottom: 3.5px solid #F13F4B;
     width: 75px;
 }
 .black-bordered-head::after {
@@ -528,7 +536,7 @@ li > a:only-child:after { content: ''; } */
 }
 /* GENERAL  */
 #footer {
-    padding: 4rem 0;
+    padding: 4rem 0 2rem;
     background-color: #dedee8;
     background-repeat: no-repeat;
     background-position: left bottom;
@@ -541,9 +549,20 @@ li > a:only-child:after { content: ''; } */
     text-align: center;
     padding: 0 0 1rem 0;
 }
+footer #socials {
+    padding-top: 5px;
+}
+footer li {
+    font-weight: bold;
+    color: #232941;
+    font-size: 1.1rem;
+}
+footer .link-container {
+    padding-top: 2rem;
+}
 #socials > li {
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
     margin: 0 .5rem;
 }
 #socials > li:first-child {
@@ -581,17 +600,22 @@ li > a:only-child:after { content: ''; } */
 }
 .tarif-list-container > li {
     display: inline-block;
+    width: 33.33%;
+    vertical-align: top;
+    padding: 3rem 1rem;
+    
+}
+.tarif-list-container > li>div {
     background-color: white;
     padding: 3rem 2rem;
     border: 1px solid #D8D8D8;
     border-radius: 5px;
     transition: transform .2s;
     cursor: pointer;
-    width: 33%;
-    vertical-align: top;
+    font-size: 1.1rem;
 }
 .tarif-list-container > li.active-tarif {
-    transform: scale(1.2);
+    transform: scale(1.1);
 }
 .tarif-list-container ul li {
     border-bottom: 1px solid #D8D8D8;

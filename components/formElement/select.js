@@ -40,9 +40,11 @@ const MenuProps = {
         },
     }
 };
-const SelectType = ({ name, label, type, value, list, onChange, showLabel, unableUnderline, multiple, unableBoxShadow = true, error = false, classes, labelPosition = {}, elemProps = {} }) => {
+const SelectType = ({ name, label, type, value, list, onChange, showLabel, variant, unableUnderline, multiple, unableBoxShadow = true, error = false, classes, labelPosition = {}, elemProps = {} }) => {
     if (unableBoxShadow)
         elemProps.style = { ...{ boxShadow: '0px 2px 5px #bfbfbf' }, ...elemProps.style };
+    if ((!unableBoxShadow && !unableUnderline) || variant == 'outlined')
+        variant = 'outlined';
 
     return (
         <FormElementWrapper label={label} showLabel={showLabel} labelPosition={labelPosition}>
@@ -55,7 +57,7 @@ const SelectType = ({ name, label, type, value, list, onChange, showLabel, unabl
                     multiple={multiple}
                     value={value ? value : multiple ? [] : ''}
                     onChange={onChange(name)}
-                    input={!unableBoxShadow && !unableUnderline ? <OutlinedInput id={name} /> : <Input id={name} />}
+                    input={variant ? <OutlinedInput id={name} /> : <Input id={name} />}
                     disableUnderline={!!!unableUnderline}
                     required={true}
                     style={fullwidth}

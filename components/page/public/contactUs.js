@@ -62,29 +62,6 @@ const fields = [{
         }
     }
 },
-
-{
-    label: "Titre professionnel *",
-    name: "position",
-    type: 'input',
-    required: true,
-    props: {
-        style: {
-            backgroundColor: lightGray,
-        }
-    }
-},
-{
-    label: "Décrivez les besoins ou les objectifs de votre entreprise",
-    name: "message",
-    type: 'textarea',
-    required: true,
-    props: {
-        style: {
-            backgroundColor: lightGray,
-        }
-    }
-},
 {
     label: "- Veuillez sélectionner un secteur d'activité -",
     name: "activity",
@@ -107,8 +84,32 @@ const fields = [{
         },
     }
 },
+{
+    label: "Titre professionnel *",
+    name: "position",
+    type: 'input',
+    required: true,
+    props: {
+        style: {
+            backgroundColor: lightGray,
+        }
+    }
+},
+{
+    label: "Décrivez les besoins ou les objectifs de votre entreprise",
+    name: "message",
+    type: 'textarea',
+    required: true,
+    props: {
+        style: {
+            backgroundColor: lightGray,
+        }
+    }
+},
 ]
-const settings = { unableUnderline: false, unableBoxShadow: true }
+const settings = { unableUnderline: false, unableBoxShadow: true, variant: 'outlined' }
+// const settings = { unableBoxShadow: false, variante: 'outlined' };
+
 
 const Contactus = (props) => {
     const [state, setState] = useState({

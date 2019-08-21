@@ -24,7 +24,7 @@ const NavPanel = ({ navList, index = 0 }) => {
         else
             setState({ index, showSubMenu: hasSubMenu || state.showSubMenu, subMenuIndex: 0 })
     }
-    console.log(state)
+
     return (
         <div id='process'>
             <Grid container>
