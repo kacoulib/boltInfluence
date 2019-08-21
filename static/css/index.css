@@ -529,7 +529,7 @@ li > a:only-child:after { content: ''; } */
     width: 75px;
 }
 .black-bordered-head::after {
-    border-bottom: 2px solid #000;
+    border-bottom: 3.5px solid #000;
 }
 .full-bordered-head::after {
     width: 100%;
