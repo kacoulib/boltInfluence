@@ -37,7 +37,7 @@ const Index = () => {
 	return (
 		<div>
 			<div className='card-bg lines-blue no-repeat right'>
-				<div className='home-block-padding' style={styles.padding}>
+				<div>
 					<h1 className='text-center red-color'>Notre méthode</h1>
 					<Grid container item style={styles.cardContainer}>
 						<Grid item container xs={12} sm={6} justify="center" alignItems="center">
@@ -108,6 +108,11 @@ const Index = () => {
 			<div>
 				<Partners />
 			</div>
+			<style>{`
+				h1 {
+					// margin: 
+				}
+			`}</style>
 		</div>
 	)
 }

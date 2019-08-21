@@ -8,6 +8,7 @@ import { Grid } from '@material-ui/core';
 import SocialBtn from '../elements/socialBtn'
 import FormValidator, { LeanForm } from '../../lib/form/validator'
 import { Router } from '../../server/routes/next-routes'
+import notify from '../../lib/notifier';
 
 const fields = [
     {
@@ -109,6 +110,8 @@ const Index = () => {
     const handleSocial = (name, value) => {
         onChange(name, value);
         const errors = FormValidator({ fields, state });
+        if (errors.length)
+            notify('Veillez remplir le formulaire')
         setState({ ...state, errors })
     }
     const handleSubmit = () => {
@@ -121,9 +124,10 @@ const Index = () => {
     return (
         <Dialog maxWidth={false} aria-labelledby="simple-dialog-title" open={state.open} id='dialog'>
             <div id='subscribe'>
+                <div className='close' onClick={() => toggle('open')} >X</div>
+
                 {state.subscribe ?
-                    <div id='socials-slide'>
-                        <div className='close pointer' onClick={() => toggle('open')} >X</div>
+                    <div className='socials-slide'>
                         <Grid container justify="center" alignItems="center" className='text-center'>
                             <Grid item xs={12} sm={12}>
                                 <div>
@@ -159,7 +163,7 @@ const Index = () => {
                         </div>
                     </div>
                     :
-                    <div>
+                    <div className='socials-slide'>
                         <Grid container justify="center" alignItems="center" direction="row-reverse">
                             <Grid item xs={12} sm={6}>
                                 <div className='text-container'>
@@ -184,6 +188,7 @@ const Index = () => {
             </div>
             <style jsx>{`
                #subscribe {
+                   position: relative;
                    padding: 3rem 0;
                    color: white;
                    background-image: linear-gradient(-45deg, #101322, rgba(37, 44, 70, 0.92));
@@ -191,17 +196,16 @@ const Index = () => {
                 #subscribe > div {
                     padding: 0 1rem 5rem 1rem;
                 }
-                #socials-slide {
-                    position: relative;
+                .socials-slide {
                     width: 70%;
                     margin: auto;
                 }
-                #socials-slide .close{
+                .close{
                     position: absolute;
-                    top: 0;
-                    right: 0;
-                    color: #ea3e4a;
+                    top: 1rem;
+                    right: 1rem;
                     font-size: 2rem;
+                    cursor: pointer;
                 }
                 #subscribe .text-container {
                     padding: 0 1rem;
@@ -233,12 +237,12 @@ const Index = () => {
                #subscribe {
                    padding: 1rem 0;
                }
-                #socials-slide {
+                .socials-slide {
                     width: 100%;
                 }
-                #socials-slide .close {
-                    right: 1rem;
+                .socials-slide .close {
                     font-size: 1.5rem;
+                    right: 1rem;
                 }
                }
             `}</style>
