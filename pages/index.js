@@ -101,7 +101,7 @@ const Index = () => {
 						</Grid>
 						<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 							<Grid item xs={12} sm={8}>
-								<h2 className='card-title'>Stratégie de <span className='black-bordered-head'>contenu</span></h2>
+								<h2>Stratégie de <span className='black-bordered-head'>contenu</span></h2>
 								<div>
 									<p className='no-margin'>Lignes éditoriales</p>
 									<p className='no-margin'>Stratégie de plateforme</p>
@@ -118,7 +118,7 @@ const Index = () => {
 				<Grid container item style={styles.cardContainer} className='light-gray-bg' >
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center" >
 						<Grid item xs={12} sm={8} className='text-center'>
-							<h2 className='card-title'><span className='black-bordered-head'>Data</span> et Technologie</h2>
+							<h2><span className='black-bordered-head'>Data</span> et Technologie</h2>
 							<div>
 								<p className='no-margin'>Search infleunceurs</p>
 								<p className='no-margin'>Prévention de la fraude</p>
@@ -141,7 +141,7 @@ const Index = () => {
 					</Grid>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item xs={12} sm={8}>
-							<h2 className='card-title'>Managment et <span className='black-bordered-head'>optimization</span></h2>
+							<h2>Managment et <span className='black-bordered-head'>optimization</span></h2>
 							<p className='no-margin'>Relation influenceurs</p>
 							<p className='no-margin'>Account managment</p>
 							<p className='no-margin'>Qualité de service</p>
@@ -207,7 +207,7 @@ const Index = () => {
 				p {
 					font-size: 1.4rem;
 				}
-				.card-title {
+				h2 {
 					margin-top: 0;
 				}
 			`}</style>
