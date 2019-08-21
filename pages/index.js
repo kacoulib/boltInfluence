@@ -204,6 +204,9 @@ const Index = () => {
 					font-size: 3rem;
 					line-height: 4rem;
 				}
+				p {
+					font-size: 1.4rem;
+				}
 			`}</style>
 		</div>
 	)

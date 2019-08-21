@@ -13,7 +13,7 @@ const styles = {
 
 const PartnersComp = () => (
     <Grid container style={styles.partners} >
-        <Grid item xs={12} sm={12} className='text-center' style={styles.partnersTitle}><h3>Ils nous font confiance</h3></Grid>
+        <Grid item xs={12} sm={12} className='text-center' style={styles.partnersTitle}><h2 className='bold'>Ils nous font confiance</h2></Grid>
         <Grid item xs={12} sm={12} className='text-center'>
             <img src={Partners} />
         </Grid>
