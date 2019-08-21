@@ -101,7 +101,7 @@ const Index = () => {
 						</Grid>
 						<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 							<Grid item xs={12} sm={8}>
-								<h2>Stratégie de <span className='black-bordered-head'>contenu</span></h2>
+								<h2 className='card-title'>Stratégie de <span className='black-bordered-head'>contenu</span></h2>
 								<div>
 									<p className='no-margin'>Lignes éditoriales</p>
 									<p className='no-margin'>Stratégie de plateforme</p>
@@ -118,7 +118,7 @@ const Index = () => {
 				<Grid container item style={styles.cardContainer} className='light-gray-bg' >
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center" >
 						<Grid item xs={12} sm={8} className='text-center'>
-							<h2><span className='black-bordered-head'>Data</span> et Technologie</h2>
+							<h2 className='card-title'><span className='black-bordered-head'>Data</span> et Technologie</h2>
 							<div>
 								<p className='no-margin'>Search infleunceurs</p>
 								<p className='no-margin'>Prévention de la fraude</p>
@@ -134,14 +134,14 @@ const Index = () => {
 			</div>
 			{/*  */}
 			<div style={styles.padding} className='card-bg circle-pink bottom text-center'>
-				<h1 className='red-color'>Le format In-vidéo</h1>
+				{/* <h1 className='red-color'>Le format In-vidéo</h1> */}
 				<Grid container item style={styles.cardContainer}>
 					<Grid item xs={12} sm={6}>
 						<img src={Screen03} />
 					</Grid>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item xs={12} sm={8}>
-							<h2>Managment et <span className='black-bordered-head'>optimization</span></h2>
+							<h2 className='card-title'>Managment et <span className='black-bordered-head'>optimization</span></h2>
 							<p className='no-margin'>Relation influenceurs</p>
 							<p className='no-margin'>Account managment</p>
 							<p className='no-margin'>Qualité de service</p>
@@ -206,6 +206,9 @@ const Index = () => {
 				}
 				p {
 					font-size: 1.4rem;
+				}
+				.card-title {
+					margin-top: 0;
 				}
 			`}</style>
 		</div>
