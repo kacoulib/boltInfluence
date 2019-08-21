@@ -10,7 +10,7 @@ import { darkBlueColor, darkOrangeColor, lightGray } from '../../utils/variables
 
 const styles = {
 	cardContainer: {
-		padding: '5rem 0',
+		padding: '1rem 0 3rem',
 		// marginBottom: '3rem'
 	},
 	demoContainer: {
@@ -80,35 +80,7 @@ const Index = () => {
 			description: 'Prix : Nous consulter',
 			href: '/annonceurs/agence',
 			list: ["Accès à l’ensemble des influenceurs de la plateforme avec leurs statistiques détaillées + possibilité d’export CSV + PDF", "Possibilité d’avoir plusieurs comptes de marques", "Comptes illimités", "Gestion de campagnes et rapports personnalisés sur les retombées par compte de marques (Tik Tok, Youtube, Instagram, Twitch, Snapchat, Twitter, Facebook, Linkedin, Pinterest, blog) + possibilité d’export CSV + PDF	", "Outil de détection des faux influenceurs pour des campagnes authentiques.", "Création illimitée de campagne (nombre influenceurs illimités)", "Une validation avant la publication des influenceurs de leurs contenus photos et/ou vidéos", "Choix des influenceurs selon le profil, le centre d’intérêt, l’âge, le tarif, …", "Support email et téléphonique avec un contact privilégié", "Abonnement sans engagement (résiliation en un clic)", "Possibilité de créer des campagnes avec une rémunération pour les influenceurs ou de la dotation de produits", "Un conseiller unique et dédié par mail et téléphone tout au long de vos campagnes", "Accéder à la nouvelle technologie « In Video » pour un placement de produit innovant pour vos campagnes de marketing d’influence."]
-		}],
-		advantages: [{
-			title: 'La plateforme',
-			list: [
-				{ title: 'Lorem opsum dolor sit', Startups: 'Pas de frais', Marque: 'Pas de frais', Agence: 'Pas de frais' },
-				{ title: 'Lorem opsum dolor sit', Startups: '3', Marque: '5', Agence: '10' },
-				{ title: 'Lorem opsum dolor sit', Startups: <span className='tiny-icon valide-black'></span>, Marque: <span className='tiny-icon valide-black'></span>, Agence: 'Pas de frais' },
-				{ title: 'Lorem opsum dolor sit', Startups: '', Marque: <span className='tiny-icon valide-black'></span>, Agence: <span className='tiny-icon valide-black'></span> },
-				{ title: 'Lorem opsum dolor sit', Startups: <span className='tiny-icon valide-black'></span>, Marque: <span className='tiny-icon valide-black'></span>, Agence: 'Pas de frais' },
-			]
-		}, {
-			title: 'Influenceurs',
-			list: [
-				{ title: 'Lorem opsum dolor sit', Startups: 'Pas de frais', Marque: 'Pas de frais', Agence: 'Pas de frais' },
-				{ title: 'Lorem opsum dolor sit', Startups: '3', Marque: '5', Agence: '10' },
-				{ title: 'Lorem opsum dolor sit', Startups: <span className='tiny-icon valide-black'></span>, Marque: <span className='tiny-icon valide-black'></span>, Agence: 'Pas de frais' },
-				{ title: 'Lorem opsum dolor sit', Startups: '', Marque: <span className='tiny-icon valide-black'></span>, Agence: <span className='tiny-icon valide-black'></span> },
-				{ title: 'Lorem opsum dolor sit', Startups: <span className='tiny-icon valide-black'></span>, Marque: <span className='tiny-icon valide-black'></span>, Agence: 'Pas de frais' },
-			]
-		}, {
-			title: 'Agence',
-			list: [
-				{ title: 'Lorem opsum dolor sit', Startups: 'Pas de frais', Marque: 'Pas de frais', Agence: 'Pas de frais' },
-				{ title: 'Lorem opsum dolor sit', Startups: '3', Marque: '5', Agence: '10' },
-				{ title: 'Lorem opsum dolor sit', Startups: <span className='tiny-icon valide-black'></span>, Marque: <span className='tiny-icon valide-black'></span>, Agence: 'Pas de frais' },
-				{ title: 'Lorem opsum dolor sit', Startups: '', Marque: <span className='tiny-icon valide-black'></span>, Agence: <span className='tiny-icon valide-black'></span> },
-				{ title: 'Lorem opsum dolor sit', Startups: <span className='tiny-icon valide-black'></span>, Marque: <span className='tiny-icon valide-black'></span>, Agence: 'Pas de frais' },
-			]
-		}],
+		}]
 	})
 	const handleActive = (index) => {
 		setState({ ...state, activeTarif: index });
@@ -116,7 +88,7 @@ const Index = () => {
 	const onSubmit = () => console.log('submit')
 
 	return (
-		<div>
+		<div style={styles.cardContainer}>
 			<div>
 				<div className='home-block-padding' style={styles.padding}>
 					<h1 className='text-center'>Nos tarifs de la plateforme Bolt Influence</h1>
@@ -124,58 +96,20 @@ const Index = () => {
 						{state.tarifs && state.tarifs.map((elem, index) => (
 							<li key={index} className={index == state.activeTarif ? 'active-tarif' : ''} onMouseOver={() => handleActive(index)}>
 								<div>
-								<h2 className='red-color text-center'>{elem.title}</h2>
-								<p className='justify bold text-center'>{elem.description}</p>
-								<div className='center-text auto'>
-									<Link href={elem.href}><a title='Demander une démo' className='red-btn' style={styles.button}>Demander une démo</a></Link>
-								</div>
-								<ul>
-									{elem.list && elem.list.map((e, i) => (<li><span className='tiny-icon valide-red'></span><p className='inline-block'>{e}</p></li>))}
-								</ul>
+									<h2 className='red-color text-center'>{elem.title}</h2>
+									<p className='justify bold text-center'>{elem.description}</p>
+									<div className='center-text auto'>
+										<Link href={elem.href}><a title='Demander une démo' className='red-btn' style={styles.button}>Demander une démo</a></Link>
+									</div>
+									<ul>
+										{elem.list && elem.list.map((e, i) => (<li><span className='tiny-icon valide-red'></span><p className='inline-block'>{e}</p></li>))}
+									</ul>
 								</div>
 							</li>
 						))}
 					</ul>
 				</div>
 			</div>
-			{/*  */}
-			<div style={styles.cardContainer}>
-				<h3 className='text-center' style={styles.more}>Et bien plus encore…</h3>
-				<Grid container style={styles.padding}>
-					<Grid container item>
-						<Grid container item xs={4} sm={8}></Grid>
-						<Grid container item xs={8} sm={4} style={styles.tableHead} className='text-center bold'>
-							<Grid item xs={4} sm={4}>Startups</Grid>
-							<Grid item xs={4} sm={4}>Marque</Grid>
-							<Grid item xs={4} sm={4}>Agence</Grid>
-						</Grid>
-					</Grid>
-					{state.advantages && state.advantages.map((elem, index) => (
-						<Grid container itemkey={index} style={index != state.advantages.length - 1 ? styles.bottomPadding : {}}>
-							<h2 className='red-color'>{elem.title}</h2>
-							{elem.list && elem.list.map((e, i) => (
-								<Grid container item key={i} className={i % 2 == 0 ? 'light-gray-bg' : ''} style={styles.verticalPadding}>
-									<Grid item xs={4} sm={8}>{e.title}</Grid>
-									<Grid item container xs={8} sm={4} className='text-center'>
-										<Grid item xs={4} sm={4}>{e.Startups}</Grid>
-										<Grid item xs={4} sm={4}>{e.Marque}</Grid>
-										<Grid item xs={4} sm={4}>{e.Agence}</Grid>
-									</Grid>
-								</Grid>
-							))}
-						</Grid>
-					))}
-
-				</Grid>
-			</div>
-			{/*  */}
-			<div className='center-text' style={styles.demoContainer}>
-				<h2 className='red-color'>Demander une démo aujourd’hui ! </h2>
-				<div className='center-text auto'>
-					<Link href='#'><a title='Demander une démo' className='red-btn' style={styles.button}>Demander une démo</a></Link>
-				</div>
-			</div>
-
 		</div>
 	)
 }
