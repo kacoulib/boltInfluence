@@ -116,14 +116,14 @@ const Index = ({ faqs: { faqs } = {} } = {}) => {
 							<Card src={Image01} title="Bolt Influence, c’est quoi ?" color='blue' />
 						</Grid>
 						<Grid item container xs={12} sm={6} justify="center" alignItems="center">
-							<Grid item xs={12} sm={8}>
+							<Grid item xs={12} sm={10}>
 								<p style={styles.p}>Chez Bolt Influence, nous souhaitons vous proposer les outils et les services qui vous aideront à piloter vos campagnes de Marketing d’influenceur.</p>
 							</Grid>
 						</Grid>
 					</Grid>
 					<Grid container item style={styles.cardContainer}>
 						<Grid item container xs={12} sm={6} justify="center" alignItems="center">
-							<Grid item container xs={12} sm={8} justify="center" alignItems="center">
+							<Grid item container xs={12} sm={10} justify="center" alignItems="center">
 								<Grid item xs={2} sm={2} >
 									<span className='circle-dot'>1</span>
 								</Grid>
@@ -224,6 +224,12 @@ const Index = ({ faqs: { faqs } = {} } = {}) => {
 					</ul>
 				</div>
 			</div>
+			<style jsx>{`
+				h1 {
+					margin: 2rem auto;
+					padding-bottom: 1rem;
+				}
+			`}</style>
 		</div>
 	)
 }
