@@ -510,6 +510,7 @@ li > a:only-child:after { content: ''; } */
 }
 .bordered-head,
 .black-bordered-head,
+.half-width-bordered-head,
 .full-bordered-head {
     position: relative;
     margin: 0;
@@ -520,6 +521,7 @@ li > a:only-child:after { content: ''; } */
 
 .black-bordered-head::after,
 .full-bordered-head::after,
+.half-width-bordered-head::after,
 .bordered-head::after {
     content: '';
     position: absolute;
@@ -533,6 +535,10 @@ li > a:only-child:after { content: ''; } */
 }
 .full-bordered-head::after {
     width: 100%;
+}
+.half-width-bordered-head::after {
+    left: 15%;
+    width: 70%;
 }
 /* GENERAL  */
 #footer {

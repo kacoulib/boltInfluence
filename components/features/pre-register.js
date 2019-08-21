@@ -96,11 +96,10 @@ const Index = () => {
         zipCode: '',
         birthday: '',
         interest: '',
-        open: true,
+        open: false,
         subscribe: false,
         errors: [],
         selectedSocial: null,
-        submitToggle: false
     })
 
     const toggle = (name) => setState({ ...state, [name]: !state[name] });
@@ -119,7 +118,7 @@ const Index = () => {
 
         if (!errors.length && state.selectedSocial)
             return Router.pushRoute(`/auth/${state.selectedSocial}?${encodeURI(JSON.stringify(LeanForm({ fields, state })))}`)
-        setState({ ...state, errors, submitToggle: true })
+        setState({ ...state, errors })
     }
     return (
         <Dialog maxWidth={false} aria-labelledby="simple-dialog-title" open={state.open} id='dialog'>
@@ -146,7 +145,7 @@ const Index = () => {
                             <p className='italic'>*Champs obligatoire</p>
                         </Grid>
                         <div id='minimum'>
-                            <h3 className={`inline-block auto ${state.submitToggle && !state.selectedSocial ? 'red-color' : ''}`}>Minimum connexion à un compte</h3>
+                            <h3 className={'inline-block auto'}>Minimum connexion à un compte</h3>
                         </div>
                         <Grid container justify="center" alignItems="center" className='text-center'>
                             <Grid item sm={6} xs={12}><SocialBtn type='facebook' text='Facebook' onClick={() => handleSocial('selectedSocial', 'facebook')} /></Grid>

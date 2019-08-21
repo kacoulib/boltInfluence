@@ -21,7 +21,7 @@ const styles = {
 		padding: '1rem 2rem',
 	},
 	p: {
-		padding: '0 1rem'
+		padding: '1rem 0rem'
 	},
 	button: {
 		padding: '.8rem 3rem'
@@ -54,18 +54,18 @@ const Index = () => {
 			/>
 			<div className='card-bg dots-pink no-repeat responsive-bg-opacity reverse left'>
 				<div className='home-block-padding' style={styles.padding}>
-					<h1 className='text-center'><span className='bordered-head'>Trouvez et postulez</span> à de nombreuses campagnes</h1>
-					<Grid container item style={styles.cardContainer}>
-						<Grid item container xs={12} sm={6} justify="center" alignItems="center">
+					<h1 className='text-center'><span className='half-width-bordered-head'>Trouvez et postulez</span> à de nombreuses campagnes</h1>
+					<Grid container item style={styles.cardContainer} justify="center" alignItems="center" alignContent="center">
+						<Grid item container xs={12} sm={6} justify="center" alignItems="center" alignContent="center">
 							<Grid item xs={12} sm={8}>
 								<p className='justify' style={styles.p}>Découvrez l’ensemble de notre offre de campagnes rémunérées et commencez à postuler dès aujourd’hui.</p>
 								<div className='center-text'>
 									<Link href='/login'><a title='Inscrivez-vous' className='red-btn' style={styles.button}>Inscrivez-vous</a></Link>
-									<div>ou <Link href='/login'><a title='connectez-vous'>connectez-vous</a></Link></div>
+									<div>ou <Link href='/login'><a title='connectez-vous' className='bold'>connectez-vous</a></Link></div>
 								</div>
 							</Grid>
 						</Grid>
-						<Grid item xs={12} sm={6}>
+						<Grid item xs={12} sm={6} className='text-center'>
 							<img src={Screen7} />
 						</Grid>
 					</Grid>
@@ -79,7 +79,7 @@ const Index = () => {
 					</Grid>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item container xs={12} sm={8} justify="center" alignItems="center">
-							<h2>Soyez payé à <span className='bordered-head'>votre juste</span> valeur</h2>
+							<h2>Soyez payé à <span className='half-width-bordered-head'>votre juste</span> valeur</h2>
 							<p className='justify'>Les rémunérations des campagnes sont calculées au regard de vos statistiques et sont réévalués en fonction de la croissance de votre audience.</p>
 						</Grid>
 					</Grid>
@@ -90,11 +90,11 @@ const Index = () => {
 				<Grid container item style={styles.cardContainer}>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item xs={12} sm={8}>
-							<p className='justify' style={styles.p}>Devenez <span className='bordered-head'>un professionnel</span> du Marketing d’influence</p>
+							<h2>Devenez un <span className='half-width-bordered-head'>professionnel</span> du Marketing d’influence</h2>
 							<p className='justify'>Chez Bolt Influence, vous avez un contact à votre écoute et qui vous accompagne dans la professionnalisation de votre activité.</p>
 						</Grid>
 					</Grid>
-					<Grid item xs={12} sm={6}>
+					<Grid item xs={12} sm={6} className='text-center'>
 						<img src={Screen9} />
 					</Grid>
 				</Grid>
@@ -104,7 +104,7 @@ const Index = () => {
 				<Grid container item alignContent='center' alignItems='center'>
 					<div className='center-text auto'>
 						<Link href='#'><a className='red-btn' style={styles.button}>Inscrivez-vous</a></Link>
-						<div>ou <Link href='#'><a title='connectez-vous'>connectez-vous</a></Link></div>
+						<div>ou <Link href='#'><a title='connectez-vous' className='bold'>connectez-vous</a></Link></div>
 					</div>
 				</Grid>
 			</div>
