@@ -203,11 +203,11 @@ const Index = ({ faqs: { faqs } = {} } = {}) => {
 			<div>
 				<div className='home-block-padding' style={styles.padding}>
 					<h2 className='bordered-head fullwidth'>Notre equipe</h2>
-					<ul className={`home_team ${state.active != null ? 'toggle' : ''}`}>
+					<Grid container alignItems="stretch" className={`home_team ${state.active != null ? 'toggle' : ''}`}>
 						{state.teams.map((elem, key) => {
 							const isActive = state.active == key;
 							return (
-								<li key={key} className={`${isActive ? 'active' : ''}`}>
+								<Grid item key={key} className={`list-item ${isActive ? 'active' : ''}`}>
 									<div className='text-center' style={{ backgroundColor: isActive ? redColor : '' }} onClick={() => toggleTeam(key)}>
 										<div><img src={elem.img} className='fullwidth' /></div>
 										<h3>{elem.fullName}</h3>
@@ -220,10 +220,10 @@ const Index = ({ faqs: { faqs } = {} } = {}) => {
 											<p></p>
 										</div>
 									</div>
-								</li>
+								</Grid>
 							)
 						})}
-					</ul>
+					</Grid>
 				</div>
 			</div>
 			<style jsx>{`
@@ -232,7 +232,7 @@ const Index = ({ faqs: { faqs } = {} } = {}) => {
 					padding-bottom: 1rem;
 				}
 			`}</style>
-		</div>
+		</div >
 	)
 }
 Index.getInitialProps = async () => {
