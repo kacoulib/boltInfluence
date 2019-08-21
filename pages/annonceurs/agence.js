@@ -9,10 +9,10 @@ import { NextSeo } from 'next-seo';
 
 const styles = {
     leftContainer: {
-        padding: '6.5em',
+        padding: '4rem',
     },
     title: {
-        lineHeight: '2rem'
+        marginBottom: 0,
     },
     double: {
         padding: 0,
@@ -20,7 +20,7 @@ const styles = {
         width: '100%'
     },
     contactUs: {
-        padding: '2em 0',
+        padding: '3rem 0',
     }
 }
 
@@ -36,10 +36,8 @@ const AnnonceDemo = () => {
             />
             <Grid id="description" container>
                 <Grid container item sm={6} xs={12} alignItems="center" alignContent="center" style={styles.leftContainer}>
-                    <h1 className="text-center" style={styles.title}> En incarnant votre marque, les influenceurs la rendent plus vivante et sensible</h1>
-                    <p className="text-center">
-                        Grâce à leur communauté, vous obtenez un moyen privilégié d'échange avec vos clients et futurs clients.
-                    </p>
+                    <h1 style={styles.title}> En incarnant votre marque, les influenceurs la rendent plus vivante et sensible</h1>
+                    <p>Grâce à leur communauté, vous obtenez un moyen privilégié d'échange avec vos clients et futurs clients.</p>
                 </Grid>
                 <Grid container item sm={6} xs={12} alignItems="center" style={styles.double} className='responsive-hide'>
                     <div className='card-bg dots-pink' style={styles.double}>
