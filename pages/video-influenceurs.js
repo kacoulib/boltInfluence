@@ -52,7 +52,7 @@ const Index = () => {
 								<p className='italic'>*Etude : the state of Video Marketing 2019 - Wyzowl</p>
 							</Grid>
 						</Grid>
-						<Grid item xs={12} sm={6}>
+						<Grid item xs={12} sm={6} className='text-center'>
 							<img src={Screen5} />
 						</Grid>
 					</Grid>
@@ -79,11 +79,11 @@ const Index = () => {
 				<Grid container item style={styles.cardContainer}>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item xs={12} sm={8}>
-							<h2><span className='bordered-head'>Intégrez</span> votre contenu sur tous les types de contenu vidéo </h2>
+							<h2>Intégrez votre contenu sur tous les <span className='bordered-head'>types</span> de contenu vidéo </h2>
 							<p className='justify'>Le format In-vidéo est flexible et s’intègre simplement sur tous les types de contenu vidéos et dans tous les formats.</p>
 						</Grid>
 					</Grid>
-					<Grid item xs={12} sm={6}>
+					<Grid item xs={12} sm={6} className='text-center'>
 						<img src={Screen5} />
 					</Grid>
 				</Grid>
@@ -116,6 +116,11 @@ const Index = () => {
 			<div>
 				<Partners />
 			</div>
+			<style jsx>{`
+				h1 {
+					margin-top: 3rem;
+				}
+			`}</style>
 		</div>
 	)
 }

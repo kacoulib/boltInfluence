@@ -80,7 +80,7 @@ const Index = () => {
 				description="Bolt Influence est la plateforme/agence de marketing d’influence référente qui permet de connecter les marques et les influenceurs sur Instagram, Tik Tok, Youtube, Twitch"
 			/>
 			<div style={styles.marginBottom}>
-				<Grid container item className='relative'>
+				<Grid container item className='relative' id='home-cover'>
 					<img src={ScreenHome} className='fullwidth' />
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center" style={styles.hover}>
 						<Grid item xs={12} sm={12} className='text-center' id='homeTextContainer'>
