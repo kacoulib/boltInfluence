@@ -123,6 +123,7 @@ const Index = () => {
 					<ul className='tarif-list-container'>
 						{state.tarifs && state.tarifs.map((elem, index) => (
 							<li key={index} className={index == state.activeTarif ? 'active-tarif' : ''} onMouseOver={() => handleActive(index)}>
+								<div>
 								<h2 className='red-color text-center'>{elem.title}</h2>
 								<p className='justify bold text-center'>{elem.description}</p>
 								<div className='center-text auto'>
@@ -131,6 +132,7 @@ const Index = () => {
 								<ul>
 									{elem.list && elem.list.map((e, i) => (<li><span className='tiny-icon valide-red'></span><p className='inline-block'>{e}</p></li>))}
 								</ul>
+								</div>
 							</li>
 						))}
 					</ul>

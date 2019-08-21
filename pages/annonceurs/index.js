@@ -37,13 +37,13 @@ const Index = () => {
 
 	return (
 		<div id='annonceurs' className='lines-blue right-bg'>
-			<div className='home-block-padding' style={styles.padding}>
+			<div className='home-block-padding card-bg lines-blue no-repeat responsive-bg-opacity right' style={styles.padding}>
 				<h1 className='text-center'>Pilotez vos campagnes de Marketing d’influence en toute <span className='full-bordered-head'>transparence.</span></h1>
 				<Grid container item style={styles.cardContainer}>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item xs={12} sm={8}>
-							<p className='justify' style={styles.p}>Notre plateforme vous accompagne dans toutes les étapes de vos campagnes en Marketing d’influence : sélection des influenceurs, création et administration et export des statistiques.</p>
-							<div className='center-text'>
+							<p className='justify' style={styles.p}>Notre plateforme vous accompagne dans toutes les étapes de vos campagnes en Marketing d’influence: sélection des influenceurs, création et administration et export des statistiques.</p>
+							<div className='center-text' id='demo'>
 								<Link href='#'><a title='Demander une démo' className='red-btn'>Demander une démo</a></Link>
 							</div>
 						</Grid>
@@ -90,7 +90,7 @@ const Index = () => {
 					</Grid>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item container xs={12} sm={8} justify="center" alignItems="center">
-							<h2><span className='full-bordered-head' style={{ padding: 0 }}>Analysez</span> les résultats de vos campagnes et exporter les statistiques</h2>
+							<h2><span className='full-bordered-head' style={{ padding: 5 }}>Analysez</span> les résultats de vos campagnes et exporter les statistiques</h2>
 							<p className='justify'>Notre plateforme vous permet d’accéder à l’ensemble des chiffres de vos campagnes (reach, nombre de vues, analyses démographiques…) afin de calculer leur ROI et exportez-les afin de les exploiter dans d’autres logiciels.</p>
 						</Grid>
 					</Grid>
@@ -110,6 +110,15 @@ const Index = () => {
 			<div>
 				<Partners />
 			</div>
+			<style jsx>{`
+				#demo {
+					margin-top: 3rem;
+				}
+				h1 {
+					font-size: 3.5rem;
+					padding: 3rem 0;
+				}
+			`}</style>
 		</div>
 	)
 }

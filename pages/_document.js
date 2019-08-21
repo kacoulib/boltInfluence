@@ -28,7 +28,8 @@ class MyDocument extends Document {
           <link rel="stylesheet" href="https://storage.googleapis.com/builderbook/nprogress.min.css" />
           <link rel="stylesheet" type="text/css" charset="UTF-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
           <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
-
+          <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"></link>
+          <link rel="icon" type="image/png" href="static/img/favicon.png" />
         </Head>
         <body id="body">
           <Main />
