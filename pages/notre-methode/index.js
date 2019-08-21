@@ -46,7 +46,7 @@ const Index = () => {
 								<p className='justify'>La création de contenu et le story telling est au centre de ce que nous produisons. Nos experts dans le domaine supportent les marques afin de créer des campagnes impactantes sur tous les réseaux sociaux.</p>
 							</Grid>
 						</Grid>
-						<Grid item xs={12} sm={6}>
+						<Grid item xs={12} sm={6} className='text-center'>
 							<img src={Screen5} />
 						</Grid>
 					</Grid>
@@ -75,7 +75,7 @@ const Index = () => {
 							<p className='justify'>Le formatUne fois les influenceurs validés, nous mettons notre expertise au profit des annonceurs en agrégeant ces influenceurs au sein de différents packs thématiques : santé, beauté/lifestyle, sport, e-sport, décoration, voyages, entertainment, grande consoIn-vidéo est flexible et s’intègre simplement sur tous les types de contenu vidéos et dans tous les formats.</p>
 						</Grid>
 					</Grid>
-					<Grid item xs={12} sm={6}>
+					<Grid item xs={12} sm={6} className='text-center'>
 						<img src={Screen5} />
 					</Grid>
 				</Grid>
