@@ -42,7 +42,7 @@ const styles = {
 		padding: '0 1rem'
 	},
 	cardContainer: {
-		marginBottom: '3rem'
+		marginBottom: '4rem'
 	},
 	faq: {
 		backgroundColor: '#DEDEE8'
@@ -71,6 +71,7 @@ const fields = [{
 		}
 	}
 }]
+const settings = { unableUnderline: false, unableBoxShadow: true, variant: 'outlined' }
 
 const Index = ({ faqs: { faqs } = {} } = {}) => {
 	const [state, setState] = useState({
@@ -156,13 +157,14 @@ const Index = ({ faqs: { faqs } = {} } = {}) => {
 					<h2 className='bordered-head fullwidth'>FAQ</h2>
 					<p>Vous voulez en savoir plus ?</p>
 					<p className='italic'>Notre FAQ répondra à tous vos questions !</p>
-					<Grid container item style={styles.cardContainer}>
+					<Grid container item style={styles.cardContainer} alignItems="stretch">
 						<Grid item xs={12} sm={6}>
 							<FormGenerator
 								fields={fields}
 								state={state}
 								label='test'
 								onChange={onChange}
+							// settings={settings}
 							/>
 						</Grid>
 
