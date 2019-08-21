@@ -48,7 +48,7 @@ const Index = () => {
 							</div>
 						</Grid>
 					</Grid>
-					<Grid item xs={12} sm={6}>
+					<Grid item xs={12} sm={6} className='text-center'>
 						<img src={Screen1} />
 					</Grid>
 				</Grid>
@@ -61,7 +61,7 @@ const Index = () => {
 					</Grid>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center" className='responsive-container'>
 						<Grid item container xs={12} sm={8} justify="center" alignItems="center">
-							<h2><span className='full-bordered-head' style={{ padding: 0 }}>Détectez</span> les influenceurs qui correspondent à votre marque</h2>
+							<h2 className='card-title'><span className='full-bordered-head' style={{ padding: 0 }}>Détectez</span> les influenceurs qui correspondent à votre marque</h2>
 							<p className='justify'>Trouver et faites appel à des influenceurs suivant des critères que vous aurez défini.</p>
 						</Grid>
 					</Grid>
@@ -77,20 +77,20 @@ const Index = () => {
 							<p className='justify' style={styles.p}>Utiliser nos outils d’analyse statistique afin d’analyser l’authenticité des influenceurs.</p>
 						</Grid>
 					</Grid>
-					<Grid item xs={12} sm={6}>
+					<Grid item xs={12} sm={6} className='text-center'>
 						<img src={Screen3} />
 					</Grid>
 				</Grid>
 			</div>
 			{/*  */}
 			<div>
-				<Grid container item style={styles.cardContainer} className='card-bg responsive-bg-opacity dot-pink no-repeat responsive-container'>
+				<Grid container item style={styles.cardContainer} justify="center" alignItems="center" className='card-bg responsive-bg-opacity dot-pink no-repeat responsive-container'>
 					<Grid item xs={12} sm={6} className='text-center'>
 						<img src={Screen4} />
 					</Grid>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
-						<Grid item container xs={12} sm={8} justify="center" alignItems="center">
-							<h2><span className='full-bordered-head' style={{ padding: 5 }}>Analysez</span> les résultats de vos campagnes et exporter les statistiques</h2>
+						<Grid item container xs={12} sm={8} >
+							<h2 className='card-title'><span className='full-bordered-head' style={{ padding: 5 }}>Analysez</span> les résultats de vos campagnes et exporter les statistiques</h2>
 							<p className='justify'>Notre plateforme vous permet d’accéder à l’ensemble des chiffres de vos campagnes (reach, nombre de vues, analyses démographiques…) afin de calculer leur ROI et exportez-les afin de les exploiter dans d’autres logiciels.</p>
 						</Grid>
 					</Grid>
@@ -117,6 +117,12 @@ const Index = () => {
 				h1 {
 					font-size: 3.5rem;
 					padding: 3rem 0;
+				}
+				.card-title {
+					margin-top: 0;
+				}
+				h2:not(.card-title) {
+					margin: 2rem auto;
 				}
 			`}</style>
 		</div>
