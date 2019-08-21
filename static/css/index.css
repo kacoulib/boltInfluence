@@ -34,12 +34,21 @@ body a {
     padding-top: 1rem;
     background: #252b40;
     z-index: 3;
+    min-height: 112px;
 }
 #header a, .menu label {
     color: #FFF;
 	text-align: center;
 	font-weight: bold;
 	font-size: 1.2rem;
+}
+#home-cover {
+    background-image: url('../img/home.jpg');
+    background-size: cover;
+}
+#home-cover img {
+    opacity: 0;;
+    height: calc(100vh - 112px);
 }
 /* NAV */
 .menu-link span:nth-child(1) {
@@ -550,6 +559,9 @@ li > a:only-child:after { content: ''; } */
 #footer a {
     font-weight: bold;
     color: #232941;
+}
+header #socials {
+    padding: 0;
 }
 #socials {
     text-align: center;
