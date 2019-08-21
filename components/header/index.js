@@ -39,9 +39,9 @@ const menuList = [
 const displayMenuList = (list, i) => (
 	list.map((elem) => (
 		<li key={++i}>
-			<Link href={elem.href}><a className={`${elem.child ? 'to-hide menu-link' : ''}`} title={elem.title}><span>{elem.text}</span>{elem.child && <span className='triangle down'></span>}</a></Link>
+			<Link href={elem.href}><a className={`${elem.child ? 'to-hide menu-link' : ''}`} title={elem.title}><span className='relative'>{elem.text}{elem.child && <span className='triangle down'></span>}</span></a></Link>
 			{elem.child && <>
-				<label htmlFor={`drop-${i}`} className="toggle-head menu-link"><span>{elem.text}</span> <span className='triangle down'></span></label>
+				<label htmlFor={`drop-${i}`} className="toggle-head menu-link"><span className='relative'>{elem.text}<span className='triangle down'></span></span></label>
 				<input type="checkbox" id={`drop-${i}`} />
 				<ul className="nav-dropdown">
 					{displayMenuList(elem.child, i)}
@@ -59,7 +59,6 @@ const Header = () => (
 				<Grid container item sm={12} xs={12} alignItems="center" justify="center">
 					<img src={iconFlagFr} style={styles.iconFlagFr} className='responsive-hide' />
 					<Link href='/'><a title='home BoltInfluence'><img src={logo} id='logo' className='responsive-show' /></a></Link>
-
 				</Grid>
 				<Grid container item sm={12} xs={12} alignItems="center" justify="center">
 					<Grid item align="center" sm={1} xs={2} id='menu-left'>
@@ -84,7 +83,7 @@ const Header = () => (
 				</Grid>
 				<Grid container item sm={12} xs={12} direction="row" alignItems="center" justify="center">
 					<Grid item style={styleToolbarLink} sm={12} xs={12}>
-						<Socials fill='white' /* parent={styles.socialListContainer} child={styles.socialList} */ />
+						<Socials fill='white' parent={{ padding: 0 }} /*child={styles.socialList} */ />
 					</Grid>
 				</Grid>
 			</Grid>

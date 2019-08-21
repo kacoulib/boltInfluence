@@ -71,7 +71,7 @@ const Index = () => {
 				<Grid container item style={styles.cardContainer}>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item xs={12} sm={8}>
-							<h2 className='justify'><span className='bordered-head'>Accompagnement</span> des influenceurs et campaign management :</h2>
+							<h2><span className='bordered-head'>Accompagnement</span> des influenceurs et campaign management :</h2>
 							<p className='justify'>Le formatUne fois les influenceurs validés, nous mettons notre expertise au profit des annonceurs en agrégeant ces influenceurs au sein de différents packs thématiques : santé, beauté/lifestyle, sport, e-sport, décoration, voyages, entertainment, grande consoIn-vidéo est flexible et s’intègre simplement sur tous les types de contenu vidéos et dans tous les formats.</p>
 						</Grid>
 					</Grid>
@@ -110,7 +110,8 @@ const Index = () => {
 			</div>
 			<style>{`
 				h1 {
-					// margin: 
+					margin: 0;
+					padding: 2rem;
 				}
 			`}</style>
 		</div>

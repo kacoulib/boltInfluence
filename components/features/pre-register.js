@@ -96,7 +96,7 @@ const Index = () => {
         zipCode: '',
         birthday: '',
         interest: '',
-        open: false,
+        open: true,
         subscribe: false,
         errors: [],
         selectedSocial: null,

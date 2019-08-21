@@ -45,15 +45,14 @@ body a {
 #home-cover {
     background-image: url('../img/home.jpg');
     background-size: cover;
-}
-#home-cover img {
-    opacity: 0;;
+    background-repeat: no-repeat;
     height: calc(100vh - 112px);
 }
+/* #home-cover img {
+    opacity: 0;
+} */
 /* NAV */
-.menu-link span:nth-child(1) {
-    padding-right: 5px;
-}
+
 .menu-link span {
     vertical-align: middle;
 }
@@ -621,7 +620,12 @@ footer .link-container {
     width: 33.33%;
     vertical-align: top;
     padding: 3rem 1rem;
-    
+    transition: all .35s ease-in-out;
+    -webkit-transition: all .35s ease-in-out;
+    -moz-transition: all .35s ease-in-out;
+    -ms-transition: all .35s ease-in-out;
+    -o-transition: all .35s ease-in-out;
+    transition: all .35s ease-in-out;
 }
 .tarif-list-container > li>div {
     background-color: white;
@@ -651,6 +655,11 @@ footer .link-container {
 /* OTHER */
 #submit-contact {
     margin-top: 1.8rem;
+}
+header .triangle {
+    position: absolute;
+    top: calc(50% - 3px);
+    right: -15px;
 }
 .triangle {
     border: solid white;
