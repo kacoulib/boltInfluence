@@ -358,7 +358,13 @@ li > a:only-child:after { content: ''; } */
     padding-bottom: 1rem;
     margin-bottom: 1rem;
 }
-
+/* Contact page */
+#contact-page .card-padding-left {
+    padding-left: 3rem;
+}
+#contact-page  .card-padding-right {
+    padding-right: 3rem;
+}
 /* Campagne  */
 .filter {
     border: 1px solid;
@@ -724,6 +730,12 @@ header .triangle {
 }
 .auto {
     margin: auto;
+}
+.left-auto {
+    margin-left: auto;
+}
+.right-auto {
+    margin-right: auto;
 }
 .justify {
     text-align: justify;

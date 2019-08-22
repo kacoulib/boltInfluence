@@ -53,6 +53,14 @@ const styles = {
 		padding: '.5rem 1rem',
 		border: '1px solid gray',
 		backgroundColor: lightGray,
+	},
+	cardPadding: {
+		left: {
+			paddingLeft: '2rem'
+		},
+		right: {
+			paddingRight: '2rem'
+		},
 	}
 }
 
@@ -113,17 +121,17 @@ const Index = ({ faqs: { faqs } = {} } = {}) => {
 				<h1 className='bordered-head fullwidth'>À propos</h1>
 				<Grid container>
 					<Grid container item style={styles.cardContainer}>
-						<Grid item xs={12} sm={6}>
+						<Grid item xs={12} sm={6} className='card-padding-right'>
 							<Card src={Image01} title="Bolt Influence, c’est quoi ?" color='blue' />
 						</Grid>
-						<Grid item container xs={12} sm={6} justify="center" alignItems="center">
+						<Grid item container xs={12} sm={6} justify="center" alignItems="center" className='card-padding-left'>
 							<Grid item xs={12} sm={10}>
 								<p style={styles.p}>Chez Bolt Influence, nous souhaitons vous proposer les outils et les services qui vous aideront à piloter vos campagnes de Marketing d’influenceur.</p>
 							</Grid>
 						</Grid>
 					</Grid>
 					<Grid container item style={styles.cardContainer}>
-						<Grid item container xs={12} sm={6} justify="center" alignItems="center">
+						<Grid item container xs={12} sm={6} justify="center" alignItems="center" className='card-padding-right'>
 							<Grid item container xs={12} sm={10} justify="center" alignItems="center">
 								<Grid item xs={2} sm={2} >
 									<span className='circle-dot'>1</span>
@@ -145,7 +153,7 @@ const Index = ({ faqs: { faqs } = {} } = {}) => {
 								</Grid>
 							</Grid>
 						</Grid>
-						<Grid item xs={12} sm={6}>
+						<Grid item xs={12} sm={6} className='card-padding-left'>
 							<Card src={Image02} title="Comment ça marche ?" color='red' />
 						</Grid>
 					</Grid>
