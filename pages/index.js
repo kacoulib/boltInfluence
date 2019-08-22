@@ -85,7 +85,8 @@ const Index = () => {
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center" style={styles.hover}>
 						<Grid item xs={12} sm={12} className='text-center' id='homeTextContainer'>
 							<h1 className='white-color'>Tirez le meilleur de l’influence marketing grâce à la vidéo</h1>
-							<Btn text="Démarrez" href='#contact-us' style={{ fontWeight: 'bold', backgroundColor: orangeColor, padding: '.5rem 1rem', fontSize: '1.1rem' }} />
+							{/* <Btn text="Démarrez" href='#contact-us' style={{ fontWeight: 'bold', backgroundColor: orangeColor, padding: '.5rem 1rem', fontSize: '1.1rem' }} /> */}
+							<Btn href="#contact-us" text="Démarrez" />
 						</Grid>
 					</Grid>
 				</Grid>
