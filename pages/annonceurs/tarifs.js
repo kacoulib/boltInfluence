@@ -66,16 +66,18 @@ const Index = () => {
 	const [state, setState] = useState({
 		activeTarif: 1,
 		tarifs: [{
-			title: 'Startups',
-			description: 'Prix : 199€',
-			href: '#',
-			list: ["Accès à X influenceurs", "1 compte unique, langues illimitées, 1 marque", "Gestion de campagnes et rapports personnalisés sur les retombées (Youtube, Instagram, Twitter, Facebook)", "Création illimitée de campagne (choix de 25 influenceurs maximum)", "Choix des influenceurs selon le profil, les centre d’intérêts, l’âge, le tarif, …", "Support email et téléphonique", "Abonnement sans engagement (résiliation en un clic)", "Recherche d’influenceurs limitée à 100 par mois avec le détail"]
-		}, {
 			title: 'Marque',
 			description: 'Prix : Nous consulter',
 			href: '/annonceurs',
 			list: ["Accès à l’ensemble des influenceurs de la plateforme avec leurs statistiques détaillées + possibilité d’export CSV + PDF", "Comptes illimités", "Gestion de campagnes et rapports personnalisés sur les retombées (Tik Tok, Youtube, Instagram, Twitch, Snapchat, Twitter, Facebook, Linkedin, Pinterest, blog) + possibilité d’export CSV + PDF	", "Outil de détection des faux influenceurs pour des campagnes authentiques.", "Création illimitée de campagne (nombre influenceurs illimités)", "Une validation avant la publication des influenceurs de leurs contenus photos et/ou vidéos", "Choix des influenceurs selon le profil, le centre d’intérêt, l’âge, le tarif, …", "Support email et téléphonique avec un contact privilégié", "Abonnement sans engagement (résiliation en un clic)", "Possibilité de créer des campagnes avec une rémunération pour les influenceurs ou de la dotation de produits", "Un conseiller unique et dédié par mail et téléphone tout au long de vos campagnes", "Accéder à la nouvelle technologie « In Video » pour un placement de produit innovant pour vos campagnes de marketing d’influence"]
-		}, {
+		},
+		{
+			title: 'Startups',
+			description: 'Prix : 199€',
+			href: '#',
+			list: ["Accès à X influenceurs", "1 compte unique, langues illimitées, 1 marque", "Gestion de campagnes et rapports personnalisés sur les retombées (Youtube, Instagram, Twitter, Facebook)", "Création illimitée de campagne (choix de 25 influenceurs maximum)", "Choix des influenceurs selon le profil, les centre d’intérêts, l’âge, le tarif, …", "Support email et téléphonique", "Abonnement sans engagement (résiliation en un clic)", "Recherche d’influenceurs limitée à 100 par mois avec le détail"]
+		},
+		{
 			title: 'Agence',
 			description: 'Prix : Nous consulter',
 			href: '/annonceurs/agence',

@@ -94,15 +94,15 @@ const Index = ({ faqs: { faqs } = {} } = {}) => {
 		},
 		{
 			fullName: 'Morgane SIRGUEY',
-			slug: '“La créa”',
+			slug: '“La Créa”',
 			job: 'Chargée des influenceurs et Co-fondatrice ',
 			description: 'Issue du monde culinaire et entrepreneuriale, Morgane apporte à Bolt Influence la créativité dont la communication a besoin. Également blogueuse, son bagage social media lui permet de vous accompagner lors du choix stratégique des influenceurs qui représenteront votre marque.',
 			img: '../../static/img/pictures/morgane.jpg'
 		},
 		{
 			fullName: 'Thomas VAN’T WOUT',
-			slug: '“l’arpenteur”',
-			job: '',
+			slug: '“L’Arpenteur”',
+			job: 'VP Sales et Marketing',
 			description: 'Thomas a fait toutes ses armes dans le monde digital pour de grands comptes comme des projets entrepreneurials. Lui-même influenceur, il permet à Bolt Influence de se positionner comme un interlocuteur privilégié pour toutes les marques désireuses de communiquer auprès des communautés sociales.',
 			img: '../../static/img/pictures/thomas.jpg'
 		}]
