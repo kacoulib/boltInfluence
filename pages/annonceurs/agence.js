@@ -4,7 +4,7 @@ import { Grid } from '@material-ui/core';
 import Partners from '../../components/page/public/partners'
 import ContactUs from '../../components/page/public/contactUs'
 
-import girlboat from '../../static/img/girl-in-boat.jpg';
+import girlboat from '../../static/img/selfie.jpg';
 import { NextSeo } from 'next-seo';
 
 const styles = {
