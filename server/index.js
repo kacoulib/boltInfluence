@@ -95,13 +95,31 @@ nextApp.prepare().then(async () => {
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
+      path: '/',
+      domain: 'bolt-influence.com',
+      sameSite: true,
       maxAge: 14 * 24 * 60 * 60 * 1000, // expires in 14 days
     },
   };
+  if (!dev) {
+    app.set('trust proxy', 1);
+    sess.cookie.secure = true;
+  }
 
   app.use(cors({
     origin: true,
-    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept']
+    allowedHeaders: [
+      'X-Forwarded-Port',
+      'X-Forwarded-Proto',
+      'X-Forwarded-Protocol',
+      'X-Forwarded-Ssl',
+      'X-Url-Scheme',
+      'Origin',
+      'X-Requested-With',
+      'Content-Type',
+      'Accept'
+    ],
+    credentials: true,
   }));
   app.use(bodyParser.json({ limit: '50mb' }));
   app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
