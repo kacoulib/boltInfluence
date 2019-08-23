@@ -36,6 +36,12 @@ body a {
     z-index: 3;
     min-height: 112px;
 }
+#header .social-container {
+    display: inline-block;
+}
+#header .social-container:nth-of-type(2) {
+    transform: translateX(2rem);
+}
 #header a, .menu label {
     color: #FFF;
 	text-align: center;

@@ -57,10 +57,6 @@ const Header = () => (
 		<Toolbar>
 			<Grid container alignItems="center" justify="center">
 				<Grid container item sm={12} xs={12} alignItems="center" justify="center">
-					<img src={iconFlagFr} style={styles.iconFlagFr} className='responsive-hide' />
-					<Link href='/'><a title='home BoltInfluence'><img src={logo} id='logo' className='responsive-show' /></a></Link>
-				</Grid>
-				<Grid container item sm={12} xs={12} alignItems="center" justify="center">
 					<Grid item align="center" sm={1} xs={2} id='menu-left'>
 						<img src={iconFlagFr} style={styles.iconFlagFr} className='responsive-show' />
 						<Link href='/'><a title='home BoltInfluence'><img src={logo} id='logo' className='responsive-hide' /></a></Link>
@@ -83,12 +79,12 @@ const Header = () => (
 				</Grid>
 				<Grid container item sm={12} xs={12} direction="row" alignItems="center" justify="center">
 					<Grid item style={styleToolbarLink} sm={12} xs={12}>
-						<Socials fill='white' parent={{ padding: 0 }} /*child={styles.socialList} */ />
+						<div className='social-container'><Socials fill='white' parent={{ padding: 0 }} /*child={styles.socialList} */ /></div>
+						<div className='social-container'><img src={iconFlagFr} style={styles.iconFlagFr} className='responsive-hide' /></div>
 					</Grid>
 				</Grid>
 			</Grid>
 		</Toolbar>
-
 	</header>
 )
 
