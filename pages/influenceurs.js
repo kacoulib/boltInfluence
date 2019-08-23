@@ -73,7 +73,7 @@ const Index = () => {
 			</div>
 			{/*  */}
 			<div>
-				<Grid container item style={styles.cardContainer} className='dots-blue-down no-repeat'>
+				<Grid container item style={styles.cardContainer} className='dots-blue-down no-repeat responsive-reverse-order'>
 					<Grid item xs={12} sm={6} className='text-center'>
 						<img src={Screen8} />
 					</Grid>
