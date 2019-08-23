@@ -102,6 +102,7 @@ const fields = [{
     required: true,
     props: {
         style: {
+            textAlign: 'left',
             backgroundColor: lightGray,
         }
     }
