@@ -27,7 +27,7 @@ const Footer = () => (
 					</ul>
 				</Grid>
 				<Grid item sm={4} xs={12}>
-					<ul>
+					<ul id='follow-us'>
 						<li>Suivez nous</li>
 						<li><Socials /></li>
 					</ul>
