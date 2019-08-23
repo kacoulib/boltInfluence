@@ -200,7 +200,7 @@ li > a:only-child:after { content: ''; } */
         align-items: initial;
     }
     #menu-left {
-        padding-top: 6px;
+        padding-top: 5px;
     }
     #menu-right {
         padding: 0!important;
@@ -1148,6 +1148,7 @@ button.submit {
 
 
 @media all and (max-width : 400px) {
+
     #contact-page #search {
         margin-top: 1rem;
     }
@@ -1251,6 +1252,9 @@ button.submit {
     }
     .card-bg {
         padding: 0;
+    }
+    .card-bg::before {
+        background-size: contain;
     }
     .single-content-container aside {
         width: 100%;
