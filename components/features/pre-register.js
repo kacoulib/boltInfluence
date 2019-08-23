@@ -228,22 +228,33 @@ const Index = () => {
                     padding: 1rem;
                     text-align: center;
                 }
-               #subscribe img {
-                max-width: 350px;
-                width: 100%;
-               }
-               @media all and (max-width : 400px) {
-               #subscribe {
-                   padding: 1rem 0;
-               }
-                .socials-slide {
+                #subscribe img {
+                    max-width: 350px;
                     width: 100%;
                 }
-                .socials-slide .close {
-                    font-size: 1.5rem;
-                    right: 1rem;
+
+                @media all and (max-width : 400px) {
+                    html {
+                        overflow: hidden;
+                    }
+                    #subscribe {
+                        padding: 1rem 0;
+                    }
+                    .socials-slide {
+                        width: 100%;
+                    }
+                    .socials-slide .close {
+                        font-size: 1.5rem;
+                        right: 1rem;
+                    }
                 }
-               }
+            `}</style>
+            <style jsx global>{`
+                @media all and (max-width : 400px) {
+                    html {
+                        overflow: hidden;
+                    }
+                }
             `}</style>
         </Dialog >
     )

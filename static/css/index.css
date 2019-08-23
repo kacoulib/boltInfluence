@@ -42,11 +42,18 @@ body a {
 #header .social-container:nth-of-type(1) {
     padding-right: 1rem;
 }
-#header a, .menu label {
+#header a,
+.menu label,
+.menu li div.menu-link
+{
     color: #FFF;
 	text-align: center;
 	font-weight: bold;
 	font-size: 1.2rem;
+}
+.menu li div.menu-link {
+    cursor: pointer;
+    padding: 14px 0;	
 }
 #home-cover {
     background-image: url('../img/home.jpg');
@@ -209,7 +216,7 @@ li > a:only-child:after { content: ''; } */
 		margin: 0;
 	}
 
-    a.to-hide {
+    .to-hide {
         display: none;
     }
     #header nav a, #header ul li label {
@@ -1230,6 +1237,9 @@ button.submit {
         display: block;
         width: 100%;
         padding: 0;
+    }
+    .responsive-reverse-order {
+        flex-direction: column-reverse;
     }
     .home_team.toggle .list-item > div:last-child {
         display: none;

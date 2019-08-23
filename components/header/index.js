@@ -22,9 +22,10 @@ const menuList = [
 	{ title: 'Influenceurs', text: "Influenceurs", href: '/influenceurs' },
 	{ title: "La vidéo d'influence", text: "La vidéo d'influence", href: '/video-influenceurs' },
 	{
-		title: 'Notre méthode', text: "Notre méthode", href: '/notre-methode',
+		title: 'Notre approche', text: "Notre approche", href: '/notre-approche',
 		child: [
-			{ title: 'Blog', text: "Blog", href: '/notre-methode/blog', },
+			{ title: 'Notre méthode', text: "Notre méthode", href: '/notre-approche/notre-methode' },
+			{ title: 'Blog', text: "Blog", href: '/notre-approche/blog', },
 		]
 	},
 	{
@@ -39,7 +40,11 @@ const menuList = [
 const displayMenuList = (list, i) => (
 	list.map((elem) => (
 		<li key={++i}>
-			<Link href={elem.href}><a className={`${elem.child ? 'to-hide menu-link' : ''}`} title={elem.title}><span className='relative'>{elem.text}{elem.child && <span className='triangle down'></span>}</span></a></Link>
+			{elem.child ? 
+				<div className='to-hide menu-link' title={elem.title}><span className='relative'>{elem.text}<span className='triangle down'></span></span></div>
+				:
+			<Link href={elem.href}><a title={elem.title}><span className='relative'>{elem.text}</span></a></Link>
+			}
 			{elem.child && <>
 				<label htmlFor={`drop-${i}`} className="toggle-head menu-link"><span className='relative'>{elem.text}<span className='triangle down'></span></span></label>
 				<input type="checkbox" id={`drop-${i}`} />
