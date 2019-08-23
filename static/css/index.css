@@ -178,6 +178,11 @@ li > a:only-child:after { content: ''; } */
 /* Media Queries
 --------------------------------------------- */
 
+@media all and (max-width : 1080px) {
+    html {
+        font-size: 14px
+    }
+}
 @media all and (max-width : 768px) {
 
 	#logo {
@@ -188,11 +193,25 @@ li > a:only-child:after { content: ''; } */
 		text-align: center;
 		float: none;
 	}
-
+    .toggle-head {
+        display: block;
+    }
+    #menu-container {
+        align-items: initial;
+    }
+    #menu-right {
+        padding-top: 0!important;
+    }
 	nav {
 		margin: 0;
 	}
 
+    a.to-hide {
+        display: none;
+    }
+    #header nav a, #header ul li label {
+        padding: 8px;
+    }
 	/* Hide the navigation menu by default */
 	/* Also hide the  */
 	.toggle + a,
@@ -1143,8 +1162,21 @@ button.submit {
         margin-right: auto;
         text-align: left;
     }
-    #menu-left img {
+    /* #menu-left img {
         width: initial;
+    } */
+    #homeTextContainer {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        height: 100%;
+        padding: 2rem;
+    }
+    #homeTextContainer a {
+        margin: auto;
+    }
+    #homeTextContainer h1 {
+        font-size: 2.5rem;
     }
     .responsive-show {
         display: block!important;
@@ -1158,15 +1190,12 @@ button.submit {
     .toggle-head {
         display: block;
     }
-    a.to-hide {
-        display: none;
-    }
     .MuiAvatar-root {
         margin-left: auto;
     }
-    #header nav a, #header ul li label {
+    /* #header nav a, #header ul li label {
         padding: 5px;
-    }
+    } */
     #contact-us {
         padding: 1rem;
     }
@@ -1219,5 +1248,11 @@ button.submit {
     .single-content-container aside {
         width: 100%;
         padding: 0;
+    }
+    .link-container {
+        align-items: center!important;
+    }
+    #follow-us {
+        padding-top: 1rem;
     }
 }

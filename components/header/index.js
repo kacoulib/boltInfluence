@@ -56,10 +56,10 @@ const Header = () => (
 	<header id='header'>
 		<Toolbar>
 			<Grid container alignItems="center" justify="center">
-				<Grid container item sm={12} xs={12} alignItems="center" justify="center">
+				<Grid container item sm={12} xs={12} alignItems="center" justify="center" id='menu-container'>
 					<Grid item align="center" sm={1} xs={2} id='menu-left'>
-						<img src={iconFlagFr} style={styles.iconFlagFr} className='responsive-show' />
-						<Link href='/'><a title='home BoltInfluence'><img src={logo} id='logo' className='responsive-hide' /></a></Link>
+						{/* <img src={iconFlagFr} style={styles.iconFlagFr} className='responsive-show' /> */}
+						<Link href='/'><a title='home BoltInfluence'><img src={logo} id='logo' /></a></Link>
 					</Grid>
 					<Grid item align="center" sm={10} xs={8}>
 						<Grid container alignItems="center">
