@@ -1170,12 +1170,13 @@ button.submit {
         justify-content: space-between;
         flex-direction: column;
         height: 100%;
-        padding: 2rem;
+        padding: 1rem;
     }
     #homeTextContainer a {
         margin: auto;
     }
     #homeTextContainer h1 {
+        margin: 0;
         font-size: 2.5rem;
     }
     .responsive-show {
