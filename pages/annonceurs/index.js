@@ -37,7 +37,7 @@ const Index = () => {
 
 	return (
 		<div id='annonceurs' className='lines-blue right-bg'>
-			<div className='home-block-padding card-bg lines-blue no-repeat responsive-bg-opacity right' style={styles.padding}>
+			<div className='home-block-padding card-bg lines-blue no-repeat responsive-bg-opacity right responsive-container' style={styles.padding}>
 				<h1 className='text-center'>Pilotez vos campagnes de Marketing d’influence en toute <span className='full-bordered-head'>transparence.</span></h1>
 				<Grid container item style={styles.cardContainer}>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
@@ -68,7 +68,7 @@ const Index = () => {
 				</Grid>
 			</div>
 			{/*  */}
-			<div className='home-block-padding' style={styles.padding}>
+			<div className='home-block-padding responsive-container' style={styles.padding}>
 				<h2 className='text-center'><span className='full-bordered-head' style={{ padding: 0 }}>Identifiez</span> les nouveaux talents et évitez les faux influenceurs</h2>
 				<Grid container item style={styles.cardContainer}>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">

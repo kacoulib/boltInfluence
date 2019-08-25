@@ -53,7 +53,7 @@ const Index = () => {
 				description="Une plateforme de marketing d'influence authentique offrant de nouveaux partenariats rémunérés avec des marques. Vous êtes un influenceur, venez dévoiler tout votre talent au sein de la plateforme Bolt Influence."
 			/>
 			<div className='card-bg dots-pink no-repeat responsive-bg-opacity reverse left'>
-				<div className='home-block-padding' style={styles.padding}>
+				<div className='home-block-padding responsive-container' style={styles.padding}>
 					<h1 className='text-center'><span className='half-width-bordered-head'>Trouvez et postulez</span> à de nombreuses campagnes</h1>
 					<Grid container item style={styles.cardContainer} justify="center" alignItems="center" alignContent="center">
 						<Grid item container xs={12} sm={6} justify="center" alignItems="center" alignContent="center">
@@ -73,7 +73,7 @@ const Index = () => {
 			</div>
 			{/*  */}
 			<div>
-				<Grid container item style={styles.cardContainer} className='dots-blue-down no-repeat responsive-reverse-order'>
+				<Grid container item style={styles.cardContainer} className='dots-blue-down no-repeat responsive-reverse-order responsive-container'>
 					<Grid item xs={12} sm={6} className='text-center'>
 						<img src={Screen8} />
 					</Grid>
@@ -86,7 +86,7 @@ const Index = () => {
 				</Grid>
 			</div>
 			{/*  */}
-			<div className='home-block-padding' style={styles.padding} className='card-bg dot-pink reverse no-repeat'>
+			<div className='home-block-padding responsive-container' style={styles.padding} className='card-bg dot-pink reverse no-repeat'>
 				<Grid container item style={styles.cardContainer}>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item xs={12} sm={8}>
