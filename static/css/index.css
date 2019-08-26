@@ -697,6 +697,22 @@ footer .link-container {
 }
 
 /* OTHER */
+.flex {
+    display: flex;
+}
+.video-youtube {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    width: 100%;
+}
+.video-youtube iframe {
+    position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
 #submit-contact {
     margin-top: 1.8rem;
 }

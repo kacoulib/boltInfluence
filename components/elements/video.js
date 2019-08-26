@@ -7,15 +7,18 @@ const YoutubeWrapper = ({ id, props }) => {
     const args = Object.keys(props);
     for (let index = 0, argsLength = args.length; index < argsLength; index++) {
         const elem = args[index];
-        if (props[elem] && !excludes.includes(elem)) {
-            params += `&${elem}=1`;
-            if (elem == 'loop' && props.src)
+        if (!excludes.includes(elem)) {
+            params += `&${elem}=${props[elem] ? 1 : 0}`;
+            if (elem == 'loop' && props[elem] && props.src)
                 params += `&playlist=${id}`
         }
     }
     props.src = 'https://www.youtube.com/embed/' + id + '?rel=0' + params;
+
     return (
-        <iframe {...props} frameborder="0"></iframe>
+        <div className='video-youtube'>
+            <iframe {...props} frameborder="0"></iframe>
+        </div>
     )
 };
 
@@ -32,7 +35,7 @@ const getYoutubeVideoID = (src) => {
     }
     return video_id;
 }
-const VideoComp = ({ src, controls = true, autoplay = true, loop = true, modestbranding = true, allowfullscreen = true, width, height }) => {
+const VideoComp = ({ src, controls = false, autoplay = true, loop = true, modestbranding = true, allowfullscreen = true, width, height }) => {
     let props = { src, controls, autoplay, loop, modestbranding: true, allowfullscreen: false, width, height };
 
     if (src.includes('youtube.com'))
