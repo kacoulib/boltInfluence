@@ -29,7 +29,7 @@ const AnnonceDemo = () => {
     const onSubmit = () => console.log('submit')
 
     return (
-        <Grid container>
+        <Grid container id='agence'>
             <NextSeo
                 title="Bolt Influence Agences"
                 description="Vous êtes un annonceur ou une agence, Bolt Influence vous conseille sur la sélection rapide et authentique d’influenceurs ayant un ROI bien supérieur à une campagne de publicité classique."
@@ -39,10 +39,10 @@ const AnnonceDemo = () => {
                     <h1 style={styles.title}> En incarnant votre marque, les influenceurs la rendent plus vivante et sensible</h1>
                     <p>Grâce à leur communauté, vous obtenez un moyen privilégié d'échange avec vos clients et futurs clients.</p>
                 </Grid>
-                <Grid container item sm={6} xs={12} alignItems="center" style={styles.double} className='responsive-hide'>
+                <Grid container item sm={6} xs={12} alignItems="center" style={styles.double} className='agence-img-no-height'>
                     <div className='card-bg dots-pink' style={styles.double}>
-                        <Grid item container className='card-bg dots-pink reverse-all' style={styles.double}>
-                            <Grid item container className='card-bg dots-pink reverse-all' style={styles.double}>
+                        <Grid item container className='card-bg dots-pink reverse-all' style={styles.double} className='agence-img-no-height'>
+                            <Grid item container className='card-bg dots-pink reverse-all agence-img-container' style={styles.double}>
                                 <Grid item container alignItems="center" alignContent="center" style={styles.double}>
                                     <img src={girlboat} alt="" className='auto' />
                                 </Grid>
