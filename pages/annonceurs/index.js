@@ -39,7 +39,7 @@ const Index = () => {
 		<div id='annonceurs' className='lines-blue right-bg'>
 			<div className='home-block-padding card-bg lines-blue no-repeat responsive-bg-opacity right responsive-container' style={styles.padding}>
 				<h1 className='text-center'>Pilotez vos campagnes de Marketing d’influence en toute <span className='full-bordered-head'>transparence.</span></h1>
-				<Grid container item style={styles.cardContainer} className='responsive-no-margin'>
+				<Grid container item style={styles.cardContainer} className='responsive-no-margin responsive-no-padding-bottom'>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item xs={12} sm={8}>
 							<p className='justify' style={styles.p}>Notre plateforme vous accompagne dans toutes les étapes de vos campagnes en Marketing d’influence: sélection des influenceurs, création et administration et export des statistiques.</p>
@@ -55,7 +55,7 @@ const Index = () => {
 			</div>
 			{/*  */}
 			<div>
-				<Grid container item style={styles.cardContainer} className='card-bg dots-blue-down responsive-bg-opacity responsive-no-margin no-repeat responsive-reverse-order responsive-container'>
+				<Grid container item style={styles.cardContainer} className='card-bg dots-blue-down responsive-bg-small-opacity responsive-no-margin no-repeat responsive-reverse-order responsive-container'>
 					<Grid item xs={12} sm={6} className='text-center'>
 						<img src={Screen2} />
 					</Grid>
@@ -133,7 +133,7 @@ const Index = () => {
 						margin: 1rem;
 					}
 					#demo {
-						margin: 2.5rem auto;
+						margin: 3rem auto;
 					}
 				}
 			`}</style>
