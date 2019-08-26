@@ -1185,11 +1185,17 @@ button.submit {
     .responsive-no-padding {
         padding: 0!important;
     }
+    .responsive-no-padding-bottom {
+        padding-bottom: 0!important;
+    }
     .responsive-no-margin {
         margin: 0!important;
     }
     .responsive-bg-opacity::before {
         opacity: .3;
+    }
+    .responsive-bg-small-opacity::before {
+        opacity: .15;
     }
     .responsive-align-left {
         text-align: left;
