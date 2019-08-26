@@ -76,7 +76,7 @@ const Index = () => {
 			</div>
 			{/*  */}
 			<div className='home-block-padding' style={styles.padding} className='card-bg dot-pink reverse no-repeat responsive-container'>
-				<h1 className='text-center red-color'>Le format In-vidéo</h1>
+				<h2 className='text-center red-color'>Le format In-vidéo</h2>
 				<Grid container item style={styles.cardContainer} className='responsive-no-padding'>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item xs={12} sm={8}>
@@ -120,6 +120,14 @@ const Index = () => {
 			<style jsx>{`
 				h1 {
 					margin-top: 3rem;
+				}
+				h2 {
+					font-size: 2.5rem;
+				}
+				@media all and (max-width : 400px) {
+					h2 {
+						font-size: 2rem;
+					}
 				}
 			`}</style>
 		</div>
