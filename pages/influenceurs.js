@@ -45,6 +45,13 @@ const styles = {
 		width: '100%'
 	}
 }
+
+const Connect = () => (
+	<div className='center-text auto connect'>
+		<Link href='/login'><a title='Inscrivez-vous' className='red-btn' style={styles.button}>Inscrivez-vous</a></Link>
+		<div>ou <Link href='/login'><a title='connectez-vous' className='bold'>connectez-vous</a></Link></div>
+	</div>
+)
 const Index = () => {
 	return (
 		<div id='influenceurs'>
@@ -55,14 +62,11 @@ const Index = () => {
 			<div className='card-bg dots-pink no-repeat responsive-bg-opacity reverse left'>
 				<div className='home-block-padding responsive-container' style={styles.padding}>
 					<h1 className='text-center'><span className='half-width-bordered-head'>Trouvez et postulez</span> à de nombreuses campagnes</h1>
-					<Grid container item style={styles.cardContainer} justify="center" alignItems="center" alignContent="center">
+					<Grid container item style={styles.cardContainer} justify="center" alignItems="center" alignContent="center" className='responsive-no-padding'>
 						<Grid item container xs={12} sm={6} justify="center" alignItems="center" alignContent="center">
 							<Grid item xs={12} sm={8}>
 								<p className='justify' style={styles.p}>Découvrez l’ensemble de notre offre de campagnes rémunérées et commencez à postuler dès aujourd’hui.</p>
-								<div className='center-text'>
-									<Link href='/login'><a title='Inscrivez-vous' className='red-btn' style={styles.button}>Inscrivez-vous</a></Link>
-									<div>ou <Link href='/login'><a title='connectez-vous' className='bold'>connectez-vous</a></Link></div>
-								</div>
+								<Connect />
 							</Grid>
 						</Grid>
 						<Grid item xs={12} sm={6} className='text-center'>
@@ -86,8 +90,8 @@ const Index = () => {
 				</Grid>
 			</div>
 			{/*  */}
-			<div className='home-block-padding responsive-container' style={styles.padding} className='card-bg dot-pink reverse no-repeat'>
-				<Grid container item style={styles.cardContainer}>
+			<div className='home-block-padding' style={styles.padding} className='card-bg dot-pink reverse no-repeat responsive-container'>
+				<Grid container item style={styles.cardContainer} className='responsive-no-padding'>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item xs={12} sm={8}>
 							<h2>Devenez un <span className='half-width-bordered-head'>professionnel</span> du Marketing d’influence</h2>
@@ -102,10 +106,12 @@ const Index = () => {
 			{/*  */}
 			<div>
 				<Grid container item alignContent='center' alignItems='center'>
-					<div className='center-text auto'>
+					<Connect />
+
+					{/* <div className='center-text auto connect'>
 						<Link href='#'><a className='red-btn' style={styles.button}>Inscrivez-vous</a></Link>
 						<div>ou <Link href='#'><a title='connectez-vous' className='bold'>connectez-vous</a></Link></div>
-					</div>
+					</div> */}
 				</Grid>
 			</div>
 			{/*  */}
@@ -146,6 +152,14 @@ const Index = () => {
 				</Grid>
 			</div>
 			<Preregister />
+			<style jsx>{`
+				@media all and (max-width : 400px) {
+					.text-center {
+						font-size: 2rem;
+						padding: 0;
+					}
+				}
+			`}</style>
 		</div>
 	)
 }
