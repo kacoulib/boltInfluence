@@ -36,7 +36,7 @@ const Index = () => {
 
 	return (
 		<div>
-			<div className='card-bg lines-blue no-repeat right'>
+			<div className='card-bg lines-blue no-repeat right responsive-container'>
 				<div>
 					<h1 className='text-center red-color'>Notre méthode</h1>
 					<Grid container item style={styles.cardContainer}>
@@ -54,7 +54,7 @@ const Index = () => {
 			</div>
 			{/*  */}
 			<div>
-				<Grid container item style={styles.cardContainer} className='dots-blue-down no-repeat responsive-reverse-order'>
+				<Grid container item style={styles.cardContainer} className='dots-blue-down no-repeat responsive-reverse-order responsive-container'>
 					<Grid item xs={12} sm={6} className='text-center'>
 						<img src={Screen6} />
 					</Grid>
@@ -67,7 +67,7 @@ const Index = () => {
 				</Grid>
 			</div>
 			{/*  */}
-			<div className='home-block-padding' style={styles.padding} className='card-bg dot-pink reverse no-repeat'>
+			<div className='home-block-padding' style={styles.padding} className='card-bg dot-pink reverse no-repeat responsive-container'>
 				<Grid container item style={styles.cardContainer}>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item xs={12} sm={8}>
@@ -82,7 +82,7 @@ const Index = () => {
 			</div>
 			{/*  */}
 			<div className='light-gray-bg'>
-				<Grid container item style={styles.cardContainer} className='card-bg lines-blue reverse-all right no-repeat responsive-reverse-order'>
+				<Grid container item style={styles.cardContainer} className='card-bg lines-blue reverse-all right no-repeat responsive-reverse-order responsive-container'>
 					<Grid item xs={12} sm={6} className='text-center'>
 						<img src={Screen6} />
 					</Grid>

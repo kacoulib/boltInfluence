@@ -40,10 +40,10 @@ const menuList = [
 const displayMenuList = (list, i) => (
 	list.map((elem) => (
 		<li key={++i}>
-			{elem.child ? 
+			{elem.child ?
 				<div className='to-hide menu-link' title={elem.title}><span className='relative'>{elem.text}<span className='triangle down'></span></span></div>
 				:
-			<Link href={elem.href}><a title={elem.title}><span className='relative'>{elem.text}</span></a></Link>
+				<Link href={elem.href}><a title={elem.title}><span className='relative'>{elem.text}</span></a></Link>
 			}
 			{elem.child && <>
 				<label htmlFor={`drop-${i}`} className="toggle-head menu-link"><span className='relative'>{elem.text}<span className='triangle down'></span></span></label>

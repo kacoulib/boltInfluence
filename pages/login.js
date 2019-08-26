@@ -128,7 +128,7 @@ const Login = () => {
           <Grid container item sm={6} xs={12}>
             <Grid sm={12} xs={12}>
               <h2 className='divider'>Avec un email</h2>
-              <div id="form" className='auto'>
+              <div id="form" className='auto responsive-container'>
                 <FormGenerator
                   fields={state.showRegister ? registerFields : loginFields}
                   state={state}
@@ -144,7 +144,7 @@ const Login = () => {
 
           </Grid>
         </Grid>
-        <p className='text-center fullwidth'>Vous n'avez pas de compte ? <span className='red-color pointer' onClick={() => toggle('showRegister')}>{state.showRegister ? 'Connectez-vous' : 'Inscrivez-vous'} ici.</span></p>
+        <p className='text-center fullwidth responsive-container'>Vous n'avez pas de compte ? <span className='red-color pointer' onClick={() => toggle('showRegister')}>{state.showRegister ? 'Connectez-vous' : 'Inscrivez-vous'} ici.</span></p>
       </div>
       <style jsx>{`
         #login {

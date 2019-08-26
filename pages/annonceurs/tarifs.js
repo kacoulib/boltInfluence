@@ -92,7 +92,7 @@ const Index = () => {
 	return (
 		<div style={styles.cardContainer}>
 			<div>
-				<div className='home-block-padding' style={styles.padding}>
+				<div className='home-block-padding responsive-container' style={styles.padding}>
 					<h1 className='text-center'>Nos tarifs de la plateforme Bolt Influence</h1>
 					<ul className='tarif-list-container'>
 						{state.tarifs && state.tarifs.map((elem, index) => (

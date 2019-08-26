@@ -3,9 +3,6 @@ import Grid from '@material-ui/core/Grid';
 import logo from '../../static/img/logo.png';
 import Socials from '../../components/elements/socials'
 
-// style={{border: '1px solid red'}}
-
-
 const Footer = () => (
 	<footer id='footer' className='card-bg dots-white bottom'>
 		<Grid container alignItems="center" justify="center" align='center'>
@@ -22,7 +19,7 @@ const Footer = () => (
 				</Grid>
 				<Grid item sm={4} xs={6}>
 					<ul>
-						<li><Link href="/notre-methode"><a title='Notre méthode'>Notre méthode</a></Link></li>
+						<li><Link href="/notre-approche/notre-methode"><a title='Notre méthode'>Notre méthode</a></Link></li>
 						<li><Link href="/contact"><a title='contact'>Contactez-nous</a></Link></li>
 					</ul>
 				</Grid>

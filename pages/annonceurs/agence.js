@@ -35,7 +35,7 @@ const AnnonceDemo = () => {
                 description="Vous êtes un annonceur ou une agence, Bolt Influence vous conseille sur la sélection rapide et authentique d’influenceurs ayant un ROI bien supérieur à une campagne de publicité classique."
             />
             <Grid id="description" container>
-                <Grid container item sm={6} xs={12} alignItems="center" alignContent="center" style={styles.leftContainer}>
+                <Grid container item sm={6} xs={12} alignItems="center" alignContent="center" className='responsive-container' style={styles.leftContainer}>
                     <h1 style={styles.title}> En incarnant votre marque, les influenceurs la rendent plus vivante et sensible</h1>
                     <p>Grâce à leur communauté, vous obtenez un moyen privilégié d'échange avec vos clients et futurs clients.</p>
                 </Grid>
