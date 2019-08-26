@@ -1215,6 +1215,9 @@ button.submit {
     .responsive-no-padding-bottom {
         padding-bottom: 0!important;
     }
+    .responsive-no-margin-bottom {
+        margin-bottom: 0!important;
+    }
     .responsive-no-margin {
         margin: 0!important;
     }

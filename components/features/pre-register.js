@@ -251,7 +251,7 @@ const Index = () => {
             `}</style>
             <style jsx global>{`
                 @media all and (max-width : 400px) {
-                    html {
+                    html, body {
                         overflow: hidden;
                     }
                 }
