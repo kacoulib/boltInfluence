@@ -157,6 +157,9 @@ const Index = () => {
 						font-size: 2rem;
 						padding: 0;
 					}
+					h3 {
+						font-size: 1rem;
+					}
 				}
 			`}</style>
 		</div>
