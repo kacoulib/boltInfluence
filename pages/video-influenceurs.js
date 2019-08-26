@@ -43,7 +43,7 @@ const Index = () => {
 				description="Le format in-video est un placement de produits innovant pour les campagnes de marketing d’influencue de la marque. mesure et impactant, il offre un espace inedit au sein même des contenus des influenceurs."
 			/>
 			<div className='card-bg lines-blue no-repeat responsive-bg-opacity right'>
-				<div className='home-block-padding' style={styles.padding}>
+				<div className='home-block-padding responsive-container' style={styles.padding}>
 					<h1 className='text-center red-color'>La vidéo un média d’avenir</h1>
 					<Grid container item style={styles.cardContainer} justify="center" alignItems="center" >
 						<Grid item container xs={12} sm={6} justify="center" alignItems="center">
@@ -61,8 +61,8 @@ const Index = () => {
 			</div>
 			{/*  */}
 			<div>
-				<Grid container item style={styles.cardContainer} className='dots-blue-down no-repeat responsive-reverse-order'>
-					<Grid item xs={12} sm={6} className='text-center'>
+				<Grid container item style={styles.cardContainer} className='dots-blue-down no-repeat responsive-reverse-order responsive-no-padding'>
+					<Grid item xs={12} sm={6} className='text-center responsive-container'>
 						<img src={Screen6} />
 					</Grid>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
@@ -75,9 +75,9 @@ const Index = () => {
 				</Grid>
 			</div>
 			{/*  */}
-			<div className='home-block-padding' style={styles.padding} className='card-bg dot-pink reverse no-repeat'>
+			<div className='home-block-padding' style={styles.padding} className='card-bg dot-pink reverse no-repeat responsive-container'>
 				<h1 className='text-center red-color'>Le format In-vidéo</h1>
-				<Grid container item style={styles.cardContainer}>
+				<Grid container item style={styles.cardContainer} className='responsive-no-padding'>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item xs={12} sm={8}>
 							<h2>Intégrez votre contenu sur tous les <span className='bordered-head'>types</span> de contenu vidéo </h2>
@@ -91,8 +91,8 @@ const Index = () => {
 			</div>
 			{/*  */}
 			<div className='light-gray-bg'>
-				<Grid container item style={styles.cardContainer} className='card-bg lines-blue responsive-bg-opacity reverse-all right no-repeat responsive-reverse-order'>
-					<Grid item xs={12} sm={6} className='text-center'>
+				<Grid container item style={styles.cardContainer} className='card-bg lines-blue responsive-bg-opacity reverse-all right no-repeat responsive-reverse-order responsive-no-padding'>
+					<Grid item xs={12} sm={6} className='text-center responsive-container'>
 						<img src={Screen6} />
 					</Grid>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
