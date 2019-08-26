@@ -88,7 +88,7 @@ const Index = () => {
 					<Grid item xs={12} sm={6} className='text-center'>
 						<img src={Screen4} />
 					</Grid>
-					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
+					<Grid item container xs={12} sm={6} justify="center" alignItems="center" className='responsive-container'>
 						<Grid item container xs={12} sm={8} >
 							<h2 className='card-title'><span className='full-bordered-head' style={{ padding: 5 }}>Analysez</span> les résultats de vos campagnes et exporter les statistiques</h2>
 							<p className='justify'>Notre plateforme vous permet d’accéder à l’ensemble des chiffres de vos campagnes (reach, nombre de vues, analyses démographiques…) afin de calculer leur ROI et exportez-les afin de les exploiter dans d’autres logiciels.</p>
