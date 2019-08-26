@@ -39,15 +39,15 @@ const Index = () => {
 			<div className='card-bg lines-blue no-repeat right responsive-container'>
 				<div>
 					<h1 className='text-center red-color'>Notre méthode</h1>
-					<Grid container item style={styles.cardContainer}>
+					<Grid container item style={styles.cardContainer} className='responsive-no-padding'>
 						<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 							<Grid item xs={12} sm={8}>
-								<h2 className='justify'><span className='bordered-head'>Stratégie de contenu :</span></h2>
+								<h2 className='justify responsive-align-left'><span className='bordered-head'>Stratégie de contenu :</span></h2>
 								<p className='justify'>La création de contenu et le story telling est au centre de ce que nous produisons. Nos experts dans le domaine supportent les marques afin de créer des campagnes impactantes sur tous les réseaux sociaux.</p>
 							</Grid>
 						</Grid>
 						<Grid item xs={12} sm={6} className='text-center'>
-							<img src={Screen5} />
+							<img src={Screen5} className='responsive-fullwidth' />
 						</Grid>
 					</Grid>
 				</div>
@@ -56,7 +56,7 @@ const Index = () => {
 			<div>
 				<Grid container item style={styles.cardContainer} className='dots-blue-down no-repeat responsive-reverse-order responsive-container'>
 					<Grid item xs={12} sm={6} className='text-center'>
-						<img src={Screen6} />
+						<img src={Screen6} className='responsive-fullwidth' />
 					</Grid>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item container xs={12} sm={8}>
@@ -68,7 +68,7 @@ const Index = () => {
 			</div>
 			{/*  */}
 			<div className='home-block-padding' style={styles.padding} className='card-bg dot-pink reverse no-repeat responsive-container'>
-				<Grid container item style={styles.cardContainer}>
+				<Grid container item style={styles.cardContainer} className='responsive-no-padding'>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item xs={12} sm={8}>
 							<h2><span className='bordered-head'>Accompagnement</span> des influenceurs et campaign management :</h2>
@@ -76,7 +76,7 @@ const Index = () => {
 						</Grid>
 					</Grid>
 					<Grid item xs={12} sm={6} className='text-center'>
-						<img src={Screen5} />
+						<img src={Screen5} className='responsive-fullwidth' />
 					</Grid>
 				</Grid>
 			</div>
@@ -84,7 +84,7 @@ const Index = () => {
 			<div className='light-gray-bg'>
 				<Grid container item style={styles.cardContainer} className='card-bg lines-blue reverse-all right no-repeat responsive-reverse-order responsive-container'>
 					<Grid item xs={12} sm={6} className='text-center'>
-						<img src={Screen6} />
+						<img src={Screen6} className='responsive-fullwidth' />
 					</Grid>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item container xs={12} sm={8}>
@@ -95,7 +95,7 @@ const Index = () => {
 				</Grid>
 			</div>
 			{/*  */}
-			<div style={styles.contactUsContainer}>
+			<div style={styles.contactUsContainer} className='responsive-no-padding'>
 				<Grid container >
 					<Grid item xs={12} sm={2} className='text-center'></Grid>
 					<Grid item xs={12} sm={8} className='text-center'>

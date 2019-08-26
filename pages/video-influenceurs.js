@@ -104,7 +104,7 @@ const Index = () => {
 				</Grid>
 			</div>
 			{/*  */}
-			<div style={styles.contactUsContainer}>
+			<div style={styles.contactUsContainer} className='responsive-no-padding'>
 				<Grid container >
 					<Grid item xs={12} sm={2} className='text-center'></Grid>
 					<Grid item xs={12} sm={8} className='text-center'>

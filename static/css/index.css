@@ -1206,6 +1206,9 @@ button.submit {
         height: 3rem;
         width: 3rem;
     }
+    .responsive-fullwidth {
+        width: 100%;
+    }
     .responsive-container {
         padding: 1rem!important;
     }
