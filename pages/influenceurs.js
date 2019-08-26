@@ -118,7 +118,7 @@ const Index = () => {
 				<Grid container item style={styles.cardContainer}>
 					<div className='lines-black no-repeat right card-bg responsive-bg-opacity fullwidth'>
 
-						<h2 style={styles.testimonialTitle}>Testimonials</h2>
+						<h2 style={styles.testimonialTitle}>Témoignages</h2>
 
 						<Carousel>
 							<div style={styles.testimonialContainer}>
