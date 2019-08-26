@@ -55,7 +55,7 @@ const Index = () => {
 			</div>
 			{/*  */}
 			<div>
-				<Grid container item style={styles.cardContainer} className='card-bg dots-blue-down responsive-bg-opacity no-repeat responsive-reverse-order responsive-container'>
+				<Grid container item style={styles.cardContainer} className='card-bg dots-blue-down responsive-bg-opacity responsive-no-margin no-repeat responsive-reverse-order responsive-container'>
 					<Grid item xs={12} sm={6} className='text-center'>
 						<img src={Screen2} />
 					</Grid>
@@ -69,8 +69,8 @@ const Index = () => {
 			</div>
 			{/*  */}
 			<div className='home-block-padding responsive-container' style={styles.padding}>
-				<h2 className='text-center'><span className='full-bordered-head' style={{ padding: 0 }}>Identifiez</span> les nouveaux talents et évitez les faux influenceurs</h2>
-				<Grid container item style={styles.cardContainer} className='reponsive-no-margin'>
+				<h2 className='text-center responsive-align-left'><span className='full-bordered-head' style={{ padding: 0 }}>Identifiez</span> les nouveaux talents et évitez les faux influenceurs</h2>
+				<Grid container item style={styles.cardContainer} className='responsive-no-margin'>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item xs={12} sm={8}>
 							<p className='justify' style={styles.p}>Découvrez par thématique les influenceurs en forte croissance.</p>
@@ -84,7 +84,7 @@ const Index = () => {
 			</div>
 			{/*  */}
 			<div>
-				<Grid container item style={styles.cardContainer} justify="center" alignItems="center" className='card-bg responsive-bg-opacity dot-pink no-repeat responsive-container responsive-reverse-order'>
+				<Grid container item style={styles.cardContainer} justify="center" alignItems="center" className='card-bg responsive-bg-opacity responsive-no-margin dot-pink no-repeat responsive-container responsive-reverse-order'>
 					<Grid item xs={12} sm={6} className='text-center'>
 						<img src={Screen4} />
 					</Grid>
@@ -133,7 +133,7 @@ const Index = () => {
 						margin: 1rem;
 					}
 					#demo {
-						margin: 2rem auto;
+						margin: 2.5rem auto;
 					}
 				}
 			`}</style>

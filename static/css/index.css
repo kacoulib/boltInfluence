@@ -1191,6 +1191,10 @@ button.submit {
     .responsive-bg-opacity::before {
         opacity: .3;
     }
+    .responsive-align-left {
+        text-align: left;
+    }
+
     #menu-left {
         margin-right: auto;
         text-align: left;
