@@ -1171,6 +1171,9 @@ button.submit {
 
 
 @media all and (max-width : 400px) {
+    #agence h1 {
+        font-size: 2rem;
+    }
     .agence-img-no-height {
         height: auto!important;
     }
