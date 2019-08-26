@@ -1171,7 +1171,15 @@ button.submit {
 
 
 @media all and (max-width : 400px) {
-
+    .agence-img-no-height {
+        height: auto!important;
+    }
+    .agence-img-container {
+        padding: 1rem!important;
+    }
+    .agence-img-container img {
+        width: 100%;
+    }
     #contact-page #search {
         margin-top: 1rem;
     }
