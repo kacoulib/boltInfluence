@@ -7,6 +7,7 @@ import Screen6 from '../static/img/screen6.png'
 import Partners from '../components/page/public/partners'
 import ContactUs from '../components/page/public/contactUs'
 import { customRequest } from '../lib/api/http/'
+import Video from '../components/elements/video'
 
 const styles = {
 	cardContainer: {
@@ -44,7 +45,7 @@ const Index = () => {
 			<div className='card-bg lines-blue no-repeat responsive-bg-opacity right'>
 				<div className='home-block-padding' style={styles.padding}>
 					<h1 className='text-center red-color'>La vidéo un média d’avenir</h1>
-					<Grid container item style={styles.cardContainer}>
+					<Grid container item style={styles.cardContainer} justify="center" alignItems="center" >
 						<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 							<Grid item xs={12} sm={8}>
 								<h2><span className='bordered-head'>Un média</span>  en pleine croissance</h2>
@@ -52,8 +53,8 @@ const Index = () => {
 								<p className='italic'>*Etude : the state of Video Marketing 2019 - Wyzowl</p>
 							</Grid>
 						</Grid>
-						<Grid item xs={12} sm={6} className='text-center'>
-							<img src={Screen5} />
+						<Grid item xs={12} sm={6} justify="center" alignItems="center" className='text-center'>
+							<Video src="https://www.youtube.com/watch?v=R3n5VoY0yFw" />
 						</Grid>
 					</Grid>
 				</div>
