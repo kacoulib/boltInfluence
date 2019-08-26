@@ -8,7 +8,6 @@ import Screen10 from '../static/img/screen10.jpg'
 import Screen11 from '../static/img/screen11.png'
 import { Link } from '../server/routes/next-routes';
 import Carousel from '../components/dataDisplay/others/carousel';
-import { darkBlueColor, darkOrangeColor, lightGray } from '../utils/variables/css'
 import { NextSeo } from 'next-seo';
 import Preregister from '../components/features/pre-register'
 
@@ -83,7 +82,7 @@ const Index = () => {
 					</Grid>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item container xs={12} sm={8} justify="center" alignItems="center">
-							<h2>Soyez payé à <span className='half-width-bordered-head'>votre juste</span> valeur</h2>
+							<h2 className='responsive-no-margin-bottom'>Soyez payé à <span className='half-width-bordered-head'>votre juste</span> valeur</h2>
 							<p className='justify'>Les rémunérations des campagnes sont calculées au regard de vos statistiques et sont réévalués en fonction de la croissance de votre audience.</p>
 						</Grid>
 					</Grid>
