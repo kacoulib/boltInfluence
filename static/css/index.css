@@ -1182,6 +1182,12 @@ button.submit {
     .responsive-container {
         padding: 1rem!important;
     }
+    .responsive-no-padding {
+        padding: 0!important;
+    }
+    .responsive-no-margin {
+        margin: 0!important;
+    }
     .responsive-bg-opacity::before {
         opacity: .3;
     }
