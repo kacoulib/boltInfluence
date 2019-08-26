@@ -5,6 +5,7 @@ services:
       context: ./
       args:
         NODE_ENV: production
+        ROOT_URL:
     image: app
     restart: always
     ports:
