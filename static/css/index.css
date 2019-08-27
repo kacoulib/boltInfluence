@@ -154,7 +154,7 @@ nav ul ul {
 	
 /* Display Dropdowns on Hover */
 nav ul li:hover > ul {
-	display:inherit;
+	display: inherit;
 }
 	
 /* Fisrt Tier Dropdown */
@@ -299,7 +299,29 @@ li > a:only-child:after { content: ''; } */
 	}
 
 }
+header nav ul .relative {
+    padding-bottom: 2px;
+}
+header nav ul span.relative:hover {
+    color: #F13F4B;
+}
+header nav ul span.relative:hover::before {
+    width: 100%;
+}
+header nav ul span.relative::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 1px;
+    font-size: 5%;
+    -webkit-transition: width .4s ease-in-out;
+    -o-transition: width .4s ease-in-out;
+    transition: width .4s ease-in-out;
+    background-color: #F13F4B;
 
+}
 @media all and (max-width : 330px) {
 
 	nav ul li {
