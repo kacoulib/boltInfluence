@@ -1205,6 +1205,14 @@ button.submit {
     .circle-dot {
         height: 3rem;
         width: 3rem;
+        font-size: 1.5rem;
+        transform: scale(1.2);
+    }
+    #contact-page .card-padding-right {
+        padding-right: 0;
+    }
+    #contact-page .card-padding-left {
+        padding-left: 0;
     }
     .responsive-fullwidth {
         width: 100%;
@@ -1313,8 +1321,19 @@ button.submit {
     .home_team.toggle .list-item.active > div:last-child{
         display: block;
     }
-    .home_team .list-item > div:first-child {
-        padding: .5rem;
+    .home_team .list-item.active p {
+        padding: 5px;
+        margin: 0;
+        background-color: rgb(241, 63, 75);
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+    .home_team .list-item.active > div:first-child {
+        background-color: rgb(241, 63, 75);
+        padding: 5px;
+        height: auto;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
     }
     .home_team .list-item > div:last-child > div {
         width: 100%;

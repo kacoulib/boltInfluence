@@ -12,6 +12,7 @@ import Image01 from '../../static/img/c-est-quoi.jpeg'
 import Image02 from '../../static/img/comment-ca-marche.jpeg'
 import FormGenerator from '../../components/formElement/generator';
 import { customRequest } from '../../lib/api/http'
+import { Link } from '../../server/routes/next-routes';
 
 const styles = {
 	expandContainer: {
@@ -117,7 +118,7 @@ const Index = ({ faqs: { faqs } = {} } = {}) => {
 
 	return (
 		<div className='dots-blue right-bg' id='contact-page'>
-			<div className='home-block-padding' style={styles.padding}>
+			<div className='home-block-padding responsive-container' style={styles.padding}>
 				<h1 className='bordered-head fullwidth'>À propos</h1>
 				<Grid container>
 					<Grid container item style={styles.cardContainer}>
@@ -130,7 +131,10 @@ const Index = ({ faqs: { faqs } = {} } = {}) => {
 							</Grid>
 						</Grid>
 					</Grid>
-					<Grid container item style={styles.cardContainer}>
+					<Grid container item style={styles.cardContainer} direction="row-reverse">
+						<Grid item xs={12} sm={6} className='card-padding-left'>
+							<Card src={Image02} title="Comment ça marche ?" color='red' />
+						</Grid>
 						<Grid item container xs={12} sm={6} justify="center" alignItems="center" className='card-padding-right'>
 							<Grid item container xs={12} sm={10} justify="center" alignItems="center">
 								<Grid item xs={2} sm={2} >
@@ -153,15 +157,12 @@ const Index = ({ faqs: { faqs } = {} } = {}) => {
 								</Grid>
 							</Grid>
 						</Grid>
-						<Grid item xs={12} sm={6} className='card-padding-left'>
-							<Card src={Image02} title="Comment ça marche ?" color='red' />
-						</Grid>
 					</Grid>
 				</Grid>
 			</div>
 			{/*  */}
 			<div style={styles.faq}>
-				<div className='home-block-padding' style={styles.padding}>
+				<div className='home-block-padding responsive-container' style={styles.padding}>
 					<h2 className='bordered-head fullwidth'>FAQ</h2>
 					<p>Vous voulez en savoir plus ?</p>
 					<p className='italic'>Notre FAQ répondra à tous vos questions !</p>
@@ -202,14 +203,14 @@ const Index = ({ faqs: { faqs } = {} } = {}) => {
 						<p className='text-right'><a className='red-color'>Montrer tout le FAQ</a></p>
 					</div>
 					<div>
-						<a style={styles.contactUs}>Vous n’avez pas trouvé votre réponse ? Contactez-nous</a>
+						<Link href='/contact'><a title='Contactez-nous' style={styles.contactUs}>Vous n’avez pas trouvé votre réponse ? Contactez-nous</a></Link>
 					</div>
 				</div>
 			</div>
 			{/*  */}
 
 			<div>
-				<div className='home-block-padding' style={styles.padding}>
+				<div className='home-block-padding responsive-container' style={styles.padding}>
 					<h2 className='bordered-head fullwidth'>Notre equipe</h2>
 					<Grid container alignItems="stretch" className={`home_team ${state.active != null ? 'toggle' : ''}`}>
 						{state.teams.map((elem, key) => {
@@ -225,7 +226,6 @@ const Index = ({ faqs: { faqs } = {} } = {}) => {
 									<div>
 										<div>
 											<p>{elem.description}</p>
-											<p></p>
 										</div>
 									</div>
 								</Grid>
