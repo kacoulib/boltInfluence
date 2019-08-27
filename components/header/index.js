@@ -62,11 +62,11 @@ const Header = () => (
 		<Toolbar>
 			<Grid container alignItems="center" justify="center">
 				<Grid container item sm={12} xs={12} alignItems="center" justify="center" id='menu-container'>
-					<Grid item align="center" sm={1} xs={2} id='menu-left'>
+					<Grid item align="center" sm={1} xs={3} id='menu-left'>
 						{/* <img src={iconFlagFr} style={styles.iconFlagFr} className='responsive-show' /> */}
 						<Link href='/'><a title='home BoltInfluence'><img src={logo} id='logo' /></a></Link>
 					</Grid>
-					<Grid item align="center" sm={10} xs={8}>
+					<Grid item align="center" sm={10} xs={6}>
 						<Grid container alignItems="center">
 							<nav>
 								<label htmlFor="drop" className="toggle-head">☰</label>
@@ -78,8 +78,14 @@ const Header = () => (
 
 						</Grid>
 					</Grid>
-					<Grid item style={{ padding: '10px', textAlign: 'right' }} sm={1} xs={2} id='menu-right'>
-						<Link href='/login'><a title='login'><Avatar style={styles.avatar} src={userIconWhite} /></a></Link>
+					<Grid item sm={1} xs={3} id='menu-right'>
+						<div class="sonar-wrapper">
+							<Link href='/login'><a title='login' className='sonar-emitter'>
+								connexion
+    								<div class="sonar-wave"></div>
+								{/* <Avatar style={styles.avatar} src={userIconWhite} /> */}
+							</a></Link>
+						</div>
 					</Grid>
 				</Grid>
 				<Grid container item sm={12} xs={12} direction="row" alignItems="center" justify="center">
