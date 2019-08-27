@@ -250,11 +250,9 @@ const Index = () => {
                 }
             `}</style>
             <style jsx global>{`
-                @media all and (max-width : 400px) {
                     html, body {
                         overflow: hidden;
                     }
-                }
             `}</style>
         </Dialog >
     )
