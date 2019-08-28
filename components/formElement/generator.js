@@ -1,9 +1,9 @@
 import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
-// import TextField from '@material-ui/core/TextField';
-import Wysiwyg from './wysiwyg'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles';
+
+import Wysiwyg from './wysiwyg'
 import ChipList from './chipList';
 import Select from './select';
 import Radio from './radio';

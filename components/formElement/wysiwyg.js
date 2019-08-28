@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import ReactMde from "react-mde";
 import PropTypes from 'prop-types'
 import * as Showdown from "showdown";
-import "react-mde/lib/styles/css/react-mde-all.css";
 import { FormElementWrapper } from './index'
-
 
 const WysiwygComp = ({ name, value, onChange, label, showLabel }) => {
 

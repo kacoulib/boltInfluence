@@ -10,12 +10,12 @@ const NavPanel = ({ navList, index = 0 }) => {
         showSubMenu: false,
         subMenuIndex: index,
     }),
-        nav = navList[state.index].subMenu ? navList[state.index].subMenu.navList : navList,
+        nav = navList[state.index] && navList[state.index].subMenu ? navList[state.index].subMenu.navList : navList,
         currentComp;
 
     if (state.showSubMenu && navList[state.index].subMenu.navList[state.subMenuIndex])
         currentComp = navList[state.index].subMenu.navList[state.subMenuIndex].page;
-    else
+    else if (navList[state.index])
         currentComp = navList[state.index].page;
 
     const setNavigation = (index, hasSubMenu) => {
