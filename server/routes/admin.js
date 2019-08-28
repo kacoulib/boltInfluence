@@ -22,7 +22,7 @@ const router = express.Router();
 
 router.use((req, res, next) => {
   if (!req.user || !isAdmin(req.user)) {
-    res.status(401).json({ error: 'Unauthorized' });
+    res.status(401).json({ error: 'Unauthorized user' });
     return;
   }
   next();
@@ -492,6 +492,18 @@ router.delete(
     res.status(204).end();
   }),
 )
+
+router.get('/posts', async (req, res) => {
+  const categories = await Category.list()
+  const tags = await Tag.list()
+
+  res.json({
+    articlesLength: await Article.count(),
+    ...categories,
+    ...tags,
+    faqsLength: await FAQ.count(),
+  })
+});
 
 module.exports = router;
 

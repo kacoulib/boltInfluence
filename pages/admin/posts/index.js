@@ -99,9 +99,11 @@ const emailTemplateFields = [
 ]
 
 
-const CustomerIndex = (props) => {
-    // const router = useRouter()
-    const { categories = [], articlesLength = 0, tags = [], faqsLength = 0, email = [] } = {}
+const CustomerIndex = ({ categories = [], articlesLength, tags = [], faqsLength, email = [] }) => {
+    // // const router = useRouter()
+    // const { categories = [], articlesLength = 0, tags = [], faqsLength = 0, email = [] } = {}
+    const router = useRouter()
+    // const { categories, articlesLength, tags, faqsLength, email = [] } = router.query
 
     const [state, setState] = useState({
         categories,
@@ -113,6 +115,7 @@ const CustomerIndex = (props) => {
         influencersList: [],
         selectedInfluencer: null
     });
+    console.log('---', router.query)
     // console.log(state, buildFromArray(categories))
     // console.log('props', props)
     // async function getData() {
@@ -287,6 +290,16 @@ const CustomerIndex = (props) => {
             ]} />
         </div>
     )
+}
+CustomerIndex.getInitialProps = async ({ query, req }) => {
+    let data;
+    try {
+        data = await customRequest({ path: '/admin/posts' });
+
+    } catch (err) {
+        console.log('err', err)
+    }
+    return data
 }
 
 export default withAuth(CustomerIndex, { adminRequired: true });

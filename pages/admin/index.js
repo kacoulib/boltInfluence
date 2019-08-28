@@ -12,8 +12,8 @@ import withAuth from '../../lib/withAuth';
 import { getBookList } from '../../lib/api/http/admin';
 
 const adminPaths = [
-  { name: 'Posts', href: '/admin/posts' },
-  { name: 'Process', href: '/admin/process' },
+  { name: 'Posts', href: '/admin/posts', as: '/admin/posts' },
+  { name: 'Process', href: '/admin/process', as: '/admin/process' },
 ];
 
 const Index = () => (
@@ -23,7 +23,7 @@ const Index = () => (
       <ul>
         {adminPaths.map((b) => (
           <li key={b.name}>
-            <Link href={b.href}><a title={b.name}>{b.name}</a></Link>
+            <Link href={b.href} as={b.as}><a title={b.name}>{b.name}</a></Link>
           </li>
         ))}
       </ul>

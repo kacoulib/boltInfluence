@@ -4,7 +4,7 @@ const influencerApi = require('./influencer');
 const businessApi = require('./business');
 const adminApi = require('./admin');
 
-function api(server, nextApp) {
+function api(server) {
   server.use('/api/v1/public', publicApi);
   server.use('/api/v1/customer', customerApi);
   server.use('/api/v1/influencer', influencerApi);
