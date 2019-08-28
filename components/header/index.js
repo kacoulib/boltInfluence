@@ -79,10 +79,10 @@ const Header = () => (
 						</Grid>
 					</Grid>
 					<Grid item sm={1} xs={3} id='menu-right'>
-						<div class="sonar-wrapper">
+						<div className="sonar-wrapper">
 							<Link href='/login'><a title='login' className='sonar-emitter'>
 								connexion
-    								<div class="sonar-wave"></div>
+    								<div className="sonar-wave"></div>
 								{/* <Avatar style={styles.avatar} src={userIconWhite} /> */}
 							</a></Link>
 						</div>

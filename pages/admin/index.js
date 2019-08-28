@@ -11,16 +11,15 @@ import withLayout from '../../lib/withLayout';
 import withAuth from '../../lib/withAuth';
 import { getBookList } from '../../lib/api/http/admin';
 
-const adminPaths = [{ name: 'Posts', href: '/admin/posts' }];
+const adminPaths = [
+  { name: 'Posts', href: '/admin/posts' },
+  { name: 'Process', href: '/admin/process' },
+];
 
-const Index = ({ books }) => (
+const Index = () => (
   <div style={{ padding: '10px 45px' }}>
     <div>
       <h2>Admin</h2>
-      <Link href="/admin/posts">
-        <Button variant="contained">Users</Button>
-      </Link>
-      <p />
       <ul>
         {adminPaths.map((b) => (
           <li key={b.name}>
@@ -31,34 +30,6 @@ const Index = ({ books }) => (
       <br />
     </div>
   </div>
-);
+)
 
-Index.propTypes = {
-  books: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      slug: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-};
-
-class IndexWithData extends React.Component {
-  state = {
-    books: [],
-  };
-
-  async componentDidMount() {
-    try {
-      // const { books } = await getBookList();
-      // this.setState({ books }); // eslint-disable-line
-    } catch (err) {
-      notify(err);
-    }
-  }
-
-  render() {
-    return <Index {...this.state} />;
-  }
-}
-
-export default withAuth(IndexWithData, { adminRequired: true });
+export default withAuth(Index, { adminRequired: true });

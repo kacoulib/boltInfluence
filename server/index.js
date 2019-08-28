@@ -27,7 +27,6 @@ const User = require('./models/User');
 
 const logger = require('./logs');
 // const { insertTemplates } = require('./models/EmailTemplate');
-// // const routesWithSlug = require('./routesWithSlug');
 
 require('dotenv').config();
 
