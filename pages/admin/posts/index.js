@@ -294,7 +294,11 @@ const CustomerIndex = ({ categories, articlesLength, tags = [], faqsLength, emai
 CustomerIndex.getInitialProps = async ({ query, req }) => {
     let data;
     // try {
-    data = await customRequest({ path: '/admin/posts' });
+    if (!query || query.articlesLength === undefined || query.categories === undefined, query.tags === undefined || query.tags === undefined) {
+        data = await customRequest({ path: '/admin/posts' });
+    } else {
+        data = query;
+    }
 
     // } catch (err) {
     //     console.log('err', err)

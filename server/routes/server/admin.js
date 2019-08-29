@@ -33,8 +33,8 @@ module.exports = (nextApp) => {
 
   // router.get('/posts', ()=>listCollection(User.listInfluencers.bind(User)));
   router.get('/posts', async (req, res) => {
-    const categories = await Category.list.bind(Category)()
-    const tags = await Tag.list.bind(Tag)()
+    const categories = await Category.list()
+    const tags = await Tag.list()
 
     return nextApp.render(req, res, '/admin/posts', {
       articlesLength: await Article.count(),
