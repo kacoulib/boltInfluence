@@ -95,14 +95,17 @@ nextApp.prepare().then(async () => {
     cookie: {
       httpOnly: true,
       path: '/',
-      domain: 'bolt-influence.com',
-      sameSite: true,
       maxAge: 14 * 24 * 60 * 60 * 1000, // expires in 14 days
     },
   };
   if (!dev) {
     app.set('trust proxy', 1);
-    sess.cookie.secure = true;
+    sess.cookie = {
+      ...sess.cookie,
+      secure: true,
+      domain: 'bolt-influence.com',
+      sameSite: true,
+    };
   }
 
   app.use(cors({
