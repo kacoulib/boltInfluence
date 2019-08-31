@@ -99,7 +99,7 @@ const emailTemplateFields = [
 ]
 
 
-const CustomerIndex = ({ categories, articlesLength, tags = [], faqsLength, email = [] }) => {
+const CustomerIndex = ({ categories = [], articlesLength, tags = [], faqsLength, email = [] }) => {
     // // const router = useRouter()
     // const { categories = [], articlesLength = 0, tags = [], faqsLength = 0, email = [] } = {}
     // const router = useRouter()
@@ -292,13 +292,18 @@ const CustomerIndex = ({ categories, articlesLength, tags = [], faqsLength, emai
     )
 }
 CustomerIndex.getInitialProps = async ({ query, req }) => {
-    let data;
-    // try {
-    data = await customRequest({ path: '/admin/posts' });
+    let data = {};
 
-    // } catch (err) {
-    //     console.log('err', err)
-    // }
+    try {
+        if (!!req)
+            data = query;
+        else
+            data = await customRequest({ path: '/admin/posts' });
+
+    } catch (err) {
+        console.log('err', err)
+    }
+    // console.log("isServer", !!req)
     return data
 }
 

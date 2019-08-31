@@ -773,6 +773,13 @@ footer .link-container {
 }
 
 /* OTHER */
+.elem-icon {
+    width: 1.5rem;
+    margin-right: 1rem;
+}
+div.input-icon-wrapper {
+    max-width: calc(100% - 2.5rem);
+}
 .flex {
     display: flex;
 }
