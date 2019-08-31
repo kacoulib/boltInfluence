@@ -773,6 +773,51 @@ footer .link-container {
 }
 
 /* OTHER */
+#tchat section {
+    padding: 0 1rem;
+}
+#tchat .unread {
+    background: #F4F3F8;
+}
+#tchat .selected, #tchat .list:hover {
+    color: white;
+    cursor: pointer;
+    background: #242B45;
+}
+#tchat .paginate {
+    max-height: 35px;
+    font-size: 1rem;
+    color: white;
+    background: #242B45;
+}
+#tchat .paginate-btn {
+    display: inline-block;
+    padding: 5px 1rem;
+    cursor: pointer;
+}
+#tchat .tchat-list-container {
+    max-height: calc(100% - 35px);
+    overflow-y: scroll;
+}
+#tchat .tchat-list {
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: .5rem;
+}
+#tchat .message-trucate p {
+    font-size: .8rem;
+}
+#tchat .tchat-list {
+    padding-bottom: 1px;
+    border: 1px solid #f5f3f3;
+}
+#tchat .tchat-list,
+#tchat .tchat-header {
+    min-height: 100px;
+}
+#tchat .tchat-header {
+    border-bottom: 1px solid #D8D8D8;
+}
 .elem-icon {
     width: 1.5rem;
     margin-right: 1rem;
@@ -879,6 +924,9 @@ header .triangle {
 }
 .fullwidth {
     width: 100%;
+}
+.fullheight {
+    height: 100%;
 }
 .white-color {
     color: #fff;
