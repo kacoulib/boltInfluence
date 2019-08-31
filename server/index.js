@@ -160,7 +160,7 @@ nextApp.prepare().then(async () => {
   //   console.log('USER:', req.user);
   //   next();
   // });
-  routes(app, nextApp);
+  routes(app);
   serverRoutes(app, nextApp);
 
   app.get('/logout', (req, res) => {

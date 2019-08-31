@@ -20,13 +20,13 @@ const { handleErrors, listCollection, verifyKycParams } = require('../utils/expr
 
 const router = express.Router();
 
-router.use((req, res, next) => {
-  if (!req.user || !isAdmin(req.user)) {
-    res.status(401).json({ error: 'Unauthorized user' });
-    return;
-  }
-  next();
-});
+// router.use((req, res, next) => {
+//   if (!req.user || !isAdmin(req.user)) {
+//     res.status(401).json({ error: 'Unauthorized user' });
+//     return;
+//   }
+//   next();
+// });
 
 router.get('/influencers', listCollection(User.listInfluencers.bind(User)));
 

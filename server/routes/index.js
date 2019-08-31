@@ -4,12 +4,12 @@ const influencerApi = require('./influencer');
 const businessApi = require('./business');
 const adminApi = require('./admin');
 
-function api(server) {
-  server.use('/api/v1/public', publicApi);
-  server.use('/api/v1/customer', customerApi);
-  server.use('/api/v1/influencer', influencerApi);
-  server.use('/api/v1/business', businessApi);
-  server.use('/api/v1/admin', adminApi);
+function api(app) {
+  app.use('/api/v1/public', publicApi);
+  app.use('/api/v1/customer', customerApi);
+  app.use('/api/v1/influencer', influencerApi);
+  app.use('/api/v1/business', businessApi);
+  app.use('/api/v1/admin', adminApi);
 }
 
 module.exports = api;
