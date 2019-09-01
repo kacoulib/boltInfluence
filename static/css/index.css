@@ -804,7 +804,7 @@ footer .link-container {
     box-sizing: border-box;
     padding: .5rem;
 }
-#tchat .message-trucate p {
+#tchat .message-trucate {
     font-size: .8rem;
 }
 #tchat .tchat-list {
