@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="11px" height="20px" viewBox="0 0 11 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.1 (78136) - https://sketchapp.com -->
+    <title>Icons / Arrow (Left)</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M18.7071068,22.2928932 C19.0976311,22.6834175 19.0976311,23.3165825 18.7071068,23.7071068 C18.3165825,24.0976311 17.6834175,24.0976311 17.2928932,23.7071068 L8.29289322,14.7071068 C7.90236893,14.3165825 7.90236893,13.6834175 8.29289322,13.2928932 L17.2928932,4.29289322 C17.6834175,3.90236893 18.3165825,3.90236893 18.7071068,4.29289322 C19.0976311,4.68341751 19.0976311,5.31658249 18.7071068,5.70710678 L10.4142136,14 L18.7071068,22.2928932 Z" id="path-1"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Messagerie" transform="translate(-43.000000, -165.000000)">
+            <g id="Icons-/-Arrow-(Left)" transform="translate(35.000000, 161.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Icon" fill="#000000" fill-rule="nonzero" xlink:href="#path-1"></use>
+                <g id="Colors-/-Black" mask="url(#mask-2)" fill-rule="evenodd">
+                    <rect id="Color" x="0" y="0" width="28" height="28"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

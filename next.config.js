@@ -3,8 +3,8 @@ const withCSS = require('@zeit/next-css');
 const withImages = require('next-images');
 const webpack = require('webpack');
 
-module.exports = withImages(
-  withCSS({
+module.exports = withImages(withCSS(
+  {
     cssLoaderOptions: {
       url: false,
     },

@@ -773,6 +773,19 @@ footer .link-container {
 }
 
 /* OTHER */
+svg {
+    display: block;
+}
+.svg-g-fill-white g,
+.svg-path-fill-white path {
+    fill: white;
+}
+.rotate-reverse {
+    transform: rotate(180deg);
+}
+.tiny-text {
+    font-size: .8rem;
+}
 #tchat section {
     padding: 0 1rem;
 }
@@ -794,6 +807,8 @@ footer .link-container {
     display: inline-block;
     padding: 5px 1rem;
     cursor: pointer;
+    height: 100%;
+    vertical-align: middle;
 }
 #tchat .tchat-list-container {
     max-height: calc(100% - 35px);

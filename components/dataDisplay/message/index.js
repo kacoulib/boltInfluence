@@ -2,19 +2,60 @@ import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types'
 import Grid from '@material-ui/core/Grid';
 import TextTruncate from 'react-text-truncate';
+import OvalIcon from '../../../static/img/icon/oval.svg'
+import StarIcon from '../../../static/img/icon/star.svg'
+import ReplyIcon from '../../../static/img/icon/reply.svg'
+import TrashIcon from '../../../static/img/icon/trash.svg'
+import ArrowIcon from '../../../static/img/icon/arrow.svg'
 
-const MessageDisplay = ({ selected = null, messages = [], offset = 0, limit = 0, nb_message = 0, handleSelection, handlePaginate }) => (
+const options = [
+    { type: 'select', Icon: OvalIcon },
+    { type: 'favory', Icon: StarIcon },
+    { type: 'reply', Icon: ReplyIcon },
+    { type: 'trash', Icon: TrashIcon },
+]
+
+const OptionsDisplay = ({ date, id, handleOption }) => (
+    <div>
+        <span className='tiny-text'>{date}</span>
+        <div className='svg-g-fill-white'>
+            {options.map(({ type, Icon }, index) => (
+                <span className='pointer' onClick={() => handleOption(id, type)}><Icon /></span>
+            ))}
+        </div>
+        <style jsx>{`
+                div {
+                    text-align: right;
+                }
+                .pointer {
+                    display: inline-block;
+                    width: 17px;
+                    height: 17px;
+                    margin: 0 5px;
+                }
+                .pointer:last-of-type{
+                    margin-right: 0;
+                }
+                svg {
+                    width: 100%;
+                    height: 100%;
+                }
+            `}</style>
+    </div>
+)
+
+const MessageDisplay = ({ selected = null, messages = [], offset = 0, limit = 0, nb_message = 0, handleSelection, handlePaginate, handleOption }) => (
     <Grid container id="tchat" alignItems='flex-start'>
         <Grid item container sm={4} justify="space-between" direction="column" className='fullheight'>
             <Grid item container className='tchat-list-container'>
                 {messages && messages.map((elem, index) => (
                     <Grid item container key={index} sm={12} className={`tchat-list ${elem.status} ${selected._id == elem._id ? 'selected' : ''}`} onClick={() => handleSelection('selected_id', elem._id)}>
                         <Grid item container alignItems='center'>
-                            <Grid item container sm={8}>
+                            <Grid item container sm={7}>
                                 <h2>{`${elem.user.firstName} ${elem.user.lastName}`}</h2>
                             </Grid>
-                            <Grid item sm={4}>
-                                <div className='message-date'>{elem.date}</div>
+                            <Grid item sm={5}>
+                                <OptionsDisplay date={elem.date} id={elem._id} handleOption={handleOption} />
                             </Grid>
                         </Grid>
                         <Grid>
@@ -34,9 +75,9 @@ const MessageDisplay = ({ selected = null, messages = [], offset = 0, limit = 0,
                 <Grid item >
                     <span>{`${offset}-${limit}`}</span> de<span> {nb_message}</span>
                 </Grid>
-                <Grid item direction="row">
-                    <div className='paginate-btn' onClick={() => handlePaginate(offset - limit)}>x</div>
-                    <div className='paginate-btn' onClick={() => handlePaginate(offset + limit)}>></div>
+                <Grid item direction="row" alignItems="center" className='svg-g-fill-white'>
+                    <div className='paginate-btn' onClick={() => handlePaginate(offset - limit)}><ArrowIcon /></div>
+                    <div className='paginate-btn rotate-reverse' onClick={() => handlePaginate(offset + limit)}><ArrowIcon /></div>
                 </Grid>
             </Grid>
         </Grid>
@@ -45,7 +86,7 @@ const MessageDisplay = ({ selected = null, messages = [], offset = 0, limit = 0,
                 {selected && <>
                     <Grid container>
                         <Grid item container alignItems='center' className='tchat-header'>
-                            <Grid item container alignItems='center' sm={8}>
+                            <Grid item container alignItems='center' sm={7}>
                                 {selected.user && <>
                                     <Grid item>
                                         <img src={selected.user.img} />
@@ -58,8 +99,8 @@ const MessageDisplay = ({ selected = null, messages = [], offset = 0, limit = 0,
                                     </Grid>
                                 </>}
                             </Grid>
-                            <Grid item sm={4}>
-                                <div className='message-date'>{selected.date}</div>
+                            <Grid item sm={5}>
+                                <OptionsDisplay date={selected.date} id={selected._id} handleOption={handleOption} />
                             </Grid>
                         </Grid>
                         <Grid item>
@@ -87,7 +128,7 @@ const MessageDisplay = ({ selected = null, messages = [], offset = 0, limit = 0,
     </Grid>
 )
 
-const MessageComp = () => {
+const MessageComp = ({ }) => {
     const [state, setState] = useState({
         selected_id: 1,
         offset: 1,
@@ -194,14 +235,18 @@ const MessageComp = () => {
 
         onChange('offset', offset);
     }
-    const selected = state.messages.find(e => e._id == state.selected_id);
+    const handleOption = (id, type) => {
+        console.log(id, type)
+    }
 
+    const selected = state.messages.find(e => e._id == state.selected_id);
     return (
         <MessageDisplay
             selected={selected}
             handlePaginate={handlePaginate}
             handleSelection={handleSelection}
             handlePaginate={handlePaginate}
+            handleOption={handleOption}
             {...state}
         />
     )

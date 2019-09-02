@@ -24,7 +24,7 @@ const menuList = [
 	{
 		title: 'Notre approche', text: "Notre approche", href: '/notre-approche',
 		child: [
-			{ title: 'Notre méthode', text: "Notre méthode", href: '/notre-approche/notre-methode' },
+			{ title: 'Méthode', text: "Méthode", href: '/notre-approche/methode' },
 			{ title: 'Blog', text: "Blog", href: '/notre-approche/blog', },
 		]
 	},
