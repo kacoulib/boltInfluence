@@ -29,7 +29,7 @@ const FormElementWrapper = ({ showLabel = false, icon, ...props }) => {
         return (<LableWrapper {...props} icon={icon} />)
 
     return (
-        <Grid container alignItems='center' justify='space-between' {...defaultDimension}>
+        <Grid item container alignItems='center' justify='space-between' {...defaultDimension}>
             {icon && <Grid item xs={1}>
                 {icon && iconDisplay(icon)}
             </Grid>}

@@ -7,20 +7,23 @@ import StarIcon from '../../../static/img/icon/star.svg'
 import ReplyIcon from '../../../static/img/icon/reply.svg'
 import TrashIcon from '../../../static/img/icon/trash.svg'
 import ArrowIcon from '../../../static/img/icon/arrow.svg'
+import { toggleArray } from '../../../utils/datas/convert'
 
-const options = [
+const optionsList = [
     { type: 'select', Icon: OvalIcon },
     { type: 'favory', Icon: StarIcon },
     { type: 'reply', Icon: ReplyIcon },
     { type: 'trash', Icon: TrashIcon },
 ]
 
-const OptionsDisplay = ({ date, id, handleOption }) => (
+const OptionsDisplay = ({ options, date, id, handleOption }) => (
     <div>
         <span className='tiny-text'>{date}</span>
         <div className='svg-g-fill-white'>
-            {options.map(({ type, Icon }, index) => (
-                <span className='pointer' onClick={() => handleOption(id, type)}><Icon /></span>
+            {optionsList.map(({ type, Icon }, index) => (
+                <span className={`pointer ${type} ${options.includes(type) ? `option-${type}` : ''}`} onClick={() => handleOption(id, type)} key={index}>
+                    <Icon />
+                </span>
             ))}
         </div>
         <style jsx>{`
@@ -54,8 +57,8 @@ const MessageDisplay = ({ selected = null, messages = [], offset = 0, limit = 0,
                             <Grid item container sm={7}>
                                 <h2>{`${elem.user.firstName} ${elem.user.lastName}`}</h2>
                             </Grid>
-                            <Grid item sm={5}>
-                                <OptionsDisplay date={elem.date} id={elem._id} handleOption={handleOption} />
+                            <Grid item sm={5} className='list-message'>
+                                <OptionsDisplay options={elem.options} date={elem.date} id={elem._id} handleOption={handleOption} />
                             </Grid>
                         </Grid>
                         <Grid>
@@ -75,7 +78,7 @@ const MessageDisplay = ({ selected = null, messages = [], offset = 0, limit = 0,
                 <Grid item >
                     <span>{`${offset}-${limit}`}</span> de<span> {nb_message}</span>
                 </Grid>
-                <Grid item direction="row" alignItems="center" className='svg-g-fill-white'>
+                <Grid item className='svg-g-fill-white'>
                     <div className='paginate-btn' onClick={() => handlePaginate(offset - limit)}><ArrowIcon /></div>
                     <div className='paginate-btn rotate-reverse' onClick={() => handlePaginate(offset + limit)}><ArrowIcon /></div>
                 </Grid>
@@ -100,7 +103,7 @@ const MessageDisplay = ({ selected = null, messages = [], offset = 0, limit = 0,
                                 </>}
                             </Grid>
                             <Grid item sm={5}>
-                                <OptionsDisplay date={selected.date} id={selected._id} handleOption={handleOption} />
+                                <OptionsDisplay options={selected.options} date={selected.date} id={selected._id} handleOption={handleOption} />
                             </Grid>
                         </Grid>
                         <Grid item>
@@ -140,6 +143,7 @@ const MessageComp = ({ }) => {
             description: 'Description sdfsdfsdf r sit amet, consectetur adipiscing elit. Suspendisse ligula v',
             content: 'Hey Samdolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit, molestie sit amet pretium consectetur, mollis at risus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit, molestie sit amet pretium consectetur, mollis at risus.mollis at risus,Lina.',
             status: 'unread',
+            options: ['select'],
             user: {
                 img: '../../../static/img/lisa.png',
                 firstName: 'Lisa',
@@ -154,6 +158,7 @@ const MessageComp = ({ }) => {
             description: 'Desdsdfsdf sdf ',
             content: 'Hey Samdse ligolor sit ametelit. Suspendisula   pretium consecvelit, molestie sit amet, consectetur adipiscingtetur, mollis at risus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit, molestie sit amet pretium consectetur, mollis at risus.mollis at risus,Lina.',
             status: 'unread',
+            options: ['select'],
             user: {
                 img: '../../../static/img/lisa.png',
                 firstName: 'Lisa',
@@ -168,6 +173,7 @@ const MessageComp = ({ }) => {
             description: 'Dsdfsd sdfd sfe sddsfsfhj sdf ',
             content: 'card, you have to post, as url-encoded, these data:- accessKeyRef: T',
             status: 'read',
+            options: ['read'],
             user: {
                 img: '../../../static/img/lisa.png',
                 firstName: 'Lisa',
@@ -182,6 +188,7 @@ const MessageComp = ({ }) => {
             description: 'Dsdfsd sdfd sfe sddsfsfhj sdf ',
             content: 'card, you have to post, as url-encoded, these data:- accessKeyRef: T',
             status: 'read',
+            options: ['read'],
             user: {
                 img: '../../../static/img/lisa.png',
                 firstName: 'Lisa',
@@ -196,6 +203,7 @@ const MessageComp = ({ }) => {
             description: 'Dsdfsd sdfd sfe sddsfsfhj sdf ',
             content: 'card, you have to post, as url-encoded, these data:- accessKeyRef: T',
             status: 'read',
+            options: ['favory'],
             user: {
                 img: '../../../static/img/lisa.png',
                 firstName: 'Lisa',
@@ -209,7 +217,7 @@ const MessageComp = ({ }) => {
             title: 'clesLsd s dfnsdk fn l; ',
             description: 'Dsdfsd sdfd sfe sddsfsfhj sdf ',
             content: 'card, you have to post, as url-encoded, these data:- accessKeyRef: T',
-            status: 'read',
+            options: ['favory'],
             user: {
                 img: '../../../static/img/lisa.png',
                 firstName: 'Lisa',
@@ -226,6 +234,8 @@ const MessageComp = ({ }) => {
         onChange(name, value);
         // update api status read
     }
+    const findById = (id) => state.messages.find(e => e._id == id)
+
     const handlePaginate = (offset) => {
         if (offset < 0)
             offset = 0;
@@ -236,10 +246,19 @@ const MessageComp = ({ }) => {
         onChange('offset', offset);
     }
     const handleOption = (id, type) => {
-        console.log(id, type)
+        let index = state.messages.findIndex(e => e._id == id),
+            message;
+
+        if (index < 0 || !(message = state.messages[index]))
+            return;
+
+        message.options = toggleArray(message.options, type);
+        const messages = { ...state.messages };
+        messages[index] = message;
+        onChange('message', messages)
     }
 
-    const selected = state.messages.find(e => e._id == state.selected_id);
+    const selected = findById(state.selected_id);
     return (
         <MessageDisplay
             selected={selected}

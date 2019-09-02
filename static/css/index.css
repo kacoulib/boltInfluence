@@ -806,6 +806,16 @@ svg {
     cursor: pointer;
     background: #242B45;
 }
+#tchat .selected .reply path {
+    fill: #F4F3F8;
+}
+#tchat .selected .trash path {
+    stroke: #F4F3F8;
+}
+#tchat .option-favory path,
+#tchat .option-select circle {
+    fill: #FAE18C;
+}
 #tchat .paginate {
     max-height: 35px;
     font-size: 1rem;
