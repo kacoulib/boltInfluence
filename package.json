@@ -91,6 +91,7 @@
     "eslint-plugin-react": "7.12.4",
     "jest": "24.7.1",
     "nodemon": "1.18.11",
-    "prettier": "1.17.0"
+    "prettier": "1.17.0",
+    "babel-plugin-inline-react-svg": "^1.0.1"
   }
 }

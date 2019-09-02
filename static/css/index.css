@@ -773,8 +773,17 @@ footer .link-container {
 }
 
 /* OTHER */
+.star-container li {
+    display: inline-block;
+    cursor: pointer;
+}
+.star-container li.active path {
+    fill: #FAE18C;
+}
 svg {
     display: block;
+    width: 100%;
+    height: 100%;
 }
 .svg-g-fill-white g,
 .svg-path-fill-white path {
