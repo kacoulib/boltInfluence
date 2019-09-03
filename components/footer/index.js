@@ -14,7 +14,7 @@ const Footer = () => (
 					<ul>
 						<li><Link href='/annonceurs'><a title='Annonceurs'>Annonceurs</a></Link></li>
 						<li><Link href='/influenceurs'><a title='Influenceurs'>Influenceurs</a></Link></li>
-						<li><Link href="/video-influenceurs">La vidéo d'influence</Link></li>
+						<li><Link href="/video-influenceurs"><a title="La vidéo d'influence">La vidéo d'influence</a></Link></li>
 					</ul>
 				</Grid>
 				<Grid item sm={4} xs={6}>
