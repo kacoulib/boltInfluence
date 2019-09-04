@@ -28,11 +28,11 @@ const TextFieldComp = ({ name, label, type, value, onChange, showLabel, unableUn
                 label={showLabel ? '' : !strinkTypes.includes(type) && label}
                 multiline={type === 'textarea'}
                 fullWidth
-                floatingLabelFixed={true}
+                // floatingLabelFixed={true}
                 value={value}
                 onChange={onChange(name)}
                 InputProps={{
-                    disableUnderline: !!unableUnderline,
+                    // disableUnderline: !!unableUnderline,
                 }}
                 className={unableBoxShadow ? classes.textField : ''}
                 rows={8}

@@ -36,12 +36,17 @@ const getYoutubeVideoID = (src) => {
     return video_id;
 }
 const VideoComp = ({ src, controls = false, autoplay = true, loop = true, modestbranding = true, allowfullscreen = true, width, height }) => {
-    let props = { src, controls, autoplay, loop, modestbranding: true, allowfullscreen: false, width, height };
+    const youtubeProps = { src, controls, autoplay, loop, modestbranding: true, allowfullscreen: false, width, height },
+        videoProps = { controls, autoPlay: autoplay, loop, width, height };
 
     if (src.includes('youtube.com'))
-        return <YoutubeWrapper id={getYoutubeVideoID(src)} props={props} />
+        return <YoutubeWrapper id={getYoutubeVideoID(src)} props={youtubeProps} />
+
     return (
-        <video {...props} ></video>
+        <video {...videoProps} preload="auto">
+            <source src={src} type="video/mp4" />
+            Your browser does not support the video tag.
+        </video>
     )
 }
 

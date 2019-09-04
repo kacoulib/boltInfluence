@@ -91,7 +91,6 @@ const FormGenerator = ({ fields, classes, state, onChange, toggleList, settings 
                                         onChange={handleChange}
                                         showLabel={showLabel}
                                         value={state[elem.name] || inputDefaultProps}
-                                        elemProps={elemProps}
                                         {...{ ...elem, ...elemSettings }}
                                     />
                                 )

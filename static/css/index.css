@@ -610,19 +610,18 @@ header nav ul span.relative::before {
     padding-bottom: 2rem;
 }
 .publicCard {
-    color: white;
+    position: relative;
 }
 .publicCard img {
-    display: block;
-    width: 100%;
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    transform: translate(15%, 15%);
+    z-index: -1;
 }
-.publicCard h3 {
-    margin: 0;
-    padding: 1rem 2rem;
-    border-bottom-left-radius: 1rem;
-    border-bottom-right-radius: 1rem;
+.publicCard.right img {
+    left: 0;
+    transform: translate(-15%, 15%);    
 }
 .circle-dot {
     display: table-cell;
@@ -866,6 +865,10 @@ div.input-icon-wrapper {
     position: relative;
     padding-bottom: 56.25%; /* 16:9 */
     height: 0;
+    width: 100%;
+}
+video {
+    display: block;
     width: 100%;
 }
 .video-youtube iframe {

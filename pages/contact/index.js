@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Card from '../../components/dataDisplay/others/card'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
@@ -8,11 +7,10 @@ import Grid from '@material-ui/core/Grid';
 import withLayout from '../../lib/withLayout';
 import { darkBlueColor, darkOrangeColor, lightGray, redColor } from '../../utils/variables/css'
 import Search from '../../components/elements/search';
-import Image01 from '../../static/img/c-est-quoi.jpeg'
-import Image02 from '../../static/img/comment-ca-marche.jpeg'
 import FormGenerator from '../../components/formElement/generator';
 import { customRequest } from '../../lib/api/http'
 import { Link } from '../../server/routes/next-routes';
+import Video from '../../components/elements/video'
 
 const styles = {
 	expandContainer: {
@@ -123,7 +121,12 @@ const Index = ({ faqs: { faqs } = {} } = {}) => {
 				<Grid container>
 					<Grid container item style={styles.cardContainer}>
 						<Grid item xs={12} sm={6} className='card-padding-right'>
-							<Card src={Image01} title="Bolt Influence, c’est quoi ?" color='blue' />
+							<div className='text-center publicCard'>
+								<Video autoplay={true} src="../../static/video/bolt_cest_quoi.mp4" />
+								<img src='../../../static/img/checkers.jpg' />
+							</div>
+							{/* <VideoCard title="Bolt Influence, c’est quoi ?">
+							</VideoCard> */}
 						</Grid>
 						<Grid item container xs={12} sm={6} justify="center" alignItems="center" className='card-padding-left'>
 							<Grid item xs={12} sm={10}>
@@ -133,7 +136,10 @@ const Index = ({ faqs: { faqs } = {} } = {}) => {
 					</Grid>
 					<Grid container item style={styles.cardContainer} direction="row-reverse">
 						<Grid item xs={12} sm={6} className='card-padding-left'>
-							<Card src={Image02} title="Comment ça marche ?" color='red' />
+							<div className='text-center publicCard right'>
+								<Video autoplay={true} src="../../static/video/comment_ca_marche.mp4" />
+								<img src='../../../static/img/checkers.jpg' />
+							</div>
 						</Grid>
 						<Grid item container xs={12} sm={6} justify="center" alignItems="center" className='card-padding-right'>
 							<Grid item container xs={12} sm={10} justify="center" alignItems="center">
