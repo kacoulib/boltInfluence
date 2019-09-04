@@ -13,7 +13,7 @@ import { DefaultSeo } from 'next-seo';
 
 // let's create a configuration for next-seo
 const DEFAULT_SEO = {
-    title: 'Bolt Influencer',
+    title: 'Bolt Influence',
     description: 'Bolt Influence est la plateforme/agence de marketing d’influence référente qui permet de connecter les marques et les influenceurs sur Instagram, Tik Tok, Youtube, TwitchSEO made easy for Next.js projects',
     openGraph: {
         type: 'website',
@@ -70,12 +70,12 @@ class MyApp extends App {
                     {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
                     <CssBaseline />
                     <DefaultSeo
-                        title='Bolt Influencer'
+                        title='Bolt Influence'
                         description='Bolt Influence est la plateforme/agence de marketing d’influence référente qui permet de connecter les marques et les influenceurs sur Instagram, Tik Tok, Youtube, Twitch...'
                         openGraph={{
                             type: 'website',
                             locale: 'fr_FR',
-                            url: 'bolt-influencer.fr',
+                            url: 'bolt-influence.com',
                         }}
                         twitter={{
                             handle: '@handle',

@@ -455,6 +455,25 @@ header nav ul span.relative::before {
 
 }
 /* Home  */
+.iphone_container {
+    position: relative;
+    max-width: 346px;
+    margin: auto;
+    z-index: 1;
+}
+.iphone_container img {
+    width: 100%;
+}
+.iphone_container video {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: calc(100% - 10px);
+    height: calc(100% - 20px);
+    border-radius: 15%;
+    background: black;
+    z-index: -1;
+}
 #homeTextContainer {
     transform: translateY(-50%);
     line-height: 2rem;
@@ -611,6 +630,8 @@ header nav ul span.relative::before {
 }
 .publicCard {
     position: relative;
+    width: 75%;
+    margin: auto;
 }
 .publicCard img {
     position: absolute;
@@ -1339,6 +1360,9 @@ button.submit {
 
 
 @media all and (max-width : 400px) {
+    .publicCard {
+        margin-bottom: 4rem;
+    }
     .MuiDialog-paperWidthFalse {
         max-width: 100%!important;
         margin: 1rem!important;
