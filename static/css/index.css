@@ -1373,7 +1373,7 @@ button.submit {
     #influenceurs .connect:first-of-type {
         padding-top: .5rem;
     }
-    #agence h1 {
+    /* #agence h1 {
         font-size: 2rem;
     }
     .tarif-list-container {
@@ -1390,7 +1390,7 @@ button.submit {
     }
     .agence-img-container img {
         width: 100%;
-    }
+    } */
     #contact-page #search {
         margin-top: 1rem;
     }

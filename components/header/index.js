@@ -14,8 +14,8 @@ import Socials from '../elements/socials'
 const menuList = [
 	{
 		title: 'Annonceurs', text: "Annonceurs", href: '/annonceurs', child: [
-			{ title: 'Marque', text: "Marque", href: '/annonceurs', },
-			{ title: 'Agence', text: "Agence", href: '/annonceurs/agence', },
+			{ title: 'Agence/Marque', text: "Agence/Marque", href: '/annonceurs', },
+			// { title: 'Agence', text: "Agence", href: '/annonceurs/agence', },
 			{ title: 'Tarifs', text: "Tarifs", href: '/annonceurs/tarifs', },
 		]
 	},
