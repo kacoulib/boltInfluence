@@ -3,13 +3,11 @@ const express = require('express');
 const Payment = require('../models/Payment');
 const Campaign = require('../models/Campaign');
 const User = require('../models/User');
-const Conversation = require('../models/Conversation');
-const Message = require('../models/Message');
-const FavoriteConversation = require('../models/FavoriteConversation');
+const UserConversation = require('../models/UserConversation');
+const UserMessage = require('../models/UserMessage');
 const { handleErrors, listCollection, verifyKycUser } = require('../utils/express');
 const { kycFileUpload } = require('../utils/multer');
 const { registerCard } = require('../utils/mangopay');
-const { isBusiness, isInfluencer } = require('../../utils/variables/user');
 
 const router = express.Router();
 
@@ -129,24 +127,13 @@ router.get('/conversations', (req, res) =>
   listCollection((listingOptions) => {
     const { _id: user } = req.user;
     const { favorite } = req.query;
-    let options;
-    let favoriteOptions;
-
-    if (isBusiness(req.user)) {
-      options = { business: user };
-      favoriteOptions = { businessFavorite: favorite };
-    } else if (isInfluencer(req.user)) {
-      options = { influencer: user };
-      favoriteOptions = { influencerFavorite: favorite };
-    } else {
-      return { conversations: [] };
-    }
+    const options = { user };
 
     if (favorite !== undefined) {
-      options = { ...options, ...favoriteOptions };
+      options.favorite = favorite;
     }
 
-    return Conversation.list(options, listingOptions);
+    return UserConversation.list(options, listingOptions);
   })(req, res),
 );
 
@@ -155,19 +142,10 @@ router.get(
   handleErrors(async (req, res) => {
     const { _id: user } = req.user;
     const { id: conversationId } = req.params;
-    let options;
 
-    if (isBusiness(req.user)) {
-      options = { business: user };
-    } else if (isInfluencer(req.user)) {
-      options = { influencer: user };
-    } else {
-      return res.status(404).end();
-    }
-
-    const conversation = await Conversation.findOne({
-      ...options,
-      _id: conversationId,
+    const { conversation } = await UserConversation.getById({
+      user,
+      conversation: conversationId,
     });
     if (!conversation) {
       return res.status(404).end();
@@ -183,7 +161,7 @@ router.put(
     const { id: conversationId } = req.params;
     const { favorite } = req.body;
 
-    const { conversation } = await Conversation.updateById({
+    const { conversation } = await UserConversation.updateById({
       user,
       conversation: conversationId,
       favorite,
@@ -200,10 +178,7 @@ router.get('/conversations/:id/messages', (req, res) =>
     const { _id: user } = req.user;
     const { id: conversation } = req.params;
 
-    return Message.list(
-      { $and: [{ conversation }, { $or: [{ from: user }, { to: user }] }] },
-      listingOptions,
-    );
+    return UserMessage.list({ user, conversation }, listingOptions);
   })(req, res),
 );
 
@@ -212,7 +187,7 @@ router.post(
   handleErrors(async (req, res) => {
     const { _id: from } = req.user;
     const { offer, message: content, to } = req.body;
-    const message = await Message.addForOffer({ from, offer, message: content, to });
+    const message = await UserMessage.addForOffer({ from, offer, message: content, to });
     res.json(message);
   }),
 );

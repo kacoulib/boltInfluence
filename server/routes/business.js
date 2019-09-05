@@ -80,6 +80,34 @@ router.get('/campaigns', (req, res) =>
   })(req, res),
 );
 
+router.get(
+  '/campaigns/:slug',
+  handleErrors(async (req, res) => {
+    const { slug: user } = req.user;
+    const { slug } = req.params;
+    const owns = await Campaign.ownedBySlug({ campaign: slug, user });
+    if (!owns) {
+      return res.status(404).end();
+    }
+    const campaign = await Campaign.getBySlug({ slug });
+    res.json(campaign);
+  }),
+);
+
+router.get(
+  '/campaigns/:slug/offers',
+  handleErrors(async (req, res) => {
+    const { slug: user } = req.user;
+    const { slug } = req.params;
+    const owns = await Campaign.ownedBySlug({ campaign: slug, user });
+    if (!owns) {
+      return res.status(404).end();
+    }
+    const offers = await Campaign.getOffersBySlug({ slug });
+    res.json(offers);
+  }),
+);
+
 router.put(
   '/campaigns/:slug',
   handleErrors(async (req, res) => {

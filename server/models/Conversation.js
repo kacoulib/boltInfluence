@@ -22,14 +22,6 @@ const mongoSchema = new Schema({
     ref: 'CampaignOffer',
     required: true,
   },
-  businessFavorite: {
-    type: Boolean,
-    default: false,
-  },
-  influencerFavorite: {
-    type: Boolean,
-    default: false,
-  },
 });
 mongoSchema.index({ influencer: 1, business: 1, offer: 1 }, { unique: true });
 
@@ -41,7 +33,8 @@ class ConversationClass {
       .limit(limit)
       .populate('influencer', User.publicFields())
       .populate('business', User.publicFields())
-      .populate({ path: 'offer', populate: { path: 'campaign', populate: { path: 'brand' } } });
+      .populate({ path: 'offer', populate: { path: 'campaign', populate: { path: 'brand' } } })
+      .lean();
     return { conversations };
   }
 
@@ -49,8 +42,8 @@ class ConversationClass {
    * Find or create a conversation given criterias.
    * @param {Object} options
    * @param {ObjectId} options.offer
-   * @param {ObjectId} [options.influencer]
-   * @param {ObjectId} [options.business]
+   * @param {ObjectId} options.influencer
+   * @param {ObjectId} options.business
    */
   static async getOrAdd({ influencer, business, offer }) {
     const found = await this.findOne({ influencer, business, offer });
@@ -59,40 +52,6 @@ class ConversationClass {
     }
     const created = await this.create({ influencer, business, offer });
     return { conversation: created };
-  }
-
-  /**
-   * Update whether a conversation is favorited by a user.
-   * Returns null if the conversation is not found or if the user cannot access it.
-   * @param {Object} options
-   * @param {ObjectId} options.user
-   * @param {ObjectId} options.conversation
-   * @param {Boolean} options.favorite
-   */
-  static async updateById({ user: userId, conversation: conversationId, favorite }) {
-    const user = await User.findById(userId)
-      .select(['_id', 'role'])
-      .lean();
-    if (!user) {
-      throw new Error('User not found');
-    }
-    const conversation = await this.findById(conversationId);
-    if (
-      !conversation ||
-      (!(isBusiness(user) && conversation.business.equals(user._id)) &&
-        !(isInfluencer(user) && conversation.influencer.equals(user._id)))
-    ) {
-      return { conversation: null };
-    }
-    if (favorite !== undefined) {
-      if (isInfluencer(user)) {
-        conversation.influencerFavorite = favorite;
-      } else {
-        conversation.businessFavorite = favorite;
-      }
-      await conversation.save();
-    }
-    return { conversation: conversation.toObject() };
   }
 }
 mongoSchema.loadClass(ConversationClass);
