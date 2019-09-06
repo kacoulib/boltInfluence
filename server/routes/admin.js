@@ -12,6 +12,8 @@ const User = require('../models/User');
 const Campaign = require('../models/Campaign');
 const CampaignOffer = require('../models/CampaignOffer');
 const Brand = require('../models/Brand');
+const Conversation = require('../models/Conversation');
+const Message = require('../models/Message');
 const logger = require('../logs');
 const { isAdmin } = require('../../utils/variables/user');
 const { registerCard } = require('../utils/mangopay');
@@ -290,7 +292,15 @@ router.post(
   handleErrors(async (req, res) => {
     const { firstName, lastName } = req.user;
     const { title, picture, content, tags, categories, social_medias } = req.body;
-    const article = await Article.add({ title, picture, content, tags, categories, social_medias, author: `${firstName} ${lastName}` });
+    const article = await Article.add({
+      title,
+      picture,
+      content,
+      tags,
+      categories,
+      social_medias,
+      author: `${firstName} ${lastName}`,
+    });
     res.json(article);
   }),
 );
@@ -325,7 +335,7 @@ router.delete(
 );
 
 // Category
-router.get('/categories', listCollection(Category.list.bind(Category)))
+router.get('/categories', listCollection(Category.list.bind(Category)));
 
 router.post(
   '/categories',
@@ -334,7 +344,7 @@ router.post(
     const category = await Category.add({ title, color });
     res.json(category);
   }),
-)
+);
 
 router.get(
   '/categories/:id',
@@ -343,7 +353,7 @@ router.get(
     const category = await Category.getById({ id });
     res.json(category);
   }),
-)
+);
 
 router.put(
   '/categories/:id',
@@ -354,7 +364,7 @@ router.put(
     const category = await Category.updateById({ title, color, id });
     res.json(category);
   }),
-)
+);
 
 router.delete(
   '/categories/:id',
@@ -363,10 +373,10 @@ router.delete(
     await Category.deleteByid({ id });
     res.status(204).end();
   }),
-)
+);
 
 // Tag
-router.get('/tags', listCollection(Tag.list.bind(Tag)))
+router.get('/tags', listCollection(Tag.list.bind(Tag)));
 
 router.post(
   '/tags',
@@ -375,7 +385,7 @@ router.post(
     const tag = await Tag.add({ title });
     res.json(tag);
   }),
-)
+);
 
 router.get(
   '/tags/:id',
@@ -384,7 +394,7 @@ router.get(
     const tag = await Tag.getById({ id });
     res.json(tag);
   }),
-)
+);
 
 router.put(
   '/tags/:id',
@@ -395,7 +405,7 @@ router.put(
     const tag = await Tag.updateById({ title, id });
     res.json(tag);
   }),
-)
+);
 
 router.delete(
   '/tags/:id',
@@ -404,10 +414,10 @@ router.delete(
     await Tag.deleteByid({ id });
     res.status(204).end();
   }),
-)
+);
 
 // FAQ
-router.get('/faqs', listCollection(FAQ.list.bind(FAQ)))
+router.get('/faqs', listCollection(FAQ.list.bind(FAQ)));
 
 router.post(
   '/faqs',
@@ -416,7 +426,7 @@ router.post(
     const faq = await FAQ.add({ title, content });
     res.json(faq);
   }),
-)
+);
 
 router.get(
   '/faqs/:id',
@@ -425,7 +435,7 @@ router.get(
     const faq = await FAQ.getById({ id });
     res.json(faq);
   }),
-)
+);
 
 router.put(
   '/faqs/:id',
@@ -436,7 +446,7 @@ router.put(
     const faq = await FAQ.updateById({ title, content, id });
     res.json(faq);
   }),
-)
+);
 
 router.delete(
   '/faqs/:id',
@@ -445,7 +455,7 @@ router.delete(
     await FAQ.deleteByid({ id });
     res.status(204).end();
   }),
-)
+);
 
 // Center Of Interest
 router.get(
@@ -480,9 +490,9 @@ router.put(
     const { name: origName } = req.params;
     const { name: newName } = req.body;
     const centerOfInterest = await CenterOfInterest.updateByName({ origName, newName });
-    res.json(centerOfInterest)
+    res.json(centerOfInterest);
   }),
-)
+);
 
 router.delete(
   '/centersofinterest/:name',
@@ -491,19 +501,39 @@ router.delete(
     const centerOfInterest = await CenterOfInterest.deleteByName({ name });
     res.status(204).end();
   }),
-)
+);
 
 router.get('/posts', async (req, res) => {
-  const categories = await Category.list()
-  const tags = await Tag.list()
+  const categories = await Category.list();
+  const tags = await Tag.list();
 
   res.json({
     articlesLength: await Article.count(),
     ...categories,
     ...tags,
     faqsLength: await FAQ.count(),
-  })
+  });
 });
+
+// Conversations
+router.get('/conversations', listCollection(Conversation.list.bind(Conversation, {})));
+router.get(
+  '/conversations/:id',
+  handleErrors(async (req, res) => {
+    const { id } = req.params;
+    const conversation = await Conversation.getById({ id });
+    if (!conversation) {
+      return res.status(404).end();
+    }
+    res.json(conversation);
+  }),
+);
+router.get('/conversations/:id/messages', (req, res) =>
+  listCollection((listingOptions) => {
+    const { id: conversation } = req.params;
+    return Message.list({ conversation }, listingOptions);
+  })(req, res),
+);
 
 module.exports = router;
 

@@ -41,6 +41,15 @@ class ConversationClass {
     return { conversations };
   }
 
+  static async getById({ id }) {
+    const conversation = await this.findById(id)
+      .populate('influencer', User.publicFields())
+      .populate('business', User.publicFields())
+      .populate({ path: 'offer', populate: { path: 'campaign', populate: { path: 'brand' } } })
+      .lean();
+    return { conversation };
+  }
+
   /**
    * Find or create a conversation given criterias.
    * @param {Object} options

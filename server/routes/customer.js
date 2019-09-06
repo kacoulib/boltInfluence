@@ -196,7 +196,7 @@ router.get('/conversations/:id/messages', (req, res) =>
 );
 
 /**
- * Here a recipient is optional, it will use the sender and offer information
+ * Here a recipient (to) is optional, it will use the sender and offer information
  * to deduce the recipient.
  * If a recipient is provided, then it must be a valid one for the offer.
  */
@@ -233,6 +233,10 @@ router.delete(
   }),
 );
 
+/**
+ * Delete multiple conversations and their associated messages.
+ * conversations must be an array of Conversation IDs.
+ */
 router.post(
   '/deleteconversations',
   handleErrors(async (req, res) => {
@@ -245,6 +249,10 @@ router.post(
   }),
 );
 
+/**
+ * Delete multiple messages.
+ * messages must be an array of Message IDs.
+ */
 router.post(
   '/deletemessages',
   handleErrors(async (req, res) => {
@@ -256,7 +264,8 @@ router.post(
 );
 
 /**
- * Here recipients are mandatory and must all be valid ones for the offer.
+ * Send a message to a group of User.
+ * Here recipients (to) are mandatory and must all be valid IDs for the offer.
  */
 router.post(
   '/groupmessages',
