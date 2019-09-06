@@ -8,27 +8,61 @@ const { isBusiness, isBrand, isAgency, isInfluencer } = require('../../utils/var
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-const mongoSchema = new Schema({
-  from: {
-    type: ObjectId,
-    ref: 'User',
-    required: true,
+const mongoSchema = new Schema(
+  {
+    from: {
+      type: ObjectId,
+      ref: 'User',
+      required: true,
+    },
+    to: {
+      type: ObjectId,
+      ref: 'User',
+      required: true,
+    },
+    conversation: {
+      type: ObjectId,
+      ref: 'Conversation',
+      required: true,
+    },
+    message: {
+      type: String,
+      required: true,
+    },
   },
-  to: {
-    type: ObjectId,
-    ref: 'User',
-    required: true,
-  },
-  conversation: {
-    type: ObjectId,
-    ref: 'Conversation',
-    required: true,
-  },
-  message: {
-    type: String,
-    required: true,
-  },
-});
+  { timestamps: true },
+);
+
+/**
+ * Check if a user has messaging rights for given offer
+ * @param {Object} options
+ * @param {Object} options.user - User object to validate
+ * @param {Object} options.offer - Offer object to validate against
+ */
+const checkUserAuthorizedForOffer = ({ user, offer }) => {
+  if (
+    !(isBrand(user) && offer.campaign.brand.equals(user.brand)) &&
+    !(isAgency(user) && user.agency.some((id) => id.equals(offer.campaign.brand))) &&
+    !(isInfluencer(user) && offer.user.equals(user._id))
+  ) {
+    throw new Error('User not authorized for selected offer');
+  }
+};
+
+/**
+ * Check that both recipient and sender are from two valid and different types (influencers vs businesses)
+ * @param {Object} options
+ * @param {Object} options.userFrom - Sender User object
+ * @param {Object} options.userTo - Recipient User object
+ */
+const checkUsersAreNotSameType = ({ userFrom, userTo }) => {
+  if (
+    !(isBusiness(userFrom) && isInfluencer(userTo)) &&
+    !(isInfluencer(userFrom) && isBusiness(userTo))
+  ) {
+    throw new Error('You cannot send a message to someone with a role similar to yours');
+  }
+};
 
 class MessageClass {
   static async list(where, { offset = 0, limit = 10 } = {}) {
@@ -49,6 +83,49 @@ class MessageClass {
     return { message: created };
   }
 
+  /**
+   * Send a message
+   * @param {Object} options
+   * @param {Object} options.userFrom - Sender User object
+   * @param {ObjectId} options.offerId - Offer ID
+   * @param {ObjectId} options.toId - Recipient ID
+   * @param {String} options.message - Message to send
+   */
+  static async sendMessage({ userFrom, offerId, toId, message }) {
+    let conversationId;
+    // Get Conversation Id
+    if (isBusiness(userFrom)) {
+      const { conversation } = await Conversation.getOrAdd({
+        business: userFrom._id,
+        influencer: toId,
+        offer: offerId,
+      });
+      conversationId = conversation._id;
+    } else {
+      const { conversation } = await Conversation.getOrAdd({
+        business: toId,
+        influencer: userFrom._id,
+        offer: offerId,
+      });
+      conversationId = conversation._id;
+    }
+
+    const created = await this.create({
+      from: userFrom._id,
+      to: toId,
+      conversation: conversationId,
+      message,
+    });
+    return created.toObject();
+  }
+
+  /**
+   * @param {Object} options
+   * @param {ObjectId} options.from
+   * @param {ObjectId} options.offer
+   * @param {String} options.message
+   * @param {ObjectId} [options.to]
+   */
   static async addForOffer({ from, offer: offerId, message, to }) {
     const offer = await CampaignOffer.findById(offerId)
       .select(['_id', 'campaign', 'user'])
@@ -68,13 +145,7 @@ class MessageClass {
       throw new Error('Sender User not found');
     }
 
-    if (
-      !(isBrand(userFrom) && offer.campaign.brand.equals(userFrom.brand)) &&
-      !(isAgency(userFrom) && userFrom.agency.some((id) => id.equals(offer.campaign.brand))) &&
-      !(isInfluencer(userFrom) && offer.user.equals(userFrom._id))
-    ) {
-      throw new Error('You are not authorized to do this');
-    }
+    checkUserAuthorizedForOffer({ user: userFrom, offer });
 
     // Check Recipient if one is specified
     if (to) {
@@ -86,34 +157,15 @@ class MessageClass {
         throw new Error('Recipient User not found');
       }
 
-      if (
-        !(isBrand(userTo) && offer.campaign.brand === userTo.brand) &&
-        !(isAgency(userTo) && userTo.agency.some((id) => id.equals(offer.campaign.brand))) &&
-        !(isInfluencer(userTo) && offer.user.equals(userTo._id))
-      ) {
-        throw new Error('Invalid recipient');
-      }
-
-      if (
-        !(isBusiness(userFrom) && isInfluencer(userTo)) &&
-        !(isInfluencer(userFrom) && isBusiness(userTo))
-      ) {
-        throw new Error('You cannot send a message to someone with a role similar to yours');
-      }
+      checkUserAuthorizedForOffer({ user: userTo, offer });
+      checkUsersAreNotSameType({ userFrom, userTo });
     }
 
     let toId;
-    let conversationId;
 
-    // Get Conversation Id and Recipient Id
+    // Get Recipient Id
     if (isBusiness(userFrom)) {
       toId = to || offer.user;
-      const { conversation } = await Conversation.getOrAdd({
-        business: from,
-        influencer: toId,
-        offer: offerId,
-      });
-      conversationId = conversation._id;
     } else {
       toId = to;
       if (!toId) {
@@ -123,21 +175,59 @@ class MessageClass {
         }
         toId = userTo._id;
       }
-      const { conversation } = await Conversation.getOrAdd({
-        business: toId,
-        influencer: from,
-        offer: offerId,
-      });
-      conversationId = conversation._id;
     }
 
-    const created = await this.create({
-      from,
-      to: toId,
-      conversation: conversationId,
-      message,
-    });
-    return { message: created };
+    return { message: await this.sendMessage({ userFrom, offerId, toId, message }) };
+  }
+
+  /**
+   * @param {Object} options
+   * @param {ObjectId} options.from
+   * @param {ObjectId} options.offer
+   * @param {String} options.message
+   * @param {Array<ObjectId>} options.to
+   */
+  static async groupAddForOffer({ from, offer: offerId, message, to }) {
+    const offer = await CampaignOffer.findById(offerId)
+      .select(['_id', 'campaign', 'user'])
+      .populate({ path: 'campaign', select: 'brand' })
+      .lean();
+
+    if (!offer) {
+      throw new Error('CampaignOffer not found');
+    }
+
+    const userFrom = await User.findById(from)
+      .select(['_id', 'brand', 'agency', 'role'])
+      .lean();
+
+    // Check Sender
+    if (!userFrom) {
+      throw new Error('Sender User not found');
+    }
+
+    checkUserAuthorizedForOffer({ user: userFrom, offer });
+
+    // Check Recipients
+    {
+      const usersTo = await User.find({ _id: { $in: to } })
+        .select(['_id', 'role', 'brand', 'agency'])
+        .lean();
+
+      if (usersTo.length !== to.length) {
+        throw new Error('Recipient User not found');
+      }
+
+      usersTo.forEach((userTo) => {
+        checkUserAuthorizedForOffer({ user: userTo, offer });
+        checkUsersAreNotSameType({ userFrom, userTo });
+      });
+    }
+
+    const messages = await Promise.all(
+      to.map((toId) => this.sendMessage({ userFrom, offerId, toId, message })),
+    );
+    return { messages };
   }
 }
 mongoSchema.loadClass(MessageClass);

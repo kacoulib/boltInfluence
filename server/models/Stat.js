@@ -3,28 +3,31 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-const mongoSchema = new Schema({
-  offer: {
-    type: ObjectId,
-    ref: 'CampaignOffer',
+const mongoSchema = new Schema(
+  {
+    offer: {
+      type: ObjectId,
+      ref: 'CampaignOffer',
+    },
+    offerStatus: {
+      type: String,
+    },
+    user: {
+      type: ObjectId,
+      ref: 'User',
+    },
+    media: {
+      type: String,
+      required: true,
+    },
+    value: {
+      type: Number,
+      min: 0,
+      required: true,
+    },
   },
-  offerStatus: {
-    type: String,
-  },
-  user: {
-    type: ObjectId,
-    ref: 'User',
-  },
-  media: {
-    type: String,
-    required: true,
-  },
-  value: {
-    type: Number,
-    min: 0,
-    required: true,
-  },
-});
+  { timestamps: true },
+);
 
 class StatClass {
   static async addOrUpdateForOfferById({ offerId: offer, offerStatus, media, value }) {

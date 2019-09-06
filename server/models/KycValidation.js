@@ -5,26 +5,29 @@ const { getMangopay } = require('../utils/mangopay');
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-const mongoSchema = new Schema({
-  documentId: {
-    type: String,
-    required: true,
-    unique: true,
+const mongoSchema = new Schema(
+  {
+    documentId: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    user: {
+      type: ObjectId,
+      ref: 'User',
+      required: true,
+    },
+    documentType: {
+      type: String,
+      required: true,
+    },
+    status: {
+      type: String,
+      required: true,
+    },
   },
-  user: {
-    type: ObjectId,
-    ref: 'User',
-    required: true,
-  },
-  documentType: {
-    type: String,
-    required: true,
-  },
-  status: {
-    type: String,
-    required: true,
-  },
-});
+  { timestamps: true },
+);
 
 mongoSchema.index({ user: 1, documentType: 1 }, { unique: true });
 

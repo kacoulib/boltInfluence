@@ -19,37 +19,40 @@ const logger = require('../logs');
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-const mongoSchema = new Schema({
-  amount: {
-    type: Number,
-    min: 0,
-    required: true,
+const mongoSchema = new Schema(
+  {
+    amount: {
+      type: Number,
+      min: 0,
+      required: true,
+    },
+    // Whether the execution is handled by Bolt or not
+    execution: {
+      type: String,
+      enum: PaymentExecutionList,
+      default: Bolt,
+    },
+    status: {
+      type: String,
+      enum: PaymentStatusList,
+      required: true,
+    },
+    offer: {
+      type: ObjectId,
+      ref: 'CampaignOffer',
+      required: true,
+    },
+    debitedUser: {
+      type: ObjectId,
+      ref: 'User',
+    },
+    creditedUser: {
+      type: ObjectId,
+      ref: 'User',
+    },
   },
-  // Whether the execution is handled by Bolt or not
-  execution: {
-    type: String,
-    enum: PaymentExecutionList,
-    default: Bolt,
-  },
-  status: {
-    type: String,
-    enum: PaymentStatusList,
-    required: true,
-  },
-  offer: {
-    type: ObjectId,
-    ref: 'CampaignOffer',
-    required: true,
-  },
-  debitedUser: {
-    type: ObjectId,
-    ref: 'User',
-  },
-  creditedUser: {
-    type: ObjectId,
-    ref: 'User',
-  },
-});
+  { timestamps: true },
+);
 
 class PaymentClass {
   static async list(where, { offset = 0, limit = 10 } = {}) {

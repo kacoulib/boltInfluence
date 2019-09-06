@@ -2,18 +2,20 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-
-const mongoSchema = new Schema({
-  title: {
-    type: String,
-    required: true,
-    unique: true
+const mongoSchema = new Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    content: {
+      type: String,
+      required: true,
+    },
   },
-  content: {
-    type: String,
-    required: true,
-  },
-});
+  { timestamps: true },
+);
 
 class FAQClass {
   static async list({ offset = 0, limit = 5 } = {}) {
@@ -29,26 +31,19 @@ class FAQClass {
    * @param {Object} options
    * @param {String} options.title
    */
-  static async add({
-    title,
-    content
-  }) {
+  static async add({ title, content }) {
     const faqDoc = await this.create({
       title,
-      content
+      content,
     });
     const faq = faqDoc.toObject();
     return { faq };
   }
 
-  static async updateById({
-    id,
-    title,
-    content
-  }) {
+  static async updateById({ id, title, content }) {
     const faq = await this.findById(id);
     if (!faq) {
-      throw new Error("FAQ not found");
+      throw new Error('FAQ not found');
     }
     if (title) faq.title = title;
     if (content) faq.content = content;

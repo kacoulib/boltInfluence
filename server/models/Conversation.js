@@ -6,23 +6,26 @@ const { isBusiness, isInfluencer } = require('../../utils/variables/user');
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-const mongoSchema = new Schema({
-  influencer: {
-    type: ObjectId,
-    ref: 'User',
-    required: true,
+const mongoSchema = new Schema(
+  {
+    influencer: {
+      type: ObjectId,
+      ref: 'User',
+      required: true,
+    },
+    business: {
+      type: ObjectId,
+      ref: 'User',
+      required: true,
+    },
+    offer: {
+      type: ObjectId,
+      ref: 'CampaignOffer',
+      required: true,
+    },
   },
-  business: {
-    type: ObjectId,
-    ref: 'User',
-    required: true,
-  },
-  offer: {
-    type: ObjectId,
-    ref: 'CampaignOffer',
-    required: true,
-  },
-});
+  { timestamps: true },
+);
 mongoSchema.index({ influencer: 1, business: 1, offer: 1 }, { unique: true });
 
 class ConversationClass {

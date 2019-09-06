@@ -3,29 +3,32 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-const mongoSchema = new Schema({
-  user: {
-    type: ObjectId,
-    required: true,
-  },
-  firstName: String,
-  lastName: String,
-  address: String,
-  city: String,
-  postalCode: String,
-  country: String,
-  nationality: String,
-  birthday: Date,
-  birthcity: String,
-  birthcountry: String,
-  mangopay: {
-    id: {
-      type: String,
-      unique: true,
-      sparse: true,
+const mongoSchema = new Schema(
+  {
+    user: {
+      type: ObjectId,
+      required: true,
+    },
+    firstName: String,
+    lastName: String,
+    address: String,
+    city: String,
+    postalCode: String,
+    country: String,
+    nationality: String,
+    birthday: Date,
+    birthcity: String,
+    birthcountry: String,
+    mangopay: {
+      id: {
+        type: String,
+        unique: true,
+        sparse: true,
+      },
     },
   },
-});
+  { timestamps: true },
+);
 
 class UboClass {
   static async getAllByUserId({ user }) {

@@ -5,32 +5,35 @@ const generateSlug = require('../utils/slugify');
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-const mongoSchema = new Schema({
-  title: {
-    type: String,
-    required: true,
+const mongoSchema = new Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+    },
+    picture: {
+      type: String,
+    },
+    slug: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    content: {
+      type: String,
+      required: true,
+    },
+    // author: {
+    //   type: String,
+    //   required: true,
+    // },
+    categories: [{ type: ObjectId, ref: 'User' }],
+    categories: [{ type: ObjectId, ref: 'Category' }],
+    tags: [{ type: ObjectId, ref: 'Tag' }],
+    created_at: { type: Date, default: Date.now },
   },
-  picture: {
-    type: String,
-  },
-  slug: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  content: {
-    type: String,
-    required: true,
-  },
-  // author: {
-  //   type: String,
-  //   required: true,
-  // },
-  categories: [{ type: ObjectId, ref: 'User' }],
-  categories: [{ type: ObjectId, ref: 'Category' }],
-  tags: [{ type: ObjectId, ref: 'Tag' }],
-  created_at: { type: Date, default: Date.now },
-});
+  { timestamps: true },
+);
 
 class ArticleClass {
   static async list(where = {}, { offset = 0, limit = 10 } = {}) {
@@ -52,14 +55,7 @@ class ArticleClass {
    * @param {Array<String>} options.tags
    * @param {Array<String>} options.categories
    */
-  static async add({
-    title,
-    content,
-    author,
-    picture,
-    tags,
-    categories
-  }) {
+  static async add({ title, content, author, picture, tags, categories }) {
     const slug = await generateSlug(this, title);
     const articleDoc = await this.create({
       title,
@@ -68,7 +64,7 @@ class ArticleClass {
       content,
       author,
       tags,
-      categories
+      categories,
     });
     const article = articleDoc.toObject();
     return { article };
@@ -78,22 +74,15 @@ class ArticleClass {
     const article = await this.findOne({ slug })
       .populate('categories')
       .populate('tags')
-      .exec()
+      .exec();
 
     if (!article) {
-      throw new Error("Article not found");
+      throw new Error('Article not found');
     }
     return { article };
   }
 
-  static async updateBySlug({
-    slug,
-    title,
-    picture,
-    content,
-    tags,
-    categories
-  }) {
+  static async updateBySlug({ slug, title, picture, content, tags, categories }) {
     const { article } = await this.getBySlug({ slug });
 
     if (title) article.title = title;

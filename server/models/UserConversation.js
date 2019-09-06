@@ -6,22 +6,25 @@ const { isBusiness, isInfluencer } = require('../../utils/variables/user');
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-const mongoSchema = new Schema({
-  user: {
-    type: ObjectId,
-    ref: 'User',
-    required: true,
+const mongoSchema = new Schema(
+  {
+    user: {
+      type: ObjectId,
+      ref: 'User',
+      required: true,
+    },
+    conversation: {
+      type: ObjectId,
+      ref: 'Conversation',
+      required: true,
+    },
+    favorite: {
+      type: Boolean,
+      default: false,
+    },
   },
-  conversation: {
-    type: ObjectId,
-    ref: 'Conversation',
-    required: true,
-  },
-  favorite: {
-    type: Boolean,
-    default: false,
-  },
-});
+  { timestamps: true },
+);
 mongoSchema.index({ user: 1, conversation: 1 }, { unique: true });
 
 class UserConversationClass {
@@ -62,6 +65,12 @@ class UserConversationClass {
     return { conversation: userConversation.toObject() };
   }
 
+  /**
+   * Add conversations if they do not exist already for many users.
+   * @param {Object} options
+   * @param {Array<ObjectId>} options.users
+   * @param {ObjectId} options.conversation
+   */
   static async addIfNonexistentForManyUsersById({ users, conversation }) {
     const conversations = await Promise.all(
       users.map((user) =>
@@ -73,6 +82,14 @@ class UserConversationClass {
       ),
     );
     return { conversations };
+  }
+
+  static async deleteById({ user, conversation }) {
+    await this.deleteOne({ user, conversation });
+  }
+
+  static async deleteManyById({ user, conversations }) {
+    await this.deleteMany({ user, conversation: { $in: conversations } });
   }
 }
 

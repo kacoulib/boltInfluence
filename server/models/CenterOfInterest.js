@@ -2,17 +2,22 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const mongoSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-    unique: true,
+const mongoSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      unique: true,
+    },
   },
-});
+  { timestamps: true },
+);
 
 class CenterOfInterestClass {
   static async getIdByName({ name }) {
-    const centerOfInterest = await this.findOne({ name }).select('_id').lean();
+    const centerOfInterest = await this.findOne({ name })
+      .select('_id')
+      .lean();
     if (!centerOfInterest) {
       throw new Error('CenterOfInterest not found');
     }

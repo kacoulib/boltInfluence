@@ -10,86 +10,89 @@ const generateSlug = require('../utils/slugify');
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-const mongoSchema = new Schema({
-  brand: {
-    type: ObjectId,
-    ref: 'Brand',
-    required: true,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-  slug: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  budget: {
-    type: Number,
-    required: true,
-    min: 0,
-  },
-  video: {
-    type: String,
-    // required: true
-  },
-  pictures: [String],
-  audienceGender: {
-    type: String,
-    enum: civilityList.map((c) => c.value),
-    required: true,
-  },
-  audienceAge: {
-    type: Number,
-    required: true,
-    // min: 18
-  },
-  audienceLanguage: [
-    {
-      type: String,
-      enum: languageCodeList,
+const mongoSchema = new Schema(
+  {
+    brand: {
+      type: ObjectId,
+      ref: 'Brand',
       required: true,
     },
-  ],
-  audienceCountry: [
-    {
+    title: {
       type: String,
-      // enum: countryList,
+      required: true,
+    },
+    slug: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    budget: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+    video: {
+      type: String,
       // required: true
     },
-  ],
-  // social_medias: {
-  //   google: CampaignSocialMediaDetails,
-  //   instagram: CampaignSocialMediaDetails,
-  //   // Other Social Medias
-  // },
-  location: {
-    latitude: {
-      type: Number,
+    pictures: [String],
+    audienceGender: {
+      type: String,
+      enum: civilityList.map((c) => c.value),
       required: true,
     },
-    longitude: {
+    audienceAge: {
       type: Number,
       required: true,
+      // min: 18
     },
-    radius: {
-      type: Number,
+    audienceLanguage: [
+      {
+        type: String,
+        enum: languageCodeList,
+        required: true,
+      },
+    ],
+    audienceCountry: [
+      {
+        type: String,
+        // enum: countryList,
+        // required: true
+      },
+    ],
+    // social_medias: {
+    //   google: CampaignSocialMediaDetails,
+    //   instagram: CampaignSocialMediaDetails,
+    //   // Other Social Medias
+    // },
+    location: {
+      latitude: {
+        type: Number,
+        required: true,
+      },
+      longitude: {
+        type: Number,
+        required: true,
+      },
+      radius: {
+        type: Number,
+        required: true,
+        min: 1,
+      },
+    },
+    paymentExecution: {
+      type: String,
+      enum: PaymentExecutionList,
       required: true,
-      min: 1,
     },
+    // offers: [{ type: ObjectId, ref: 'CampaignOffer' }],
   },
-  paymentExecution: {
-    type: String,
-    enum: PaymentExecutionList,
-    required: true,
-  },
-  // offers: [{ type: ObjectId, ref: 'CampaignOffer' }],
-});
+  { timestamps: true },
+);
 
 class CampaignClass {
   /**

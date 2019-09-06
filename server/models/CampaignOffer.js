@@ -39,31 +39,34 @@ const { ObjectId } = Schema.Types;
  * @typedef {import('../utils/socialmedias').Stats} Stats
  */
 
-const mongoSchema = new Schema({
-  campaign: {
-    type: ObjectId,
-    ref: 'Campaign',
-    required: true,
+const mongoSchema = new Schema(
+  {
+    campaign: {
+      type: ObjectId,
+      ref: 'Campaign',
+      required: true,
+    },
+    user: {
+      type: ObjectId,
+      ref: 'User',
+      required: true,
+    },
+    slug: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    status: {
+      type: String,
+      enum: CampaignOfferStatusList,
+      required: true,
+    },
+    mangopay: {
+      wallet: String,
+    },
   },
-  user: {
-    type: ObjectId,
-    ref: 'User',
-    required: true,
-  },
-  slug: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  status: {
-    type: String,
-    enum: CampaignOfferStatusList,
-    required: true,
-  },
-  mangopay: {
-    wallet: String,
-  },
-});
+  { timestamps: true },
+);
 
 class CampaignOfferClass {
   /**
@@ -330,7 +333,7 @@ class CampaignOfferClass {
         BIC: bic,
       },
     } = payin;
-    
+
     return {
       payin: {
         address,

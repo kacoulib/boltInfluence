@@ -35,112 +35,115 @@ const logger = require('../logs');
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-const mongoSchema = new Schema({
-  email: {
-    type: String,
-    // required: true,
-    unique: true,
-    sparse: true,
-  },
-  password: {
-    type: String,
-    // required: true,
-  },
-  slug: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  firstName: {
-    type: String,
-    required: true,
-  },
-  lastName: {
-    type: String,
-    required: true,
-  },
-  newsletter: {
-    type: Boolean,
-    default: false,
-  },
-  notifications: {
-    type: Boolean,
-    default: false,
-  },
-  status: {
-    type: String,
-    enum: StatusList,
-    required: true,
-  },
-  role: {
-    type: String,
-    enum: RoleList,
-    required: true,
-  },
-  // Role-dependant fields
-  influencer: {
-    picture: String,
-    situation: {
+const mongoSchema = new Schema(
+  {
+    email: {
       type: String,
-      // enum: UserSituations
-    },
-    languages: [{ type: String, enum: languageCodeList }],
-    centersOfInterest: [{ type: ObjectId, ref: 'CenterOfInterest' }],
-    // socialMedias: {
-    //   google: SocialToken,
-    //   instagram: SocialToken
-    //   // Other Social Medias
-    // },
-    // categories: [{ type: String, enum: Categories }]
-  },
-  brand: {
-    type: ObjectId,
-    ref: 'Brand',
-    unique: true,
-    sparse: true,
-  },
-  agency: [{ type: ObjectId, ref: 'Brand' }],
-  // UBO is a requirement for businesses (Brands & Agencies)
-  ubo: {
-    firstName: String,
-    lastName: String,
-    address: String,
-    city: String,
-    postalCode: String,
-    country: String,
-    nationality: String,
-    birthday: Date,
-    birthcity: String,
-    birthcountry: String,
-  },
-  // Company related (every user needs a company)
-  address: String,
-  city: String,
-  country: String,
-  postalCode: String,
-  siret: String,
-  companyEmail: String,
-  companyName: String,
-  companySize: {
-    type: Number,
-    min: 1,
-    default: 1,
-  },
-  placeOfBirth: String,
-  dateOfBirth: Date,
-  // Payment related
-  mangopay: {
-    id: {
-      type: String,
+      // required: true,
       unique: true,
       sparse: true,
     },
-    wallet: String,
-    bankAccount: String,
-    ubo: String,
-    uboDeclaration: String,
+    password: {
+      type: String,
+      // required: true,
+    },
+    slug: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    firstName: {
+      type: String,
+      required: true,
+    },
+    lastName: {
+      type: String,
+      required: true,
+    },
+    newsletter: {
+      type: Boolean,
+      default: false,
+    },
+    notifications: {
+      type: Boolean,
+      default: false,
+    },
+    status: {
+      type: String,
+      enum: StatusList,
+      required: true,
+    },
+    role: {
+      type: String,
+      enum: RoleList,
+      required: true,
+    },
+    // Role-dependant fields
+    influencer: {
+      picture: String,
+      situation: {
+        type: String,
+        // enum: UserSituations
+      },
+      languages: [{ type: String, enum: languageCodeList }],
+      centersOfInterest: [{ type: ObjectId, ref: 'CenterOfInterest' }],
+      // socialMedias: {
+      //   google: SocialToken,
+      //   instagram: SocialToken
+      //   // Other Social Medias
+      // },
+      // categories: [{ type: String, enum: Categories }]
+    },
+    brand: {
+      type: ObjectId,
+      ref: 'Brand',
+      unique: true,
+      sparse: true,
+    },
+    agency: [{ type: ObjectId, ref: 'Brand' }],
+    // UBO is a requirement for businesses (Brands & Agencies)
+    ubo: {
+      firstName: String,
+      lastName: String,
+      address: String,
+      city: String,
+      postalCode: String,
+      country: String,
+      nationality: String,
+      birthday: Date,
+      birthcity: String,
+      birthcountry: String,
+    },
+    // Company related (every user needs a company)
+    address: String,
+    city: String,
+    country: String,
+    postalCode: String,
+    siret: String,
+    companyEmail: String,
+    companyName: String,
+    companySize: {
+      type: Number,
+      min: 1,
+      default: 1,
+    },
+    placeOfBirth: String,
+    dateOfBirth: Date,
+    // Payment related
+    mangopay: {
+      id: {
+        type: String,
+        unique: true,
+        sparse: true,
+      },
+      wallet: String,
+      bankAccount: String,
+      ubo: String,
+      uboDeclaration: String,
+    },
   },
-});
+  { timestamps: true },
+);
 
 class UserClass {
   static publicFields() {
@@ -188,10 +191,9 @@ class UserClass {
       .populate('influencer.centersOfInterest')
       .select(this.publicFields())
       .lean();
-    users.forEach(u => {
+    users.forEach((u) => {
       if (u.influencer && u.influencer.centersOfInterest) {
-        u.influencer.centersOfInterest =
-          u.influencer.centersOfInterest.map(coi => coi.name);
+        u.influencer.centersOfInterest = u.influencer.centersOfInterest.map((coi) => coi.name);
       }
     });
     return { users };
@@ -264,8 +266,7 @@ class UserClass {
     }
     const user = userDoc.toObject();
     if (user.influencer && user.influencer.centersOfInterest) {
-      user.influencer.centersOfInterest =
-        user.influencer.centersOfInterest.map(coi => coi.name);
+      user.influencer.centersOfInterest = user.influencer.centersOfInterest.map((coi) => coi.name);
     }
     return { user };
   }
@@ -289,12 +290,14 @@ class UserClass {
       });
     if (updates.influencer && updates.influencer.centersOfInterest) {
       if (!Array.isArray(updates.influencer.centersOfInterest)) {
-        throw new Error('centersOfInterest must be an array')
+        throw new Error('centersOfInterest must be an array');
       }
       const ids = await Promise.all(
-        updates.influencer.centersOfInterest.map(coi => CenterOfInterest.getIdByName({
-          name: coi
-        }))
+        updates.influencer.centersOfInterest.map((coi) =>
+          CenterOfInterest.getIdByName({
+            name: coi,
+          }),
+        ),
       );
       userDoc.influencer.centersOfInterest = ids;
     }
@@ -737,11 +740,11 @@ mongoSchema.pre('save', async function userPreSavePassword() {
 
 // mongoSchema.pre('save', async function userPreSaveMangopayWallet() {
 //   const user = this;
-// 
+//
 //   if (!user.mangopay.id || user.mangopay.wallet) {
 //     return;
 //   }
-// 
+//
 //   const { wallet } = await createWallet({
 //     owner: user.mangopay.id,
 //     description: `User ${user.slug}`,
@@ -751,18 +754,18 @@ mongoSchema.pre('save', async function userPreSavePassword() {
 
 // mongoSchema.pre('save', async function userPreSaveMangopayUboDeclaration() {
 //   const user = this;
-// 
+//
 //   if (!isBusiness(user) || !user.mangopay.id || user.mangopay.uboDeclaration) {
 //     return;
 //   }
-// 
+//
 //   const { uboDeclaration } = await createUboDeclaration({ user: user.mangopay.id });
 //   user.mangopay.uboDeclaration = uboDeclaration.Id;
 // });
 
 // mongoSchema.pre('save', async function userPreSaveMangopayBankAccount() {
 //   const user = this;
-// 
+//
 //   if (
 //     !user.mangopay.id ||
 //     !user.iban ||

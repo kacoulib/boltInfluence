@@ -7,28 +7,31 @@ const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
 /* This is used by the MangoPay PayIn/PayOut/Transfer webhooks */
-const mongoSchema = new Schema({
-  payment: {
-    type: ObjectId,
-    ref: 'Payment',
-    required: true,
+const mongoSchema = new Schema(
+  {
+    payment: {
+      type: ObjectId,
+      ref: 'Payment',
+      required: true,
+    },
+    operationType: {
+      type: String,
+      enum: PaymentOperationTypeList,
+      required: true,
+    },
+    operationStatus: {
+      type: String,
+      enum: PaymentStatusList,
+      required: true,
+    },
+    operationId: {
+      type: String,
+      required: true,
+      unique: true,
+    },
   },
-  operationType: {
-    type: String,
-    enum: PaymentOperationTypeList,
-    required: true,
-  },
-  operationStatus: {
-    type: String,
-    enum: PaymentStatusList,
-    required: true,
-  },
-  operationId: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-});
+  { timestamps: true },
+);
 
 mongoSchema.index({ payment: 1, operationType: 1 }, { unique: true });
 

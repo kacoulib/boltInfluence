@@ -12,6 +12,7 @@ const { registerCard } = require('../utils/mangopay');
 const router = express.Router();
 
 router.use((req, res, next) => {
+  console.log('REQ.SESSIONID:', req.sessionID);
   if (!req.user) {
     res.status(401).json({ error: 'Unauthorized' });
     return;
@@ -173,6 +174,18 @@ router.put(
   }),
 );
 
+router.delete(
+  '/conversations/:id',
+  handleErrors(async (req, res) => {
+    const { _id: user } = req.user;
+    const { id: conversation } = req.params;
+
+    await UserMessage.deleteAllForConversationById({ user, conversation });
+    await UserConversation.deleteById({ user, conversation });
+    res.status(204).end();
+  }),
+);
+
 router.get('/conversations/:id/messages', (req, res) =>
   listCollection((listingOptions) => {
     const { _id: user } = req.user;
@@ -182,6 +195,11 @@ router.get('/conversations/:id/messages', (req, res) =>
   })(req, res),
 );
 
+/**
+ * Here a recipient is optional, it will use the sender and offer information
+ * to deduce the recipient.
+ * If a recipient is provided, then it must be a valid one for the offer.
+ */
 router.post(
   '/messages',
   handleErrors(async (req, res) => {
@@ -189,6 +207,64 @@ router.post(
     const { offer, message: content, to } = req.body;
     const message = await UserMessage.addForOffer({ from, offer, message: content, to });
     res.json(message);
+  }),
+);
+
+router.get(
+  '/messages/:id',
+  handleErrors(async (req, res) => {
+    const { _id: user } = req.user;
+    const { id: messageId } = req.params;
+    const { message } = await UserMessage.getById({ user, message: messageId });
+    if (!message) {
+      return res.status(404).end();
+    }
+    res.json({ message });
+  }),
+);
+
+router.delete(
+  '/messages/:id',
+  handleErrors(async (req, res) => {
+    const { _id: user } = req.user;
+    const { id: message } = req.params;
+    await UserMessage.deleteById({ user, message });
+    res.status(204).end();
+  }),
+);
+
+router.post(
+  '/deleteconversations',
+  handleErrors(async (req, res) => {
+    const { _id: user } = req.user;
+    const { conversations } = req.body;
+
+    await UserMessage.deleteAllForManyConversationsById({ user, conversations });
+    await UserConversation.deleteManyById({ user, conversations });
+    res.status(204).end();
+  }),
+);
+
+router.post(
+  '/deletemessages',
+  handleErrors(async (req, res) => {
+    const { _id: user } = req.user;
+    const { messages } = req.body;
+    await UserMessage.deleteManyById({ user, messages });
+    res.status(204).end();
+  }),
+);
+
+/**
+ * Here recipients are mandatory and must all be valid ones for the offer.
+ */
+router.post(
+  '/groupmessages',
+  handleErrors(async (req, res) => {
+    const { _id: from } = req.user;
+    const { offer, message: content, to } = req.body;
+    const messages = await UserMessage.groupAddForOffer({ from, offer, message: content, to });
+    res.json(messages);
   }),
 );
 

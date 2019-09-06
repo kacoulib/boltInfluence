@@ -5,26 +5,29 @@ const generateSlug = require('../utils/slugify');
 
 const { Schema } = mongoose;
 
-const mongoSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-    unique: true,
+const mongoSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    slug: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    subject: {
+      type: String,
+      required: true,
+    },
+    message: {
+      type: String,
+      required: true,
+    },
   },
-  slug: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  subject: {
-    type: String,
-    required: true,
-  },
-  message: {
-    type: String,
-    required: true,
-  },
-});
+  { timestamps: true },
+);
 
 class EmailTemplateClass {
   static async list({ offset = 0, limit = 10 } = {}) {
