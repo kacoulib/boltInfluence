@@ -1,61 +1,61 @@
 const styleBigAvatar = {
-  width: '80px',
-  height: '80px',
-  margin: '0px auto 15px',
+	width: '80px',
+	height: '80px',
+	margin: '0px auto 15px',
 
 };
 
 const avatar = {
-  width: '30px',
-  height: '30px',
+	width: '30px',
+	height: '30px',
 };
 
 const styleRaisedButton = {
-  margin: '15px 15px 30px 15px',
-  font: '15px Muli',
+	margin: '15px 15px 30px 15px',
+	font: '15px Muli',
 };
 
 const styleToolbar = {
-  background: '#252b40',
-  // height: '120px',
-  // paddingRight: '20px',
+	background: '#252b40',
+	// height: '120px',
+	// paddingRight: '20px',
 };
 
 const styleToolbarLink = {
 	color: '#FFF',
-	textAlign: 'center',
+	textAlign: 'right',
 	fontWeight: 'bold',
 	fontSize: '0.8em',
 }
 
 const styleLoginButton = {
-  margin: '5px',
-  borderRadius: '2px',
-  textTransform: 'none',
-  font: '16px Muli',
-  fontWeight: '400',
-  letterSpacing: '0.01em',
-  color: 'white',
-  backgroundColor: '#DF4930',
+	margin: '5px',
+	borderRadius: '2px',
+	textTransform: 'none',
+	font: '16px Muli',
+	fontWeight: '400',
+	letterSpacing: '0.01em',
+	color: 'white',
+	backgroundColor: '#DF4930',
 };
 
 const styleTextField = {
-  font: '15px Muli',
-  color: '#222',
-  fontWeight: '300',
+	font: '15px Muli',
+	color: '#222',
+	fontWeight: '300',
 };
 
 const styleForm = {
-  margin: '7% auto',
-  width: '360px',
+	margin: '7% auto',
+	width: '360px',
 };
 
 const styleGrid = {
-  margin: '0px auto',
-  font: '16px Muli',
-  color: '#222',
-  fontWeight: '300',
-  lineHeight: '1.5em',
+	margin: '0px auto',
+	font: '16px Muli',
+	color: '#222',
+	fontWeight: '300',
+	lineHeight: '1.5em',
 };
 
 const greenBorder = {
