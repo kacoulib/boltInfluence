@@ -8,7 +8,7 @@ import { customRequest } from '../../../lib/api/http'
 import FormValidator from '../../../lib/form/validator'
 
 const fields = [{
-    label: "Prénom *",
+    label: "Prénom",
     name: "firstName",
     type: 'input',
     required: true,
@@ -19,7 +19,7 @@ const fields = [{
     }
 },
 {
-    label: "Nom *",
+    label: "Nom",
     name: "lastName",
     type: 'input',
     required: true,
@@ -30,7 +30,7 @@ const fields = [{
     }
 },
 {
-    label: "Email *",
+    label: "Email",
     name: "email",
     type: 'email',
     required: true,
@@ -41,7 +41,7 @@ const fields = [{
     }
 },
 {
-    label: "Téléphone *",
+    label: "Téléphone",
     name: "phoneNumber",
     type: 'input',
     required: true,
@@ -52,7 +52,7 @@ const fields = [{
     }
 },
 {
-    label: "Société *",
+    label: "Société",
     name: "company",
     type: 'input',
     required: true,
@@ -85,7 +85,7 @@ const fields = [{
     }
 },
 {
-    label: "Titre professionnel *",
+    label: "Titre professionnel",
     name: "position",
     type: 'input',
     required: true,

@@ -8,7 +8,7 @@ a, a:hover {
     cursor: pointer;
 }
 html {
-    font-size: 16px;
+    font-size: 14px;
 }
 #body {
     font-size: 1.3rem;
@@ -34,7 +34,7 @@ body a {
     padding-top: 1rem;
     background: #252b40;
     z-index: 3;
-    min-height: 112px;
+    min-height: 90px;
 }
 #header .social-container {
     display: inline-block;
@@ -49,7 +49,7 @@ body a {
     color: #FFF;
 	text-align: center;
 	font-weight: bold;
-	font-size: 1.2rem;
+	font-size: 1rem;
 }
 .menu li div.menu-link {
     cursor: pointer;
@@ -60,7 +60,7 @@ body a {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    height: calc(100vh - 112px);
+    height: calc(100vh - 90px);
 }
 /* #home-cover img {
     opacity: 0;
@@ -91,7 +91,7 @@ nav {
 }
 nav > ul {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-end;
     width: 100%;
 }
 #logo {
@@ -123,13 +123,17 @@ nav ul {
 	
 /* Positioning the navigation items inline */
 nav ul li {
-	margin: 0px;
+    margin: 0px;
     display: inline-block;
     position: relative;
     /* float: left; */
     /* width: 20%; */
-    flex: 1 1 0;
+    /* flex: 1 1 0; */
+    padding: 1rem;
 	background-color: #252b40;
+}
+nav ul li.sub-menu-wrapper {
+    padding-right: 14px;
 }
 
 /* Styling the links */
@@ -162,9 +166,12 @@ nav ul ul li {
 	width:170px;
 	float:none;
 	display:list-item;
-	position: relative;
+    position: relative;
+    background-color: white;
 }
-
+nav ul ul span {
+    color: #252b40;
+}
 /* Second, Third and more Tiers	
  * We move the 2nd and 3rd etc tier dropdowns to the left
  * by the amount of the width of the first tier.
@@ -184,7 +191,10 @@ li > a:only-child:after { content: ''; } */
 
 /* Media Queries
 --------------------------------------------- */
-
+header #socials > li {
+    width: 1rem;
+    height: 1rem;
+}
 @media all and (max-width : 1080px) {
     html {
         font-size: 14px
@@ -461,10 +471,14 @@ header nav ul span.relative::before {
     margin: auto;
     z-index: 1;
 }
-.iphone_container img {
+.iphone_container > img {
     width: 100%;
 }
-.iphone_container video {
+.iphone_container.horizontal > img {
+    transform: rotate(180deg);
+}
+.iphone_container div video
+ {
     position: absolute;
     top: 5px;
     left: 5px;
@@ -473,6 +487,15 @@ header nav ul span.relative::before {
     border-radius: 15%;
     background: black;
     z-index: -1;
+}
+.iphone_container div img {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 100%;
+    z-index: -1;
+
 }
 #homeTextContainer {
     transform: translateY(-50%);
@@ -690,7 +713,7 @@ header nav ul span.relative::before {
 }
 /* GENERAL  */
 #footer {
-    padding: 4rem 0 2rem;
+    padding: 3rem 0 2rem;
     background-color: #dedee8;
     background-repeat: no-repeat;
     background-position: left bottom;
@@ -713,9 +736,6 @@ footer li {
     font-weight: bold;
     color: #232941;
     font-size: 1.1rem;
-}
-footer .link-container {
-    padding-top: 2rem;
 }
 #socials > li {
     width: 20px;
@@ -904,8 +924,8 @@ video {
 }
 header .triangle {
     position: absolute;
-    top: calc(50% - 3px);
-    right: -15px;
+    top: calc(50% - 5px);
+    right: -12px;
 }
 .triangle {
     border: solid white;

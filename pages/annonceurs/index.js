@@ -8,8 +8,9 @@ import Screen2 from '../../static/img/screen2.png'
 import Screen4 from '../../static/img/screen4.png'
 import Screen3 from '../../static/img/screen3.png'
 import Partners from '../../components/page/public/partners'
-import { Link } from '../../server/routes/next-routes';
+import { IphoneComp } from '../../components/dataDisplay/others/device';
 import ContactUs from '../../components/page/public/contactUs'
+import { Link } from '../../server/routes/next-routes';
 
 const styles = {
 	cardContainer: {

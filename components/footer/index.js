@@ -6,10 +6,7 @@ import Socials from '../../components/elements/socials'
 const Footer = () => (
 	<footer id='footer' className='card-bg dots-white bottom'>
 		<Grid container alignItems="center" justify="center" align='center'>
-			<Grid item sm={12} xs={12}>
-				<Link href='/'><a title='home logo'><img src={logo} /></a></Link>
-			</Grid>
-			<Grid container item alignItems="flex-start" className='link-container'>
+			<Grid container item alignItems="center">
 				<Grid item sm={4} xs={6}>
 					<ul>
 						<li><Link href='/annonceurs'><a title='Annonceurs'>Annonceurs</a></Link></li>
@@ -25,6 +22,7 @@ const Footer = () => (
 				</Grid>
 				<Grid item sm={4} xs={12}>
 					<ul id='follow-us'>
+						<li><Link href='/'><a title='home logo'><img src={logo} /></a></Link></li>
 						<li>Suivez nous</li>
 						<li><Socials /></li>
 					</ul>

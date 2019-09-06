@@ -6,8 +6,9 @@ import Screen01 from '../static/img/screen01.png'
 import Screen02 from '../static/img/screen02.png'
 import Screen03 from '../static/img/screen03.png'
 import ScreenHome from '../static/img/home.jpg'
-import Iphone from '../static/img/iphone.png'
+import BlackIphone from '../static/img/black-iphone.png'
 import Carousel from '../components/dataDisplay/others/carousel';
+import { IphoneComp } from '../components/dataDisplay/others/device';
 import ContactUs from '../components/page/public/contactUs'
 import Btn from '../components/elements/btn'
 import { NextSeo } from 'next-seo';
@@ -100,10 +101,7 @@ const Index = () => {
 
 					<Grid container item style={styles.cardContainer}>
 						<Grid item xs={12} sm={6}>
-							<div className='iphone_container'>
-								<Video autoplay={true} src="../static/video/content_stractegy.mp4" />
-								<img src={Iphone} />
-							</div>
+							<IphoneComp deviceColor='black' src="../static/video/content_stractegy.mp4" />
 						</Grid>
 						<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 							<Grid item xs={12} sm={8}>
@@ -134,10 +132,7 @@ const Index = () => {
 						</Grid>
 					</Grid>
 					<Grid item xs={12} sm={6} className='text-center' style={styles.padding}>
-						<div className='iphone_container'>
-							<Video autoplay={true} src="../static/video/data_and_technologie.mp4" />
-							<img src={Iphone} />
-						</div>
+						<IphoneComp deviceColor='black' src="../static/video/data_and_technologie.mp4" />
 					</Grid>
 				</Grid>
 			</div>
@@ -146,10 +141,7 @@ const Index = () => {
 				{/* <h1 className='red-color'>Le format In-vidéo</h1> */}
 				<Grid container item style={styles.cardContainer}>
 					<Grid item xs={12} sm={6}>
-						<div className='iphone_container'>
-							<Video autoplay={true} src="../static/video/management_and_optimisation.mp4" />
-							<img src={Iphone} />
-						</div>
+						<IphoneComp deviceColor='black' src="../static/video/management_and_optimisation.mp4" />
 					</Grid>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item xs={12} sm={8}>

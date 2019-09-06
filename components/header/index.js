@@ -39,7 +39,7 @@ const menuList = [
 ]
 const displayMenuList = (list, i) => (
 	list.map((elem) => (
-		<li key={++i}>
+		<li key={++i} className={`${elem.child ? 'sub-menu-wrapper' : ''}`}>
 			{elem.child ?
 				<div className='to-hide menu-link' title={elem.title}><span className='relative'>{elem.text}<span className='triangle down'></span></span></div>
 				:
@@ -61,9 +61,14 @@ const Header = () => (
 	<header id='header'>
 		<Toolbar>
 			<Grid container alignItems="center" justify="center">
+				<Grid container item sm={12} xs={12} direction="row" alignItems="center" justify="center">
+					<Grid item style={styleToolbarLink} sm={12} xs={12}>
+						<div className='social-container'><Socials fill='white'  /*child={styles.socialList} */ /></div>
+						<div className='social-container'><img src={iconFlagFr} style={styles.iconFlagFr} className='responsive-hide' /></div>
+					</Grid>
+				</Grid>
 				<Grid container item sm={12} xs={12} alignItems="center" justify="center" id='menu-container'>
 					<Grid item align="center" sm={1} xs={3} id='menu-left'>
-						{/* <img src={iconFlagFr} style={styles.iconFlagFr} className='responsive-show' /> */}
 						<Link href='/'><a title='home BoltInfluence'><img src={logo} id='logo' /></a></Link>
 					</Grid>
 					<Grid item align="center" sm={10} xs={6}>
@@ -86,12 +91,6 @@ const Header = () => (
 								{/* <Avatar style={styles.avatar} src={userIconWhite} /> */}
 							</a></Link>
 						</div>
-					</Grid>
-				</Grid>
-				<Grid container item sm={12} xs={12} direction="row" alignItems="center" justify="center">
-					<Grid item style={styleToolbarLink} sm={12} xs={12}>
-						<div className='social-container'><Socials fill='white' parent={{ padding: 0 }} /*child={styles.socialList} */ /></div>
-						<div className='social-container'><img src={iconFlagFr} style={styles.iconFlagFr} className='responsive-hide' /></div>
 					</Grid>
 				</Grid>
 			</Grid>

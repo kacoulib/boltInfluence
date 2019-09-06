@@ -250,14 +250,14 @@ const Index = ({ faqs: { faqs } = {} } = {}) => {
 	)
 }
 Index.getInitialProps = async () => {
-	try {
-		const faqs = await customRequest({ path: '/public/faqs' });
+	let faqs;
 
-		return { faqs }
+	try {
+		faqs = await customRequest({ path: '/public/faqs' });
 	}
 	catch (err) {
-		return {}
 	}
+	return { faqs }
 }
 
 
