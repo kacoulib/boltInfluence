@@ -147,7 +147,7 @@ const Index = ({ faqs: { faqs } = {} } = {}) => {
 									<span className='circle-dot'>1</span>
 								</Grid>
 								<Grid item xs={10} sm={10}>
-									<p>Identifier et contacter les influenceurs pertinents par rapport à votre marquer et éviter les “faux” influenceurs</p>
+									<p>Identifier et contacter les influenceurs pertinents par rapport à votre marque et éviter les “faux” influenceurs</p>
 								</Grid>
 								<Grid item xs={2} sm={2} >
 									<span className='circle-dot'>2</span>
@@ -171,7 +171,7 @@ const Index = ({ faqs: { faqs } = {} } = {}) => {
 				<div className='home-block-padding responsive-container' style={styles.padding}>
 					<h2 className='bordered-head fullwidth'>FAQ</h2>
 					<p>Vous voulez en savoir plus ?</p>
-					<p className='italic'>Notre FAQ répondra à tous vos questions !</p>
+					<p className='italic'>Notre FAQ répondra à toutes vos questions !</p>
 					<Grid container item style={styles.cardContainer} alignItems="stretch">
 						<Grid item xs={12} sm={6}>
 							<FormGenerator
@@ -185,7 +185,7 @@ const Index = ({ faqs: { faqs } = {} } = {}) => {
 
 						<Grid item container xs={12} sm={6} justify="flex-end" id='search'>
 							<Grid item xs={12} sm={6}>
-								<Search />
+								<Search label='Rechercher' />
 							</Grid>
 						</Grid>
 					</Grid>
@@ -206,7 +206,7 @@ const Index = ({ faqs: { faqs } = {} } = {}) => {
 								</ExpansionPanelDetails>
 							</ExpansionPanel>
 						))}
-						<p className='text-right'><a className='red-color'>Montrer tout le FAQ</a></p>
+						<p className='text-right'><a className='red-color'>Montrer tout la FAQ</a></p>
 					</div>
 					<div>
 						<Link href='/contact'><a title='Contactez-nous' style={styles.contactUs}>Vous n’avez pas trouvé votre réponse ? Contactez-nous</a></Link>

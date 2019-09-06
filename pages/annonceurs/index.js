@@ -50,6 +50,7 @@ const Index = () => {
 						</Grid>
 					</Grid>
 					<Grid item xs={12} sm={6} className='text-center'>
+						{/* <IphoneComp deviceColor='white' src='../../static/img/screen1.png' /> */}
 						<img src={Screen1} />
 					</Grid>
 				</Grid>

@@ -83,7 +83,7 @@ const Index = () => {
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item container xs={12} sm={8} justify="center" alignItems="center">
 							<h2 className='responsive-no-margin-bottom'>Soyez payé à <span className='half-width-bordered-head'>votre juste</span> valeur</h2>
-							<p className='justify'>Les rémunérations des campagnes sont calculées au regard de vos statistiques et sont réévalués en fonction de la croissance de votre audience.</p>
+							<p className='justify'>Les rémunérations des campagnes sont calculées au regard de vos statistiques et sont réévaluées en fonction de la croissance de votre audience.</p>
 						</Grid>
 					</Grid>
 				</Grid>

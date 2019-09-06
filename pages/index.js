@@ -124,10 +124,10 @@ const Index = () => {
 						<Grid item xs={12} sm={8} className='text-center'>
 							<h2><span className='black-bordered-head'>Data</span> et Technologie</h2>
 							<div>
-								<p className='no-margin'>Search infleunceurs</p>
+								<p className='no-margin'>Search influenceurs</p>
 								<p className='no-margin'>Prévention de la fraude</p>
-								<p className='no-margin'>Affinité infleunceurs/marque</p>
-								<p className='no-margin'>Audience et analytics</p>
+								<p className='no-margin'>Affinité influenceurs/marque</p>
+								<p className='no-margin'>Audience et Analytics</p>
 							</div>
 						</Grid>
 					</Grid>
@@ -145,9 +145,9 @@ const Index = () => {
 					</Grid>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item xs={12} sm={8}>
-							<h2>Managment et <span className='black-bordered-head'>optimization</span></h2>
+							<h2>Management et<span className='black-bordered-head'> optimisation</span></h2>
 							<p className='no-margin'>Relation influenceurs</p>
-							<p className='no-margin'>Account managment</p>
+							<p className='no-margin'>Account management</p>
 							<p className='no-margin'>Qualité de service</p>
 							<p className='no-margin'>Logistique</p>
 						</Grid>
@@ -196,9 +196,7 @@ const Index = () => {
 				<Grid container >
 					<Grid item xs={12} sm={2}></Grid>
 					<Grid item xs={12} sm={8}>
-						<ContactUs onSubmit={onSubmit}>
-							<h3 style={styles.h3}>Marketer intéressé ?  contactez-nous</h3>
-						</ContactUs>
+						<ContactUs onSubmit={onSubmit} />
 					</Grid>
 					<Grid item xs={12} sm={2}></Grid>
 				</Grid>
