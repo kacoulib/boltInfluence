@@ -1,15 +1,13 @@
 import Head from 'next/head';
 import Grid from '@material-ui/core/Grid';
 import withLayout from '../lib/withLayout';
-import Screen7 from '../static/img/screen7.png'
-import Screen8 from '../static/img/screen8.png'
-import Screen9 from '../static/img/screen9.png'
 import Screen10 from '../static/img/screen10.jpg'
 import Screen11 from '../static/img/screen11.png'
 import { Link } from '../server/routes/next-routes';
 import Carousel from '../components/dataDisplay/others/carousel';
 import { NextSeo } from 'next-seo';
 import Preregister from '../components/features/pre-register'
+import { IphoneComp } from '../components/dataDisplay/others/device';
 
 const styles = {
 	cardContainer: {
@@ -69,7 +67,7 @@ const Index = () => {
 							</Grid>
 						</Grid>
 						<Grid item xs={12} sm={6} className='text-center'>
-							<img src={Screen7} />
+							<IphoneComp deviceColor='black' src="../static/video/become_pro_influencer.mp4" />
 						</Grid>
 					</Grid>
 				</div>
@@ -78,7 +76,7 @@ const Index = () => {
 			<div>
 				<Grid container item style={styles.cardContainer} className='dots-blue-down no-repeat responsive-reverse-order responsive-container'>
 					<Grid item xs={12} sm={6} className='text-center'>
-						<img src={Screen8} />
+						<IphoneComp deviceColor='black' src="../static/video/discover_our_offers.mp4" />
 					</Grid>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item container xs={12} sm={8} justify="center" alignItems="center">
@@ -98,7 +96,7 @@ const Index = () => {
 						</Grid>
 					</Grid>
 					<Grid item xs={12} sm={6} className='text-center'>
-						<img src={Screen9} />
+						<IphoneComp deviceColor='black' src="../static/video/well_paid.mp4" />
 					</Grid>
 				</Grid>
 			</div>

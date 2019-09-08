@@ -13,7 +13,6 @@ import ContactUs from '../components/page/public/contactUs'
 import Btn from '../components/elements/btn'
 import { NextSeo } from 'next-seo';
 import { orangeColor } from '../utils/variables/css'
-import Video from '../components/elements/video'
 
 const styles = {
 	cardContainer: {

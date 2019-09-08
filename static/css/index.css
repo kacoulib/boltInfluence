@@ -480,10 +480,10 @@ header nav ul span.relative::before {
 .iphone_container div video
  {
     position: absolute;
-    top: 5px;
-    left: 5px;
-    width: calc(100% - 10px);
-    height: calc(100% - 20px);
+    top: 10px;
+    left: 10px;
+    width: calc(100% - 15px);
+    height: calc(100% - 30px);
     border-radius: 15%;
     background: black;
     z-index: -1;
