@@ -8,6 +8,8 @@ import Partners from '../components/page/public/partners'
 import ContactUs from '../components/page/public/contactUs'
 import { customRequest } from '../lib/api/http/'
 import Video from '../components/elements/video'
+import { TabletComp } from '../components/dataDisplay/others/device';
+
 
 const styles = {
 	cardContainer: {
@@ -50,11 +52,12 @@ const Index = () => {
 							<Grid item xs={12} sm={8}>
 								<h2><span className='bordered-head'>Un média</span>  en pleine croissance</h2>
 								<p className='justify'>87% des marketeurs reconnaissent faire appel à la vidéo sur les réseaux sociaux* (contre seulement 63% en 2017).</p>
-								<p className='italic'>*Etude : the state of Video Marketing 2019 - Wyzowl</p>
+								<p className='italic tiny-text'>*Etude : the state of Video Marketing 2019 - Wyzowl</p>
 							</Grid>
 						</Grid>
 						<Grid item xs={12} sm={6} justify="center" alignItems="center" className='text-center'>
 							<Video src="https://www.youtube.com/watch?v=R3n5VoY0yFw" />
+							{/* <TabletComp deviceColor='black' src="../static/video/discover_our_offers.mp4" /> */}
 						</Grid>
 					</Grid>
 				</div>
@@ -69,7 +72,7 @@ const Index = () => {
 						<Grid item container xs={12} sm={8} className='responsive-container'>
 							<h2><span className='bordered-head'>Un média</span> engageant</h2>
 							<p className='justify'>Les vidéos rencontrent 36% d’engagement de plus que les photos sur Instagram et reçoivent en moyenne 2,1x de commentaires en plus.</p>
-							<p className='italic'>*Etude : 17 instagram stats marketer needs to know in 2019 - Sprout Social.</p>
+							<p className='italic tiny-text'>*Etude : 17 instagram stats marketer needs to know in 2019 - Sprout Social.</p>
 						</Grid>
 					</Grid>
 				</Grid>
@@ -80,7 +83,7 @@ const Index = () => {
 				<Grid container item style={styles.cardContainer} className='responsive-no-padding'>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item xs={12} sm={8}>
-							<h2>Intégrez votre contenu sur tous les <span className='bordered-head'>types</span> de contenu vidéo </h2>
+							<h2>Intégrez vos produits sur tous les <span className='bordered-head'>types</span>  de contenu vidéo</h2>
 							<p className='justify'>Le format In-vidéo est flexible et s’intègre simplement sur tous les types de contenu vidéos et dans tous les formats.</p>
 						</Grid>
 					</Grid>
@@ -97,8 +100,8 @@ const Index = () => {
 					</Grid>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item container xs={12} sm={8} className='responsive-container'>
-							<h2><span className='bordered-head'>Intégrez</span> Un format non-intrusif</h2>
-							<p className='justify'>Une étude menée auprès de 1000 personnes a montré que 80% d’entre eux trouvent que ce format offre une bonne visibilité et 70% trouvent que ce mode de publicité est moins intrusif que les pré-roll.</p>
+							<h2><span className='bordered-head'>Intégrez </span>un format non-intrusif</h2>
+							<p className='justify'>Une étude menée auprès de 4500 personnes a montré que 80% d’entre eux trouvent que ce format offre une bonne visibilité et 70% trouvent que ce mode de publicité est moins intrusif que les pré-roll.</p>
 						</Grid>
 					</Grid>
 				</Grid>

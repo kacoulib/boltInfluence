@@ -9,6 +9,7 @@ import logo from '../../static/img/logo.png'
 import userIconWhite from '../../static/img/userIconWhite.js';
 
 import iconFlagFr from '../../static/img/flagFr.png';
+import mailIcon from '../../static/img/icon/mail.png';
 import Socials from '../elements/socials'
 
 const menuList = [
@@ -62,9 +63,12 @@ const Header = () => (
 		<Toolbar>
 			<Grid container alignItems="center" justify="center">
 				<Grid container item sm={12} xs={12} direction="row" alignItems="center" justify="center">
-					<Grid item style={styleToolbarLink} sm={12} xs={12}>
+					<Grid item sm={6} xs={6}>
+						<div className='social-container pointer'><img src={mailIcon} style={styles.iconFlagFr} className='responsive-hide' /></div>
+					</Grid>
+					<Grid item style={styleToolbarLink} sm={6} xs={6}>
 						<div className='social-container'><Socials fill='white'  /*child={styles.socialList} */ /></div>
-						<div className='social-container'><img src={iconFlagFr} style={styles.iconFlagFr} className='responsive-hide' /></div>
+						<div className='social-container pointer'><img src={iconFlagFr} style={styles.iconFlagFr} className='responsive-hide' /></div>
 					</Grid>
 				</Grid>
 				<Grid container item sm={12} xs={12} alignItems="center" justify="center" id='menu-container'>
