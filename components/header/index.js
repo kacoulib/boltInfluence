@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 import { Link } from '../../server/routes/next-routes'
@@ -60,45 +59,43 @@ const displayMenuList = (list, i) => (
 
 const Header = () => (
 	<header id='header'>
-		<Toolbar>
-			<Grid container alignItems="center" justify="center">
-				<Grid container item sm={12} xs={12} direction="row" alignItems="center" justify="center">
-					<Grid item sm={6} xs={6}>
-						<div className='social-container pointer'><img src={mailIcon} style={styles.iconFlagFr} className='responsive-hide' /></div>
-					</Grid>
-					<Grid item style={styleToolbarLink} sm={6} xs={6}>
-						<div className='social-container'><Socials fill='white'  /*child={styles.socialList} */ /></div>
-						<div className='social-container pointer'><img src={iconFlagFr} style={styles.iconFlagFr} className='responsive-hide' /></div>
-					</Grid>
+		<Grid container alignItems="center" justify="center">
+			<Grid container item sm={12} xs={12} direction="row" alignItems="center" justify="center" className='social-container-parent'>
+				<Grid item sm={6} xs={6}>
+					<div className='social-container pointer'><a href="mailto:contact@bolt-influence.com"><img src={mailIcon} style={styles.iconFlagFr} className='responsive-hide' /></a></div>
 				</Grid>
-				<Grid container item sm={12} xs={12} alignItems="center" justify="center" id='menu-container'>
-					<Grid item align="center" sm={1} xs={3} id='menu-left'>
-						<Link href='/'><a title='home BoltInfluence'><img src={logo} id='logo' /></a></Link>
-					</Grid>
-					<Grid item align="center" sm={10} xs={6}>
-						<Grid container alignItems="center">
-							<nav>
-								<label htmlFor="drop" className="toggle-head">☰</label>
-								<input type="checkbox" id="drop" />
-								<ul className="menu">
-									{displayMenuList(menuList, 0)}
-								</ul>
-							</nav>
-
-						</Grid>
-					</Grid>
-					<Grid item sm={1} xs={3} id='menu-right'>
-						<div className="sonar-wrapper">
-							<Link href='/login'><a title='login' className='sonar-emitter'>
-								connexion
-    								<div className="sonar-wave"></div>
-								{/* <Avatar style={styles.avatar} src={userIconWhite} /> */}
-							</a></Link>
-						</div>
-					</Grid>
+				<Grid item style={styleToolbarLink} sm={6} xs={6}>
+					<div className='social-container'><Socials   /*child={styles.socialList} */ /></div>
+					<div className='social-container pointer'><img src={iconFlagFr} style={styles.iconFlagFr} className='responsive-hide' /></div>
 				</Grid>
 			</Grid>
-		</Toolbar>
+			<Grid container item sm={12} xs={12} alignItems="center" justify="center" id='menu-container'>
+				<Grid item align="center" sm={1} xs={3} id='menu-left'>
+					<Link href='/'><a title='home BoltInfluence'><img src={logo} id='logo' /></a></Link>
+				</Grid>
+				<Grid item align="center" sm={10} xs={6}>
+					<Grid container alignItems="center">
+						<nav>
+							<label htmlFor="drop" className="toggle-head">☰</label>
+							<input type="checkbox" id="drop" />
+							<ul className="menu">
+								{displayMenuList(menuList, 0)}
+							</ul>
+						</nav>
+
+					</Grid>
+				</Grid>
+				<Grid item sm={1} xs={3} id='menu-right'>
+					<div className="sonar-wrapper">
+						<Link href='/login'><a title='login' className='sonar-emitter'>
+							connexion
+    								<div className="sonar-wave"></div>
+							{/* <Avatar style={styles.avatar} src={userIconWhite} /> */}
+						</a></Link>
+					</div>
+				</Grid>
+			</Grid>
+		</Grid>
 	</header>
 )
 
