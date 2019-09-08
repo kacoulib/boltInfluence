@@ -74,7 +74,7 @@ const Index = () => {
 			</div>
 			{/*  */}
 			<div>
-				<Grid container item style={styles.cardContainer} className='dots-blue-down no-repeat responsive-reverse-order responsive-container'>
+				<Grid container item style={styles.cardContainer} className='dots-blue-down no-repeat responsive-reverse-order responsive-container light-gray-bg'>
 					<Grid item xs={12} sm={6} className='text-center'>
 						<IphoneComp deviceColor='black' src="../static/video/well_paid.mp4" />
 					</Grid>
