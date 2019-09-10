@@ -56,15 +56,19 @@ const Index = () => {
 							</Grid>
 						</Grid>
 						<Grid item xs={12} sm={6} justify="center" alignItems="center" className='text-center'>
-							<img src={Screen5} />
+							<TabletComp src="../static/video/bolt_influence.mp4" muted={true} />
+
+							{/* <img src='../static/img/ipad_with_photo.png' />
 							{/* <Video src="../static/video/engaging_media.mp4" /> */}
+							{/* <Video src="https://www.youtube.com/watch?v=R3n5VoY0yFw" /> */}
+
 						</Grid>
 					</Grid>
 				</div>
 			</div>
 			{/*  */}
 			<div className='card-bg'>
-				<div style={styles.padding}>
+				<div className='responsive-container' style={styles.padding}>
 					<Grid container item style={styles.cardContainer} className='dots-blue-down no-repeat responsive-reverse-order responsive-no-padding'>
 						<Grid item xs={12} sm={6} className='text-center responsive-container'>
 							<TabletComp src="../static/video/engaging_media.mp4" />

@@ -11,7 +11,7 @@ const DeviseComp = (props) => {
         <div className={`${deviceType == 'tablet' ? 'tablet_container' : 'iphone_container'} ${props.extendClass ? props.extendClass : ''}`}>
             <div>
                 {src.includes('.mp4') ?
-                    <Video autoplay={autoplay} src={src} title={title} />
+                    <Video autoplay={autoplay} src={src} title={title} {...props} />
                     :
                     <img src={src} title={title} />
                 }
