@@ -56,7 +56,7 @@ const Index = () => {
 							</Grid>
 						</Grid>
 						<Grid item xs={12} sm={6} justify="center" alignItems="center" className='text-center'>
-							<Video src="https://www.youtube.com/watch?v=R3n5VoY0yFw" />
+							<Video src="../static/video/engaging_media.mp4" muted />
 							{/* <TabletComp deviceColor='black' src="../static/video/discover_our_offers.mp4" /> */}
 						</Grid>
 					</Grid>

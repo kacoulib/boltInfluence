@@ -35,9 +35,9 @@ const getYoutubeVideoID = (src) => {
     }
     return video_id;
 }
-const VideoComp = ({ src, controls = false, autoplay = true, loop = true, modestbranding = true, allowfullscreen = true, width, height }) => {
+const VideoComp = ({ src, controls = false, autoplay = true, loop = true, modestbranding = true, allowfullscreen = true, width, height, muted }) => {
     const youtubeProps = { src, controls, autoplay, loop, modestbranding: true, allowfullscreen: false, width, height },
-        videoProps = { controls, autoPlay: autoplay, loop, width, height };
+        videoProps = { controls, autoPlay: autoplay, loop, width, height, muted };
 
     if (src.includes('youtube.com'))
         return <YoutubeWrapper id={getYoutubeVideoID(src)} props={youtubeProps} />

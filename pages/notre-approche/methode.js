@@ -39,7 +39,7 @@ const Index = () => {
 		<div>
 			<div className='card-bg lines-blue no-repeat right responsive-container'>
 				<div>
-					<Grid container item style={styles.cardContainer} className='responsive-no-padding'>
+					<Grid container item style={styles.cardContainer} justify="center" alignItems="center" className='responsive-no-padding'>
 						<Grid item container xs={12} sm={8} justify="center" alignItems="center">
 							<Grid container item xs={12} sm={12}>
 								<Grid container item xs={12} sm={12}>
