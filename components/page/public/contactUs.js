@@ -80,7 +80,7 @@ const fields = [{
     props: {
         style: {
             borderRadius: 5,
-            backgroundColor: lightGray,
+            // backgroundColor: 'white',
         },
     }
 },
