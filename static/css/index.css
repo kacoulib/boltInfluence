@@ -471,20 +471,26 @@ header nav ul span.relative::before {
 
 }
 /* Home  */
+.tablet_container,
 .iphone_container {
     position: relative;
-    max-width: 346px;
     margin: auto;
     z-index: 1;
 }
+.iphone_container {
+    max-width: 346px;
+}
+.tablet_container > img,
 .iphone_container > img {
     width: 100%;
 }
+.tablet_container.horizontal > img,
 .iphone_container.horizontal > img {
     transform: rotate(180deg);
 }
+.tablet_container div video,
 .iphone_container div video
- {
+{
     position: absolute;
     top: 10px;
     left: 10px;
@@ -494,6 +500,14 @@ header nav ul span.relative::before {
     background: black;
     z-index: -1;
 }
+.tablet_container div video {
+    top: 10px;
+    left: 7.5%;
+    width: calc(85%);
+    height: calc(100% - 30px);
+    border-radius: initial;
+}
+.tablet_container div img,
 .iphone_container div img {
     position: absolute;
     top: 50%;

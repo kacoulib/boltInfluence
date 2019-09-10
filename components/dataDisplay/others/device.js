@@ -6,9 +6,9 @@ import Video from '../../../components/elements/video'
 
 
 const DeviseComp = (props) => {
-    const { src, title, autoplay } = props
+    const { src, title, autoplay, deviceType } = props
     return (
-        <div className={`iphone_container ${props.extendClass}`}>
+        <div className={`${deviceType == 'tablet' ? 'tablet_container' : 'iphone_container'} ${props.extendClass ? props.extendClass : ''}`}>
             <div>
                 {src.includes('.mp4') ?
                     <Video autoplay={autoplay} src={src} title={title} />
@@ -41,7 +41,7 @@ const IphoneComp = (props) => {
 }
 
 const TabletComp = (props) => (
-    <DeviseComp {...props}>
+    <DeviseComp {...props} deviceType='tablet'>
         <img src={WhiteTablet} />
     </DeviseComp>
 )
