@@ -22,7 +22,7 @@ const Footer = () => (
 				</Grid>
 				<Grid item sm={4} xs={12}>
 					<ul id='follow-us'>
-						<li><Link href='/'><a title='home logo'><img src={logo} /></a></Link></li>
+						<li><Link href='/'><a title='home logo'><img src={logo} alt='Bolt influence logo' /></a></Link></li>
 						<li>Suivez nous</li>
 						<li><Socials /></li>
 					</ul>

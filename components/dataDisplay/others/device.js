@@ -13,7 +13,7 @@ const DeviseComp = (props) => {
                 {src.includes('.mp4') ?
                     <Video autoplay={autoplay} src={src} title={title} {...props} />
                     :
-                    <img src={src} title={title} />
+                    <img src={src} title={title} alt='' />
                 }
             </div>
             {props.children}
@@ -38,14 +38,14 @@ const IphoneComp = (props) => {
 
     return (
         <DeviseComp {...props} extendClass={extendClass}>
-            <img src={src} />
+            <img src={src} alt='' />
         </DeviseComp>
     )
 }
 
 const TabletComp = (props) => (
     <DeviseComp {...props} deviceType='tablet'>
-        <img src={WhiteTablet} />
+        <img src={WhiteTablet} alt='' />
     </DeviseComp>
 )
 export { IphoneComp, TabletComp }
