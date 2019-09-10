@@ -206,7 +206,7 @@ const Index = ({ faqs: { faqs } = {} } = {}) => {
 								</ExpansionPanelDetails>
 							</ExpansionPanel>
 						))}
-						<p className='text-right'><a className='red-color'>Montrer tout la FAQ</a></p>
+						<p className='text-right'><a className='red-color'>Montrer toute la FAQ</a></p>
 					</div>
 					<div>
 						<Link href='/contact'><a title='Contactez-nous' style={styles.contactUs}>Vous n’avez pas trouvé votre réponse ? Contactez-nous</a></Link>

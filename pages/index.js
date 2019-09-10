@@ -118,7 +118,7 @@ const Index = () => {
 			</div>
 			{/*  */}
 			<div className='text-center'>
-				<Grid container item style={styles.cardContainer} className='light-gray-bg responsive-container' >
+				<Grid container item style={styles.cardContainer} className='card-bg circle-blue reverse bottom light-gray-bg responsive-container' >
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center" >
 						<Grid item xs={12} sm={8} className='text-center'>
 							<h2><span className='black-bordered-head'>Data</span> et Technologie</h2>
