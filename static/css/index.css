@@ -197,7 +197,7 @@ li > a:only-child:after { content: ''; } */
 
 /* Media Queries
 --------------------------------------------- */
-header #socials > li {
+header .socials > li {
     width: 1rem;
     height: 1rem;
 }
@@ -751,14 +751,14 @@ header nav ul span.relative::before {
     font-weight: bold;
     color: #232941;
 }
-header #socials {
+header .socials {
     padding: 0;
 }
-#socials {
+.socials {
     text-align: center;
     padding: 0 0 1rem 0;
 }
-footer #socials {
+footer .socials {
     padding-top: 5px;
 }
 footer li {
@@ -766,15 +766,15 @@ footer li {
     color: #232941;
     font-size: 1.1rem;
 }
-#socials > li {
+.socials > li {
     width: 20px;
     height: 20px;
     margin: 0 .5rem;
 }
-#socials > li:first-child {
+.socials > li:first-child {
     margin-left: 0;
 }
-#socials > li:last-child {
+.socials > li:last-child {
     margin-right: 0;
 }
 #contact-us {
