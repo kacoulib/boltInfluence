@@ -57,11 +57,6 @@ const Index = () => {
 						</Grid>
 						<Grid item xs={12} sm={6} justify="center" alignItems="center" className='text-center'>
 							<TabletComp src="../static/video/bolt_influence.mp4" muted={true} />
-
-							{/* <img src='../static/img/ipad_with_photo.png' />
-							{/* <Video src="../static/video/engaging_media.mp4" /> */}
-							{/* <Video src="https://www.youtube.com/watch?v=R3n5VoY0yFw" /> */}
-
 						</Grid>
 					</Grid>
 				</div>
@@ -94,7 +89,9 @@ const Index = () => {
 						</Grid>
 					</Grid>
 					<Grid item xs={12} sm={6} className='text-center'>
-						<img src={Screen5} />
+						<TabletComp src="../static/video/bolt_influence.mp4" muted={true} />
+
+						{/* <img src={Screen5} /> */}
 					</Grid>
 				</Grid>
 			</div>
@@ -102,7 +99,9 @@ const Index = () => {
 			<div className='light-gray-bg'>
 				<Grid container item style={styles.cardContainer} className='card-bg lines-blue responsive-bg-opacity reverse-all right no-repeat responsive-reverse-order responsive-no-padding'>
 					<Grid item xs={12} sm={6} className='text-center responsive-container'>
-						<img src={Screen6} />
+						{/* <img src={Screen6} /> */}
+						<TabletComp src="../static/video/engaging_media.mp4" />
+
 					</Grid>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item container xs={12} sm={8} className='responsive-container'>

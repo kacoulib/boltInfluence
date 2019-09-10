@@ -62,7 +62,7 @@ const Header = () => (
 		<Grid container alignItems="center" justify="center">
 			<Grid container item sm={12} xs={12} direction="row" alignItems="center" justify="center" className='social-container-parent'>
 				<Grid item sm={6} xs={6}>
-					<div className='social-container pointer'><a href="mailto:contact@bolt-influence.com"><img src={mailIcon} style={styles.iconFlagFr} className='responsive-hide' /></a></div>
+					<div className='social-container pointer'><a href="mailto:contact@bolt-influence.com"><img src={mailIcon} style={styles.iconFlagFr} /></a></div>
 				</Grid>
 				<Grid item style={styleToolbarLink} sm={6} xs={6}>
 					<div className='social-container'><Socials   /*child={styles.socialList} */ /></div>
