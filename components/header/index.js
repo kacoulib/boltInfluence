@@ -62,16 +62,16 @@ const Header = () => (
 		<Grid container alignItems="center" justify="center">
 			<Grid container item sm={12} xs={12} direction="row" alignItems="center" justify="center" className='social-container-parent'>
 				<Grid item sm={6} xs={6}>
-					<div className='social-container pointer'><a href="mailto:contact@bolt-influence.com"><img src={mailIcon} style={styles.iconFlagFr} /></a></div>
+					<div className='social-container pointer'><a href="mailto:contact@bolt-influence.com" title='Send mail'><img src={mailIcon} style={styles.iconFlagFr} alt='Send mail' /></a></div>
 				</Grid>
 				<Grid item style={styleToolbarLink} sm={6} xs={6}>
 					<div className='social-container'><Socials   /*child={styles.socialList} */ /></div>
-					<div className='social-container pointer'><img src={iconFlagFr} style={styles.iconFlagFr} className='responsive-hide' /></div>
+					<div className='social-container pointer'><img src={iconFlagFr} style={styles.iconFlagFr} className='responsive-hide' alt='choose language' /></div>
 				</Grid>
 			</Grid>
 			<Grid container item sm={12} xs={12} alignItems="center" justify="center" id='menu-container'>
 				<Grid item align="center" sm={1} xs={3} id='menu-left'>
-					<Link href='/'><a title='home BoltInfluence'><img src={logo} id='logo' /></a></Link>
+					<Link href='/'><a title='home BoltInfluence'><img src={logo} id='logo' alt='Bolt influence' /></a></Link>
 				</Grid>
 				<Grid item align="center" sm={10} xs={6}>
 					<Grid container alignItems="center">

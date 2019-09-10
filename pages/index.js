@@ -101,10 +101,10 @@ const Index = () => {
 					<Grid container item style={styles.cardContainer}>
 						<Grid item xs={12} sm={6}>
 							<div className='relative inline-block'>
-								<img src='../static/img/localisation_ghost.png' className='move-in-circle move-left move-top' />
-								<img src='../static/img/localisation_photo.png' className='move-in-circle move-right move-top' />
-								<img src='../static/img/localisation_plane.png' className='move-in-circle move-left move-bottom' />
-								<img src='../static/img/localisation_smiley.png' className='move-in-circle move-right move-bottom' />
+								<img src='../static/img/localisation_ghost.png' alt='' className='move-in-circle move-left move-top' />
+								<img src='../static/img/localisation_photo.png' alt='' className='move-in-circle move-right move-top' />
+								<img src='../static/img/localisation_plane.png' alt='' className='move-in-circle move-left move-bottom' />
+								<img src='../static/img/localisation_smiley.png' alt='' className='move-in-circle move-right move-bottom' />
 								<IphoneComp deviceColor='black' src="../static/video/content_stractegy.mp4" />
 							</div>
 						</Grid>
