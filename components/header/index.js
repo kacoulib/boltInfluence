@@ -82,7 +82,6 @@ const Header = () => (
 								{displayMenuList(menuList, 0)}
 							</ul>
 						</nav>
-
 					</Grid>
 				</Grid>
 				<Grid item sm={1} xs={3} id='menu-right'>
