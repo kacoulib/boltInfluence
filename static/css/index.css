@@ -475,6 +475,7 @@ header nav ul span.relative::before {
 .iphone_container {
     position: relative;
     margin: auto;
+    max-width: 650px;
     z-index: 1;
 }
 .iphone_container {

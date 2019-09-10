@@ -56,26 +56,28 @@ const Index = () => {
 							</Grid>
 						</Grid>
 						<Grid item xs={12} sm={6} justify="center" alignItems="center" className='text-center'>
+							<img src={Screen5} />
 							{/* <Video src="../static/video/engaging_media.mp4" /> */}
-							<TabletComp src="../static/video/engaging_media.mp4" />
 						</Grid>
 					</Grid>
 				</div>
 			</div>
 			{/*  */}
-			<div>
-				<Grid container item style={styles.cardContainer} className='dots-blue-down no-repeat responsive-reverse-order responsive-no-padding'>
-					<Grid item xs={12} sm={6} className='text-center responsive-container'>
-						<img src={Screen6} />
-					</Grid>
-					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
-						<Grid item container xs={12} sm={8} className='responsive-container'>
-							<h2><span className='bordered-head'>Un média</span> engageant</h2>
-							<p className='justify'>Les vidéos rencontrent 36% d’engagement de plus que les photos sur Instagram et reçoivent en moyenne 2,1x de commentaires en plus.</p>
-							<p className='italic tiny-text'>*Etude : 17 instagram stats marketer needs to know in 2019 - Sprout Social.</p>
+			<div className='card-bg'>
+				<div style={styles.padding}>
+					<Grid container item style={styles.cardContainer} className='dots-blue-down no-repeat responsive-reverse-order responsive-no-padding'>
+						<Grid item xs={12} sm={6} className='text-center responsive-container'>
+							<TabletComp src="../static/video/engaging_media.mp4" />
+						</Grid>
+						<Grid item container xs={12} sm={6} justify="center" alignItems="center">
+							<Grid item container xs={12} sm={8} className='responsive-container'>
+								<h2><span className='bordered-head'>Un média</span> engageant</h2>
+								<p className='justify'>Les vidéos rencontrent 36% d’engagement de plus que les photos sur Instagram et reçoivent en moyenne 2,1x de commentaires en plus.</p>
+								<p className='italic tiny-text'>*Etude : 17 instagram stats marketer needs to know in 2019 - Sprout Social.</p>
+							</Grid>
 						</Grid>
 					</Grid>
-				</Grid>
+				</div>
 			</div>
 			{/*  */}
 			<div className='home-block-padding' style={styles.padding} className='card-bg dot-pink reverse no-repeat responsive-container'>
