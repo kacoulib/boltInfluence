@@ -518,6 +518,14 @@ header nav ul span.relative::before {
     z-index: -1;
 
 }
+
+.white-trending-iphone div video {
+    top: 132px;
+    height: calc(100% - 175px);
+    border-radius: 0;
+    width: calc(100% - 20px);
+    background: none;
+}
 #homeTextContainer {
     transform: translateY(-50%);
     line-height: 2rem;

@@ -157,6 +157,9 @@ const Index = () => {
 					padding: 2rem;
 					padding-left: 0;
 				}
+				h2 {
+					font-size: 1.7rem;
+				}
 				.card-spacing {
 					padding: 0 1rem;
 				}

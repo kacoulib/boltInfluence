@@ -22,16 +22,19 @@ const DeviseComp = (props) => {
 }
 
 const IphoneComp = (props) => {
-    let src, extendClass;
+    let src, extendClass = null;
 
     if (props.deviceColor == 'white')
         src = WhiteIphone;
-    else if (props.deviceColor == 'white-trending')
+    else if (props.deviceColor == 'white-trending') {
+        extendClass = 'white-trending-iphone';
         src = WhiteTrendingIphone;
+    }
     else
         src = BlackIphone;
 
-    extendClass = props.deviceColor.includes('white') ? 'white-iphone' : '';
+    if (!extendClass && props.deviceColor.includes('white'))
+        extendClass = 'white-iphone';
 
     return (
         <DeviseComp {...props} extendClass={extendClass}>
