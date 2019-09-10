@@ -100,7 +100,13 @@ const Index = () => {
 
 					<Grid container item style={styles.cardContainer}>
 						<Grid item xs={12} sm={6}>
-							<IphoneComp deviceColor='black' src="../static/video/content_stractegy.mp4" />
+							<div className='relative inline-block'>
+								<img src='../static/img/localisation_ghost.png' className='move-in-circle move-left move-top' />
+								<img src='../static/img/localisation_photo.png' className='move-in-circle move-right move-top' />
+								<img src='../static/img/localisation_plane.png' className='move-in-circle move-left move-bottom' />
+								<img src='../static/img/localisation_smiley.png' className='move-in-circle move-right move-bottom' />
+								<IphoneComp deviceColor='black' src="../static/video/content_stractegy.mp4" />
+							</div>
 						</Grid>
 						<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 							<Grid item xs={12} sm={8}>
@@ -210,6 +216,65 @@ const Index = () => {
 				}
 				h2 {
 					margin-top: 0;
+				}
+				.move-in-circle {
+					position: absolute;
+					width: 88px;
+
+					-webkit-animation: myOrbit 4s linear infinite;
+					-moz-animation: myOrbit 4s linear infinite;
+					-o-animation: myOrbit 4s linear infinite;
+					animation: myOrbit 4s linear infinite;
+				}
+				.move-top.move-left {
+					-webkit-animation: myOrbit 2s linear infinite;
+					-moz-animation: myOrbit 2s linear infinite;
+					-o-animation: myOrbit 2s linear infinite;
+					animation: myOrbit 2s linear infinite;
+				}
+				.move-bottom.move-left {
+					-webkit-animation: myOrbit 3s linear infinite;
+					-moz-animation: myOrbit 3s linear infinite;
+					-o-animation: myOrbit 3s linear infinite;
+					animation: myOrbit 3s linear infinite;
+				}
+				.move-bottom.move-right {
+					-webkit-animation: myOrbit 5s linear infinite;
+					-moz-animation: myOrbit 5s linear infinite;
+					-o-animation: myOrbit 5s linear infinite;
+					animation: myOrbit 5s linear infinite;
+				}
+
+				.move-top {
+					top: 80px;
+				}
+				.move-bottom {
+					bottom: 80px;
+				}
+				.move-left {
+					left: -80px;
+				}
+				.move-right {
+					right: -80px;
+				}
+				@-webkit-keyframes myOrbit {
+					from { -webkit-transform: rotate(0deg) translateX(10px) rotate(0deg); }
+					to   { -webkit-transform: rotate(360deg) translateX(10px) rotate(-360deg); }
+				}
+
+				@-moz-keyframes myOrbit {
+					from { -moz-transform: rotate(0deg) translateX(10px) rotate(0deg); }
+					to   { -moz-transform: rotate(360deg) translateX(10px) rotate(-360deg); }
+				}
+
+				@-o-keyframes myOrbit {
+					from { -o-transform: rotate(0deg) translateX(10px) rotate(0deg); }
+					to   { -o-transform: rotate(360deg) translateX(10px) rotate(-360deg); }
+				}
+
+				@keyframes myOrbit {
+					from { transform: rotate(0deg) translateX(10px) rotate(0deg); }
+					to   { transform: rotate(360deg) translateX(10px) rotate(-360deg); }
 				}
 			`}</style>
 		</div>
