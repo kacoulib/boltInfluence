@@ -4,7 +4,7 @@ import { FormElementWrapper } from './index'
 import { useState } from "react";
 import PropTypes from 'prop-types'
 
-const UploadImageComp = ({ name, value, onChange, label, showLabel }) => {
+const UploadImageComp = ({ name, value, onChange, label, showLabel, props }) => {
     const [state, setState] = useState({
         imageUpdated: false,
         imagePreviewUrl: value || defaultUserImage
@@ -27,7 +27,7 @@ const UploadImageComp = ({ name, value, onChange, label, showLabel }) => {
         imagePreviewUrl = value;
     return (
         <FormElementWrapper label={label} showLabel={showLabel}>
-            <div className="upload-container">
+            <div className="upload-container" {...props}>
                 <div className="upload inline-block">
                     <img
                         src={imagePreviewUrl}
