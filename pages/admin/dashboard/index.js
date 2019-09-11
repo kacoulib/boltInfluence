@@ -11,52 +11,48 @@ import { getInfluencerList } from '../../../lib/api/http/admin'
 
 
 const CustomerIndex = (props) => {
-    const [data, setData] = useState({
+    const [state, setState] = useState({
+        navTitle: null,
+
         subscribedInfluencer: 22300, waitingInfluencer: 32300,
         subscribedMarque: 18068, waitingMarque: 5647,
         subscribedCampagne: 5435, waitingCampagne: 6453,
 
         influencersList: [{ _id: '5483752', firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'Inscrit' },],
-        selectedInfluencer: null
+        selectedInfluencer: { _id: '5483752', firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'Inscrit' }
     });
 
     const loadMore = () => {
-        const tmp = data.influencersList.push({ _id: '5483752', firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'En attente de confirmation' },
-            { _id: '5483752', firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'Inscrit' },
+        const tmp = state.influencersList.push({ _id: '5483752', firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'En attente de confirmation' },
+            { _id: '5483752', bio: 'sdfsdfdsf', firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'Inscrit' },
         )
-        setData(Object.assign({}, data, { influencersList: data.influencersList }))
+        setState(Object.assign({}, state, { influencersList: state.influencersList }))
     }
 
     const selectInfluencer = (id) => {
-        const elem = data.influencersList.find((e) => e._id == id);
-        setData(Object.assign({}, data, { selectedInfluencer: elem }))
+        const elem = state.influencersList.find((e) => e._id == id);
+        setState(Object.assign({}, state, { selectedInfluencer: elem }))
     }
 
-    // useEffect(() => {
-    //     getInfluencerList()
-    //         .then(res => {
-    //             const tmp = Object.assign({}, data, { influencersList: res.influencers })
-    //             setData(tmp);
-
-    //             console.log(tmp)
-    //         })
-    // }, [])
+    const onChange = (name, value) => setState({ ...state, [name]: value })
+    const setNavTitle = (value) => onChange('navTitle', value);
     const navList = [
         {
             href: 'home', className: 'icon home', text: 'Acceuil', page: <Home
                 datas={{
-                    subscribedInfluencer: data.subscribedInfluencer, waitingInfluencer: data.waitingInfluencer,
-                    subscribedMarque: data.subscribedMarque, waitingMarque: data.waitingMarque,
-                    subscribedCampagne: data.subscribedCampagne, waitingCampagne: data.waitingCampagne,
+                    subscribedInfluencer: state.subscribedInfluencer, waitingInfluencer: state.waitingInfluencer,
+                    subscribedMarque: state.subscribedMarque, waitingMarque: state.waitingMarque,
+                    subscribedCampagne: state.subscribedCampagne, waitingCampagne: state.waitingCampagne,
                 }}
             />
         },
         {
             href: 'account', className: 'icon account', text: 'Influencers', page: <Influencers
-                datas={data.influencersList}
-                selectedInfluencer={data.selectedInfluencer}
+                datas={state.influencersList}
+                selectedInfluencer={state.selectedInfluencer}
                 loadMore={loadMore}
                 selectInfluencer={selectInfluencer}
+                setNavTitle={setNavTitle}
             />,
         },
         { href: 'publish', className: 'icon feed', text: 'Marques & Agences', page: <Publish />, },
@@ -66,6 +62,7 @@ const CustomerIndex = (props) => {
         <NavPanel
             navList={navList}
             index={1}
+            navTitle={state.navTitle}
         />
     )
 }

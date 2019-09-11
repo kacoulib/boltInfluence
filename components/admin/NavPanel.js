@@ -4,11 +4,17 @@ import PropTypes from 'prop-types'
 import Grid from '@material-ui/core/Grid';
 import Link from 'next/link';
 
-const NavPanel = ({ navList, index = 0 }) => {
+const containerStyle = {
+    padding: '0 3em'
+}
+
+
+const NavPanel = ({ navList, index = 0, navTitle = null }) => {
     let [state, setState] = useState({
         index,
         showSubMenu: false,
         subMenuIndex: index,
+        navTitle
     }),
         nav = navList[state.index] && navList[state.index].subMenu ? navList[state.index].subMenu.navList : navList,
         currentComp;
@@ -20,13 +26,22 @@ const NavPanel = ({ navList, index = 0 }) => {
 
     const setNavigation = (index, hasSubMenu) => {
         if (state.showSubMenu)
-            setState({ index: state.index, showSubMenu: state.showSubMenu, subMenuIndex: index })
+            setState({ index: state.index, showSubMenu: state.showSubMenu, subMenuIndex: index, navTitle: state.navTitle })
         else
-            setState({ index, showSubMenu: hasSubMenu || state.showSubMenu, subMenuIndex: 0 })
+            setState({ index, showSubMenu: hasSubMenu || state.showSubMenu, subMenuIndex: 0, navTitle: state.navTitle })
     }
+
     console.log(index)
     return (
         <div id='process'>
+            <Grid container className='top-menu'>
+                <Grid item xs={12} sm={3}>
+                    <div className='top-menu-title pointer'>Admin</div>
+                </Grid>
+                <Grid item xs={12} sm={9} container style={containerStyle}>
+                    <div className='top-title red-color'>{state.navTitle}</div>
+                </Grid>
+            </Grid>
             <Grid container>
                 {state.showSubMenu && <Grid item xs={12} sm={12}>
                     <Grid container>
@@ -53,7 +68,7 @@ const NavPanel = ({ navList, index = 0 }) => {
                         })}
                     </ul>
                 </Grid>
-                <Grid item xs={12} sm={9} container>
+                <Grid item xs={12} sm={9} container style={containerStyle}>
                     {currentComp}
                 </Grid>
             </Grid>

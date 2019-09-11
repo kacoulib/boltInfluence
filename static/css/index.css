@@ -407,10 +407,25 @@ header nav ul span.relative::before {
     background-repeat: no-repeat;
     background-position: top right;
 }
-#process-nav, #subMenuTitle {
+#process-nav,
+#subMenuTitle
+{
     padding-left: 2rem;
     cursor: pointer;
 }
+.top-menu {
+    padding-bottom: 2rem;
+}
+.top-menu-title {
+    padding-left: 2.4rem;
+}
+.top-menu-title, 
+.top-title
+{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
 #subMenuTitle {
     position: relative;
     top: -.5rem;
@@ -842,6 +857,18 @@ footer li {
 }
 
 /* OTHER */
+.btn-container {
+    margin: 2rem 0;
+}
+.btn-container.font-initial a {
+    font-weight: initial;
+}
+.btn-container.half-width a {
+    width: 50%;
+}
+.bottom-border {
+    border-bottom: 1px solid #D8D8D8;
+}
 .star-container li {
     display: inline-block;
     cursor: pointer;
@@ -1004,6 +1031,12 @@ header .triangle {
 }
 .relative {
     position: relative;
+}
+.no-margin-top {
+    margin-top: 0!important;
+}
+.no-margin-bottom {
+    margin-bottom: 0!important;
 }
 .no-margin {
     margin: 0;

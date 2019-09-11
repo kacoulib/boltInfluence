@@ -62,7 +62,7 @@ const styles = theme => ({
 
 const FormGenerator = ({ fields, classes, state, onChange, toggleList, settings = {}, errors = [], align = 'center' }) => {
 
-    const textTypes = ['input', 'password', 'email', 'number', 'textarea', 'date', 'datetime-local'],
+    const textTypes = ['input', 'text', 'password', 'email', 'number', 'textarea', 'date', 'datetime-local'],
         selectTypes = ['select'],
         spacing = 4,
         defaultDimension = { xs: 12 };
