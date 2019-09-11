@@ -16,10 +16,9 @@ const CustomerIndex = (props) => {
         subscribedMarque: 18068, waitingMarque: 5647,
         subscribedCampagne: 5435, waitingCampagne: 6453,
 
-        influencersList: [],
+        influencersList: [{ _id: '5483752', firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'Inscrit' },],
         selectedInfluencer: null
     });
-    const index = 1;
 
     const loadMore = () => {
         const tmp = data.influencersList.push({ _id: '5483752', firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'En attente de confirmation' },
@@ -66,7 +65,7 @@ const CustomerIndex = (props) => {
     return (
         <NavPanel
             navList={navList}
-            index={index}
+            index={1}
         />
     )
 }

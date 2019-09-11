@@ -845,6 +845,11 @@ footer li {
 .star-container li {
     display: inline-block;
     cursor: pointer;
+    padding: 0 2px;
+}
+.star-container li path{
+    stroke: none;
+    fill: #797979;
 }
 .star-container li.active path {
     fill: #FAE18C;

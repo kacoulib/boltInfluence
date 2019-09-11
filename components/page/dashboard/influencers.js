@@ -1,9 +1,9 @@
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types'
-import Stars from '../../../static/img/icon/stars.png'
 import InfluenceurJones from '../../../static/img/pictures/influencer_jones.png'
 import Button from '@material-ui/core/Button';
 import InflencerDetail from './influencer-detail'
+import StarsComp from '../../../components/dataDisplay/star'
 
 
 const cardContainer = {
@@ -21,41 +21,53 @@ const styles = {
     status: { color: '#F13F4B' },
     stars: { width: '50%' },
     influencer_img_container: { height: 'auto', paddingTop: 5 },
-    influencer_info_container: { padding: '1rem' },
+    influencer_info_container: { padding: '0 1rem' },
 }
 
 const Index = ({ datas, selectedInfluencer, selectInfluencer, loadMore }) => {
-    console.log(selectedInfluencer)
     if (selectedInfluencer)
         return (<InflencerDetail selectedInfluencer={selectedInfluencer} />);
+
     return (
         <Grid container alignItems='center' justify="center" style={styles.container} >
             <Grid item xs={12} sm={12} style={styles.childContainer}>
                 <h2>Influenceurs</h2>
                 {datas && datas.map((elem, i) => (
-                    <Grid key={i} container alignItems='center' justify="center" className='influencers_list'>
-                        <Grid item xs={4} sm={4} className='center-text' style={styles.influencer_img_container}>
+                    <Grid key={i} container alignItems="stretch" justify="center" className='influencers_list'>
+                        <Grid item xs={4} sm={4} className='center-text'>
                             <div className='influencers_img' style={{ backgroundImage: "url(" + InfluenceurJones + ")" }}><div></div>
                                 <img src={InfluenceurJones} />
                             </div>
                         </Grid>
-                        <Grid item xs={8} sm={8} style={styles.influencer_info_container}>
-                            <div>
-                                <Grid key={i} container alignItems='center' justify="center" >
-                                    <Grid item xs={4} sm={4}><img src={Stars} style={styles.stars} /></Grid>
-                                    <Grid item xs={4} sm={4} className='text-center'><span>{`${elem.firstName} ${elem.lastName}`}</span></Grid>
-                                    <Grid item xs={4} sm={4} className='text-right'><span className='icon write pointer' onClick={() => selectInfluencer(elem._id)}></span></Grid>
+                        <Grid item container xs={8} sm={8} justify="space-between" style={styles.influencer_info_container}>
+                            <Grid item container alignItems='center' justify="center" xs={12} sm={12}>
+                                <Grid item xs={4} sm={4}>
+                                    <StarsComp selected={1} />
                                 </Grid>
-                            </div>
-                            <div>ID : {elem._id}</div>
-                            <div>Email : {elem.email}</div>
-                            <div>Numéro de téléphone : {elem.phone}</div>
-                            <div style={styles.status} className='center-text'>{elem.status}</div>
+                                <Grid item xs={4} sm={4} className='text-center'><span>{`${elem.firstName} ${elem.lastName}`}</span></Grid>
+                                <Grid item xs={4} sm={4} className='text-right'><span className='icon write pointer' onClick={() => selectInfluencer(elem._id)}></span></Grid>
+                            </Grid>
+
+                            <Grid item xs={12} sm={12}>
+                                <p>ID : {elem._id}</p>
+                                <p>Email : {elem.email}</p>
+                                <p>Numéro de téléphone : {elem.phone}</p>
+                            </Grid>
+
+                            <Grid item xs={12} sm={12}>
+                                <p style={styles.status} className='center-text'>{elem.status}</p>
+                            </Grid>
                         </Grid>
                     </Grid>
                 ))}
             </Grid>
             <Button onClick={() => loadMore()}>More</Button>
+            <style jsx>{`
+                p {
+                    margin: 0;
+                    font-size: 1rem;
+                }
+            `}</style>
         </ Grid>
     )
 }
