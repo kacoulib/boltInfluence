@@ -6,6 +6,7 @@ import { buttonStyle } from '../../../utils/variables/css';
 import { choiceList } from '../../../utils/variables/general'
 import { userInfoFields, userAcountFields, userPaymentFields } from '../../formElement/fields/admin/influencer-detail'
 import Btn from '../../elements/btn'
+import TableComp, { buildTableIcon } from '../../dataDisplay/table'
 
 const cardContainer = {
     padding: '1rem',
@@ -82,6 +83,23 @@ const Index = ({ selectedInfluencer }) => {
                     settings={{ showLabel: { xs: 6 } }}
                 />
             </Grid>
+            <Grid item xs={6}>Paiements en attente</Grid>
+            <Grid item xs={6}>
+                <div className='table-container'>
+                    <TableComp
+
+                        heads={['Campagne', 'Date', 'Total']}
+
+                        rows={[
+                            ['Cartier', '23_30 Juin 2019', '264.00 €'],
+                            ['Cartier', '23_30 Juin 2019', '264.00 €'],
+                            ['Cartier', '23_30 Juin 2019', '264.00 €'],
+                            ['Cartier', '23_30 Juin 2019', '264.00 €'],
+                            ['Cartier', '23_30 Juin 2019', '264.00 €'],
+                        ]}
+                    />
+                </div>
+            </Grid>
             <Grid item xs={12}>
                 <div className='text-center btn-container half-width'>
                     <Btn href="#contact-us" text="Mettre à jour" onClick={() => onSubmit()} />
@@ -90,6 +108,9 @@ const Index = ({ selectedInfluencer }) => {
             <style jsx>{`
                 h2 {
                     margin: 2rem 0;
+                }
+                .table-container {
+                    margin-top: 30px;
                 }
             `}</style>
         </ Grid>

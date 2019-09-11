@@ -339,12 +339,13 @@ header nav ul span.relative::before {
 
 }
 @media all and (max-width : 330px) {
-
 	nav ul li {
 		display:block;
 		width: 94%;
 	}
-
+}
+table {
+    min-width: auto!important;
 }
 .sonar-wrapper {
     position: relative;
@@ -412,6 +413,14 @@ header nav ul span.relative::before {
 {
     padding-left: 2rem;
     cursor: pointer;
+}
+#process-nav g,
+#process-nav path {
+    fill: #252b40;
+}
+#process-nav .active g,
+#process-nav .active path {
+    fill: #F13F4B;
 }
 .top-menu {
     padding-bottom: 2rem;
@@ -857,6 +866,12 @@ footer li {
 }
 
 /* OTHER */
+.table-head {
+    font-size: 1rem;
+}
+.table-content {
+    font-size: .8rem;
+}
 .btn-container {
     margin: 2rem 0;
 }
@@ -865,6 +880,7 @@ footer li {
 }
 .btn-container.half-width a {
     width: 50%;
+    max-width: 400px;
 }
 .bottom-border {
     border-bottom: 1px solid #D8D8D8;
@@ -886,6 +902,7 @@ svg {
     width: 100%;
     height: 100%;
 }
+
 .svg-g-fill-white g,
 .svg-path-fill-white path {
     fill: white;
@@ -1280,9 +1297,22 @@ button.submit {
 .icon-linkedin .icon{
     background-image: url('../img/icon/btn-linkedin.png');
 }
+.icon-blue-flash .icon{
+    background-image: url('../img/icon/blue-flash.png');
+}
+.icon-blue-time .icon{
+    background-image: url('../img/icon/blue-time.png');
+}
+.icon-ring .icon{
+    background-image: url('../img/icon/ring.png');
+}
 .icon-blog .icon{
     background-image: url('../img/icon/btn-blog.png');
 }
+.icon-valide-red .icon{
+    background-image: url('../img/icon/valide-red.png');
+}
+
 /*  */
 .valide-black {
     background-image: url('../img/icon/valide-black.png');

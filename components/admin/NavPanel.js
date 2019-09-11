@@ -31,7 +31,6 @@ const NavPanel = ({ navList, index = 0, navTitle = null }) => {
             setState({ index, showSubMenu: hasSubMenu || state.showSubMenu, subMenuIndex: 0, navTitle: state.navTitle })
     }
 
-    console.log(index)
     return (
         <div id='process'>
             <Grid container className='top-menu'>
@@ -58,7 +57,7 @@ const NavPanel = ({ navList, index = 0, navTitle = null }) => {
                             return (
                                 <li key={i}>
                                     <Link prefetch href={`#${e.href}`}>
-                                        <a className={i == currentIndex ? 'orange-color' : 'gray-color'} onClick={() => setNavigation(i, !!e.subMenu)}>
+                                        <a className={i == currentIndex ? 'orange-color active' : 'gray-color'} onClick={() => setNavigation(i, !!e.subMenu)}>
                                             <span className={e.className}></span>
                                             <span>{e.text}</span>
                                         </a>

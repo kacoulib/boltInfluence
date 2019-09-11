@@ -6,6 +6,10 @@ import Home from '../../../components/page/dashboard/index';
 import Influencers from '../../../components/page/dashboard/influencers';
 import Publish from '../../../components/page/process/publish';
 import PostValidate from '../../../components/page/process/post-validate';
+import HomeIcon from '../../../static/img/icon/home.svg';
+import AccountIcon from '../../../static/img/icon/account.svg';
+import FeedIcon from '../../../static/img/icon/feed.svg';
+import CampagneIcon from '../../../static/img/icon/campagne.svg';
 import { getInfluencerList } from '../../../lib/api/http/admin'
 
 
@@ -38,7 +42,9 @@ const CustomerIndex = (props) => {
     const setNavTitle = (value) => onChange('navTitle', value);
     const navList = [
         {
-            href: 'home', className: 'icon home', text: 'Acceuil', page: <Home
+            href: 'home', className: 'icon home', text: 'Acceuil',
+            icon: <HomeIcon />,
+            page: <Home
                 datas={{
                     subscribedInfluencer: state.subscribedInfluencer, waitingInfluencer: state.waitingInfluencer,
                     subscribedMarque: state.subscribedMarque, waitingMarque: state.waitingMarque,
@@ -47,7 +53,9 @@ const CustomerIndex = (props) => {
             />
         },
         {
-            href: 'account', className: 'icon account', text: 'Influencers', page: <Influencers
+            href: 'account', className: 'icon account', text: 'Influencers',
+            icon: <AccountIcon />,
+            page: <Influencers
                 datas={state.influencersList}
                 selectedInfluencer={state.selectedInfluencer}
                 loadMore={loadMore}
@@ -55,8 +63,8 @@ const CustomerIndex = (props) => {
                 setNavTitle={setNavTitle}
             />,
         },
-        { href: 'publish', className: 'icon feed', text: 'Marques & Agences', page: <Publish />, },
-        { href: 'post-validate', className: 'icon post', text: 'Campagne', page: <PostValidate />, },
+        { href: 'publish', className: 'icon feed', text: 'Marques & Agences', icon: <FeedIcon />, page: <Publish />, },
+        { href: 'post-validate', className: 'icon post', text: 'Campagne', icon: <CampagneIcon />, page: <PostValidate />, },
     ]
     return (
         <NavPanel
