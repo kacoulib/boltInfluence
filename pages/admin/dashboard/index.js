@@ -4,6 +4,7 @@ import NavPanel from '../../../components/admin/NavPanel';
 
 import Home from '../../../components/page/dashboard/index';
 import Influencers from '../../../components/page/dashboard/influencers';
+import Marques from '../../../components/page/dashboard/marques';
 import Publish from '../../../components/page/process/publish';
 import PostValidate from '../../../components/page/process/post-validate';
 import HomeIcon from '../../../static/img/icon/home.svg';
@@ -23,19 +24,31 @@ const CustomerIndex = (props) => {
         subscribedCampagne: 5435, waitingCampagne: 6453,
 
         influencersList: [{ _id: '5483752', firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'Inscrit' },],
-        selectedInfluencer: { _id: '5483752', firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'Inscrit' }
+        selectedInfluencer: { _id: '5483752', firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'Inscrit' },
+
+        marquesList: [{ _id: '5483752', isActif: true, firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'Inscrit' },],
+        selectedMarque: null
     });
 
-    const loadMore = () => {
-        const tmp = state.influencersList.push({ _id: '5483752', firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'En attente de confirmation' },
+    const loadMore = (name) => () => {
+        const tmp = state[name].push({ _id: '5483752', firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'En attente de confirmation' },
             { _id: '5483752', bio: 'sdfsdfdsf', firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'Inscrit' },
         )
-        setState(Object.assign({}, state, { influencersList: state.influencersList }))
+        setState(Object.assign({}, state, { [name]: state[name] }))
     }
 
     const selectInfluencer = (id) => {
         const elem = state.influencersList.find((e) => e._id == id);
         setState(Object.assign({}, state, { selectedInfluencer: elem }))
+    }
+
+    const setSelection = name => id => {
+        const elem = state[name].find((e) => e._id == id);
+        const e = {
+            influencersList: 'selectedInfluencer',
+            marquesList: 'selectedMarque',
+        }
+        setState(Object.assign({}, state, { [e[name]]: elem }))
     }
 
     const onChange = (name, value) => setState({ ...state, [name]: value })
@@ -58,18 +71,28 @@ const CustomerIndex = (props) => {
             page: <Influencers
                 datas={state.influencersList}
                 selectedInfluencer={state.selectedInfluencer}
-                loadMore={loadMore}
+                loadMore={loadMore('influencersList')}
                 selectInfluencer={selectInfluencer}
                 setNavTitle={setNavTitle}
             />,
         },
-        { href: 'publish', className: 'icon feed', text: 'Marques & Agences', icon: <FeedIcon />, page: <Publish />, },
+        {
+            href: 'publish', className: 'icon feed', text: 'Marques & Agences',
+            icon: <FeedIcon />,
+            page: <Marques
+                datas={state.marquesList}
+                setSelection={setSelection('marquesList')}
+                loadMore={loadMore('marquesList')}
+                selectedElem={state.selectedMarque}
+                setNavTitle={setNavTitle}
+            />,
+        },
         { href: 'post-validate', className: 'icon post', text: 'Campagne', icon: <CampagneIcon />, page: <PostValidate />, },
     ]
     return (
         <NavPanel
             navList={navList}
-            index={1}
+            index={2}
             navTitle={state.navTitle}
         />
     )

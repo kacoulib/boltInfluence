@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 import FormGenerator from '../../formElement/generator'
 import { buttonStyle } from '../../../utils/variables/css';
 import { choiceList } from '../../../utils/variables/general'
-import { userInfoFields, userAcountFields, userPaymentFields } from '../../formElement/fields/admin/influencer-detail'
+import { userInfoFields, userAcountFields, marquePaymentFields } from '../../formElement/fields/admin/marque-detail'
 import Btn from '../../elements/btn'
-import TableComp from '../../dataDisplay/table'
+import TableComp, { buildTableIcon } from '../../dataDisplay/table'
 
 const cardContainer = {
     padding: '1rem',
@@ -26,9 +26,9 @@ const styles = {
     influencer_info_container: { padding: '1rem' },
 }
 
-const Index = ({ selectedInfluencer }) => {
+const Index = ({ selectedElem }) => {
 
-    const [state, setState] = useState(selectedInfluencer)
+    const [state, setState] = useState(selectedElem)
 
     const onChange = (name, value) => {
         console.log(name, value)
@@ -54,37 +54,42 @@ const Index = ({ selectedInfluencer }) => {
                 />
             </Grid>
             <Grid item xs={12} sm={12}>
-                <h2 className='bottom-border'>Information de compte</h2>
+                <h2 className='bottom-border'>Information de paiement</h2>
             </Grid>
             <Grid item xs={12} sm={12}>
                 <FormGenerator
-                    fields={userAcountFields}
+                    fields={marquePaymentFields}
                     state={state}
                     onChange={onChange}
                     onSubmit={onSubmit}
                     settings={{ showLabel: { xs: 6 } }}
                 />
                 <div className='text-center btn-container half-width font-initial no-margin-bottom'>
-                    <Btn href="#contact-us" text="Changer de mot de passe" onClick={() => onSubmit()} />
                     <div>
-                        <a className='red-color italic tiny-text'>Supprimer compte</a>
+                        <a className='red-color italic tiny-text'>Arrêter l'abonnement  (30 jours)</a>
                     </div>
+                    <Btn href="#contact-us" text="Mettre à jour" onClick={() => onSubmit()} />
                 </div>
             </Grid>
-            <Grid item xs={12} sm={12}>
-                <h2 className='bottom-border'>Information de paiement</h2>
+            <Grid item xs={12}>
+                <div>Paiements en attente</div>
+                <div className='table-container'>
+                    <TableComp
+
+                        heads={['Campagne', 'Date', 'Total', 'Status', 'Action']}
+
+                        rows={[
+                            ['Cartier', '23_30 Juin 2019', '264.00 €', buildTableIcon(['time']), buildTableIcon(['flash', 'ring'])],
+                            ['Cartier', '23_30 Juin 2019', '264.00 €', buildTableIcon(['time']), buildTableIcon(['flash', 'ring'])],
+                            ['Cartier', '23_30 Juin 2019', '264.00 €', buildTableIcon(['valid']), ''],
+                            ['Cartier', '23_30 Juin 2019', '264.00 €', buildTableIcon(['valid']), ''],
+                            ['Cartier', '23_30 Juin 2019', '264.00 €', buildTableIcon(['valid']), ''],
+                        ]}
+                    />
+                </div>
             </Grid>
-            <Grid item xs={12} sm={12}>
-                <FormGenerator
-                    fields={userPaymentFields}
-                    state={state}
-                    onChange={onChange}
-                    onSubmit={onSubmit}
-                    settings={{ showLabel: { xs: 6 } }}
-                />
-            </Grid>
-            <Grid item xs={6}>Paiements en attente</Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
+                <div>Paiements Bolt</div>
                 <div className='table-container'>
                     <TableComp
 
@@ -100,11 +105,6 @@ const Index = ({ selectedInfluencer }) => {
                     />
                 </div>
             </Grid>
-            <Grid item xs={12}>
-                <div className='text-center btn-container half-width'>
-                    <Btn href="#contact-us" text="Mettre à jour" onClick={() => onSubmit()} />
-                </div>
-            </Grid>
             <style jsx>{`
                 h2 {
                     margin: 2rem 0;
@@ -117,7 +117,7 @@ const Index = ({ selectedInfluencer }) => {
     )
 }
 Index.propTypes = {
-    selectedInfluencer: PropTypes.object.isRequired,
+    selectedElem: PropTypes.object.isRequired,
 }
 
 export default Index;
