@@ -47,19 +47,19 @@ const OptionsDisplay = ({ options, date, id, handleOption }) => (
     </div>
 )
 
-const MessageDisplay = ({ selected = null, messages = [], offset = 0, limit = 0, nb_message = 0, handleSelection, handlePaginate, handleOption }) => (
+const MessageDisplay = ({ selected = null, messages = [], offset = 0, limit = 0, nb_message = 0, handleSelection, handlePaginate, handleOption, showOptions }) => (
     <Grid container id="tchat" alignItems='flex-start'>
         <Grid item container sm={4} justify="space-between" direction="column" className='fullheight'>
             <Grid item container className='tchat-list-container'>
                 {messages && messages.map((elem, index) => (
                     <Grid item container key={index} sm={12} className={`tchat-list ${elem.status} ${selected._id == elem._id ? 'selected' : ''}`} onClick={() => handleSelection('selected_id', elem._id)}>
                         <Grid item container alignItems='center'>
-                            <Grid item container sm={7}>
+                            <Grid item container sm={!showOptions ? 12 : 7}>
                                 <h2>{`${elem.user.firstName} ${elem.user.lastName}`}</h2>
                             </Grid>
-                            <Grid item sm={5} className='list-message'>
+                            {showOptions ? <Grid item sm={5} className='list-message'>
                                 <OptionsDisplay options={elem.options} date={elem.date} id={elem._id} handleOption={handleOption} />
-                            </Grid>
+                            </Grid> : ''}
                         </Grid>
                         <Grid>
                             <div className='message-trucate'>
@@ -89,7 +89,7 @@ const MessageDisplay = ({ selected = null, messages = [], offset = 0, limit = 0,
                 {selected && <>
                     <Grid container>
                         <Grid item container alignItems='center' className='tchat-header'>
-                            <Grid item container alignItems='center' sm={7}>
+                            <Grid item container alignItems='center' sm={!showOptions ? 12 : 7}>
                                 {selected.user && <>
                                     <Grid item>
                                         <img src={selected.user.img} />
@@ -102,9 +102,9 @@ const MessageDisplay = ({ selected = null, messages = [], offset = 0, limit = 0,
                                     </Grid>
                                 </>}
                             </Grid>
-                            <Grid item sm={5}>
+                            {showOptions ? <Grid item sm={5}>
                                 <OptionsDisplay options={selected.options} date={selected.date} id={selected._id} handleOption={handleOption} />
-                            </Grid>
+                            </Grid> : ''}
                         </Grid>
                         <Grid item>
                             <div>
@@ -131,7 +131,7 @@ const MessageDisplay = ({ selected = null, messages = [], offset = 0, limit = 0,
     </Grid>
 )
 
-const MessageComp = ({ }) => {
+const MessageComp = ({ showOptions = false }) => {
     const [state, setState] = useState({
         selected_id: 1,
         offset: 1,
@@ -266,6 +266,7 @@ const MessageComp = ({ }) => {
             handleSelection={handleSelection}
             handlePaginate={handlePaginate}
             handleOption={handleOption}
+            showOptions={showOptions}
             {...state}
         />
     )
