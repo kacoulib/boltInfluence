@@ -7,6 +7,7 @@ import { choiceList } from '../../../utils/variables/general'
 import { marqueInformationsFields, marquePaymentFields } from '../../formElement/fields/admin/marque-detail'
 import Btn from '../../elements/btn'
 import TableComp, { buildTableIcon } from '../../dataDisplay/table'
+import Popup from '../../dataDisplay/others/popup'
 
 const cardContainer = {
     padding: '1rem',
@@ -31,11 +32,12 @@ const settings = { showLabel: { xs: 6 } }
 
 const Index = ({ selectedElem }) => {
 
-    const [state, setState] = useState({ ...selectedElem, currentView: 0 })
+    const [state, setState] = useState({ ...selectedElem, currentView: 0, modal: false })
 
     const onChange = (name, value) => setState({ ...state, ...{ [name]: value } })
 
     const onSubmit = async () => {
+
         console.log(state)
     };
     const marqueInfoFields = [
@@ -123,7 +125,7 @@ const Index = ({ selectedElem }) => {
                             <div>
                                 <a className='red-color italic tiny-text'>Arrêter l'abonnement  (30 jours)</a>
                             </div>
-                            <Btn href="#contact-us" text="Mettre à jour" onClick={() => onSubmit()} />
+                            <Btn href="#contact-us" text="Mettre à jour" onClick={() => onChange('modal', true)} />
                         </div>
                     </Grid>
                     <Grid item xs={12}>
@@ -161,14 +163,54 @@ const Index = ({ selectedElem }) => {
                         </div>
                     </Grid>
                 </>}
+
+            <Popup open={state.modal} handleClose={() => onChange('modal', false)}>
+                <h2 className='modal-head'><div className='inline-block icon-blue-flash'><span className='icon'></span></div>Relance de paiement pour la campagne L’Oréal</h2>
+                <div className='custom-container'>
+                    <p>Lorem ipsum,</p>
+
+                    <p>dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit, molestie sit amet pretium consectetur, mollis at risus.</p>
+
+                    <p>Pellentesque eget lacus iaculis, sagittis arcu lacinia, consectetur velit. Nam id risus lectus. Donec et nisl malesuada, faucibus urna ultrices, blandit libero.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit, molestie sit amet pretium consectetur, mollis at risus.</p>
+
+                    <p>Merci,</p>
+
+                    <p>L’équipe Bolt Influence</p>
+                </div>
+                <div className='btn-container'>
+                    <div className='inline-block'><a onClick={() => onChange('modal', false)}> Annuler </a></div>
+                    <div className='inline-block'><Btn text="Envoyer" onClick={() => onChange('modal', false)} /></div>
+                </div>
+            </Popup>
             <style jsx>{`
-                h2 {
-                    margin: 2rem 0;
-                }
-                .table-container {
-                    margin-top: 30px;
-                }
-            `}</style>
+                        h2 {
+                            margin: 2rem 0;
+                        }
+                        h2.modal-head {
+                            color: black;
+                            text-align: right;
+                        }
+                        .table-container {
+                            margin-top: 30px;
+                        }
+                        .icon-blue-flash {
+                            padding-right: 1rem;
+                        }
+                        .btn-container {
+                            padding-top: 1rem;
+                            text-align: right;
+                        }
+                        .btn-container > div {
+                            padding-left: 2rem;
+                        }
+                        .custom-container {
+                            background: white;
+                            color: black;
+                            border-radius: 5px;
+                            padding: 1rem;
+                        }
+                    `}</style>
         </ Grid>
     )
 }

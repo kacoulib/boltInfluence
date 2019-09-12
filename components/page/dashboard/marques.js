@@ -28,7 +28,6 @@ const Index = ({ datas, selectedElem, setSelection, loadMore }) => {
     if (selectedElem)
         return (<Detail selectedElem={selectedElem} />);
 
-    console.log(selectedElem)
     return (
         <Grid container alignItems='center' justify="center" style={styles.container} >
             <Grid item xs={12} sm={12} style={styles.childContainer}>
