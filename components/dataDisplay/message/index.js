@@ -131,7 +131,7 @@ const MessageDisplay = ({ selected = null, messages = [], offset = 0, limit = 0,
     </Grid>
 )
 
-const MessageComp = ({ showOptions = false }) => {
+const MessageComp = ({ showOptions = true }) => {
     const [state, setState] = useState({
         selected_id: 1,
         offset: 1,
