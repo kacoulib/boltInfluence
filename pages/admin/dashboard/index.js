@@ -24,7 +24,7 @@ const CustomerIndex = (props) => {
         subscribedCampagne: 5435, waitingCampagne: 6453,
 
         influencersList: [{ _id: '5483752', firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'Inscrit' },],
-        selectedInfluencer: { _id: '5483752', firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'Inscrit' },
+        selectedInfluencer: null,
 
         marquesList: [{ _id: '5483752', isActif: true, firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'Inscrit' },],
         selectedMarque: null
@@ -53,6 +53,9 @@ const CustomerIndex = (props) => {
 
     const onChange = (name, value) => setState({ ...state, [name]: value })
     const setNavTitle = (value) => onChange('navTitle', value);
+    const resetNav = () => {
+        setState({ ...state, selectedInfluencer: null, selectedMarque: null })
+    }
     const navList = [
         {
             href: 'home', className: 'icon home', text: 'Acceuil',
@@ -87,13 +90,24 @@ const CustomerIndex = (props) => {
                 setNavTitle={setNavTitle}
             />,
         },
-        { href: 'post-validate', className: 'icon post', text: 'Campagne', icon: <CampagneIcon />, page: <PostValidate />, },
+        {
+            href: 'post-validate', className: 'icon post', text: 'Campagne',
+            icon: <CampagneIcon />,
+            page: <Marques
+                datas={state.marquesList}
+                setSelection={setSelection('marquesList')}
+                loadMore={loadMore('marquesList')}
+                selectedElem={state.selectedMarque}
+                setNavTitle={setNavTitle}
+            />,
+        },
     ]
     return (
         <NavPanel
             navList={navList}
             index={2}
             navTitle={state.navTitle}
+            resetNav={resetNav}
         />
     )
 }

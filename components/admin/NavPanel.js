@@ -9,7 +9,7 @@ const containerStyle = {
 }
 
 
-const NavPanel = ({ navList, index = 0, navTitle = null }) => {
+const NavPanel = ({ navList, index = 0, navTitle = null, resetNav }) => {
     let [state, setState] = useState({
         index,
         showSubMenu: false,
@@ -29,6 +29,9 @@ const NavPanel = ({ navList, index = 0, navTitle = null }) => {
             setState({ index: state.index, showSubMenu: state.showSubMenu, subMenuIndex: index, navTitle: state.navTitle })
         else
             setState({ index, showSubMenu: hasSubMenu || state.showSubMenu, subMenuIndex: 0, navTitle: state.navTitle })
+
+        if (resetNav)
+            resetNav()
     }
 
     return (
