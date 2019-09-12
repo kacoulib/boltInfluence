@@ -117,17 +117,17 @@ const MessageDisplay = ({ selected = null, messages = [], offset = 0, limit = 0,
             </section>
         </Grid>
         <style jsx>{`
-                h2, h3 {
-                    font-size: 1rem;
-                    margin: 0;
-                }
-                .message-date {
-                    font-size: .8rem;
-                }
-                .header-user-name {
-                    padding-left: 1rem;
-                }
-            `}</style>
+            h2, h3 {
+                font-size: 1rem;
+                margin: 0;
+            }
+            .message-date {
+                font-size: .8rem;
+            }
+            .header-user-name {
+                padding-left: 1rem;
+            }
+        `}</style>
     </Grid>
 )
 
