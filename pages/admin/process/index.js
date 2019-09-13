@@ -20,6 +20,8 @@ const navList = [
 const CustomerIndex = (props) => (
     <NavPanel
         navList={navList}
+        index={0}
+        showNav={true}
         pages={[<Examination />, <Validation />, <Publish />, <PostValidate />, <MissionValidate />, <Examination />]}
     />
 )

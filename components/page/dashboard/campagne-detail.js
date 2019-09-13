@@ -7,7 +7,6 @@ import { choiceList } from '../../../utils/variables/general'
 import { marqueInformationsFields, marquePaymentFields } from '../../formElement/fields/admin/marque-detail'
 import Btn from '../../elements/btn'
 import TableComp, { buildTableIcon } from '../../dataDisplay/table'
-import Popup from '../../dataDisplay/others/popup'
 import InfluenceurJones from '../../../static/img/pictures/influencer_jones.png'
 import InfluenceurSam from '../../../static/img/screen11.png'
 import InstagramIcon from '../../../static/img/icon/full-instagram.png'
@@ -35,7 +34,7 @@ const settings = { showLabel: { xs: 6 } }
 
 const Index = ({ selectedElem, setNavTitle }) => {
 
-    const [state, setState] = useState({ ...selectedElem, currentView: 0, modal: false })
+    const [state, setState] = useState({ ...selectedElem, currentView: 0 })
 
     const onChange = (name, value) => setState({ ...state, ...{ [name]: value } })
 
@@ -45,28 +44,8 @@ const Index = ({ selectedElem, setNavTitle }) => {
     };
     useEffect(() => setNavTitle && setNavTitle('L’Oréal'), [])
 
-    const marqueInfoFields = [
-        {
-            label: "Choix de la page marque",
-            name: "marque",
-            type: 'select',
-            list: [{ name: 'Marque1', value: 'marque 1' }, { name: 'Marque2', value: 'second marque' }],
-            required: true, dimension: { xs: 6, sm: 6 }
-        },
-        { label: "Image", name: "contact_logo", type: 'upload', required: true, props: { style: { textAlign: 'center' } } },
-        { label: "Bio", name: "bio", type: 'textarea', placeholder: 'Texte libre de présentation', required: true, }
-    ]
-    const campagnesList = [
-        { _id: '5483752', role: 'Créateur', firstName: 'Sam', lastName: 'Jones', status: 'Brouillon', delivery: '2', total: '4', price: '800€' },
-        { _id: '5483753', role: 'Créateur', firstName: 'Sam', lastName: 'Jones', status: 'Brouillon', delivery: '2', total: '4', price: '800€' },
-        { _id: '5483754', role: 'Créateur', firstName: 'Sam', lastName: 'Jones', status: 'Brouillon', delivery: '2', total: '4', price: '800€' },
-    ]
-    const influencersList = [
-        { _id: '5483755', firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', date: '05-08-2019' }
-    ]
-    console.log(selectedElem)
     return (
-        <Grid container alignItems='center' justify="center">
+        <Grid container>
             <Grid item container xs={12} sm={12} className='admin_campagne_header'>
                 <Grid container xs={12} sm={12}>
                     <Grid item xs={4} sm={4}>
@@ -114,7 +93,7 @@ const Index = ({ selectedElem, setNavTitle }) => {
                     ))}
                 </Grid>
             </> : <>
-                    <Grid item xs={12} sm={12}>
+                    <Grid item xs={12} sm={12} alignItems='center' justify="center">
                         {selectedElem.influencers && selectedElem.influencers.map((elem, index) => (
                             <div className='contain influencers_list pointer'>
                                 <Grid key={index} container xs={12} sm={12} alignContent='center' alignItems='center'>
@@ -136,43 +115,9 @@ const Index = ({ selectedElem, setNavTitle }) => {
                     </Grid>
                 </>
             }
-
-            <Popup open={state.modal} handleClose={() => onChange('modal', false)}>
-                <h2 className='modal-head'><div className='inline-block icon-blue-flash'><span className='icon'></span></div>Relance de paiement pour la campagne L’Oréal</h2>
-                <div className='custom-container'>
-                    <p>Lorem ipsum,</p>
-
-                    <p>dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit, molestie sit amet pretium consectetur, mollis at risus.</p>
-
-                    <p>Pellentesque eget lacus iaculis, sagittis arcu lacinia, consectetur velit. Nam id risus lectus. Donec et nisl malesuada, faucibus urna ultrices, blandit libero.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit, molestie sit amet pretium consectetur, mollis at risus.</p>
-
-                    <p>Merci,</p>
-
-                    <p>L’équipe Bolt Influence</p>
-                </div>
-                <div className='btn-container modal'>
-                    <div className='inline-block'><a onClick={() => onChange('modal', false)}> Annuler </a></div>
-                    <div className='inline-block'><Btn text="Envoyer" onClick={() => onChange('modal', false)} /></div>
-                </div>
-            </Popup>
             <style jsx>{`
                         h2 {
                             margin: 2rem 0;
-                        }
-                        h2.modal-head {
-                            color: black;
-                            text-align: right;
-                        }
-                        .table-container {
-                            margin-top: 30px;
-                        }
-                        .icon-blue-flash {
-                            padding-right: 1rem;
-                        }
-                        .btn-container.modal {
-                            padding-top: 1rem;
-                            text-align: right;
                         }
                         .btn-container > div {
                             padding-left: 2rem;

@@ -8,14 +8,14 @@ const containerStyle = {
     padding: '0 3rem'
 }
 const noNavContainerStyle = {
-    padding: '2.4rem'
+    padding: '0 2.4rem'
 }
 
 
-const NavPanel = ({ navList, index = 0, navTitle = null, resetNav, showNav }) => {
+const NavPanel = ({ navList, index = 0, navTitle = null, resetNav, showSubMenu = false, showNav }) => {
     let [state, setState] = useState({
         index,
-        showSubMenu: false,
+        showSubMenu,
         subMenuIndex: index
     }),
         nav = navList[state.index] && navList[state.index].subMenu ? navList[state.index].subMenu.navList : navList,
@@ -50,7 +50,7 @@ const NavPanel = ({ navList, index = 0, navTitle = null, resetNav, showNav }) =>
                 {state.showSubMenu && <Grid item xs={12} sm={12}>
                     <Grid container>
                         <Grid item xs={12} sm={3}>
-                            <h2 id='subMenuTitle' className='text-right' onClick={() => setState({ index, showSubMenu: false })}>{navList[state.index].subMenu.title}</h2>
+                            <h2 id='subMenuTitle' className='text-right' onClick={() => setState({ index, showSubMenu: false })}></h2>
                         </Grid>
                     </Grid>
                 </Grid>

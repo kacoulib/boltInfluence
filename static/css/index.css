@@ -403,7 +403,7 @@ table {
 
 /* PROCESS */
 #process {
-    padding-top: 3rem;
+    padding: 3rem 0;
     background-image: url('../img/dots-blue.png');
     background-repeat: no-repeat;
     background-position: top right;
@@ -563,6 +563,9 @@ table {
 #login .divider:first-of-type {
     padding-bottom: 1rem;
     margin-bottom: 1rem;
+}
+#login .btn-icon  a {
+    color: white;
 }
 /* Contact page */
 #contact-page .card-padding-left {
@@ -1244,6 +1247,7 @@ button.submit {
     color: white;
     background-color: #F32732;
 }
+
 .btn-icon .icon {
     width: 30px;
     height: 20px;

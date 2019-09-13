@@ -44,6 +44,8 @@ const CustomerIndex = () => {
     return (
         <NavPanel
             navList={navList}
+            index={0}
+            showNav={true}
         />
     )
 }

@@ -101,7 +101,7 @@ const Index = ({ selectedInfluencer, setNavTitle }) => {
                 </div>
             </Grid>
             <Grid item xs={12}>
-                <div className='text-center btn-container half-width'>
+                <div className='text-center btn-container half-width no-margin-bottom'>
                     <Btn href="#contact-us" text="Mettre à jour" onClick={() => onSubmit()} />
                 </div>
             </Grid>

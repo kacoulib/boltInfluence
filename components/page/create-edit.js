@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types'
 import FormGenerator from '../formElement/generator'
+import Btn from '../elements/btn'
+
 import Button from '@material-ui/core/Button';
 import { customRequest } from '../../lib/api/http/index';
 import { buildToArray, buildFromArray } from '../../utils/datas/convert'
@@ -30,7 +32,7 @@ const defaultState = {
     content: '',
 }
 
-const Index = ({ selected = {}, isEdit = false, onSubmit, fields, path, editIdenfier }) => {
+const Index = ({ selected = {}, isEdit = false, onSubmit, fields, path, editIdenfier, setNavTitle, editTitle, title }) => {
 
     const [state, setState] = useState(selected)
 
@@ -42,6 +44,8 @@ const Index = ({ selected = {}, isEdit = false, onSubmit, fields, path, editIden
                 newState[elem.name] = elem.props.list.filter(e => state[elem.name].includes(e.value));
             }
         })
+        const displayTitle = isEdit ? editTitle : title
+        setNavTitle && setNavTitle(displayTitle);
         setState(newState)
     }, [])
     const onChange = (name, value) => value && setState({ ...state, [name]: value });
@@ -59,18 +63,17 @@ const Index = ({ selected = {}, isEdit = false, onSubmit, fields, path, editIden
             setState(selected)
     };
     return (
-        <Grid container alignItems='center' justify="center" style={styles.container} >
-            {/* <Grid item xs={12} sm={12}>
-                <h2>Créer un article</h2>
-            </Grid> */}
-
+        <Grid container alignItems='center' justify="center">
             <Grid item xs={12} sm={12}>
                 <FormGenerator fields={fields} state={state} onChange={onChange} />
             </Grid>
             <Grid item xs={12} justify='center' className='center-text' style={styles.footer}>
-                <Button variant="contained" type="submit" className='submit large' onClick={() => onSubmit ? onSubmit(state) : handleOnSubmit()}>
+                <div className='text-center btn-container half-width no-margin-bottom'>
+                    <Btn href="#contact-us" text={isEdit ? 'Mettre à jour' : 'créer'} onClick={() => onSubmit ? onSubmit(state) : handleOnSubmit()} />
+                </div>
+                {/* <Button variant="contained" type="submit" className='submit large' onClick={() => onSubmit ? onSubmit(state) : handleOnSubmit()}>
                     {isEdit ? 'Mettre à jour' : 'créer'}
-                </Button>
+                </Button> */}
             </Grid>
         </ Grid>
     )

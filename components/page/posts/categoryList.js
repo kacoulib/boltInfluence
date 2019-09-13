@@ -51,9 +51,6 @@ const Index = ({ fields, path, editIdenfier, titleIdentifier = 'title', title, s
         return (<Edit selected={state.selectedArticle} isEdit={true} fields={fields} path={path} editIdenfier={editIdenfier} />)
     return (
         <Grid container alignItems='center' justify="center" style={styles.container} >
-            <Grid item xs={12} sm={12}>
-                <h2>{title}</h2>
-            </Grid>
             <Grid item xs={12} sm={12} style={styles.childContainer}>
                 {state[requestProp] && state[requestProp].map((elem, i) => (
                     <Grid key={i} container alignItems='stretch' justify="center" className='influencers_list relative' style={styles.listContainer}>

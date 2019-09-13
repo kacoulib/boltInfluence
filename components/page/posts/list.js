@@ -30,7 +30,7 @@ const styles = {
     marqueName: { color: '##5b5b5d' }
 }
 
-const Index = ({ loadMore, fields, path, editIdenfier }) => {
+const Index = ({ loadMore, fields, path, editIdenfier, setNavTitle, title, editTitle }) => {
     const [state, setState] = useState({ articles: [], selectedArticle: null })
 
     useEffect(() => {
@@ -38,6 +38,7 @@ const Index = ({ loadMore, fields, path, editIdenfier }) => {
             const articles = await customRequest({ path });
             setState({ ...state, ...articles })
         }
+        setNavTitle && setNavTitle(title)
         getData()
     }, [])
 
@@ -45,13 +46,12 @@ const Index = ({ loadMore, fields, path, editIdenfier }) => {
         const tmp = state.articles.find((e) => e._id == id);
         setState({ ...state, selectedArticle: tmp })
     }
-    if (state.selectedArticle)
-        return (<Edit selected={state.selectedArticle} isEdit={true} fields={fields} path={path} editIdenfier={editIdenfier} />)
+    if (state.selectedArticle) {
+
+        return (<Edit selected={state.selectedArticle} isEdit={true} fields={fields} path={path} editIdenfier={editIdenfier} editTitle={editTitle} />)
+    }
     return (
-        <Grid container alignItems='center' justify="center" style={styles.container} >
-            <Grid item xs={12} sm={12}>
-                <h2>Liste des articles</h2>
-            </Grid>
+        <Grid container alignItems='center' justify="center">
             <Grid item xs={12} sm={12} style={styles.childContainer}>
                 {state.articles && state.articles.map((elem, i) => (
                     <Grid key={i} container alignItems='center' justify="center" className='influencers_list relative' style={styles.listContainer}>
