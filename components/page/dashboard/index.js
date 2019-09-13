@@ -39,7 +39,7 @@ const Index = ({ datas: { subscribedInfluencer, waitingInfluencer, subscribedMar
         <Grid container alignItems='center' justify="center" style={styles.container} >
             {tmp.map((elem, i) => (
                 <Grid key={i} item xs={12} sm={12} style={styles.childContainer}>
-                    <h2>{elem.title}</h2>
+                    <h2 className='no-margin-top'>{elem.title}</h2>
                     <Grid container alignItems='center' justify="center" >
                         {elem.card.map((e, j) => (
                             <Grid key={j + 'elem-child'} item xs={12} sm={4} className='center-text'>

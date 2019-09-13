@@ -31,7 +31,7 @@ const Index = ({ datas, selectedElem, setSelection, loadMore, setNavTitle }) => 
     return (
         <Grid container alignItems='center' justify="center" style={styles.container} >
             <Grid item xs={12} sm={12} style={styles.childContainer}>
-                <h2>Marques & agences</h2>
+                <h2 className='no-margin-top'>Marques & agences</h2>
                 {datas && datas.map((elem, i) => (
                     <Grid key={i} container alignItems="stretch" justify="center" className='influencers_list'>
                         <Grid item xs={4} sm={4} className='center-text'>

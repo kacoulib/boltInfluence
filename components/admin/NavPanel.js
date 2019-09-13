@@ -56,6 +56,7 @@ const NavPanel = ({ navList, index = 0, navTitle = null, resetNav }) => {
                     <ul id='process-nav'>
                         {nav && nav.map((e, i) => {
                             const currentIndex = state.showSubMenu ? state.subMenuIndex : state.index;
+
                             return (
                                 <li key={i}>
                                     <Link prefetch href={`#${e.href}`}>

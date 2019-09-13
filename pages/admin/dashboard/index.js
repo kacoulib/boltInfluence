@@ -71,7 +71,7 @@ const CustomerIndex = (props) => {
         },
         {
             href: 'account', className: 'icon account', text: 'Influencers',
-            icon: <AccountIcon />,
+            icon: <FeedIcon />,
             page: <Influencers
                 datas={state.influencersList}
                 selectedInfluencer={state.selectedInfluencer}
@@ -108,7 +108,7 @@ const CustomerIndex = (props) => {
             topTitleLeft='Admin'
             navTitle={state.navTitle}
             navList={navList}
-            index={2}
+            index={3}
             resetNav={resetNav}
         />
     )
