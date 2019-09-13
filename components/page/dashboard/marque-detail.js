@@ -30,7 +30,7 @@ const styles = {
 const settings = { showLabel: { xs: 6 } }
 
 
-const Index = ({ selectedElem }) => {
+const Index = ({ selectedElem, setNavTitle }) => {
 
     const [state, setState] = useState({ ...selectedElem, currentView: 0, modal: false })
 
@@ -40,6 +40,8 @@ const Index = ({ selectedElem }) => {
 
         console.log(state)
     };
+    useEffect(() => setNavTitle && setNavTitle('L’Oréal'), [])
+
     const marqueInfoFields = [
         {
             label: "Choix de la page marque",
@@ -178,7 +180,7 @@ const Index = ({ selectedElem }) => {
 
                     <p>L’équipe Bolt Influence</p>
                 </div>
-                <div className='btn-container'>
+                <div className='btn-container modal'>
                     <div className='inline-block'><a onClick={() => onChange('modal', false)}> Annuler </a></div>
                     <div className='inline-block'><Btn text="Envoyer" onClick={() => onChange('modal', false)} /></div>
                 </div>
@@ -197,7 +199,7 @@ const Index = ({ selectedElem }) => {
                         .icon-blue-flash {
                             padding-right: 1rem;
                         }
-                        .btn-container {
+                        .btn-container.modal {
                             padding-top: 1rem;
                             text-align: right;
                         }

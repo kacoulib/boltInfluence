@@ -13,8 +13,7 @@ const NavPanel = ({ navList, index = 0, navTitle = null, resetNav }) => {
     let [state, setState] = useState({
         index,
         showSubMenu: false,
-        subMenuIndex: index,
-        navTitle
+        subMenuIndex: index
     }),
         nav = navList[state.index] && navList[state.index].subMenu ? navList[state.index].subMenu.navList : navList,
         currentComp;
@@ -26,9 +25,9 @@ const NavPanel = ({ navList, index = 0, navTitle = null, resetNav }) => {
 
     const setNavigation = (index, hasSubMenu) => {
         if (state.showSubMenu)
-            setState({ index: state.index, showSubMenu: state.showSubMenu, subMenuIndex: index, navTitle: state.navTitle })
+            setState({ index: state.index, showSubMenu: state.showSubMenu, subMenuIndex: index })
         else
-            setState({ index, showSubMenu: hasSubMenu || state.showSubMenu, subMenuIndex: 0, navTitle: state.navTitle })
+            setState({ index, showSubMenu: hasSubMenu || state.showSubMenu, subMenuIndex: 0 })
 
         if (resetNav)
             resetNav()
@@ -41,7 +40,7 @@ const NavPanel = ({ navList, index = 0, navTitle = null, resetNav }) => {
                     <div className='top-menu-title pointer'>Admin</div>
                 </Grid>
                 <Grid item xs={12} sm={9} container style={containerStyle}>
-                    <div className='top-title red-color'>{state.navTitle}</div>
+                    <div className='top-title red-color'>{navTitle}</div>
                 </Grid>
             </Grid>
             <Grid container>

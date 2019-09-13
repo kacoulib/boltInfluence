@@ -26,7 +26,7 @@ const styles = {
     influencer_info_container: { padding: '1rem' },
 }
 
-const Index = ({ selectedInfluencer }) => {
+const Index = ({ selectedInfluencer, setNavTitle }) => {
 
     const [state, setState] = useState(selectedInfluencer)
 
@@ -37,7 +37,7 @@ const Index = ({ selectedInfluencer }) => {
     const onSubmit = async () => {
         console.log(state)
     };
-
+    useEffect(() => setNavTitle && setNavTitle(`${selectedInfluencer.firstName} ${selectedInfluencer.lastName}`), [])
 
     return (
         <Grid container alignItems='center' justify="center">

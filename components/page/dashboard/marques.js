@@ -24,9 +24,9 @@ const styles = {
     influencer_info_container: { padding: '0 1rem' },
 }
 
-const Index = ({ datas, selectedElem, setSelection, loadMore }) => {
+const Index = ({ datas, selectedElem, setSelection, loadMore, setNavTitle }) => {
     if (selectedElem)
-        return (<Detail selectedElem={selectedElem} />);
+        return (<Detail selectedElem={selectedElem} setNavTitle={setNavTitle} />);
 
     return (
         <Grid container alignItems='center' justify="center" style={styles.container} >

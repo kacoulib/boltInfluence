@@ -5,6 +5,7 @@ import NavPanel from '../../../components/admin/NavPanel';
 import Home from '../../../components/page/dashboard/index';
 import Influencers from '../../../components/page/dashboard/influencers';
 import Marques from '../../../components/page/dashboard/marques';
+import Campagne from '../../../components/page/dashboard/campagne';
 import Publish from '../../../components/page/process/publish';
 import PostValidate from '../../../components/page/process/post-validate';
 import HomeIcon from '../../../static/img/icon/home.svg';
@@ -52,9 +53,9 @@ const CustomerIndex = (props) => {
     }
 
     const onChange = (name, value) => setState({ ...state, [name]: value })
-    const setNavTitle = (value) => onChange('navTitle', value);
+    const setNavTitle = (value) => value !== state.navTitle && onChange('navTitle', value);
     const resetNav = () => {
-        setState({ ...state, selectedInfluencer: null, selectedMarque: null })
+        setState({ ...state, selectedInfluencer: null, selectedMarque: null, navTitle: null })
     }
     const navList = [
         {
@@ -93,7 +94,7 @@ const CustomerIndex = (props) => {
         {
             href: 'post-validate', className: 'icon post', text: 'Campagne',
             icon: <CampagneIcon />,
-            page: <Marques
+            page: <Campagne
                 datas={state.marquesList}
                 setSelection={setSelection('marquesList')}
                 loadMore={loadMore('marquesList')}
@@ -104,9 +105,10 @@ const CustomerIndex = (props) => {
     ]
     return (
         <NavPanel
+            topTitleLeft='Admin'
+            navTitle={state.navTitle}
             navList={navList}
             index={2}
-            navTitle={state.navTitle}
             resetNav={resetNav}
         />
     )

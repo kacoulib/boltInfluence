@@ -2,7 +2,7 @@ import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types'
 import InfluenceurJones from '../../../static/img/pictures/influencer_jones.png'
 import Button from '@material-ui/core/Button';
-import InflencerDetail from './influencer-detail'
+import Detail from './marque-detail'
 import StarsComp from '../../../components/dataDisplay/star'
 
 
@@ -24,14 +24,14 @@ const styles = {
     influencer_info_container: { padding: '0 1rem' },
 }
 
-const Index = ({ datas, selectedInfluencer, selectInfluencer, loadMore, setNavTitle }) => {
-    if (selectedInfluencer)
-        return (<InflencerDetail selectedInfluencer={selectedInfluencer} setNavTitle={setNavTitle} />);
+const Index = ({ datas, selectedElem, setSelection, loadMore }) => {
+    if (selectedElem)
+        return (<Detail selectedElem={selectedElem} />);
 
     return (
         <Grid container alignItems='center' justify="center" style={styles.container} >
             <Grid item xs={12} sm={12} style={styles.childContainer}>
-                <h2>Influenceurs</h2>
+                <h2>Marques & agences</h2>
                 {datas && datas.map((elem, i) => (
                     <Grid key={i} container alignItems="stretch" justify="center" className='influencers_list'>
                         <Grid item xs={4} sm={4} className='center-text'>
@@ -41,11 +41,8 @@ const Index = ({ datas, selectedInfluencer, selectInfluencer, loadMore, setNavTi
                         </Grid>
                         <Grid item container xs={8} sm={8} justify="space-between" style={styles.influencer_info_container}>
                             <Grid item container alignItems='center' justify="center" xs={12} sm={12}>
-                                <Grid item xs={4} sm={4}>
-                                    <StarsComp selected={1} />
-                                </Grid>
-                                <Grid item xs={4} sm={4} className='text-center'><span>{`${elem.firstName} ${elem.lastName}`}</span></Grid>
-                                <Grid item xs={4} sm={4} className='text-right'><span className='icon write pointer' onClick={() => selectInfluencer(elem._id)}></span></Grid>
+                                <Grid item xs={11} sm={11} className='text-center'><span>{`${elem.firstName} ${elem.lastName}`}</span></Grid>
+                                <Grid item xs={1} sm={1} className='text-right'><span className='icon write pointer' onClick={() => setSelection(elem._id)}></span></Grid>
                             </Grid>
 
                             <Grid item xs={12} sm={12}>
@@ -54,8 +51,9 @@ const Index = ({ datas, selectedInfluencer, selectInfluencer, loadMore, setNavTi
                                 <p>Numéro de téléphone : {elem.phone}</p>
                             </Grid>
 
-                            <Grid item xs={12} sm={12}>
-                                <p style={styles.status} className='center-text'>{elem.status}</p>
+                            <Grid item container xs={12} sm={12}>
+                                <Grid item xs={6} sm={6}><p style={styles.status}>{elem.status}</p></Grid>
+                                <Grid item xs={6} sm={6}><p style={styles.status} className='text-right'>{elem.isActif ? 'Actif' : ''}</p></Grid>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -73,7 +71,7 @@ const Index = ({ datas, selectedInfluencer, selectInfluencer, loadMore, setNavTi
 }
 Index.propTypes = {
     datas: PropTypes.object.isRequired,
-    selectInfluencer: PropTypes.func.isRequired,
+    setSelection: PropTypes.func.isRequired,
     loadMore: PropTypes.func
 }
 
