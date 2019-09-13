@@ -5,11 +5,14 @@ import Grid from '@material-ui/core/Grid';
 import Link from 'next/link';
 
 const containerStyle = {
-    padding: '0 3em'
+    padding: '0 3rem'
+}
+const noNavContainerStyle = {
+    padding: '2.4rem'
 }
 
 
-const NavPanel = ({ navList, index = 0, navTitle = null, resetNav }) => {
+const NavPanel = ({ navList, index = 0, navTitle = null, resetNav, showNav }) => {
     let [state, setState] = useState({
         index,
         showSubMenu: false,
@@ -37,7 +40,7 @@ const NavPanel = ({ navList, index = 0, navTitle = null, resetNav }) => {
         <div id='process'>
             <Grid container className='top-menu'>
                 <Grid item xs={12} sm={3}>
-                    <div className='top-menu-title pointer'>Admin</div>
+                    <div className='top-menu-title pointer' onClick={resetNav}>Admin</div>
                 </Grid>
                 <Grid item xs={12} sm={9} container style={containerStyle}>
                     <div className='top-title red-color'>{navTitle}</div>
@@ -52,7 +55,7 @@ const NavPanel = ({ navList, index = 0, navTitle = null, resetNav }) => {
                     </Grid>
                 </Grid>
                 }
-                <Grid item xs={12} sm={3}>
+                {showNav && <Grid item xs={12} sm={3}>
                     <ul id='process-nav'>
                         {nav && nav.map((e, i) => {
                             const currentIndex = state.showSubMenu ? state.subMenuIndex : state.index;
@@ -69,8 +72,8 @@ const NavPanel = ({ navList, index = 0, navTitle = null, resetNav }) => {
                             )
                         })}
                     </ul>
-                </Grid>
-                <Grid item xs={12} sm={9} container style={containerStyle}>
+                </Grid>}
+                <Grid item xs={12} sm={showNav ? 9 : 12} container style={showNav ? containerStyle : noNavContainerStyle}>
                     {currentComp}
                 </Grid>
             </Grid>

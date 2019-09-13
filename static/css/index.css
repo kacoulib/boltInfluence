@@ -809,6 +809,7 @@ footer li {
 .influencers_list {
     background-color: #F4F3F8;
     margin-bottom: 1rem;
+    cursor: pointer;
 } 
 .influencers_img {
     height: 100%;
@@ -866,6 +867,9 @@ footer li {
 }
 
 /* OTHER */
+.admin_campagne_header {
+    margin-bottom: 1rem!important;
+}
 .table-head {
     font-size: 1rem;
 }

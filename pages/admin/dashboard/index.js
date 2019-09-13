@@ -19,7 +19,8 @@ import { getInfluencerList } from '../../../lib/api/http/admin'
 const CustomerIndex = (props) => {
     const [state, setState] = useState({
         navTitle: null,
-
+        showMessageView: false,
+        showNav: true,
         subscribedInfluencer: 22300, waitingInfluencer: 32300,
         subscribedMarque: 18068, waitingMarque: 5647,
         subscribedCampagne: 5435, waitingCampagne: 6453,
@@ -28,7 +29,28 @@ const CustomerIndex = (props) => {
         selectedInfluencer: null,
 
         marquesList: [{ _id: '5483752', isActif: true, firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'Inscrit' },],
-        selectedMarque: null
+        selectedMarque: null,
+
+        campagnesList: [{
+            _id: '5483752',
+            isActif: true,
+            name: 'Campagne Naked blushed ',
+            agence: 'Sephora',
+            picture: 'influencer_jones.png',
+            email: 'Sam.jones@gmail.com',
+            phone: '09764314',
+            star: 4,
+            status: 'Inscrit',
+            propositions: [
+                { _id: '5483752', role: 'Créateur', firstName: 'Sam', lastName: 'Jones', status: 'Brouillon', delivery: '2', total: '4', price: '800€' },
+                { _id: '5483753', role: 'Créateur', firstName: 'Sam', lastName: 'Jones', status: 'Brouillon', delivery: '2', total: '4', price: '800€' },
+                { _id: '5483754', role: 'Créateur', firstName: 'Sam', lastName: 'Jones', status: 'Brouillon', delivery: '2', total: '4', price: '800€' },
+            ],
+            influencers: [
+                { _id: '5483755', firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', date: '05-08-2019' }
+            ]
+        },],
+        selectedCampagne: null
     });
 
     const loadMore = (name) => () => {
@@ -48,6 +70,7 @@ const CustomerIndex = (props) => {
         const e = {
             influencersList: 'selectedInfluencer',
             marquesList: 'selectedMarque',
+            campagnesList: 'selectedCampagne',
         }
         setState(Object.assign({}, state, { [e[name]]: elem }))
     }
@@ -55,7 +78,7 @@ const CustomerIndex = (props) => {
     const onChange = (name, value) => setState({ ...state, [name]: value })
     const setNavTitle = (value) => value !== state.navTitle && onChange('navTitle', value);
     const resetNav = () => {
-        setState({ ...state, selectedInfluencer: null, selectedMarque: null, navTitle: null })
+        setState({ ...state, selectedInfluencer: null, selectedMarque: null, navTitle: null, selectedCampagne: null, showMessageView: false, showNav: true })
     }
     const navList = [
         {
@@ -95,11 +118,14 @@ const CustomerIndex = (props) => {
             href: 'post-validate', className: 'icon post', text: 'Campagne',
             icon: <CampagneIcon />,
             page: <Campagne
-                datas={state.marquesList}
-                setSelection={setSelection('marquesList')}
-                loadMore={loadMore('marquesList')}
-                selectedElem={state.selectedMarque}
+                datas={state.campagnesList}
+                setSelection={setSelection('campagnesList')}
+                loadMore={loadMore('campagnesList')}
+                selectedElem={state.selectedCampagne}
                 setNavTitle={setNavTitle}
+                showMessageView={state.showMessageView}
+                toggleMessageView={() => onChange('showMessageView', true)}
+                setShowNav={() => state.showNav && onChange('showNav', false)}
             />,
         },
     ]
@@ -110,6 +136,7 @@ const CustomerIndex = (props) => {
             navList={navList}
             index={3}
             resetNav={resetNav}
+            showNav={state.showNav}
         />
     )
 }

@@ -19,31 +19,29 @@ const styles = theme => {
         },
     })
 };
-const TableComp = ({ classes, rows, heads }) => {
-
-    return (
-        <Paper className={classes.root}>
-            <Table className={classes.table}>
-                <TableHead>
-                    <TableRow>
-                        {heads && heads.map(head => (
-                            <TableCell key={head}><div className='red-color table-head'>{head}</div></TableCell>
+const TableComp = ({ classes, rows, heads }) => (
+    <Paper className={classes.root}>
+        <Table className={classes.table}>
+            <TableHead>
+                <TableRow>
+                    {heads && heads.map(head => (
+                        <TableCell key={head}><div className='red-color table-head'>{head}</div></TableCell>
+                    ))}
+                </TableRow>
+            </TableHead>
+            <TableBody>
+                {rows && rows.map((row, key) => (
+                    <TableRow key={key}>
+                        {row.map((r, i) => (
+                            <TableCell key={`${key}-${i}`}><div className='table-content'>{r}</div></TableCell>
                         ))}
                     </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rows && rows.map((row, key) => (
-                        <TableRow key={key}>
-                            {row.map((r, i) => (
-                                <TableCell key={`${key}-${i}`}><div className='table-content'>{r}</div></TableCell>
-                            ))}
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </Paper>
-    );
-}
+                ))}
+            </TableBody>
+        </Table>
+    </Paper>
+);
+
 
 const icons = {
     flash: 'icon-blue-flash',
