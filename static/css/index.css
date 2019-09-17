@@ -74,6 +74,7 @@ body a {
 /* NAV */
 
 .menu-link span {
+    display: block;
     vertical-align: middle;
 }
 #menu-left img {
@@ -401,25 +402,26 @@ table {
 /* END NAV */
 
 
-/* PROCESS */
-#process {
+/* dashboard */
+#dashboard {
     padding: 3rem 0;
+    min-height: calc(100vh - 110px);
     background-image: url('../img/dots-blue.png');
     background-repeat: no-repeat;
     background-position: top right;
 }
-#process-nav,
+#dashboard-nav,
 #subMenuTitle
 {
     padding-left: 2rem;
     cursor: pointer;
 }
-#process-nav g,
-#process-nav path {
+#dashboard-nav g,
+#dashboard-nav path {
     fill: #252b40;
 }
-#process-nav .active g,
-#process-nav .active path {
+#dashboard-nav .active g,
+#dashboard-nav .active path {
     fill: #F13F4B;
 }
 .top-menu {
@@ -447,10 +449,10 @@ table {
     color: gray;
     float: left;
 }
-#process-nav li {
+#dashboard-nav li {
     padding: .1rem 0;
 }
-#process-nav li a {
+#dashboard-nav li a {
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -458,11 +460,11 @@ table {
     border-bottom: 1px solid #D8D8D8;
     cursor: pointer;
 }
-#process-nav a {
+#dashboard-nav a {
     display: inline-block;
     vertical-align: middle;
 }
-#process-nav .icon {
+#dashboard-nav .icon {
     margin-right: 1rem;
 }
 .red-card {
@@ -520,10 +522,19 @@ table {
     top: 10px;
     left: 10px;
     width: calc(100% - 15px);
-    height: calc(100% - 30px);
+    height: calc(100% - 50px);
     border-radius: 15%;
     background: black;
     z-index: -1;
+}
+.white-iphone div video {
+    top: 65px;
+    left: 25px;
+    width: calc(100% - 56px);
+    height: calc(100% - 200px);
+    background-color: white;
+    border-radius: initial;
+
 }
 .tablet_container div video {
     top: 10px;
@@ -1488,6 +1499,12 @@ button.submit {
 
 
 @media all and (max-width : 400px) {
+    .white-iphone div video {
+        top: 65px;
+        left: 21px;
+        width: calc(100% - 47px);
+        height: calc(100% - 178px);
+    }
     .publicCard {
         margin-bottom: 4rem;
     }

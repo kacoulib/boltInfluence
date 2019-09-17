@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import withLayout from '../../../lib/withLayout';
 import NavPanel from '../../../components/admin/NavPanel';
 
@@ -6,23 +6,20 @@ import Home from '../../../components/page/dashboard/index';
 import Influencers from '../../../components/page/dashboard/influencers';
 import Marques from '../../../components/page/dashboard/marques';
 import Campagne from '../../../components/page/dashboard/campagne';
-import Publish from '../../../components/page/process/publish';
-import PostValidate from '../../../components/page/process/post-validate';
 import HomeIcon from '../../../static/img/icon/home.svg';
-import AccountIcon from '../../../static/img/icon/account.svg';
 import FeedIcon from '../../../static/img/icon/feed.svg';
 import CampagneIcon from '../../../static/img/icon/campagne.svg';
-import { getInfluencerList } from '../../../lib/api/http/admin'
-import { customRequest } from '../../../lib/api/http/index';
 import { buildFromArray } from '../../../utils/datas/convert'
 import PostList from '../../../components/page/posts/list';
 import CategoryList from '../../../components/page/posts/categoryList';
 import CreatePost from '../../../components/page/create-edit';
 import { categoryFields, tagsFields, faqsFields, emailTemplateFields } from '../../../components/formElement/fields/admin/posts'
+import { customRequest } from '../../../lib/api/http/index';
 
 
 
 const CustomerIndex = ({ categories = [], articlesLength, tags = [], faqsLength, email = [] }) => {
+
     const [state, setState] = useState({
         navTitle: null,
         showMessageView: false,
@@ -57,14 +54,25 @@ const CustomerIndex = ({ categories = [], articlesLength, tags = [], faqsLength,
                 { _id: '5483755', firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', date: '05-08-2019' }
             ]
         },],
-        selectedCampagne: null
+        selectedCampagne: null,
+        influencers: [],
+        selected: null,
+        offset: 0,
+        limit: 2,
     });
-
+    const getDatas = async (path, dataKey, setDatas) => {
+        console.log(path)
+        const data = await customRequest({ path });
+        setDatas(data[dataKey])
+    }
     const loadMore = (name) => () => {
-        const tmp = state[name].push({ _id: '5483752', firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'En attente de confirmation' },
-            { _id: '5483752', bio: 'sdfsdfdsf', firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'Inscrit' },
-        )
-        setState(Object.assign({}, state, { [name]: state[name] }))
+        // const tmp = state[name].push({ _id: '5483752', firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'En attente de confirmation' },
+        //     { _id: '5483752', bio: 'sdfsdfdsf', firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', email: 'Sam.jones@gmail.com', phone: '09764314', star: 4, status: 'Inscrit' },
+        // )
+        // setState(Object.assign({}, state, { [name]: state[name] }))
+        // setState({ ...state, limit: 4, offset: 4 })
+        // console.log('more', state)
+        // return (fn) => { }
     }
 
     const selectInfluencer = (id) => {
@@ -73,13 +81,13 @@ const CustomerIndex = ({ categories = [], articlesLength, tags = [], faqsLength,
     }
 
     const setSelection = name => id => {
-        const elem = state[name].find((e) => e._id == id);
+        const elem = state[name] ? state[name].find((e) => e._id == id) : null;
         const e = {
-            influencersList: 'selectedInfluencer',
+            influencers: 'selectedInfluencer',
             marquesList: 'selectedMarque',
             campagnesList: 'selectedCampagne',
         }
-        setState(Object.assign({}, state, { [e[name]]: elem }))
+        setState({ ...state, [e[name]]: elem })
     }
 
     const onChange = (name, value) => setState({ ...state, [name]: value })
@@ -87,7 +95,6 @@ const CustomerIndex = ({ categories = [], articlesLength, tags = [], faqsLength,
     const resetNav = () => {
         setState({ ...state, selectedInfluencer: null, selectedMarque: null, navTitle: null, selectedCampagne: null, showMessageView: false, showNav: true, showSubMenu: false })
     }
-
     const articleFields = [
         {
             label: "Poster / image",
@@ -151,11 +158,16 @@ const CustomerIndex = ({ categories = [], articlesLength, tags = [], faqsLength,
             href: 'account', className: 'icon account', text: 'Influencers',
             icon: <FeedIcon />,
             page: <Influencers
-                datas={state.influencersList}
-                selectedInfluencer={state.selectedInfluencer}
+                datas={state.influencers}
+                selected={state.selectedInfluencer}
                 loadMore={loadMore('influencersList')}
                 selectInfluencer={selectInfluencer}
                 setNavTitle={setNavTitle}
+                setDatas={(datas) => onChange('influencers', datas)}
+                setSelection={setSelection('influencers')}
+
+                title='Influenceurs'
+                getDatas={() => getDatas(`/admin/influencers?limit=${state.limit}&offset=${state.offset}`, 'influencers', (datas) => onChange('influencers', datas))}
             />,
         },
         {
@@ -167,6 +179,12 @@ const CustomerIndex = ({ categories = [], articlesLength, tags = [], faqsLength,
                 loadMore={loadMore('marquesList')}
                 selectedElem={state.selectedMarque}
                 setNavTitle={setNavTitle}
+
+                setDatas={(datas) => onChange('influencers', datas)}
+                setSelection={setSelection('influencers')}
+
+                path='/admin/influencers'
+                title='Influenceurs'
             />,
         },
         {
@@ -269,7 +287,7 @@ const CustomerIndex = ({ categories = [], articlesLength, tags = [], faqsLength,
             }
         },
     ]
-    console.log(state.showSubMenu)
+
     return (
         <NavPanel
             topTitleLeft='Admin'

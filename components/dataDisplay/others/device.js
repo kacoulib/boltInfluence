@@ -1,5 +1,5 @@
 import BlackIphone from '../../../static/img/black-iphone.png'
-import WhiteIphone from '../../../static/img/white-iphone.png'
+import WhiteIphone from '../../../static/img/mobile_blanc.png'
 import WhiteTrendingIphone from '../../../static/img/white-trending-iphone.png'
 import WhiteTablet from '../../../static/img/white-tablet.png'
 import Video from '../../../components/elements/video'

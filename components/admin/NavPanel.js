@@ -37,7 +37,7 @@ const NavPanel = ({ navList, index = 0, navTitle = null, resetNav, showSubMenu =
     }
 
     return (
-        <div id='process'>
+        <div id='dashboard'>
             <Grid container className='top-menu'>
                 <Grid item xs={12} sm={3}>
                     <div className='top-menu-title pointer' onClick={resetNav}>Admin</div>
@@ -56,7 +56,7 @@ const NavPanel = ({ navList, index = 0, navTitle = null, resetNav, showSubMenu =
                 </Grid>
                 }
                 {showNav && <Grid item xs={12} sm={3}>
-                    <ul id='process-nav'>
+                    <ul id='dashboard-nav'>
                         {nav && nav.map((e, i) => {
                             const currentIndex = state.showSubMenu ? state.subMenuIndex : state.index;
 

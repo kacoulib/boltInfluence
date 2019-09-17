@@ -1,9 +1,12 @@
+import React, { useState, useEffect } from "react";
+
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types'
 import InfluenceurJones from '../../../static/img/pictures/influencer_jones.png'
 import Button from '@material-ui/core/Button';
 import InflencerDetail from './influencer-detail'
 import StarsComp from '../../../components/dataDisplay/star'
+import { customRequest } from '../../../lib/api/http/index';
 
 
 const cardContainer = {
@@ -24,9 +27,12 @@ const styles = {
     influencer_info_container: { padding: '0 1rem' },
 }
 
-const Index = ({ datas, selectedInfluencer, selectInfluencer, loadMore, setNavTitle }) => {
-    if (selectedInfluencer)
-        return (<InflencerDetail selectedInfluencer={selectedInfluencer} setNavTitle={setNavTitle} />);
+const Index = ({ datas, getDatas, setDatas, selected, setSelection, loadMore, setNavTitle, path, dataKey = '' }) => {
+
+    useEffect(() => getDatas && getDatas(), [])
+
+    if (selected)
+        return (<InflencerDetail selectedInfluencer={selected} setNavTitle={setNavTitle} />);
 
     return (
         <Grid container alignItems='center' justify="center" style={styles.container} >
@@ -44,13 +50,13 @@ const Index = ({ datas, selectedInfluencer, selectInfluencer, loadMore, setNavTi
                                 <Grid item xs={4} sm={4}>
                                     <StarsComp selected={1} />
                                 </Grid>
-                                <Grid item xs={4} sm={4} className='text-center'><span>{`${elem.firstName} ${elem.lastName}`}</span></Grid>
-                                <Grid item xs={4} sm={4} className='text-right'><span className='icon write pointer' onClick={() => selectInfluencer(elem._id)}></span></Grid>
+                                <Grid item xs={7} sm={7} className='text-center'><span>{`${elem.firstName} ${elem.lastName}`}</span></Grid>
+                                <Grid item xs={1} sm={1} className='text-right'><span className='icon write pointer' onClick={() => setSelection(elem._id)}></span></Grid>
                             </Grid>
 
                             <Grid item xs={12} sm={12}>
                                 <p>ID : {elem._id}</p>
-                                <p>Email : {elem.email}</p>
+                                {elem.email ? <p>Email : {elem.email}</p> : ''}
                                 <p>Numéro de téléphone : {elem.phone}</p>
                             </Grid>
 
