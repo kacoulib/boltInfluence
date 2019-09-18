@@ -67,7 +67,7 @@ const Index = () => {
 							</Grid>
 						</Grid>
 						<Grid item xs={12} sm={6} className='text-center'>
-							<IphoneComp deviceColor='black' src="../static/video/discover_our_offers.mp4" />
+							<IphoneComp deviceColor='white' src="../static/video/discover_our_offers.mp4" />
 						</Grid>
 					</Grid>
 				</div>
@@ -76,7 +76,7 @@ const Index = () => {
 			<div>
 				<Grid container item style={styles.cardContainer} className='dots-blue-down no-repeat responsive-reverse-order responsive-container light-gray-bg'>
 					<Grid item xs={12} sm={6} className='text-center'>
-						<IphoneComp deviceColor='black' src="../static/video/well_paid.mp4" />
+						<IphoneComp deviceColor='white' src="../static/video/well_paid.mp4" />
 					</Grid>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item container xs={12} sm={8} justify="center" alignItems="center">
@@ -96,7 +96,7 @@ const Index = () => {
 						</Grid>
 					</Grid>
 					<Grid item xs={12} sm={6} className='text-center'>
-						<IphoneComp deviceColor='black' src="../static/video/become_pro_influencer.mp4" />
+						<IphoneComp deviceColor='white' src="../static/video/become_pro_influencer.mp4" />
 					</Grid>
 				</Grid>
 			</div>

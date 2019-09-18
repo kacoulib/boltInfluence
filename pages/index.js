@@ -132,15 +132,15 @@ const Index = () => {
 							</div>
 						</Grid>
 					</Grid>
-					<Grid item xs={12} sm={6} className='text-center' style={styles.padding}>
+					<Grid item xs={12} sm={6}>
 						<IphoneComp deviceColor='white' src="../static/video/data_and_technologie.mp4" />
 					</Grid>
 				</Grid>
 			</div>
 			{/*  */}
-			<div style={styles.padding} className='card-bg circle-pink bottom text-center responsive-container'>
+			<div className='text-center'>
 				{/* <h1 className='red-color'>Le format In-vidéo</h1> */}
-				<Grid container item style={styles.cardContainer}>
+				<Grid container item style={styles.cardContainer} className='card-bg circle-pink bottom text-center responsive-container'>
 					<Grid item xs={12} sm={6}>
 						<IphoneComp deviceColor='white' src="../static/video/management_and_optimisation.mp4" />
 					</Grid>

@@ -89,7 +89,7 @@ const Index = () => {
 						</Grid>
 					</Grid>
 					<Grid item xs={12} sm={6} className='text-center'>
-						<TabletComp src="../static/video/bolt_influence.mp4" muted={true} />
+						<TabletComp src="../static/video/integrate_our_porducts.mp4" muted={true} />
 
 						{/* <img src={Screen5} /> */}
 					</Grid>
@@ -99,9 +99,7 @@ const Index = () => {
 			<div className='light-gray-bg'>
 				<Grid container item style={styles.cardContainer} className='card-bg lines-blue responsive-bg-opacity reverse-all right no-repeat responsive-reverse-order responsive-no-padding'>
 					<Grid item xs={12} sm={6} className='text-center responsive-container'>
-						{/* <img src={Screen6} /> */}
-						<TabletComp src="../static/video/engaging_media.mp4" />
-
+						<img src="../static/img/integrate_non_intrusive_media_format.png" />
 					</Grid>
 					<Grid item container xs={12} sm={6} justify="center" alignItems="center">
 						<Grid item container xs={12} sm={8} className='responsive-container'>

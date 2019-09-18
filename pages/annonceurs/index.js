@@ -126,6 +126,9 @@ const Index = () => {
 				h2:not(.card-title) {
 					margin: 4rem auto;
 				}
+				img {
+					min-width: 60%;
+				}
 				@media all and (max-width : 400px) {
 					h1 {
 						font-size: 2rem;
