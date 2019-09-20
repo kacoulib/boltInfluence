@@ -86,7 +86,6 @@ const Index = ({ loadMore, fields, path, editIdenfier, setNavTitle, title, editT
 }
 Index.propTypes = {
     datas: PropTypes.object.isRequired,
-    selectInfluencer: PropTypes.func.isRequired,
     loadMore: PropTypes.func
 }
 

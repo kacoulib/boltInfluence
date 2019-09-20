@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types'
 import FormGenerator from '../../formElement/generator'
-import { buttonStyle } from '../../../utils/variables/css';
-import { choiceList } from '../../../utils/variables/general'
 import { marqueInformationsFields, marquePaymentFields } from '../../formElement/fields/admin/marque-detail'
 import Btn from '../../elements/btn'
 import TableComp, { buildTableIcon } from '../../dataDisplay/table'
@@ -30,9 +28,9 @@ const styles = {
 const settings = { showLabel: { xs: 6 } }
 
 
-const Index = ({ selectedElem, setNavTitle }) => {
+const Index = ({ selected, setNavTitle }) => {
 
-    const [state, setState] = useState({ ...selectedElem, currentView: 0, modal: false })
+    const [state, setState] = useState({ ...selected, currentView: 0, modal: false })
 
     const onChange = (name, value) => setState({ ...state, ...{ [name]: value } })
 
@@ -217,7 +215,7 @@ const Index = ({ selectedElem, setNavTitle }) => {
     )
 }
 Index.propTypes = {
-    selectedElem: PropTypes.object.isRequired,
+    selected: PropTypes.object.isRequired,
 }
 
 export default Index;

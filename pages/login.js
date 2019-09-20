@@ -103,8 +103,7 @@ const Login = () => {
       if (message)
         notify(message);
       if (login)
-        window.location = '/admin';
-
+        window.location = '/admin/dashboard';
     } catch (err) {
     }
   };

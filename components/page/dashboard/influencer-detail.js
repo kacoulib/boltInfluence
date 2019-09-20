@@ -26,9 +26,9 @@ const styles = {
     influencer_info_container: { padding: '1rem' },
 }
 
-const Index = ({ selectedInfluencer, setNavTitle }) => {
+const Index = ({ selected, setNavTitle }) => {
 
-    const [state, setState] = useState(selectedInfluencer)
+    const [state, setState] = useState(selected)
 
     const onChange = (name, value) => {
         console.log(name, value)
@@ -37,7 +37,7 @@ const Index = ({ selectedInfluencer, setNavTitle }) => {
     const onSubmit = async () => {
         console.log(state)
     };
-    useEffect(() => setNavTitle && setNavTitle(`${selectedInfluencer.firstName} ${selectedInfluencer.lastName}`), [])
+    useEffect(() => setNavTitle && setNavTitle(`${selected.firstName} ${selected.lastName}`), [])
 
     return (
         <Grid container alignItems='center' justify="center">
@@ -117,7 +117,7 @@ const Index = ({ selectedInfluencer, setNavTitle }) => {
     )
 }
 Index.propTypes = {
-    selectedInfluencer: PropTypes.object.isRequired,
+    selected: PropTypes.object.isRequired,
 }
 
 export default Index;

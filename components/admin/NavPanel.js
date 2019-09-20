@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types'
+import Button from '@material-ui/core/Button';
 
 import Grid from '@material-ui/core/Grid';
 import Link from 'next/link';
+import { isFn } from '../../utils/datas/type'
+import { customRequest } from '../../lib/api/http/index';
 
 const containerStyle = {
     padding: '0 3rem'
@@ -12,29 +15,47 @@ const noNavContainerStyle = {
 }
 
 
-const NavPanel = ({ navList, index = 0, navTitle = null, resetNav, showSubMenu = false, showNav }) => {
+const NavPanel = ({ navList, index = 0, navTitle = null, resetNav, showSubMenu = false, showNav, onChange, getData }) => {
     let [state, setState] = useState({
         index,
         showSubMenu,
-        subMenuIndex: index
+        subMenuIndex: index,
+        resetTopNav: false,
+        limit: 2,
+        offset: 0,
     }),
-        nav = navList[state.index] && navList[state.index].subMenu ? navList[state.index].subMenu.navList : navList,
-        currentComp;
+        addRowNumber = 2,
+        topNav = navList[state.index],
+        nav = topNav && navList[state.index].subMenu ? navList[state.index].subMenu.navList : navList,
+        currentComp, currentCompPage;
 
-    if (state.showSubMenu && navList[state.index].subMenu.navList[state.subMenuIndex])
-        currentComp = navList[state.index].subMenu.navList[state.subMenuIndex].page;
-    else if (navList[state.index])
-        currentComp = navList[state.index].page;
+    const getCurrent = () => {
+        let tmp;
+
+        if (state.showSubMenu && topNav.subMenu.navList[state.subMenuIndex])
+            tmp = topNav.subMenu.navList[state.subMenuIndex];
+        else if (topNav)
+            tmp = topNav;
+        return tmp;
+    }
+    if ((currentComp = getCurrent())) {
+        currentComp = currentComp
+        currentCompPage = currentComp.page;
+
+    }
 
     const setNavigation = (index, hasSubMenu) => {
         if (state.showSubMenu)
-            setState({ index: state.index, showSubMenu: state.showSubMenu, subMenuIndex: index })
+            setState({ index: state.index, showSubMenu: state.showSubMenu, subMenuIndex: index, resetTopNav: !state.resetTopNav })
         else
-            setState({ index, showSubMenu: hasSubMenu || state.showSubMenu, subMenuIndex: 0 })
+            setState({ index, showSubMenu: hasSubMenu || state.showSubMenu, subMenuIndex: 0, resetTopNav: !state.resetTopNav })
 
         if (resetNav)
             resetNav()
     }
+    useEffect(() => {
+        getData({ requestName: currentComp.requestName })
+    }, [state.index, state.resetTopNav])
 
     return (
         <div id='dashboard'>
@@ -74,7 +95,7 @@ const NavPanel = ({ navList, index = 0, navTitle = null, resetNav, showSubMenu =
                     </ul>
                 </Grid>}
                 <Grid item xs={12} sm={showNav ? 9 : 12} container style={showNav ? containerStyle : noNavContainerStyle}>
-                    {currentComp}
+                    {isFn(currentCompPage) ? currentCompPage() : currentCompPage}
                 </Grid>
             </Grid>
 

@@ -20,21 +20,26 @@ const styles = {
     cardText: { margin: '.5em 0 0' },
 }
 
-const Index = ({ datas: { subscribedInfluencer, waitingInfluencer, subscribedMarque, waitingMarque, subscribedCampagne, waitingCampagne } }) => {
+const Index = ({ datas: { subscribedInfluencer, waitingInfluencer, subscribedMarque, waitingMarque, subscribedCampagne, waitingCampagne }, dashboard }) => {
+    const extractStat = (list, key, value) => list ? list.filter((elem) => elem[key] === value).length : 0;
+    const extractNotStat = (list, key, value) => list ? list.filter((elem) => elem[key] !== value).length : 0;
     const tmp = [
         {
             title: 'Nombre d\'influenceurs',
-            card: [{ icon: AccountIcon, text: 'Inscrit', nb: subscribedInfluencer }, { icon: TimeIcon, text: 'En attente', nb: waitingInfluencer }]
+            card: [{ icon: AccountIcon, text: 'Inscrit', nb: extractStat(dashboard.influencers, 'status', 'active') }, { icon: TimeIcon, text: 'En attente', nb: extractNotStat(dashboard.influencers, 'status', 'active') }]
         },
         {
             title: 'Marques',
-            card: [{ icon: FeedIcon, text: 'Inscrites', nb: subscribedMarque }, { icon: TimeIcon, text: 'En attente', nb: waitingMarque }]
+            card: [{ icon: FeedIcon, text: 'Inscrites', nb: extractStat(dashboard.brands, 'status', 'active') }, { icon: TimeIcon, text: 'En attente', nb: extractNotStat(dashboard.brands, 'status', 'active') }]
         },
         {
             title: 'Campagnes',
-            card: [{ icon: PostIcon, text: 'Nombres de campagnes', nb: subscribedCampagne }, { icon: TimeIcon, text: 'En attente', nb: waitingCampagne }]
+            card: [{ icon: PostIcon, text: 'Nombres de campagnes', nb: extractStat(dashboard.campaigns, 'status', 'active') }, { icon: TimeIcon, text: 'En attente', nb: extractNotStat(dashboard.campaigns, 'status', 'active') }]
         }
     ]
+
+    // console.log()
+    // console.log()
     return (
         <Grid container alignItems='center' justify="center" style={styles.container} >
             {tmp.map((elem, i) => (
@@ -57,7 +62,7 @@ const Index = ({ datas: { subscribedInfluencer, waitingInfluencer, subscribedMar
     )
 }
 Index.propTypes = {
-    data: PropTypes.object.isRequired,
+    datas: PropTypes.object.isRequired,
 }
 
 export default Index;
