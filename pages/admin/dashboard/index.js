@@ -44,7 +44,7 @@ const CustomerIndex = ({ categories = [], articlesLength, tags = [], faqsLength,
 
         const { path, requestProp } = createTopNav(requestName);
 
-        if (!path)
+        if (!requestName)
             return;
         let tmp = await customRequest({ path: `${path}?limit=${limit}&offset=${offset}` });
         if (tmp && (tmp = tmp[requestProp])) {

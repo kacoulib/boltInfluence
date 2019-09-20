@@ -12,9 +12,9 @@ const styles = {
     influencer_info_container: { padding: '1rem' },
 }
 
-const Index = ({ datas, selectedElem, showMessageView = false, toggleMessageView, setNavTitle, setShowNav, setSelection, loadMore, title }) => {
-    if (selectedElem)
-        return (<Detail selectedElem={selectedElem} setNavTitle={setNavTitle} />);
+const Index = ({ datas, selected, showMessageView = false, toggleMessageView, setNavTitle, setShowNav, setSelection, loadMore, title }) => {
+    if (selected)
+        return (<Detail selected={selected} setNavTitle={setNavTitle} />);
     else if (showMessageView) {
         setShowNav()
         return (<MessageComp showOptions={false} />);

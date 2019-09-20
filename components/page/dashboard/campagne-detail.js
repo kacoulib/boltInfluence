@@ -32,9 +32,9 @@ const styles = {
 const settings = { showLabel: { xs: 6 } }
 
 
-const Index = ({ selectedElem, setNavTitle }) => {
+const Index = ({ selected, setNavTitle }) => {
 
-    const [state, setState] = useState({ ...selectedElem, currentView: 0 })
+    const [state, setState] = useState({ ...selected, currentView: 0 })
 
     const onChange = (name, value) => setState({ ...state, ...{ [name]: value } })
 
@@ -68,7 +68,7 @@ const Index = ({ selectedElem, setNavTitle }) => {
                         <Grid item xs={2} sm={2} className='bold'><p className='text-center no-margin-top'>Unités totales</p></Grid>
                         <Grid item xs={2} sm={2} className='bold'><p className='text-center no-margin-top'>Coût</p></Grid>
                     </Grid>
-                    {selectedElem.propositions && selectedElem.propositions.map((elem, index) => (
+                    {selected.propositions && selected.propositions.map((elem, index) => (
                         <div className='contain'>
                             <Grid key={index} container xs={12} sm={12} alignContent='center' alignItems='center' className='influencers_list'>
                                 <Grid item container xs={4} sm={4}>
@@ -94,7 +94,7 @@ const Index = ({ selectedElem, setNavTitle }) => {
                 </Grid>
             </> : <>
                     <Grid item xs={12} sm={12} alignItems='center' justify="center">
-                        {selectedElem.influencers && selectedElem.influencers.map((elem, index) => (
+                        {selected.influencers && selected.influencers.map((elem, index) => (
                             <div className='contain influencers_list pointer'>
                                 <Grid key={index} container xs={12} sm={12} alignContent='center' alignItems='center'>
                                     <Grid item container xs={8} sm={8} alignContent='center' alignItems='center'>
@@ -159,7 +159,7 @@ const Index = ({ selectedElem, setNavTitle }) => {
     )
 }
 Index.propTypes = {
-    selectedElem: PropTypes.object.isRequired,
+    selected: PropTypes.object.isRequired,
 }
 
 export default Index;
