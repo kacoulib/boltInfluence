@@ -26,7 +26,7 @@ const serverRoutes = require('./routes/server');
 const User = require('./models/User');
 
 const logger = require('./logs');
-// const { insertTemplates } = require('./models/EmailTemplate');
+const { insertTemplates } = require('./models/EmailTemplate');
 
 require('dotenv').config();
 
@@ -132,12 +132,8 @@ nextApp.prepare().then(async () => {
 
 
   app.use((req, res, next) => {
-    // console.log('sessionID:', req.sessionID);
-    // console.log("session:", req.session);
     next();
   });
-
-  // await insertTemplates();
 
   passport.serializeUser((user, cb) => {
     cb(null, user._id.toString());
@@ -159,10 +155,7 @@ nextApp.prepare().then(async () => {
   twitchAuth({ app, ROOT_URL });
   pinterestAuth({ app, ROOT_URL });
   basicAuth({ app, nextApp });
-  // app.use((req, res, next) => {
-  //   console.log('USER:', req.user);
-  //   next();
-  // });
+
   routes(app);
   serverRoutes(app, nextApp);
 
@@ -173,12 +166,7 @@ nextApp.prepare().then(async () => {
 
 
   app.get('*', (req, res) => {
-    // const url = URL_MAP[req.path];
-    // if (url) {
-    //   nextApp.render(req, res, url);
-    // } else {
     handle(req, res);
-    // }
   });
 
   server.listen(port, (err) => {

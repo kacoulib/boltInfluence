@@ -62,15 +62,16 @@ body a {
     padding: 14px 0;	
 }
 #home-cover {
-    background-image: url('../img/home.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
     height: calc(100vh - 109px);
 }
-/* #home-cover img {
-    opacity: 0;
-} */
+#home-cover .left-video,
+#home-cover .left-video video {
+    height: 100%;
+    background: #000000;
+}
+#home-cover .right-video {
+    position: relative;
+}
 /* NAV */
 
 .menu-link span {

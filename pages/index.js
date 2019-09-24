@@ -9,6 +9,7 @@ import ScreenHome from '../static/img/home.jpg'
 import BlackIphone from '../static/img/black-iphone.png'
 import Carousel from '../components/dataDisplay/others/carousel';
 import { IphoneComp } from '../components/dataDisplay/others/device';
+import VideoComp from '../components/elements/video';
 import ContactUs from '../components/page/public/contactUs'
 import Btn from '../components/elements/btn'
 import { NextSeo } from 'next-seo';
@@ -84,15 +85,25 @@ const Index = () => {
 			<div style={styles.marginBottom}>
 				<Grid container item className='relative' id='home-cover'>
 					{/* <img src={ScreenHome} className='fullwidth' /> */}
-					<Grid item container xs={12} sm={6} justify="center" alignItems="center" style={styles.hover}>
-						<Grid item xs={12} sm={12} className='text-center' id='homeTextContainer'>
+					<Grid item container xs={6} sm={6} justify="center" alignItems="center" className='left-video'>
+						<VideoComp src="../static/video/boltInfluence.mp4" />
+					</Grid>
+
+					<Grid item container xs={6} sm={6} justify="center" alignItems="center">
+						<div className='right-video'>
+							<VideoComp src="../static/video/bolt_influence.mp4" />
+							<img src='../static/img/checkers.jpg' className='checkers' />
+						</div>
+
+						{/* <Grid item xs={12} sm={12} className='text-center' id='homeTextContainer'>
 							<h1 className='white-color'>Tirez le meilleur de l’influence marketing grâce à la vidéo</h1>
-							{/* <Btn text="Démarrez" href='#contact-us' style={{ fontWeight: 'bold', backgroundColor: orangeColor, padding: '.5rem 1rem', fontSize: '1.1rem' }} /> */}
+							<Btn text="Démarrez" href='#contact-us' style={{ fontWeight: 'bold', backgroundColor: orangeColor, padding: '.5rem 1rem', fontSize: '1.1rem' }} />
 							<Btn href="#contact-us" text="Démarrez" />
-						</Grid>
+						</Grid> */}
 					</Grid>
 				</Grid>
 			</div>
+
 			{/*  */}
 			<div className='text-center'>
 				<div style={styles.padding} className='responsive-container'>
@@ -212,6 +223,18 @@ const Index = () => {
 				}
 				h2 {
 					margin-top: 0;
+				}
+				.right-video {
+					position: relative;
+					max-width: 75%;
+				}
+
+				.checkers {
+					position: absolute;
+					bottom: -10%;
+					right: -10%;
+					z-index: -1;
+					width: 25%;			
 				}
 			`}</style>
 		</div>

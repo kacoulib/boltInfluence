@@ -30,9 +30,9 @@ const getYoutubeVideoID = (src) => {
         return (null);
 
     ampersandPosition = video_id.indexOf('&');
-    if (ampersandPosition != -1) {
+    if (ampersandPosition != -1)
         video_id = video_id.substring(0, ampersandPosition);
-    }
+
     return video_id;
 }
 const VideoComp = ({ src, controls = false, autoplay = true, loop = true, modestbranding = true, allowfullscreen = true, width, height, muted }) => {

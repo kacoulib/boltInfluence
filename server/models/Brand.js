@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
+const generateSlug = require('../utils/slugify');
+
 
 const mongoSchema = new Schema({
   name: {
@@ -36,6 +38,29 @@ class BrandClass {
     return { brands };
   }
 
+  /**
+   * @param {Object} options
+   * @param {String} options.title
+   * @param {String} options.color
+   */
+  static async add({
+    name,
+    contact,
+    picture,
+    description
+  }) {
+    const slug = await generateSlug(name);
+    const brandDoc = await this.create({
+      name,
+      contact,
+      slug,
+      picture,
+      description
+    });
+
+    const brand = brandDoc.toObject();
+    return { brand };
+  }
   /**
    * Update a Brand
    * @param {Object} options

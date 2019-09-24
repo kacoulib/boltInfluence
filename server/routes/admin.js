@@ -28,6 +28,14 @@ const router = express.Router();
 //   next();
 // });
 
+router.get('/dashboard', async (req, res, next) => {
+  const users = await User.listInfluencers();
+  const brands = await Brand.list();
+  const campaigns = await Campaign.list();
+  const articles = await Article.list();
+
+  return res.json({ dashboard: { ...users, ...brands, ...campaigns, ...articles } });
+});
 router.get('/influencers', listCollection(User.listInfluencers.bind(User)));
 
 router.get('/businesses', listCollection(User.listBusinesses.bind(User)));

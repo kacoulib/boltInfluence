@@ -4,7 +4,7 @@ const CampaignOffer = require('./CampaignOffer');
 const User = require('./User');
 const { languageCodeList, civilityList } = require('../../utils/variables/general');
 const { PaymentExecutionList } = require('../../utils/variables/payment');
-const { isInfluencer, isBrand, isAgency } = require('../../utils/variables/user');
+const { isInfluencer, isBrand, isAgency, StatusList, Active } = require('../../utils/variables/user');
 const generateSlug = require('../utils/slugify');
 
 const { Schema } = mongoose;
@@ -88,6 +88,11 @@ const mongoSchema = new Schema({
     enum: PaymentExecutionList,
     required: true,
   },
+  status: {
+    type: String,
+    enum: StatusList,
+    required: true,
+  },
   // offers: [{ type: ObjectId, ref: 'CampaignOffer' }],
 });
 
@@ -99,7 +104,7 @@ class CampaignClass {
    * @param {Number} options.offset - Amount of Campaigns to skip
    * @param {Number} options.limit - Amount of Campaigns to return
    */
-  static async list(where, { offset = 0, limit = 10 } = {}) {
+  static async list({ where, offset = 0, limit = 10 } = {}) {
     const campaigns = await this.find(where)
       .sort({ createdAt: -1 })
       .skip(offset)
@@ -171,6 +176,8 @@ class CampaignClass {
     paymentExecution,
   }) {
     const slug = await generateSlug(this, title);
+    const status = Active; // Change to Enum Value
+
     const campaign = await this.create({
       brand,
       title,
@@ -185,6 +192,7 @@ class CampaignClass {
       audienceCountry,
       location,
       paymentExecution,
+      status
     });
     return { campaign };
   }
