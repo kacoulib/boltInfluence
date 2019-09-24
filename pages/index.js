@@ -86,7 +86,7 @@ const Index = () => {
 				<Grid container item className='relative' id='home-cover'>
 					{/* <img src={ScreenHome} className='fullwidth' /> */}
 					<Grid item container xs={6} sm={6} justify="center" alignItems="center" className='left-video'>
-						<VideoComp src="../static/video/boltInfluence.mp4" />
+						<VideoComp src="../static/video/boltInfluence.mp4" muted />
 					</Grid>
 
 					<Grid item container xs={6} sm={6} justify="center" alignItems="center">
