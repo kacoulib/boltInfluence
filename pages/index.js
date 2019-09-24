@@ -91,7 +91,7 @@ const Index = () => {
 
 					<Grid item container xs={6} sm={6} justify="center" alignItems="center">
 						<div className='right-video'>
-							<VideoComp src="../static/video/bolt_influence.mp4" />
+							<VideoComp src="../static/video/bolt_influence.mp4" muted />
 							<img src='../static/img/checkers.jpg' className='checkers' />
 						</div>
 
@@ -234,7 +234,7 @@ const Index = () => {
 					bottom: -10%;
 					right: -10%;
 					z-index: -1;
-					width: 25%;			
+					max-width: 25%;			
 				}
 			`}</style>
 		</div>
