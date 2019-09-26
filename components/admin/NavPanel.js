@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types'
-import Button from '@material-ui/core/Button';
 
 import Grid from '@material-ui/core/Grid';
 import Link from 'next/link';
 import { isFn } from '../../utils/datas/type'
-import { customRequest } from '../../lib/api/http/index';
 
 const containerStyle = {
     padding: '0 3rem'
@@ -54,7 +52,7 @@ const NavPanel = ({ navList, index = 0, navTitle = null, resetNav, showSubMenu =
             resetNav()
     }
     useEffect(() => {
-        getData({ requestName: currentComp.requestName })
+        getData && getData({ requestName: currentComp.requestName });
     }, [state.index, state.resetTopNav])
 
     return (

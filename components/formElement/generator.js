@@ -162,13 +162,13 @@ const FormGenerator = ({ fields, classes, state, onChange, toggleList, settings 
                                             <Grid item {...labelSpacing}>
 
                                                 <div>
-                                                    <Radio name={elem.name} label={showLabel ? '' : elem.label} value={state[elem.name]} onChange={onChange} {...elemProps} />
+                                                    <Radio name={elem.name} label={showLabel ? '' : elem.label} value={state[elem.name]} list={elem.list} onChange={onChange} {...elemProps} />
                                                 </div>
                                             </ Grid>
                                         </ Grid>
                                     )
                                     || elem.type == 'checkbox' && (
-                                        <Checkbox name={elem.name} label={elem.label} value={state[elem.name]} onChange={onChange} {...elemProps} />
+                                        <Checkbox name={elem.name} label={elem.label} value={state[elem.name] || []} onChange={onChange} list={elem.list} {...elemProps} />
                                     )
                                     || elem.type == 'color' && (
                                         <Grid container>

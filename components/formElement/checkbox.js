@@ -6,6 +6,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import { withStyles } from '@material-ui/core/styles';
 import { orangeColor } from '../../utils/variables/css'
+import { toggleArray } from '../../utils/datas/convert'
+import { FormElementWrapper } from './index'
 
 const styles = {
     group: {
@@ -22,26 +24,35 @@ const styles = {
     checked: {}
 };
 
-const CheckboxType = ({ classes, label, value, onChange, name = '' }) => {
-    
-    return (
+const CheckboxType = ({ classes, label, value = [], onChange, name = '', showLabel, labelPosition, list }) => (
+    <FormElementWrapper label={label} showLabel={showLabel} labelPosition={labelPosition}>
+
         <FormGroup row classes={{ root: classes.group }}>
-            <FormControlLabel
-                control={
-                    <Checkbox checked={value} onChange={() => onChange(name, !value)} value={value} classes={{ root: classes.Checkbox, checked: classes.checked }}
+            {list && list.map((elem, index) => {
+                const newVal = toggleArray(value, elem.name);
+                const checked = value.includes(elem.name)
+
+                return (
+                    <FormControlLabel key={index}
+                        control={
+                            <Checkbox checked={checked} onChange={() => onChange(name, newVal)} value={elem.value} classes={{ root: classes.Checkbox, checked: classes.checked }}
+                            />
+                        }
+                        label={elem.name}
                     />
-                }
-                label={label}
-            />
+                )
+            })}
+
         </FormGroup>
-    )
-}
+    </FormElementWrapper>
+
+)
 
 CheckboxType.propTypes = {
     onChange: PropTypes.func.isRequired,
     name: PropTypes.string.isRequired,
     label: PropTypes.string,
-    value: PropTypes.bool,
+    value: PropTypes.array,
 }
 
 export default withStyles(styles)(CheckboxType)
