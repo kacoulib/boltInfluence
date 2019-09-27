@@ -64,6 +64,21 @@ const fields = [
 
 const fields2 = [{
     label: "Activity *",
+    name: "technology",
+    type: 'checkbox',
+    required: true,
+    list: [
+        { name: 'Subcategorie 1', value: 'subcategorie_1' },
+        { name: 'Subcategorie 2', value: 'subcategorie_2' },
+        { name: 'Subcategorie 3', value: 'subcategorie_3' },
+        { name: 'Subcategorie 4', value: 'subcategorie_4' },
+        { name: 'Subcategorie 5', value: 'subcategorie_5' },
+        { name: 'Subcategorie 6', value: 'subcategorie_6' },
+    ],
+}]
+
+const fields3 = [{
+    label: "Activity *",
     name: "activity",
     type: 'select',
     required: true,
@@ -86,7 +101,7 @@ const settings = {
 }
 const socialsList = ['facebook', 'instagram', 'youtube', 'twitter', 'twitch', 'pinterest', 'tiktok', 'linkedin'];
 
-const steps = ['Renseignement du profil', 'Choisir une catégorie', 'Activité professionnelle'];
+const steps = ['Renseignement du profil', 'Connexion des comptes', 'Choisir une catégorie', 'Activité professionnelle'];
 
 function getStepContent(state, onChange) {
 
@@ -118,8 +133,16 @@ function getStepContent(state, onChange) {
                     onChange={onChange}
                     settings={settings}
                 />;
+            case 3:
+                return <FormGenerator
+                    fields={fields3}
+                    state={state}
+                    errors={state.errors}
+                    onChange={onChange}
+                    settings={settings}
+                />;
             default:
-                return 'Unknown step';
+                return 'Unknown step :(';
         }
     }
 }
@@ -132,6 +155,7 @@ const RenseignementComp = () => {
         description: '',
         agence: '',
         activity: '',
+        technology: '',
         job: '',
         message: '',
         selectValue: '',
@@ -141,7 +165,7 @@ const RenseignementComp = () => {
     const submit = () => console.log('submit')
     const finish = () => {
         const errors = FormValidator({ fields, state });
-        console.log(errors)
+        console.log(errors, state)
         return !errors.length
     }
 

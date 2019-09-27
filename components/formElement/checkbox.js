@@ -29,8 +29,8 @@ const CheckboxType = ({ classes, label, value = [], onChange, name = '', showLab
 
         <FormGroup row classes={{ root: classes.group }}>
             {list && list.map((elem, index) => {
-                const newVal = toggleArray(value, elem.name);
-                const checked = value.includes(elem.name)
+                const newVal = toggleArray(value, elem.value);
+                const checked = value.includes(elem.value)
 
                 return (
                     <FormControlLabel key={index}

@@ -71,8 +71,8 @@ const SelectType = ({ name, label, type, value, list, onChange, showLabel, varia
                 // {...elemProps}
                 >
                     {list && list.map((elem, key) => (
-                        <MenuItem key={`${elem.name}-${key}`} value={elem.name}>
-                            {elem.value}
+                        <MenuItem key={`${elem.name}-${key}`} value={elem.value}>
+                            {elem.name}
                         </MenuItem>
                     ))}
                 </Select>
