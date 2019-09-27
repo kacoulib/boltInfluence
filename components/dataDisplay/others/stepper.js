@@ -58,9 +58,6 @@ ColorlibStepIcon.propTypes = {
 };
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        width: '90%',
-    },
     button: {
         marginTop: theme.spacing(1),
         marginRight: theme.spacing(1),

@@ -57,7 +57,7 @@ const fields = [
         type: 'radio',
         // dimension: { ms: 2, xs: 4 },
 
-        list: [{ name: 'Marque1', value: 'marque 1' }, { name: 'Marque2', value: 'second marque' }],
+        list: [{ value: 'Célibaltaire', name: 'single' }, { value: 'Pacsé', name: 'second marque' }, { value: 'Marié', name: 'married' }],
     },
 ]
 

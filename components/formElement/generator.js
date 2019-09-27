@@ -9,6 +9,7 @@ import Select from './select';
 import Radio from './radio';
 import Upload from './upload';
 import Checkbox from './checkbox';
+import Date from './date';
 import ReactSelect from './reactSelect'
 import ColorPicker from 'material-ui-color-picker'
 import TextField from './text-field'
@@ -94,6 +95,15 @@ const FormGenerator = ({ fields, classes, state, onChange, toggleList, settings 
                                         {...{ ...elem, ...elemSettings }}
                                     />
                                 )
+                                    || elem.type == 'dateYear' && (
+                                        <Date
+                                            error={error}
+                                            value={state[elem.name]}
+                                            onChange={onChange}
+                                            showLabel={showLabel}
+                                            {...elem}
+                                        />
+                                    )
                                     || elem.type == 'wysiwyg' && (
                                         <Wysiwyg
                                             error={error}
