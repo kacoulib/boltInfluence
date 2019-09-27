@@ -882,6 +882,37 @@ footer li {
 }
 
 /* OTHER */
+.flex-center {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.user_bio {
+    padding: 1rem;
+}
+.user_bio .container {
+    background: #DEDEE8;
+}
+.user_bio .red-bg {
+    background: #F13F4B;
+}
+.user_bio h3 {
+    padding-top: 1rem;
+    color: #242B45;;
+}
+.user_bio li a {
+    display: block;
+    padding: .5rem;
+    border-bottom: 1px solid white;
+    color: #242B45;;
+}
+.user_bio li:last-child a {
+    border-bottom: none;
+}
+.user_bio .red-bg h3,
+.user_bio .red-bg li a {
+    color: white;
+}
 .admin_campagne_header {
     margin-bottom: 1rem!important;
 }
