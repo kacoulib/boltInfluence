@@ -1,4 +1,5 @@
 import Select from '@material-ui/core/Select';
+import NativeSelect from '@material-ui/core/NativeSelect';
 import PropTypes from 'prop-types'
 import { FormElementWrapper } from './index'
 import { makeStyles } from '@material-ui/styles';
@@ -37,6 +38,11 @@ const MenuProps = {
         [`& fieldset`]: {
             border: 0,
             boxShadow: '0px 2px 5px #bfbfbf',
+        },
+    },
+    noBackground: {
+        '&:focus': {
+            backgroundColor: 'none',
         },
     }
 };

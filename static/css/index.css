@@ -1966,3 +1966,6 @@ textarea.mde-text {
     cursor: s-resize; }
     .react-mde .grip .icon {
       height: 10px; }
+      .MuiSelect-select:focus {
+          background-color: #0000!important;
+      }

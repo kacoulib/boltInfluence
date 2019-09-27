@@ -56,6 +56,7 @@ const fields = [
         name: "activity",
         type: 'radio',
         // dimension: { ms: 2, xs: 4 },
+        required: true,
 
         list: [{ value: 'Célibaltaire', name: 'single' }, { value: 'Pacsé', name: 'second marque' }, { value: 'Marié', name: 'married' }],
     },
@@ -80,7 +81,7 @@ const fields2 = [{
 const settings = {
     // showLabel: true,
     unableUnderline: true,
-    // unableBoxShadow: false,
+    unableBoxShadow: false,
     bordered: true
 }
 const socialsList = ['facebook', 'instagram', 'youtube', 'twitter', 'twitch', 'pinterest', 'tiktok', 'linkedin'];
@@ -140,6 +141,7 @@ const RenseignementComp = () => {
     const submit = () => console.log('submit')
     const finish = () => {
         const errors = FormValidator({ fields, state });
+        console.log(errors)
         return !errors.length
     }
 
