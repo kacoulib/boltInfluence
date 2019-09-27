@@ -33,7 +33,7 @@ const fields = [
     {
         label: "ADRESSE EMAIL",
         name: "email",
-        type: 'input',
+        type: 'email',
         required: true,
         dimension: { ms: 2, xs: 4 },
     },
@@ -42,14 +42,14 @@ const fields = [
         name: "place_of_born",
         type: 'input',
         required: true,
-        dimension: { ms: 2, xs: 6 },
+        dimension: { ms: 2, xs: 4 },
     },
     {
         label: "Date de naissance",
         name: "birthday",
-        type: 'datetime-local',
+        type: 'dateYear',
         required: true,
-        dimension: { ms: 2, xs: 6 },
+        dimension: { ms: 2, xs: 4 },
     },
     {
         label: "Activity *",
@@ -140,7 +140,6 @@ const RenseignementComp = () => {
     const submit = () => console.log('submit')
     const finish = () => {
         const errors = FormValidator({ fields, state });
-        console.log(errors, state)
         return !errors.length
     }
 
