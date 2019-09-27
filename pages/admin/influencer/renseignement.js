@@ -62,20 +62,37 @@ const fields = [
     },
 ]
 
-const fields2 = [{
-    label: "Activity *",
-    name: "technology",
-    type: 'checkbox',
-    required: true,
-    list: [
-        { name: 'Subcategorie 1', value: 'subcategorie_1' },
-        { name: 'Subcategorie 2', value: 'subcategorie_2' },
-        { name: 'Subcategorie 3', value: 'subcategorie_3' },
-        { name: 'Subcategorie 4', value: 'subcategorie_4' },
-        { name: 'Subcategorie 5', value: 'subcategorie_5' },
-        { name: 'Subcategorie 6', value: 'subcategorie_6' },
-    ],
-}]
+const fields2 = [
+    {
+        label: "Technologie / High tech",
+        name: "sector",
+        type: 'select',
+        required: true,
+        list: [
+            { name: 'Salarié (non cadre)', value: 'salarie' },
+            { name: 'Cadre', value: 'cadre' },
+            { name: 'Entrepreneur/autoentrepreneur', value: 'entreprenor' },
+            { name: 'De profession libérale', value: 'liberal' },
+            { name: 'Profession des arts et spectacles', value: 'art' },
+            { name: 'Sans emploi', value: 'businessman' },
+            { name: 'Retraité', value: 'retiree' },
+            { name: 'Autre', value: 'other' },
+        ],
+    },
+    {
+        label: "Activity *",
+        name: "technology",
+        type: 'checkbox',
+        required: true,
+        list: [
+            { name: 'Subcategorie 1', value: 'subcategorie_1' },
+            { name: 'Subcategorie 2', value: 'subcategorie_2' },
+            { name: 'Subcategorie 3', value: 'subcategorie_3' },
+            { name: 'Subcategorie 4', value: 'subcategorie_4' },
+            { name: 'Subcategorie 5', value: 'subcategorie_5' },
+            { name: 'Subcategorie 6', value: 'subcategorie_6' },
+        ],
+    }]
 
 const fields3 = [{
     label: "Activity *",
@@ -159,6 +176,7 @@ const RenseignementComp = () => {
         job: '',
         message: '',
         selectValue: '',
+        sector: '',
         errors: []
     })
     const onChange = (name, value) => setState({ ...state, [name]: value })
