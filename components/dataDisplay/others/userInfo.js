@@ -74,18 +74,19 @@ const fakeUser = {
     src: '../../../static/img/user.png',
     complete: 80,
     size: 'small',
-    color: 'red'
+    // color: 'red'
 }
-const UserInfoComp = ({ name, src, complete, size, color } = fakeUser) => {
-    const isSmal = size == 'small';
+const UserInfoComp = (props) => {
+    const data = { ...fakeUser, ...props };
+    const isSmal = data.size == 'small';
 
     return (
-        <Grid container xs={8} alignItems="stretch" justify="center" className={`${isSmal ? 'flex-center' : ''}`}>
+        <Grid container xs={12} alignItems="stretch" justify="center" className={`${isSmal ? 'flex-center' : ''}`}>
             <Grid item xs={isSmal ? 5 : 12}>
-                <UserProfile {...fakeUser} />
+                <UserProfile {...data} />
             </Grid>
             <Grid item xs={isSmal ? 7 : 12}>
-                <NavInfo color={color} />
+                <NavInfo color={data.color} />
             </Grid>
         </Grid>
     )

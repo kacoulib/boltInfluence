@@ -882,13 +882,26 @@ footer li {
 }
 
 /* OTHER */
+.list-spacing {
+    padding: 1rem;
+}
+div .list-spacing:first-of-type,
+ul .list-spacing:first-of-type
+{
+    padding-left: 0;
+}
+div .list-spacing:last-of-type,
+ul .list-spacing:last-of-type
+{
+    padding-right: 0;
+}
 .flex-center {
     display:flex;
     justify-content: center;
     align-items: center;
 }
 .user_bio {
-    padding: 1rem;
+    padding-left: 1rem;
 }
 .user_bio .container {
     background: #DEDEE8;
@@ -1484,6 +1497,9 @@ button.submit {
 }
 .card-bg.dots-blue-down::before {
     background-image: url('../img/dots-blue-down.png');
+}
+.card-bg.dots-blue-top::before {
+    background-image: url('../img/dots-blue.png');
 }
 .card-bg.dots-pink::before {
     background-image: url('../img/dots-pink.png');
