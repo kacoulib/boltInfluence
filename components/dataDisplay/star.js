@@ -11,7 +11,6 @@ const StarComp = ({ name = '', length = 5, selected = length, onClick, activateS
         onClick && onClick(index);
     }
 
-    console.log(state)
     return (
         <Rating
             name={name}

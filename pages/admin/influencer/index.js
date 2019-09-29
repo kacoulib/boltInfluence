@@ -5,6 +5,7 @@ import NavPanel from '../../../components/admin/NavPanel';
 import Home from '../../../components/page/dashboard/index';
 import Influencers from '../../../components/page/dashboard/influencers';
 import InfluencersDetail from '../../../components/page/dashboard/influencer-detail';
+import Dashboard from '../../../components/page/influencer/';
 import Marques from '../../../components/page/dashboard/marques';
 import Campagne from '../../../components/page/dashboard/campagne';
 import HomeIcon from '../../../static/img/icon/home.svg';
@@ -87,9 +88,14 @@ const CustomerIndex = ({ user }) => {
 
     const navList = [
         {
-            href: 'account', className: 'icon account', text: 'Tableau de bord', icon: <FeedIcon />,
+            href: 'account', className: 'icon account', text: 'Informations', icon: <FeedIcon />,
             requestName: 'influencers',
             page: <InfluencersDetail selected={user} />
+        },
+        {
+            href: 'account', className: 'icon account', text: 'Tableau de bord', icon: <FeedIcon />,
+            requestName: 'influencers',
+            page: <Dashboard selected={user} />
         },
         {
             href: 'publish', className: 'icon feed', text: 'Media kit', icon: <FeedIcon />,
