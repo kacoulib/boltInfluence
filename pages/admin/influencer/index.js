@@ -4,6 +4,7 @@ import NavPanel from '../../../components/admin/NavPanel';
 
 import Home from '../../../components/page/dashboard/index';
 import Influencers from '../../../components/page/dashboard/influencers';
+import InfluencersDetail from '../../../components/page/dashboard/influencer-detail';
 import Marques from '../../../components/page/dashboard/marques';
 import Campagne from '../../../components/page/dashboard/campagne';
 import HomeIcon from '../../../static/img/icon/home.svg';
@@ -18,7 +19,7 @@ import { categoryFields, tagsFields, faqsFields, emailTemplateFields } from '../
 import { customRequest } from '../../../lib/api/http/index';
 
 
-const CustomerIndex = ({ categories = [], articlesLength, tags = [], faqsLength, email = [] }) => {
+const CustomerIndex = ({ user }) => {
 
     const [state, setState] = useState({
         navTitle: null,
@@ -83,102 +84,27 @@ const CustomerIndex = ({ categories = [], articlesLength, tags = [], faqsLength,
         datas: state.datas,
         loadMore: () => loadMore(requestName)
     })
-    const articleFields = [
-        {
-            label: "Poster / image",
-            name: "picture",
-            type: 'upload',
-            required: true,
-            width: 12,
-        },
-        {
-            label: "Titre",
-            name: "title",
-            type: 'input',
-            required: true,
-            props: {
-                margin: "normal",
-            }
-        },
-        {
-            label: "Catégories",
-            name: "categories",
-            type: 'react-select',
-            required: true,
-            props: {
-                list: buildFromArray(categories, 'title', '_id'),
-            }
-        },
-        {
-            label: "Tags",
-            name: "tags",
-            type: 'react-select',
-            required: true,
-            props: {
-                list: buildFromArray(tags, 'title', '_id'),
-            }
-        },
-        {
-            label: "Contenu",
-            name: "content",
-            type: 'wysiwyg',
-            required: true,
-            props: {
-                margin: "normal",
-                variant: "outlined",
-            }
-        },
-    ]
 
     const navList = [
         {
-            href: 'home', className: 'icon home', text: 'Acceuil',
-            icon: <HomeIcon />,
-            page: <RequestWrapper
-                title='Influenceurs'
-                path='/admin/dashboard'
-                requestProp='dashboard'
-                editIdenfier='_id'
-                setNavTitle={setNavTitle}
-
-                page={(props) => <Home  {...props} />}
-            />
-        },
-        {
-            href: 'account', className: 'icon account', text: 'Influencers', icon: <FeedIcon />,
+            href: 'account', className: 'icon account', text: 'Tableau de bord', icon: <FeedIcon />,
             requestName: 'influencers',
-            page: <Influencers {...setElemProps('Influenceurs', 'influencers')} />
+            page: <InfluencersDetail selected={user} />
         },
         {
-            href: 'publish', className: 'icon feed', text: 'Marques & Agences', icon: <FeedIcon />,
+            href: 'publish', className: 'icon feed', text: 'Media kit', icon: <FeedIcon />,
             requestName: 'businesses',
 
             page: <Marques {...setElemProps('Marques & agences', 'businesses')} />,
         },
         {
-            href: 'post-validate', className: 'icon post', text: 'Campagne', icon: <CampagneIcon />,
+            href: 'post-validate', className: 'icon post', text: 'Campagnes', icon: <CampagneIcon />,
             requestName: 'campaigns',
 
             page: <Campagne {...setElemProps('Campagnes', 'campaigns')} />
         },
         {
-            href: 'article', className: 'icon photos', text: 'Articles', subMenu: {
-                title: 'Articles', navList: [
-                    { href: 'mark', className: 'icon photos', text: 'Créer un article', page: <CreatePost fields={articleFields} setNavTitle={setNavTitle} title="Créer un article" path='/admin/articles' /> },
-                    {
-                        href: 'account', className: 'icon mark', text: 'Liste des articles', page: <PostList
-                            fields={articleFields}
-                            path='/admin/articles'
-                            requestProp='articles'
-                            editIdenfier='slug'
-                            setNavTitle={setNavTitle}
-                        />
-                    },
-                ]
-            }
-        },
-        {
-            href: 'account', className: 'icon mark', text: 'Categories', subMenu: {
+            href: 'account', className: 'icon mark', text: 'Messagerie', subMenu: {
                 title: 'Catégories', navList: [
                     { href: 'mark', className: 'icon photos', text: 'Créer un article', page: <CreatePost fields={categoryFields} setNavTitle={setNavTitle} title="Créer un article" path='/admin/categories' /> },
                     {
@@ -250,7 +176,7 @@ const CustomerIndex = ({ categories = [], articlesLength, tags = [], faqsLength,
 
     return (
         <NavPanel
-            topTitleLeft='Admin'
+            // topTitleLeft='Admin'
             navTitle={state.navTitle}
             navList={navList}
             index={0}
@@ -259,6 +185,8 @@ const CustomerIndex = ({ categories = [], articlesLength, tags = [], faqsLength,
             showNav={state.showNav}
             onChange={onChange}
             getData={getData}
+            showUserProfile={true}
+            user={user}
         />
     )
 }

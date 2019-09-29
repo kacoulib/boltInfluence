@@ -42,14 +42,14 @@ const NavInfo = ({ color = '' }) => (
         </Grid>
     </Grid>
 )
-const UserProfile = ({ name, src, complete = 0 }) => (
+const UserProfile = ({ slug, src, complete = 0 }) => (
     <Grid container item className='text-center'>
         <Grid item xs={12}>
-            <h2>{name}</h2>
+            <h2>{slug}</h2>
         </Grid>
         <Grid item xs={12}>
             <div className='img_container'>
-                <img src={src} alt={name} />
+                <img src={src} alt={slug} />
             </div>
         </Grid>
         <Grid item xs={12}>

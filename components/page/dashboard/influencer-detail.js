@@ -31,7 +31,6 @@ const Index = ({ selected, setNavTitle }) => {
     const [state, setState] = useState(selected)
 
     const onChange = (name, value) => {
-        console.log(name, value)
         setState(Object.assign({}, state, { [name]: value }))
     };
     const onSubmit = async () => {

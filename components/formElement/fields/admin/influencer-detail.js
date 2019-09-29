@@ -3,7 +3,7 @@ import { choiceList } from '../../../../utils/variables/general'
 const userInfoFields = [
     {
         label: "Pseudonyme",
-        name: "pseudo",
+        name: "slug",
         type: 'input',
         required: true,
         width: 6

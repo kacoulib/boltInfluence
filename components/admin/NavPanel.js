@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import Grid from '@material-ui/core/Grid';
 import Link from 'next/link';
 import { isFn } from '../../utils/datas/type'
+import UserProfile from '../dataDisplay/others/userInfo'
 
 const containerStyle = {
     padding: '0 3rem'
@@ -13,7 +14,7 @@ const noNavContainerStyle = {
 }
 
 
-const NavPanel = ({ navList, index = 0, navTitle = null, resetNav, showSubMenu = false, showNav, onChange, getData }) => {
+const NavPanel = ({ navList, index = 0, navTitle = null, resetNav, showSubMenu = false, showNav, onChange, getData, showUserProfile, user = {}, topTitleLeft }) => {
     let [state, setState] = useState({
         index,
         showSubMenu,
@@ -57,14 +58,14 @@ const NavPanel = ({ navList, index = 0, navTitle = null, resetNav, showSubMenu =
 
     return (
         <div id='dashboard'>
-            <Grid container className='top-menu'>
+            {topTitleLeft ? <Grid container className='top-menu'>
                 <Grid item xs={12} sm={3}>
                     <div className='top-menu-title pointer' onClick={resetNav}>Admin</div>
                 </Grid>
                 <Grid item xs={12} sm={9} container style={containerStyle}>
                     <div className='top-title red-color'>{navTitle}</div>
                 </Grid>
-            </Grid>
+            </Grid> : ''}
             <Grid container>
                 {state.showSubMenu && <Grid item xs={12} sm={12}>
                     <Grid container>
@@ -75,28 +76,37 @@ const NavPanel = ({ navList, index = 0, navTitle = null, resetNav, showSubMenu =
                 </Grid>
                 }
                 {showNav && <Grid item xs={12} sm={3}>
-                    <ul id='dashboard-nav'>
-                        {nav && nav.map((e, i) => {
-                            const currentIndex = state.showSubMenu ? state.subMenuIndex : state.index;
+                    <div>
+                        <ul id='dashboard-nav'>
+                            {nav && nav.map((e, i) => {
+                                const currentIndex = state.showSubMenu ? state.subMenuIndex : state.index;
 
-                            return (
-                                <li key={i}>
-                                    <Link prefetch href={`#${e.href}`}>
-                                        <a className={i == currentIndex ? 'orange-color active' : 'gray-color'} onClick={() => setNavigation(i, !!e.subMenu)}>
-                                            <span className={e.className}></span>
-                                            <span>{e.text}</span>
-                                        </a>
-                                    </Link>
-                                </li>
-                            )
-                        })}
-                    </ul>
+                                return (
+                                    <li key={i}>
+                                        <Link prefetch href={`#${e.href}`}>
+                                            <a className={i == currentIndex ? 'orange-color active' : 'gray-color'} onClick={() => setNavigation(i, !!e.subMenu)}>
+                                                <span className={e.className}></span>
+                                                <span>{e.text}</span>
+                                            </a>
+                                        </Link>
+                                    </li>
+                                )
+                            })}
+                        </ul>
+                    </div>
+                    {showUserProfile ? <div className='user-info'>
+                        <UserProfile size='' color='red' {...user} />
+                    </div> : ''}
                 </Grid>}
                 <Grid item xs={12} sm={showNav ? 9 : 12} container style={showNav ? containerStyle : noNavContainerStyle}>
                     {isFn(currentCompPage) ? currentCompPage() : currentCompPage}
                 </Grid>
             </Grid>
-
+            <style jsx>{`
+                .user-info {
+                    padding-top: 5rem;
+                }
+            `}</style>
         </div>
     )
 };
