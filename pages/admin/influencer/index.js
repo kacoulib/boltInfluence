@@ -15,6 +15,8 @@ import { buildFromArray } from '../../../utils/datas/convert'
 import PostList from '../../../components/page/posts/list';
 import CategoryList from '../../../components/page/posts/categoryList';
 import CreatePost from '../../../components/page/create-edit';
+import WebKit from '../../../components/page/influencer/media-kit';
+
 import RequestWrapper from '../../../components/page/requestWrapper';
 import { categoryFields, tagsFields, faqsFields, emailTemplateFields } from '../../../components/formElement/fields/admin/posts'
 import { customRequest } from '../../../lib/api/http/index';
@@ -85,7 +87,14 @@ const CustomerIndex = ({ user }) => {
         datas: state.datas,
         loadMore: () => loadMore(requestName)
     })
-
+    const fakeUser = {
+        firstName: 'Sam',
+        lastName: 'Jons',
+        phone: '+3398765432',
+        email: 'Samjones@gmail.com',
+        src: '../static/img/sam_jones.png',
+        address: '223 westview boulevard, 75000, Paris France',
+    }
     const navList = [
         {
             href: 'account', className: 'icon account', text: 'Informations', icon: <FeedIcon />,
@@ -101,7 +110,8 @@ const CustomerIndex = ({ user }) => {
             href: 'publish', className: 'icon feed', text: 'Media kit', icon: <FeedIcon />,
             requestName: 'businesses',
 
-            page: <Marques {...setElemProps('Marques & agences', 'businesses')} />,
+            page: <WebKit user={fakeUser} />,
+            contentClassName: 'hide-content-panel-padding'
         },
         {
             href: 'post-validate', className: 'icon post', text: 'Campagnes', icon: <CampagneIcon />,

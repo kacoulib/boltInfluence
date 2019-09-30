@@ -882,6 +882,9 @@ footer li {
 }
 
 /* OTHER */
+.hide-content-panel-padding {
+    padding-right: 0!important;
+}
 .list-spacing {
     padding: 1rem;
 }

@@ -23,7 +23,6 @@ const NavPanel = ({ navList, index = 0, navTitle = null, resetNav, showSubMenu =
         limit: 2,
         offset: 0,
     }),
-        addRowNumber = 2,
         topNav = navList[state.index],
         nav = topNav && navList[state.index].subMenu ? navList[state.index].subMenu.navList : navList,
         currentComp, currentCompPage;
@@ -98,7 +97,7 @@ const NavPanel = ({ navList, index = 0, navTitle = null, resetNav, showSubMenu =
                         <UserProfile size='' color='red' {...user} />
                     </div> : ''}
                 </Grid>}
-                <Grid item xs={12} sm={showNav ? 9 : 12} container style={showNav ? containerStyle : noNavContainerStyle}>
+                <Grid item xs={12} sm={showNav ? 9 : 12} container style={showNav ? containerStyle : noNavContainerStyle} className={currentComp.contentClassName}>
                     {isFn(currentCompPage) ? currentCompPage() : currentCompPage}
                 </Grid>
             </Grid>

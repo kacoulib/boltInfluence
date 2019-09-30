@@ -6,12 +6,12 @@ const MediaKit = ({ user }) => {
         currentView: 0
     })
     const socialStats = [
-        { src: '../../../static/img/icon/facebook.png', score: '58K' },
-        { src: '../../../static/img/icon/instagram.png', score: '10K' },
-        { src: '../../../static/img/icon/tiktok.png', score: '200K' },
-        { src: '../../../static/img/icon/facebook.png', score: '58K' },
-        { src: '../../../static/img/icon/instagram.png', score: '10K' },
-        { src: '../../../static/img/icon/tiktok.png', score: '200K' },
+        { src: '../../../static/img/icon/big-facebook.png', score: '58K' },
+        { src: '../../../static/img/icon/big-instagram.png', score: '10K' },
+        { src: '../../../static/img/icon/big-tiktok.png', score: '200K' },
+        { src: '../../../static/img/icon/big-facebook.png', score: '58K' },
+        { src: '../../../static/img/icon/big-instagram.png', score: '10K' },
+        { src: '../../../static/img/icon/big-tiktok.png', score: '200K' },
     ];
     const onChange = (name, value) => setState({ ...state, [name]: value })
 
@@ -38,7 +38,7 @@ const MediaKit = ({ user }) => {
                 <h2>Hello, I’m {`${user.firstName} ${user.lastName}`}</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis erat sed elit sceleris Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis erat sed elit scelerisque iaculis. Nullam nec porttitor justo, at iaculis risus. Aliquam erat volutpat. que iaculis. </p>
             </div>
-            <div className='red-bg white-color'>
+            <div className='red-bg white-color fullwidth'>
                 <Grid container alignItems='center'>
                     <Grid item xs={6}>
                         <div>{user.phone}</div>
@@ -47,16 +47,16 @@ const MediaKit = ({ user }) => {
                     <Grid item xs={6}>{user.address}</Grid>
                 </Grid>
             </div>
-            <div className='spacing'>
+            <div className='spacing fullwidth'>
                 <Grid container alignItems='center'>
                     <Grid item xs={6}>
                         <div className='total-score red-color'>358K</div>
                         <p>Total abonnés</p>
                     </Grid>
-                    <Grid container item xs={6}>
+                    <Grid container item xs={6} className='text-center'>
                         {socialStats.map(({ src, score }, index) => (
                             <Grid item xs={4} key={index}>
-                                <div>
+                                <div className='social-container'>
                                     <img src={src} />
                                     <div>{score}</div>
                                 </div>
@@ -65,7 +65,7 @@ const MediaKit = ({ user }) => {
                     </Grid>
                 </Grid>
             </div>
-            <div className='audience'>
+            <div className='audience fullwidth'>
                 <h2>Audience</h2>
                 <div className='list'>
                     <Grid container>
@@ -89,6 +89,12 @@ const MediaKit = ({ user }) => {
                 </div>
             </div>
             <style jsx>{`
+                .social-container {
+                    padding-bottom: 2rem;
+                }
+                .list-value {
+                    margin-top: 3rem;
+                }
                 .bar {
                     display: block;
                     width: 100%;
@@ -141,6 +147,7 @@ const MediaKit = ({ user }) => {
                 .cover {
                     margin-bottom: 3rem;
                     background-size: cover;
+                    width: 100%;
                 }
                 .cover img {
                     opacity: 0;
