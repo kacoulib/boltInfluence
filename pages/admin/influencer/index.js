@@ -5,7 +5,6 @@ import NavPanel from '../../../components/admin/NavPanel';
 import Home from '../../../components/page/dashboard/index';
 import Influencers from '../../../components/page/dashboard/influencers';
 import InfluencersDetail from '../../../components/page/dashboard/influencer-detail';
-import Dashboard from '../../../components/page/influencer/';
 import Marques from '../../../components/page/dashboard/marques';
 import Campagne from '../../../components/page/dashboard/campagne';
 import HomeIcon from '../../../static/img/icon/home.svg';
@@ -16,6 +15,7 @@ import PostList from '../../../components/page/posts/list';
 import CategoryList from '../../../components/page/posts/categoryList';
 import CreatePost from '../../../components/page/create-edit';
 import WebKit from '../../../components/page/influencer/media-kit';
+import Dashboard from '../../../components/page/influencer/dashboard';
 
 import RequestWrapper from '../../../components/page/requestWrapper';
 import { categoryFields, tagsFields, faqsFields, emailTemplateFields } from '../../../components/formElement/fields/admin/posts'

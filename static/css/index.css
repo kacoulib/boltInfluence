@@ -888,6 +888,22 @@ footer li {
 }
 
 /* OTHER */
+.influencer-color-container {
+    padding: 1rem;
+}
+.influencer-color {
+    height: 100%;
+    border-radius: 5px;
+}
+.influencer-red {
+    background-color: #242B45;
+}
+.influencer-cryan {
+    background-color: #87B8C2;
+}
+.influencer-blue {
+    background-color: #F13F4B;
+}
 .hide-content-panel-padding {
     padding-right: 0!important;
 }

@@ -1,5 +1,6 @@
 import { ResponsiveChoropleth, } from '@nivo/geo'
 import { ResponsiveBar } from '@nivo/bar'
+import { ResponsivePie } from '@nivo/pie'
 import { map, bar, countries } from './data'
 
 // make sure parent container have a defined height when using
@@ -7,50 +8,183 @@ import { map, bar, countries } from './data'
 // no chart will be rendered.
 // website examples showcase many properties,
 // you'll often use just a few of them.
-const DashboardComp = ({ data }) => (
-    <ResponsiveChoropleth
-        data={data}
-        features={countries.features}
-        colors="nivo"
-        unknownColor="#666666"
-        label="properties.name"
-        valueFormat=".2s"
-        projectionTranslation={[0.5, 0.5]}
-        enableGraticule={true}
-        graticuleLineColor="#dddddd"
-        borderWidth={0.5}
-        borderColor="#152538"
-        legends={[
-            {
-                anchor: "bottom-left",
-                direction: "column",
-                justify: true,
-                translateX: 20,
-                translateY: -100,
-                itemsSpacing: 0,
-                itemWidth: 94,
-                itemHeight: 18,
-                itemDirection: "left-to-right",
-                itemTextColor: "#444444",
-                itemOpacity: 0.85,
-                symbolSize: 18,
-                effects: [
-                    {
-                        on: "hover",
-                        style: {
-                            itemTextColor: "#000000",
-                            itemOpacity: 1
-                        }
-                    }
-                ]
+
+const Wrapper = (props) => (
+    <div>
+        {props.children}
+        <style jsx>{`
+            div {
+                height: 500px;
             }
-        ]}
-    />
+        `}</style>
+    </div>
+)
+const Pie = ({ data }) => (
+    <Wrapper>
+        <ResponsivePie
+            data={data}
+            margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
+            innerRadius={0.5}
+            padAngle={0}
+            cornerRadius={3}
+            colors={{ scheme: 'nivo' }}
+            borderWidth={1}
+            borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
+            radialLabelsSkipAngle={10}
+            radialLabelsTextXOffset={6}
+            radialLabelsTextColor="#333333"
+            radialLabelsLinkOffset={0}
+            radialLabelsLinkDiagonalLength={16}
+            radialLabelsLinkHorizontalLength={24}
+            radialLabelsLinkStrokeWidth={1}
+            radialLabelsLinkColor={{ from: 'color' }}
+            slicesLabelsSkipAngle={10}
+            slicesLabelsTextColor="#333333"
+            animate={true}
+            motionStiffness={90}
+            motionDamping={15}
+            defs={[
+                {
+                    id: 'dots',
+                    type: 'patternDots',
+                    background: 'inherit',
+                    color: 'rgba(255, 255, 255, 0.3)',
+                    size: 4,
+                    padding: 1,
+                    stagger: true
+                },
+                {
+                    id: 'lines',
+                    type: 'patternLines',
+                    background: 'inherit',
+                    color: 'rgba(255, 255, 255, 0.3)',
+                    rotation: -45,
+                    lineWidth: 6,
+                    spacing: 10
+                }
+            ]}
+            fill={[
+                {
+                    match: {
+                        id: 'ruby'
+                    },
+                    id: 'dots'
+                },
+                {
+                    match: {
+                        id: 'c'
+                    },
+                    id: 'dots'
+                },
+                {
+                    match: {
+                        id: 'go'
+                    },
+                    id: 'dots'
+                },
+                {
+                    match: {
+                        id: 'python'
+                    },
+                    id: 'dots'
+                },
+                {
+                    match: {
+                        id: 'scala'
+                    },
+                    id: 'lines'
+                },
+                {
+                    match: {
+                        id: 'lisp'
+                    },
+                    id: 'lines'
+                },
+                {
+                    match: {
+                        id: 'elixir'
+                    },
+                    id: 'lines'
+                },
+                {
+                    match: {
+                        id: 'javascript'
+                    },
+                    id: 'lines'
+                }
+            ]}
+            legends={[
+                {
+                    anchor: 'bottom',
+                    direction: 'row',
+                    translateY: 56,
+                    itemWidth: 100,
+                    itemHeight: 18,
+                    itemTextColor: '#999',
+                    symbolSize: 18,
+                    symbolShape: 'circle',
+                    effects: [
+                        {
+                            on: 'hover',
+                            style: {
+                                itemTextColor: '#000'
+                            }
+                        }
+                    ]
+                }
+            ]}
+        />
+    </Wrapper>
+)
+
+const Choropleth = ({ data }) => (
+    <Wrapper>
+        <ResponsiveChoropleth
+            data={data}
+            features={[]}
+            margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
+            colors="nivo"
+            domain={[0, 1000000]}
+            unknownColor="#666666"
+            label="properties.name"
+            valueFormat=".2s"
+            projectionTranslation={[0.5, 0.5]}
+            projectionRotation={[0, 0, 0]}
+            enableGraticule={true}
+            graticuleLineColor="#dddddd"
+            borderWidth={0.5}
+            borderColor="#152538"
+            legends={[
+                {
+                    anchor: 'bottom-left',
+                    direction: 'column',
+                    justify: true,
+                    translateX: 20,
+                    translateY: -100,
+                    itemsSpacing: 0,
+                    itemWidth: 94,
+                    itemHeight: 18,
+                    itemDirection: 'left-to-right',
+                    itemTextColor: '#444444',
+                    itemOpacity: 0.85,
+                    symbolSize: 18,
+                    effects: [
+                        {
+                            on: 'hover',
+                            style: {
+                                itemTextColor: '#000000',
+                                itemOpacity: 1
+                            }
+                        }
+                    ]
+                }
+            ]}
+        />
+    </Wrapper>
 );
 
 const MyResponsiveBar = ({ data /* see data tab */ }) => (
-    <div className="chart">
-
+    <Wrapper>
         <ResponsiveBar
             data={bar}
             keys={['hot dog', 'burger', 'sandwich', 'kebab', 'fries', 'donut']}
@@ -159,6 +293,8 @@ const MyResponsiveBar = ({ data /* see data tab */ }) => (
                     `
         }
         </style>
-    </div>
+    </Wrapper>
 )
 export default MyResponsiveBar
+
+export { Pie, Choropleth }
