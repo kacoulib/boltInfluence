@@ -56,7 +56,7 @@ const NavPanel = ({ navList, index = 0, navTitle = null, resetNav, showSubMenu =
     }, [state.index, state.resetTopNav])
 
     return (
-        <div id='dashboard'>
+        <div id='dashboard' className={currentComp.dashboardClassName}>
             {topTitleLeft ? <Grid container className='top-menu'>
                 <Grid item xs={12} sm={3}>
                     <div className='top-menu-title pointer' onClick={resetNav}>Admin</div>

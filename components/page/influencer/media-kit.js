@@ -38,13 +38,17 @@ const MediaKit = ({ user }) => {
                 <h2>Hello, I’m {`${user.firstName} ${user.lastName}`}</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis erat sed elit sceleris Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis erat sed elit scelerisque iaculis. Nullam nec porttitor justo, at iaculis risus. Aliquam erat volutpat. que iaculis. </p>
             </div>
-            <div className='red-bg white-color fullwidth'>
+            <div className='red-bg white-color fullwidth text-center'>
                 <Grid container alignItems='center'>
                     <Grid item xs={6}>
-                        <div>{user.phone}</div>
-                        <div>{user.email}</div>
+                        <div className='red-spacing'>
+                            <div>{user.phone}</div>
+                            <div>{user.email}</div>
+                        </div>
                     </Grid>
-                    <Grid item xs={6}>{user.address}</Grid>
+                    <Grid item xs={6}>
+                        <div className='red-spacing'>{user.address}</div>
+                    </Grid>
                 </Grid>
             </div>
             <div className='spacing fullwidth'>
@@ -80,7 +84,7 @@ const MediaKit = ({ user }) => {
                     <Grid container alignItems='center'>
                         {ageStats.map(({ age, percent, color, }, index) => (
                             <>
-                                <Grid xs={2}><div className={color}>{age}</div></Grid>
+                                <Grid xs={2}><div className={`color-value ${color}`}>{age}</div></Grid>
                                 <Grid xs={10}><div className={`bar ${color}`}><div style={{ width: `${percent}%` }}></div></div></Grid>
                             </>
                         ))}
@@ -89,6 +93,10 @@ const MediaKit = ({ user }) => {
                 </div>
             </div>
             <style jsx>{`
+                .red-spacing {
+                    max-width: 50%;
+                    margin: .5rem auto;
+                }
                 .social-container {
                     padding-bottom: 2rem;
                 }
@@ -100,6 +108,21 @@ const MediaKit = ({ user }) => {
                     width: 100%;
                     min-height: 50px;
                     padding: .5rem 0;
+                }
+                .color-value.blue-light {
+                    color: #9DC2E4;
+                }
+                .color-value.orange-light {
+                    color: #EE9D25;
+                }
+                .color-value.dark {
+                    color: #2C3434;
+                }
+                .color-value.green {
+                    color: #9FD9DD;
+                }
+                .color-value.orange {
+                    color: #F05E22;
                 }
                 .blue-light div {
                     background-color: #9DC2E4;

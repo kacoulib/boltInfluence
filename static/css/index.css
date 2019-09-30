@@ -404,6 +404,12 @@ table {
 
 
 /* dashboard */
+.webkit#dashboard {
+    padding-top: 0;
+}
+.webkit #dashboard-nav {
+    padding-top: 3rem;
+}
 #dashboard {
     padding: 3rem 0;
     min-height: calc(100vh - 110px);

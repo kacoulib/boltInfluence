@@ -111,7 +111,8 @@ const CustomerIndex = ({ user }) => {
             requestName: 'businesses',
 
             page: <WebKit user={fakeUser} />,
-            contentClassName: 'hide-content-panel-padding'
+            contentClassName: 'hide-content-panel-padding',
+            dashboardClassName: 'webkit'
         },
         {
             href: 'post-validate', className: 'icon post', text: 'Campagnes', icon: <CampagneIcon />,
