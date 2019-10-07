@@ -16,6 +16,7 @@ import CategoryList from '../../../components/page/posts/categoryList';
 import CreatePost from '../../../components/page/create-edit';
 import WebKit from '../../../components/page/influencer/media-kit';
 import Dashboard from '../../../components/page/influencer/dashboard';
+import Message from '../../../components/page/influencer/message';
 
 import RequestWrapper from '../../../components/page/requestWrapper';
 import { categoryFields, tagsFields, faqsFields, emailTemplateFields } from '../../../components/formElement/fields/admin/posts'
@@ -121,21 +122,8 @@ const CustomerIndex = ({ user }) => {
             page: <Campagne {...setElemProps('Campagnes', 'campaigns')} />
         },
         {
-            href: 'account', className: 'icon mark', text: 'Messagerie', subMenu: {
-                title: 'Catégories', navList: [
-                    { href: 'mark', className: 'icon photos', text: 'Créer un article', page: <CreatePost fields={categoryFields} setNavTitle={setNavTitle} title="Créer un article" path='/admin/categories' /> },
-                    {
-                        href: 'account', className: 'icon mark', text: 'Liste des Catégories', page: <CategoryList
-                            fields={categoryFields}
-                            path='/admin/categories'
-                            editIdenfier='_id'
-                            title='Liste des catégories'
-                            editTitle='Liste des catégories'
-                            requestProp='categories'
-                        />
-                    },
-                ]
-            }
+            href: 'account', className: 'icon mark', text: 'Messagerie',
+            page: <Message />
         },
         {
             href: 'account', className: 'icon mark', text: 'Tags', subMenu: {

@@ -602,10 +602,39 @@ table {
 .filter:hover {
     opacity: .7;
 }
-.filter.active {
-    border: 1px solid #F13F4B;
+div.filter.active {
     box-shadow: 5px 5px 5px #c5c4c4;
+}
+div.filter.active > div:nth-child(1){
+    
     color: white;
+}
+.filter.active.blue {
+    background-color:#242B45;
+}
+.filter.active.done {
+    background-color:#87b8c2;
+}
+.filter.active.new {
+    background-color: #f1943f;
+}
+.filter.active.red {
+    background-color: #F13F4B;
+}
+div.filter.active > div:nth-child(2){
+    background-color: white;
+}
+.filter.active.blue > div:nth-child(2){
+    color:#242B45;    
+}
+.filter.active.done > div:nth-child(2){
+    color: #87b8c2;
+}
+.filter.active.new > div:nth-child(2){
+    color: #f1943f;
+}
+.filter.active.red > div:nth-child(2){
+    color: #F13F4B;
 }
 
 .filter.done {
@@ -614,8 +643,13 @@ table {
 .filter.new {
     color: #f1943f;
 }
+.filter.red {
+    color: #F13F4B;
+
+}
 .filter> div:nth-child(2){
     min-width: 25px;
+    max-height: 25px;
     border-radius: 50%;
     text-align: center;
     color: white;
@@ -648,10 +682,7 @@ table {
 .filter.blue > div:nth-child(2) {
     background-color: #242B45;
 }
-.filter.red,
-.filter.red > div:nth-child(2) {
-    border: 1px solid #F13F4B;
-}
+
 #blog .filter.done.active {
     color: white;
 }
@@ -888,6 +919,9 @@ footer li {
 }
 
 /* OTHER */
+.upper {
+    text-transform: uppercase;
+}
 .influencer-color-container {
     padding: 1rem;
 }
@@ -985,12 +1019,14 @@ ul .list-spacing:last-of-type
 .star-container li.active path {
     fill: #FAE18C;
 }
+.reply-icon path {
+    fill: #F13F4B;
+}
 svg {
     display: block;
     width: 100%;
     height: 100%;
 }
-
 .svg-g-fill-white g,
 .svg-path-fill-white path {
     fill: white;

@@ -8,6 +8,120 @@ import ReplyIcon from '../../../static/img/icon/reply.svg'
 import TrashIcon from '../../../static/img/icon/trash.svg'
 import ArrowIcon from '../../../static/img/icon/arrow.svg'
 import { toggleArray } from '../../../utils/datas/convert'
+import Btn from '../../../components/elements/btn'
+
+import Autocomplete from '../../dataDisplay/element/autocomplete'
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+const useStyles = makeStyles(theme => ({
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    textField: {
+        margin: 0,
+        border: 0,
+        root: {
+            border: 0
+        }
+    },
+    outlinedRoot: {
+        border: 0,
+        '&:hover': {
+            border: 0,
+        },
+    },
+    dense: {
+        marginTop: theme.spacing(2),
+    },
+    menu: {
+        width: 200,
+    },
+}));
+
+
+const ReplyComp = ({ }) => {
+    const classes = useStyles();
+
+    const InputProps = {
+        classes: {
+            notchedOutline: classes.outlinedRoot,
+        },
+    };
+
+    return (
+        <>
+            <div>
+                <div className='reply-content'>
+                    <div>
+                        <div>
+                            <Grid container spacing={1} alignItems="flex-start">
+                                <Grid item xs={1}>
+                                    <div className='reply-icon'>
+                                        <ReplyIcon />
+                                    </div>
+                                </Grid>
+                                <Grid item xs={11}>
+                                    <div className='select-user'>
+                                        <div>
+                                            <Autocomplete />
+                                        </div>
+                                    </div>
+                                </Grid>
+                            </Grid>
+                        </div>
+                        <div>
+                            <TextField
+                                id="outlined-multiline-static"
+                                multiline
+                                rows="8"
+                                fullWidth
+                                defaultValue="Default Value"
+                                className={classes.textField}
+                                margin="normal"
+                                variant="outlined"
+                                InputProps={InputProps}
+                            />
+                        </div>
+                        <div className='submit-container text-right'><Btn text="Envoyer" /></div>
+                    </div>
+                </div>
+            </div>
+            <style jsx>{`
+            .reply-icon {
+                max-width: 25px;
+                fill: red;
+            }
+            .select-user {
+                position: relative;
+            }
+            .select-user > div {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                z-index: 1;
+            }
+            .reply-content {
+                position: relative;
+                padding: 1rem;
+            }
+            .reply-content > div {
+                border: 1px solid rgba(0, 0, 0, 0.23);
+                border-radius: 4px;
+                box-shadow: 0 5px 3px 1.5px #d2d1d18f;
+            }
+            .reply-content > div > div:nth-child(1) {
+                border-bottom: 1px solid rgba(0,0,0,0.23);
+                padding: .5rem;
+            }
+            .reply-content .submit-container {
+                padding: 0 1rem 1rem;
+            }
+        `}</style>
+        </>
+    )
+}
 
 const optionsList = [
     { type: 'select', Icon: OvalIcon },
@@ -48,7 +162,7 @@ const OptionsDisplay = ({ options, date, id, handleOption }) => (
 )
 
 const MessageDisplay = ({ selected = null, messages = [], offset = 0, limit = 0, nb_message = 0, handleSelection, handlePaginate, handleOption, showOptions }) => (
-    <Grid container id="tchat" alignItems='flex-start'>
+    <Grid container id="tchat" alignItems="stretch">
         <Grid item container sm={4} justify="space-between" direction="column" className='fullheight'>
             <Grid item container className='tchat-list-container'>
                 {messages && messages.map((elem, index) => (
@@ -75,7 +189,7 @@ const MessageDisplay = ({ selected = null, messages = [], offset = 0, limit = 0,
                 ))}
             </Grid>
             <Grid item container alignItems="center" justify="flex-end" className='paginate'>
-                <Grid item >
+                <Grid item>
                     <span>{`${offset}-${limit}`}</span> de<span> {nb_message}</span>
                 </Grid>
                 <Grid item className='svg-g-fill-white'>
@@ -84,7 +198,7 @@ const MessageDisplay = ({ selected = null, messages = [], offset = 0, limit = 0,
                 </Grid>
             </Grid>
         </Grid>
-        <Grid item sm={8}>
+        <Grid item sm={8} className='relative'>
             <section>
                 {selected && <>
                     <Grid container>
@@ -112,11 +226,18 @@ const MessageDisplay = ({ selected = null, messages = [], offset = 0, limit = 0,
                                 <p>{selected.content}</p>
                             </div>
                         </Grid>
+                        <div className='reply-container'><ReplyComp /></div>
                     </Grid>
                 </>}
             </section>
         </Grid>
         <style jsx>{`
+            .reply-container {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+            }
             h2, h3 {
                 font-size: 1rem;
                 margin: 0;
