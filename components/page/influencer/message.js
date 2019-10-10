@@ -7,10 +7,33 @@ const MessageComp = ({ }) => {
 
     const onFilter = () => console.log('filter')
 
+    const categories = [
+        {
+            _id: 1,
+            title: 'inbox',
+            nb: 1,
+        },
+        {
+            _id: 2,
+            title: 'Envoyé',
+            nb: 2,
+        },
+        {
+            _id: 3,
+            title: 'Brouillons',
+            nb: 3,
+        },
+        {
+            _id: 4,
+            title: 'corbeille',
+            nb: 4,
+        },
+    ];
+
     return (
         <Grid>
             <div className='message-container'>
-                <Filter onFilter={onFilter} />
+                <Filter onFilter={onFilter} categories={categories} />
             </div>
             <div>
                 <Message />

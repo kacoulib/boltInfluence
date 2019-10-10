@@ -1336,6 +1336,12 @@ button.submit {
 .facebook {
     background-image: url('../img/icon/facebook.png');
 }
+.instagram {
+    background-image: url('../img/icon/instagram.png');
+}
+.tiktok {
+    background-image: url('../img/icon/tiktok.png');
+}
 .no-repeat {
     background-repeat: no-repeat;
 }
@@ -1512,6 +1518,17 @@ button.submit {
 .dots-blue {
     background-image: url('../img/dots-blue.png');
 }
+.arrow {
+    width: 25px;
+    height: 25px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('../img/icon/arrow-down.png');
+}
+.arrow.top {
+    transform: rotate(180deg);
+}
+
 
 /* .dot-pink {
     background-image: url('../img/dots-pink.png');
