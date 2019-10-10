@@ -25,6 +25,7 @@ import TextField from './text-field'
 */
 const styles = theme => ({
     root: {
+        margin: 0,
         flexGrow: 1,
     },
     container: {
