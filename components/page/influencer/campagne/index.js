@@ -143,7 +143,6 @@ const IndexComp = () => {
     else
         filteredData = state.campagns;
 
-    console.log(filteredData)
     return (
         <Grid container alignContent='center' alignItems='center'>
             <Grid container item xs={12}>
