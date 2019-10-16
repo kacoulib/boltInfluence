@@ -36,6 +36,7 @@ const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
 const mongoSchema = new Schema({
+  picture: String,
   email: {
     type: String,
     // required: true,
@@ -77,9 +78,9 @@ const mongoSchema = new Schema({
     enum: RoleList,
     required: true,
   },
+  categories: [{ type: String, enum: categoryList }],
   // Role-dependant fields
   influencer: {
-    picture: String,
     situation: {
       type: String,
       // enum: UserSituations
@@ -89,11 +90,10 @@ const mongoSchema = new Schema({
       default: false
     },
     deliveryAddress: String,
-    categories: [{ type: String, enum: categoryList }],
     interests: [{ type: String, enum: activityList }],
     languages: [{ type: String, enum: languageCodeList }],
-    gender: [{ type: String, enum: genderList }],
-    civilState: [{ type: String, enum: civilStateList }],
+    gender: { type: String, enum: genderList },
+    civilState: { type: String, enum: civilStateList },
     centersOfInterest: [{ type: ObjectId, ref: 'CenterOfInterest' }],
     feedback: [
       {
@@ -145,6 +145,7 @@ const mongoSchema = new Schema({
   factureAddress: String,
   companyEmail: String,
   companyName: String,
+  companyType: String,
   companySize: {
     type: Number,
     min: 1,
@@ -250,12 +251,13 @@ class UserClass {
     const additional = {};
     const status = Active; // Change to Enum Value
 
-    if (role === Influencer) {
-      additional.influencer = { picture };
-    }
+    // if (role === Influencer) {
+    //   additional.influencer = { picture };
+    // }
 
     const user = await this.create({
       email,
+      picture,
       password,
       slug,
       firstName,
