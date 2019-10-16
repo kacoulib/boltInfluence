@@ -16,8 +16,8 @@ const {
   StatusList,
   Active,
 } = require('../../utils/variables/user');
-const { languageCodeList } = require('../../utils/variables/general');
-const { isInfluencer, isBusiness } = require('../../utils/variables/user');
+const { languageCodeList, genderList, civilStateList } = require('../../utils/variables/general');
+const { isInfluencer, isBusiness, categoryList, activityList } = require('../../utils/variables/user');
 const generateSlug = require('../utils/slugify');
 const bcrypt = require('../utils/bcrypt');
 const {
@@ -84,8 +84,26 @@ const mongoSchema = new Schema({
       type: String,
       // enum: UserSituations
     },
+    haveChildren: {
+      type: Boolean,
+      default: false
+    },
+    deliveryAddress: String,
+    categories: [{ type: String, enum: categoryList }],
+    interests: [{ type: String, enum: activityList }],
     languages: [{ type: String, enum: languageCodeList }],
+    gender: [{ type: String, enum: genderList }],
+    civilState: [{ type: String, enum: civilStateList }],
     centersOfInterest: [{ type: ObjectId, ref: 'CenterOfInterest' }],
+    feedback: [
+      {
+        giver: { type: ObjectId, ref: 'User' },
+        date: Date,
+        text: String,
+        notes: Number,
+      }
+    ],
+
     // socialMedias: {
     //   google: SocialToken,
     //   instagram: SocialToken
@@ -114,11 +132,17 @@ const mongoSchema = new Schema({
     birthcountry: String,
   },
   // Company related (every user needs a company)
+  phone: String,
   address: String,
+  bio: String,
   city: String,
   country: String,
   postalCode: String,
   siret: String,
+  rib: String,
+  bic: String,
+  paypal: String,
+  factureAddress: String,
   companyEmail: String,
   companyName: String,
   companySize: {

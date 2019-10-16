@@ -1,6 +1,7 @@
 import Stepper from '../../../components/dataDisplay/others/stepper'
 import FormGenerator from '../../../components/formElement/generator'
 import SocialBtn from '../../../components/elements/socialBtn'
+import { categories as categoryList, activities as activityList } from '../../../utils/variables/user'
 import Ucfirst from '../../../lib/ucfirst'
 import FormValidator, { LeanForm } from '../../../lib/form/validator'
 
@@ -68,30 +69,14 @@ const fields2 = [
         name: "sector",
         type: 'select',
         required: true,
-        list: [
-            { name: 'Salarié (non cadre)', value: 'salarie' },
-            { name: 'Cadre', value: 'cadre' },
-            { name: 'Entrepreneur/autoentrepreneur', value: 'entreprenor' },
-            { name: 'De profession libérale', value: 'liberal' },
-            { name: 'Profession des arts et spectacles', value: 'art' },
-            { name: 'Sans emploi', value: 'businessman' },
-            { name: 'Retraité', value: 'retiree' },
-            { name: 'Autre', value: 'other' },
-        ],
+        list: categoryList,
     },
     {
         label: "Activity *",
         name: "technology",
         type: 'checkbox',
         required: true,
-        list: [
-            { name: 'Subcategorie 1', value: 'subcategorie_1' },
-            { name: 'Subcategorie 2', value: 'subcategorie_2' },
-            { name: 'Subcategorie 3', value: 'subcategorie_3' },
-            { name: 'Subcategorie 4', value: 'subcategorie_4' },
-            { name: 'Subcategorie 5', value: 'subcategorie_5' },
-            { name: 'Subcategorie 6', value: 'subcategorie_6' },
-        ],
+        list: activityList,
     }]
 
 const fields3 = [{
