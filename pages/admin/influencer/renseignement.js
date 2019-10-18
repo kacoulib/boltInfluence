@@ -186,4 +186,4 @@ const RenseignementComp = () => {
     )
 }
 
-export default withAuth(RenseignementComp, { role: 'admin' })
+export default withAuth(RenseignementComp, { role: 'influencer' })
