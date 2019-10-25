@@ -1,25 +1,14 @@
-import React, { useState, useEffect } from "react";
-import withLayout from '../../../lib/withLayout';
-import NavPanel from '../../../components/admin/NavPanel';
+import React, { useState } from "react";
+import NavPanel from '../NavPanel';
 
-import Home from '../../../components/page/dashboard/index';
-import Influencers from '../../../components/page/dashboard/influencers';
-import InfluencersDetail from '../../../components/page/dashboard/influencer-detail';
-import Marques from '../../../components/page/dashboard/marques';
-import Campagne from '../../../components/page/dashboard/campagne';
-import HomeIcon from '../../../static/img/icon/home.svg';
+import InfluencersDetail from '../../page/dashboard/influencer-detail';
+import Campagne from '../../page/dashboard/campagne';
 import FeedIcon from '../../../static/img/icon/feed.svg';
 import CampagneIcon from '../../../static/img/icon/campagne.svg';
-import { buildFromArray } from '../../../utils/datas/convert'
-import PostList from '../../../components/page/posts/list';
-import CategoryList from '../../../components/page/posts/categoryList';
-import CreatePost from '../../../components/page/create-edit';
-import WebKit from '../../../components/page/influencer/media-kit';
-import Dashboard from '../../../components/page/influencer/dashboard';
-import Message from '../../../components/page/influencer/message';
+import WebKit from '../../page/influencer/media-kit';
+import Dashboard from '../../page/influencer/dashboard';
+import Message from '../../page/influencer/message';
 
-import RequestWrapper from '../../../components/page/requestWrapper';
-import { categoryFields, tagsFields, faqsFields, emailTemplateFields } from '../../../components/formElement/fields/admin/posts'
 import { customRequest } from '../../../lib/api/http/index';
 
 
@@ -93,8 +82,9 @@ const CustomerIndex = ({ user }) => {
         lastName: 'Jons',
         phone: '+3398765432',
         email: 'Samjones@gmail.com',
-        src: '../static/img/sam_jones.png',
+        src: '../../static/img/sam_jones.png',
         address: '223 westview boulevard, 75000, Paris France',
+        slug: 'sam'
     }
     const navList = [
         {
@@ -125,63 +115,10 @@ const CustomerIndex = ({ user }) => {
             href: 'account', className: 'icon mark', text: 'Messagerie',
             page: <Message />
         },
-        {
-            href: 'account', className: 'icon mark', text: 'Tags', subMenu: {
-                title: 'Tags', navList: [
-                    { href: 'mark', className: 'icon photos', text: 'Créer un tag', page: <CreatePost setNavTitle={setNavTitle} title="Créer un article" fields={tagsFields} path='/admin/tags' /> },
-                    {
-                        href: 'account', className: 'icon mark', text: 'Liste des tags', page: <CategoryList
-                            fields={tagsFields}
-                            path='/admin/tags'
-                            editIdenfier='_id'
-                            showImg={false}
-                            title='Liste des tags'
-                            requestProp='tags'
-                        />
-                    },
-                ]
-            }
-        },
-        {
-            href: 'account', className: 'icon mark', text: 'F.A.Q', subMenu: {
-                title: 'F.A.Q', navList: [
-                    { href: 'mark', className: 'icon photos', text: 'Créer un tag', page: <CreatePost setNavTitle={setNavTitle} fields={faqsFields} path='/admin/faqs' /> },
-                    {
-                        href: 'account', className: 'icon mark', text: 'Liste des tags', page: <CategoryList
-                            fields={faqsFields}
-                            path='/admin/faqs'
-                            editIdenfier='_id'
-                            showImg={false}
-                            title='Liste des F.A.Q'
-                            requestProp='faqs'
-                        />
-                    },
-                ]
-            }
-        },
-        {
-            href: 'account', className: 'icon mark', text: 'Email', subMenu: {
-                title: 'Email', navList: [
-                    { href: 'mark', className: 'icon photos', text: 'Créer un tag', page: <CreatePost fields={emailTemplateFields} path='/admin/emailtemplate' /> },
-                    {
-                        href: 'account', className: 'icon mark', text: 'Liste des tags', page: <CategoryList
-                            fields={emailTemplateFields}
-                            path='/admin/emailtemplates'
-                            editIdenfier='_id'
-                            titleIdentifier='name'
-                            showImg={false}
-                            title="Liste des templates d'email"
-                            requestProp='templates'
-                        />
-                    },
-                ]
-            }
-        },
     ]
 
     return (
         <NavPanel
-            // topTitleLeft='Admin'
             navTitle={state.navTitle}
             navList={navList}
             index={0}
@@ -196,4 +133,36 @@ const CustomerIndex = ({ user }) => {
     )
 }
 
-export default withLayout(CustomerIndex);
+const InfluencerNav = [
+    {
+        href: '/influencer/informations', className: 'icon account', text: 'Informations',
+        icon: <FeedIcon />,
+        requestName: 'influencers',
+    },
+    {
+        href: '/influencer/dashboard', className: 'icon account', text: 'Tableau de bord',
+        icon: <FeedIcon />,
+        requestName: 'influencers',
+    },
+    {
+        href: '/influencer/mediakit', className: 'icon feed', text: 'Media kit',
+        icon: <FeedIcon />,
+        requestName: 'businesses',
+
+        contentClassName: 'hide-content-panel-padding',
+        dashboardClassName: 'webkit'
+    },
+    {
+        href: '/influencer/campagn', className: 'icon post', text: 'Campagnes',
+        icon: <CampagneIcon />,
+        requestName: 'campaigns',
+
+    },
+    {
+        href: '/influencer/message', className: 'icon mark', text: 'Messagerie',
+    },
+]
+
+export { InfluencerNav }
+
+export default CustomerIndex;

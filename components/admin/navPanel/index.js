@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 
 import Grid from '@material-ui/core/Grid';
 import Link from 'next/link';
-import { isFn } from '../../utils/datas/type'
-import UserProfile from '../dataDisplay/others/userInfo'
+import UserProfile from '../../dataDisplay/others/userInfo'
 
 const containerStyle = {
     padding: '0 3rem'
@@ -14,7 +13,9 @@ const noNavContainerStyle = {
 }
 
 
-const NavPanel = ({ navList, index = 0, navTitle = null, resetNav, showSubMenu = false, showNav, onChange, getData, showUserProfile, user = {}, topTitleLeft }) => {
+const NavPanel = (props) => {
+    const { navList, index = 0, navTitle = null, resetNav, showSubMenu = false, showNav, showSideProfile, user = {}, topTitleLeft, pathname } = props;
+
     let [state, setState] = useState({
         index,
         showSubMenu,
@@ -25,7 +26,7 @@ const NavPanel = ({ navList, index = 0, navTitle = null, resetNav, showSubMenu =
     }),
         topNav = navList[state.index],
         nav = topNav && navList[state.index].subMenu ? navList[state.index].subMenu.navList : navList,
-        currentComp, currentCompPage = null;
+        currentComp;
 
     const getCurrent = () => {
         let tmp;
@@ -38,10 +39,9 @@ const NavPanel = ({ navList, index = 0, navTitle = null, resetNav, showSubMenu =
     }
     if ((currentComp = getCurrent())) {
         currentComp = currentComp
-        currentCompPage = currentComp.page;
-
     }
 
+    console.log(currentComp)
     const setNavigation = (index, hasSubMenu) => {
         if (state.showSubMenu)
             setState({ index: state.index, showSubMenu: state.showSubMenu, subMenuIndex: index, resetTopNav: !state.resetTopNav })
@@ -51,9 +51,6 @@ const NavPanel = ({ navList, index = 0, navTitle = null, resetNav, showSubMenu =
         if (resetNav)
             resetNav()
     }
-    useEffect(() => {
-        getData && getData({ requestName: currentComp.requestName });
-    }, [state.index, state.resetTopNav])
 
     return (
         <div id='dashboard' className={currentComp.dashboardClassName}>
@@ -77,28 +74,25 @@ const NavPanel = ({ navList, index = 0, navTitle = null, resetNav, showSubMenu =
                 {showNav && <Grid item xs={12} sm={3}>
                     <div>
                         <ul id='dashboard-nav'>
-                            {nav && nav.map((e, i) => {
-                                const currentIndex = state.showSubMenu ? state.subMenuIndex : state.index;
-
-                                return (
-                                    <li key={i}>
-                                        <Link prefetch href={`#${e.href}`}>
-                                            <a className={i == currentIndex ? 'orange-color active' : 'gray-color'} onClick={() => setNavigation(i, !!e.subMenu)}>
-                                                <span className={e.className}></span>
-                                                <span>{e.text}</span>
-                                            </a>
-                                        </Link>
-                                    </li>
-                                )
-                            })}
+                            {nav && nav.map((e, i) => (
+                                <li key={i}>
+                                    <Link prefetch href={`${e.href}`}>
+                                        <a className={e.href == pathname ? 'orange-color active' : 'gray-color'} onClick={() => setNavigation(i, !!e.subMenu)}>
+                                            <span className={e.className}></span>
+                                            <span>{e.text}</span>
+                                        </a>
+                                    </Link>
+                                </li>
+                            )
+                            )}
                         </ul>
                     </div>
-                    {showUserProfile ? <div className='user-info'>
+                    {showSideProfile ? <div className='user-info'>
                         <UserProfile size='' color='red' {...user} />
                     </div> : ''}
                 </Grid>}
                 <Grid item xs={12} sm={showNav ? 9 : 12} container style={showNav ? containerStyle : noNavContainerStyle} className={currentComp.contentClassName}>
-                    {/* {isFn(currentCompPage) ? currentCompPage() : currentCompPage} */}
+                    {props.children}
                 </Grid>
             </Grid>
             <style jsx>{`

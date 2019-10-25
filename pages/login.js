@@ -15,137 +15,137 @@ import { lightGray } from '../utils/variables/css'
 import notify from '../lib/notifier';
 
 const loginFields = [
-  {
-    label: "Adresse e-mail*",
-    name: "email",
-    type: 'email',
-    required: true
-  },
-  {
-    label: "Mot de passe*",
-    name: "password",
-    type: 'password',
-    required: true,
-  },
+    {
+        label: "Adresse e-mail*",
+        name: "email",
+        type: 'email',
+        required: true
+    },
+    {
+        label: "Mot de passe*",
+        name: "password",
+        type: 'password',
+        required: true,
+    },
 ]
 const settings = { unableBoxShadow: false, showLabel: true, labelPosition: 'top|left' };
 
 const registerFields = [
-  {
-    label: "Adresse e-mail*",
-    name: "email",
-    type: 'email',
-    required: true
-  },
-  {
-    label: "Mot de passe*",
-    name: "password",
-    type: 'password',
-    required: true,
-  },
-  {
-    label: 'Prénom*',
-    name: 'firstName',
-    type: 'input',
-    required: true,
-  },
-  {
-    label: 'Nom*',
-    name: 'lastName',
-    type: 'input',
-    required: true,
-  },
-  {
-    label: "J'accepte de recevoir la Newsletter",
-    name: 'newsletter',
-    type: 'checkbox',
-    props: {
-      style: {
-        fontSize: '.8rem'
-      }
-    }
-  },
-  {
-    label: "J'accepte de recevoir les notifications de nouveaux messages (nouvelle campagne publicitaire)",
-    name: 'notification',
-    type: 'checkbox',
-  },
-  {
-    label: "J’accepte les conditions générales",
-    name: 'cgt',
-    type: 'checkbox',
-  },
+    {
+        label: "Adresse e-mail*",
+        name: "email",
+        type: 'email',
+        required: true
+    },
+    {
+        label: "Mot de passe*",
+        name: "password",
+        type: 'password',
+        required: true,
+    },
+    {
+        label: 'Prénom*',
+        name: 'firstName',
+        type: 'input',
+        required: true,
+    },
+    {
+        label: 'Nom*',
+        name: 'lastName',
+        type: 'input',
+        required: true,
+    },
+    {
+        label: "J'accepte de recevoir la Newsletter",
+        name: 'newsletter',
+        type: 'checkbox',
+        props: {
+            style: {
+                fontSize: '.8rem'
+            }
+        }
+    },
+    {
+        label: "J'accepte de recevoir les notifications de nouveaux messages (nouvelle campagne publicitaire)",
+        name: 'notification',
+        type: 'checkbox',
+    },
+    {
+        label: "J’accepte les conditions générales",
+        name: 'cgt',
+        type: 'checkbox',
+    },
 ];
 
 const Login = () => {
-  const [state, setState] = useState({
-    newsletter: false,
-    notification: false,
-    cgt: false,
-    errors: [],
-    showRegister: false
-  });
+    const [state, setState] = useState({
+        newsletter: false,
+        notification: false,
+        cgt: false,
+        errors: [],
+        showRegister: false
+    });
 
-  const toggle = (name) => setState({ ...state, [name]: !state[name] });
-  const onChange = (name, value) => setState({ ...state, [name]: value })
+    const toggle = (name) => setState({ ...state, [name]: !state[name] });
+    const onChange = (name, value) => setState({ ...state, [name]: value })
 
-  const onSubmit = async () => {
-    const fields = state.showRegister ? registerFields : loginFields;
-    const errors = FormValidator({ fields, state });
+    const onSubmit = async () => {
+        const fields = state.showRegister ? registerFields : loginFields;
+        const errors = FormValidator({ fields, state });
 
-    setState({ ...state, errors })
-    if (errors.length)
-      return
+        setState({ ...state, errors })
+        if (errors.length)
+            return
 
-    try {
+        try {
 
-      const { login, message } = await basicAuth(LeanForm({ fields, state }));
-      if (message)
-        notify(message);
-      if (login)
-        window.location = '/admin/dashboard';
-    } catch (err) {
-    }
-  };
-  const socialsList = ['facebook', 'instagram', 'youtube', 'twitter', 'twitch', 'pinterest', 'tiktok', 'linkedin'];
+            const { login, message } = await basicAuth(LeanForm({ fields, state }));
+            if (message)
+                notify(message);
+            if (login)
+                window.location = '/admin/dashboard';
+        } catch (err) {
+        }
+    };
+    const socialsList = ['facebook', 'instagram', 'youtube', 'twitter', 'twitch', 'pinterest', 'tiktok', 'linkedin'];
 
-  return (
-    <div id="login" className='card-bg dots-pink reverse left'>
-      <div>
-        <h1 className='text-center'>{state.showRegister ? 'S’inscrire' : 'Connexion'}</h1>
-        <Grid container className='text-center divider' id='container'>
-          <Grid container item sm={6} xs={12}>
-            <Grid sm={12} xs={12}>
-              <h2 className='divider fullwidth'>Réseau social</h2>
-              <ul id='social_container'>
-                {socialsList && socialsList.map((elem, index) => (
-                  <li key={index}><SocialBtn type={elem} text={Ucfirst(elem)} href={`/auth/${elem}`} /></li>
-                ))}
-              </ul>
-            </Grid>
-          </Grid>
-          <Grid container item sm={6} xs={12}>
-            <Grid sm={12} xs={12}>
-              <h2 className='divider'>Avec un email</h2>
-              <div id="form" className='auto responsive-container'>
-                <FormGenerator
-                  fields={state.showRegister ? registerFields : loginFields}
-                  state={state}
-                  onChange={onChange}
-                  errors={state.errors}
-                  settings={settings}
-                />
-              </div>
-              <div id='submit'>
-                <Btn text={state.showRegister ? 'Suivant' : 'Connexion'} onClick={onSubmit} />
-              </div>
-            </Grid>
+    return (
+        <div id="login" className='card-bg dots-pink reverse left'>
+            <div>
+                <h1 className='text-center'>{state.showRegister ? 'S’inscrire' : 'Connexion'}</h1>
+                <Grid container className='text-center divider' id='container'>
+                    <Grid container item sm={6} xs={12}>
+                        <Grid sm={12} xs={12}>
+                            <h2 className='divider fullwidth'>Réseau social</h2>
+                            <ul id='social_container'>
+                                {socialsList && socialsList.map((elem, index) => (
+                                    <li key={index}><SocialBtn type={elem} text={Ucfirst(elem)} href={`/auth/${elem}`} /></li>
+                                ))}
+                            </ul>
+                        </Grid>
+                    </Grid>
+                    <Grid container item sm={6} xs={12}>
+                        <Grid sm={12} xs={12}>
+                            <h2 className='divider'>Avec un email</h2>
+                            <div id="form" className='auto responsive-container'>
+                                <FormGenerator
+                                    fields={state.showRegister ? registerFields : loginFields}
+                                    state={state}
+                                    onChange={onChange}
+                                    errors={state.errors}
+                                    settings={settings}
+                                />
+                            </div>
+                            <div id='submit'>
+                                <Btn text={state.showRegister ? 'Suivant' : 'Connexion'} onClick={onSubmit} />
+                            </div>
+                        </Grid>
 
-          </Grid>
-        </Grid>
-        <p className='text-center fullwidth responsive-container'>Vous n'avez pas de compte ? <span className='red-color pointer' onClick={() => toggle('showRegister')}>{state.showRegister ? 'Connectez-vous' : 'Inscrivez-vous'} ici.</span></p>
-      </div>
-      <style jsx>{`
+                    </Grid>
+                </Grid>
+                <p className='text-center fullwidth responsive-container'>Vous n'avez pas de compte ? <span className='red-color pointer' onClick={() => toggle('showRegister')}>{state.showRegister ? 'Connectez-vous' : 'Inscrivez-vous'} ici.</span></p>
+            </div>
+            <style jsx>{`
         #login {
           padding: 2rem 0;
         }
@@ -175,8 +175,7 @@ const Login = () => {
           margin-bottom: 1.5rem;
         }
       `}</style>
-    </div>
-  );
+        </div>
+    );
 };
-
 export default withLayout(Login);

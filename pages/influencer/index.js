@@ -1,24 +1,29 @@
 import React, { useState, useEffect } from "react";
-import withLayout from '../../../lib/withLayout';
-import NavPanel from '../../../components/admin/NavPanel';
+import withAuth from '../../lib/withAuth';
+import NavPanel from '../../components/admin/NavPanel';
 
-import Home from '../../../components/page/dashboard/index';
-import Influencers from '../../../components/page/dashboard/influencers';
-import Marques from '../../../components/page/dashboard/marques';
-import Campagne from '../../../components/page/dashboard/campagne';
-import HomeIcon from '../../../static/img/icon/home.svg';
-import FeedIcon from '../../../static/img/icon/feed.svg';
-import CampagneIcon from '../../../static/img/icon/campagne.svg';
-import { buildFromArray } from '../../../utils/datas/convert'
-import PostList from '../../../components/page/posts/list';
-import CategoryList from '../../../components/page/posts/categoryList';
-import CreatePost from '../../../components/page/create-edit';
-import RequestWrapper from '../../../components/page/requestWrapper';
-import { categoryFields, tagsFields, faqsFields, emailTemplateFields } from '../../../components/formElement/fields/admin/posts'
-import { customRequest } from '../../../lib/api/http/index';
+import Home from '../../components/page/dashboard/index';
+import Influencers from '../../components/page/dashboard/influencers';
+import InfluencersDetail from '../../components/page/dashboard/influencer-detail';
+import Marques from '../../components/page/dashboard/marques';
+import Campagne from '../../components/page/dashboard/campagne';
+import HomeIcon from '../../static/img/icon/home.svg';
+import FeedIcon from '../../static/img/icon/feed.svg';
+import CampagneIcon from '../../static/img/icon/campagne.svg';
+import { buildFromArray } from '../../utils/datas/convert'
+import PostList from '../../components/page/posts/list';
+import CategoryList from '../../components/page/posts/categoryList';
+import CreatePost from '../../components/page/create-edit';
+import WebKit from '../../components/page/influencer/media-kit';
+import Dashboard from '../../components/page/influencer/dashboard';
+import Message from '../../components/page/influencer/message';
+
+import RequestWrapper from '../../components/page/requestWrapper';
+import { categoryFields, tagsFields, faqsFields, emailTemplateFields } from '../../components/formElement/fields/admin/posts'
+import { customRequest } from '../../lib/api/http/index';
 
 
-const CustomerIndex = ({ categories = [], articlesLength, tags = [], faqsLength, email = [] }) => {
+const CustomerIndex = ({ user }) => {
 
     const [state, setState] = useState({
         navTitle: null,
@@ -83,116 +88,42 @@ const CustomerIndex = ({ categories = [], articlesLength, tags = [], faqsLength,
         datas: state.datas,
         loadMore: () => loadMore(requestName)
     })
-    const articleFields = [
-        {
-            label: "Poster / image",
-            name: "picture",
-            type: 'upload',
-            required: true,
-            width: 12,
-        },
-        {
-            label: "Titre",
-            name: "title",
-            type: 'input',
-            required: true,
-            props: {
-                margin: "normal",
-            }
-        },
-        {
-            label: "Catégories",
-            name: "categories",
-            type: 'react-select',
-            required: true,
-            props: {
-                list: buildFromArray(categories, 'title', '_id'),
-            }
-        },
-        {
-            label: "Tags",
-            name: "tags",
-            type: 'react-select',
-            required: true,
-            props: {
-                list: buildFromArray(tags, 'title', '_id'),
-            }
-        },
-        {
-            label: "Contenu",
-            name: "content",
-            type: 'wysiwyg',
-            required: true,
-            props: {
-                margin: "normal",
-                variant: "outlined",
-            }
-        },
-    ]
-
+    const fakeUser = {
+        firstName: 'Sam',
+        lastName: 'Jons',
+        phone: '+3398765432',
+        email: 'Samjones@gmail.com',
+        src: '../static/img/sam_jones.png',
+        address: '223 westview boulevard, 75000, Paris France',
+    }
     const navList = [
         {
-            href: 'home', className: 'icon home', text: 'Acceuil',
-            icon: <HomeIcon />,
-            page: <RequestWrapper
-                title='Influenceurs'
-                path='/admin/dashboard'
-                requestProp='dashboard'
-                editIdenfier='_id'
-                setNavTitle={setNavTitle}
-
-                page={(props) => <Home  {...props} />}
-            />
-        },
-        {
-            href: 'account', className: 'icon account', text: 'Influencers', icon: <FeedIcon />,
+            href: 'account', className: 'icon account', text: 'Informations', icon: <FeedIcon />,
             requestName: 'influencers',
-            page: <Influencers {...setElemProps('Influenceurs', 'influencers')} />
+            page: <InfluencersDetail selected={user} />
         },
         {
-            href: 'publish', className: 'icon feed', text: 'Marques & Agences', icon: <FeedIcon />,
+            href: 'account', className: 'icon account', text: 'Tableau de bord', icon: <FeedIcon />,
+            requestName: 'influencers',
+            page: <Dashboard selected={user} />
+        },
+        {
+            href: 'publish', className: 'icon feed', text: 'Media kit', icon: <FeedIcon />,
             requestName: 'businesses',
 
-            page: <Marques {...setElemProps('Marques & agences', 'businesses')} />,
+            page: <WebKit user={fakeUser} />,
+            contentClassName: 'hide-content-panel-padding',
+            dashboardClassName: 'webkit'
         },
         {
-            href: 'post-validate', className: 'icon post', text: 'Campagne', icon: <CampagneIcon />,
+            href: 'post-validate', className: 'icon post', text: 'Campagnes', icon: <CampagneIcon />,
             requestName: 'campaigns',
 
             page: <Campagne {...setElemProps('Campagnes', 'campaigns')} />
         },
         {
-            href: 'article', className: 'icon photos', text: 'Articles', subMenu: {
-                title: 'Articles', navList: [
-                    { href: 'mark', className: 'icon photos', text: 'Créer un article', page: <CreatePost fields={articleFields} setNavTitle={setNavTitle} title="Créer un article" path='/admin/articles' /> },
-                    {
-                        href: 'account', className: 'icon mark', text: 'Liste des articles', page: <PostList
-                            fields={articleFields}
-                            path='/admin/articles'
-                            requestProp='articles'
-                            editIdenfier='slug'
-                            setNavTitle={setNavTitle}
-                        />
-                    },
-                ]
-            }
-        },
-        {
-            href: 'account', className: 'icon mark', text: 'Categories', subMenu: {
-                title: 'Catégories', navList: [
-                    { href: 'mark', className: 'icon photos', text: 'Créer un article', page: <CreatePost fields={categoryFields} setNavTitle={setNavTitle} title="Créer un article" path='/admin/categories' /> },
-                    {
-                        href: 'account', className: 'icon mark', text: 'Liste des Catégories', page: <CategoryList
-                            fields={categoryFields}
-                            path='/admin/categories'
-                            editIdenfier='_id'
-                            title='Liste des catégories'
-                            editTitle='Liste des catégories'
-                            requestProp='categories'
-                        />
-                    },
-                ]
-            }
+            href: 'account', className: 'icon mark', text: 'Messagerie',
+            page: <Message />
         },
         {
             href: 'account', className: 'icon mark', text: 'Tags', subMenu: {
@@ -250,7 +181,7 @@ const CustomerIndex = ({ categories = [], articlesLength, tags = [], faqsLength,
 
     return (
         <NavPanel
-            topTitleLeft='Admin'
+            // topTitleLeft='Admin'
             navTitle={state.navTitle}
             navList={navList}
             index={0}
@@ -259,8 +190,10 @@ const CustomerIndex = ({ categories = [], articlesLength, tags = [], faqsLength,
             showNav={state.showNav}
             onChange={onChange}
             getData={getData}
+            showUserProfile={true}
+            user={user}
         />
     )
 }
 
-export default withLayout(CustomerIndex);
+export default withAuth(CustomerIndex);

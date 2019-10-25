@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Grid from '@material-ui/core/Grid';
-import withLayout from '../../../lib/withLayout';
-import UserInfo from '../../../components/dataDisplay/others/userInfo';
-import StarsComp from '../../../components/dataDisplay/star'
+import withLayout from '../../lib/withLayout';
+import UserInfo from '../../components/dataDisplay/others/userInfo';
+import StarsComp from '../../components/dataDisplay/star'
 
 import Link from 'next/link';
 
-const Discover = ({ src = '../../../static/img/desert-mirage.png', isNew = true, subscribe = 'S’inscrire', href = '/' }) => (
+const Discover = ({ src = '../../static/img/desert-mirage.png', isNew = true, subscribe = 'S’inscrire', href = '/' }) => (
     <div className='relative text-center'>
         <div className='cover'>
             <img src={src} />
@@ -30,7 +30,7 @@ const Discover = ({ src = '../../../static/img/desert-mirage.png', isNew = true,
             {isNew ?
                 <div className='red-bg white-color'>Nouveauté</div>
                 :
-                <img src='../../../static/img/award.png' />}
+                <img src='../../static/img/award.png' />}
         </div>
         <style jsx>{`
             .relative {
@@ -71,28 +71,28 @@ const HomeComp = ({ user }) => {
         topCampagns: [
             {
                 id: '1',
-                src: '../../../static/img/rectangle.png',
+                src: '../../static/img/rectangle.png',
                 title: 'Prénom',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec convallis diam, vitae facilisis nisl.',
 
             },
             {
                 id: '2',
-                src: '../../../static/img/rectangle.png',
+                src: '../../static/img/rectangle.png',
                 title: 'Prénom',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec convallis diam, vitae facilisis nisl.',
 
             },
             {
                 id: '3',
-                src: '../../../static/img/rectangle.png',
+                src: '../../static/img/rectangle.png',
                 title: 'Prénom 2',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec convallis diam, vitae facilisis nisl.',
 
             },
             {
                 id: '4',
-                src: '../../../static/img/rectangle.png',
+                src: '../../static/img/rectangle.png',
                 title: 'Prénom',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec convallis diam, vitae facilisis nisl.',
 
@@ -100,7 +100,7 @@ const HomeComp = ({ user }) => {
         ],
         topInfluencers: [
             {
-                src: '../../../static/img/rectangle.png',
+                src: '../../static/img/rectangle.png',
                 firstName: 'Prénom',
                 lastName: 'Nom',
                 nb_campagne: 4,
@@ -108,7 +108,7 @@ const HomeComp = ({ user }) => {
                 filter: 'mounth'
             },
             {
-                src: '../../../static/img/rectangle.png',
+                src: '../../static/img/rectangle.png',
                 firstName: 'Prénom',
                 lastName: 'Nom',
                 nb_campagne: 4,
@@ -116,7 +116,7 @@ const HomeComp = ({ user }) => {
                 filter: 'mounth'
             },
             {
-                src: '../../../static/img/rectangle.png',
+                src: '../../static/img/rectangle.png',
                 firstName: 'Prénom 2',
                 lastName: 'Nom',
                 nb_campagne: 4,
@@ -124,7 +124,7 @@ const HomeComp = ({ user }) => {
                 filter: 'mounth'
             },
             {
-                src: '../../../static/img/rectangle.png',
+                src: '../../static/img/rectangle.png',
                 firstName: 'Prénom',
                 lastName: 'Nom 2',
                 nb_campagne: 4,
@@ -132,7 +132,7 @@ const HomeComp = ({ user }) => {
                 filter: 'week'
             },
             {
-                src: '../../../static/img/rectangle.png',
+                src: '../../static/img/rectangle.png',
                 firstName: 'Prénom 3',
                 lastName: 'Nom',
                 nb_campagne: 4,
@@ -140,7 +140,7 @@ const HomeComp = ({ user }) => {
                 filter: 'week'
             },
             {
-                src: '../../../static/img/rectangle.png',
+                src: '../../static/img/rectangle.png',
                 firstName: 'Prénom 5',
                 lastName: 'Nom',
                 nb_campagne: 4,

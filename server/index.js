@@ -24,9 +24,10 @@ const basicAuth = require('./auth/basic');
 const routes = require('./routes');
 const serverRoutes = require('./routes/server');
 const User = require('./models/User');
-
+const { parse } = require('url')
 const logger = require('./logs');
 const { insertTemplates } = require('./models/EmailTemplate');
+const { RoleList, isBusiness } = require('../utils/variables/user')
 
 require('dotenv').config();
 
@@ -166,6 +167,19 @@ nextApp.prepare().then(async () => {
 
 
   app.get('*', (req, res) => {
+    let parsedUrl = parse(req.url, true),
+      { pathname, query } = parsedUrl,
+      url = URL_MAP[pathname],
+      { user } = req,
+      redirectUrl;
+
+    // if (RoleList.includes(user.role)) {
+    //   redirectUrl = isBusiness(user) ? `/marques${pathname}` : `/${user.role}${pathname}`;
+    //   nextApp.render(req, res, redirectUrl);
+    //   console.log(redirectUrl, pathname)
+    //   return;
+    // }
+    // else
     handle(req, res);
   });
 

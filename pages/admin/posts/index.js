@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import withAuth from '../../../lib/withAuth';
 import NavPanel from '../../../components/admin/NavPanel';
 
-import PostList from '../../../components/page/posts/list';
-import CategoryList from '../../../components/page/posts/categoryList';
-import CreatePost from '../../../components/page/create-edit';
 import { customRequest } from '../../../lib/api/http/index';
 import { buildFromArray } from '../../../utils/datas/convert'
 import Home from '../../../components/page/home';
 import { useRouter } from 'next/router'
+const PostList = dynamic(import('../../../components/page/posts/list'), { loading: () => <p>Loading...</p> });
+const CategoryList = dynamic(import('../../../components/page/posts/categoryList'), { loading: () => <p>Loading...</p> });
+const CreatePost = dynamic(import('../../../components/page/create-edit'), { loading: () => <p>Loading...</p> });
 
 const categoryFields = [
     {

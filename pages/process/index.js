@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import withLayout from '../../../lib/withLayout';
-import NavPanel from '../../../components/admin/NavPanel';
+import withLayout from '../../lib/withLayout';
+import NavPanel from '../../components/admin/NavPanel';
 
-import Examination from '../../../components/page/process/examination';
-import Validation from '../../../components/page/process/validation';
-import Publish from '../../../components/page/process/publish';
-import MissionValidate from '../../../components/page/process/mission-validate';
-import PostValidate from '../../../components/page/process/post-validate';
+import Examination from '../../components/page/process/examination';
+import Validation from '../../components/page/process/validation';
+import Publish from '../../components/page/process/publish';
+import MissionValidate from '../../components/page/process/mission-validate';
+import PostValidate from '../../components/page/process/post-validate';
 
 const navList = [
     { href: 'examination', className: 'icon noun-loading', text: 'Exament de validation' },

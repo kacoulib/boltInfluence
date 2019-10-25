@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
-import withLayout from '../../../lib/withLayout';
-import NavPanel from '../../../components/admin/NavPanel';
+import withLayout from '../../lib/withLayout';
+import NavPanel from '../../components/admin/NavPanel';
 
-import MarquesAgences from '../../../components/page/marques/marquesAgences'
-import Examination from '../../../components/page/process/examination';
-import Influencers from '../../../components/page/marques/influencers'
-import Publish from '../../../components/page/process/publish';
-import MissionValidate from '../../../components/page/process/mission-validate';
-import PostValidate from '../../../components/page/process/post-validate';
-import CreateCampagne from '../../../components/page/marques/campagne/create';
-import ListCampagne from '../../../components/page/marques/campagne/list';
-import ContactInfo from '../../../components/page/marques/info-contact';
-import MarqueInfo from '../../../components/page/marques/info-marque';
-import PaymentInfo from '../../../components/page/marques/info-payment';
+import MarquesAgences from '../../components/page/marques/marquesAgences'
+import Examination from '../../components/page/process/examination';
+import Influencers from '../../components/page/marques/influencers'
+import Publish from '../../components/page/process/publish';
+import MissionValidate from '../../components/page/process/mission-validate';
+import PostValidate from '../../components/page/process/post-validate';
+import CreateCampagne from '../../components/page/marques/campagne/create';
+import ListCampagne from '../../components/page/marques/campagne/list';
+import ContactInfo from '../../components/page/marques/info-contact';
+import MarqueInfo from '../../components/page/marques/info-marque';
+import PaymentInfo from '../../components/page/marques/info-payment';
 
 
 

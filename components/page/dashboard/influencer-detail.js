@@ -26,7 +26,7 @@ const styles = {
     influencer_info_container: { padding: '1rem' },
 }
 
-const Index = ({ selected, setNavTitle }) => {
+const Index = ({ selected = {}, setNavTitle }) => {
 
     const [state, setState] = useState(selected)
 

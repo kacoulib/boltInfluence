@@ -24,7 +24,7 @@ const userInfoFields = [
     },
     {
         label: "Avez vous des enfants*",
-        name: "child",
+        name: "haveChildren",
         type: 'radio',
         required: true,
         width: 6,

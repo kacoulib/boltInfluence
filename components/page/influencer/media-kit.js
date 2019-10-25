@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Grid from '@material-ui/core/Grid';
 
-const MediaKit = ({ user }) => {
+const MediaKit = ({ user = {} }) => {
     const [state, setState] = useState({
         currentView: 0
     })

@@ -1,11 +1,11 @@
-import Stepper from '../../../components/dataDisplay/others/stepper'
-import FormGenerator from '../../../components/formElement/generator'
-import SocialBtn from '../../../components/elements/socialBtn'
-import { categories as categoryList, activities as activityList } from '../../../utils/variables/user'
-import Ucfirst from '../../../lib/ucfirst'
-import withAuth from '../../../lib/withAuth';
+import Stepper from '../../components/dataDisplay/others/stepper'
+import FormGenerator from '../../components/formElement/generator'
+import SocialBtn from '../../components/elements/socialBtn'
+import { categories as categoryList, activities as activityList } from '../../utils/variables/user'
+import Ucfirst from '../../lib/ucfirst'
+import withAuth from '../../lib/withAuth';
 
-import FormValidator, { LeanForm } from '../../../lib/form/validator'
+import FormValidator, { LeanForm } from '../../lib/form/validator'
 
 import { Grid } from '@material-ui/core';
 
@@ -186,4 +186,4 @@ const RenseignementComp = () => {
     )
 }
 
-export default withAuth(RenseignementComp, { role: 'influencer' })
+export default withAuth(RenseignementComp, { showAside: false })
