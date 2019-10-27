@@ -19,9 +19,10 @@ const CustomerIndex = ({ user }) => {
         datas: null,
         loadMore: () => loadMore(requestName)
     })
-
+    const data = setElemProps('Campagnes', 'campaigns')
+    return ('ok')
     return (
-        <Campagne {...setElemProps('Campagnes', 'campaigns')} />
+        <Campagne {...data} />
     )
 }
 

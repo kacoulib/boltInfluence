@@ -40,7 +40,6 @@ const Index = ({ selected, setNavTitle }) => {
 
     const onSubmit = async () => {
 
-        console.log(state)
     };
     useEffect(() => setNavTitle && setNavTitle('L’Oréal'), [])
 

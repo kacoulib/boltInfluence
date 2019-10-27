@@ -170,7 +170,6 @@ const RenseignementComp = () => {
     const submit = () => console.log('submit')
     const finish = () => {
         const errors = FormValidator({ fields, state });
-        console.log(errors, state)
         return !errors.length
     }
 

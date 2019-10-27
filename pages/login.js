@@ -77,7 +77,7 @@ const registerFields = [
     },
 ];
 
-const Login = () => {
+const Login = ({ user }) => {
     const [state, setState] = useState({
         newsletter: false,
         notification: false,

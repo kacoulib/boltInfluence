@@ -41,7 +41,6 @@ const NavPanel = (props) => {
         currentComp = currentComp
     }
 
-    console.log(currentComp)
     const setNavigation = (index, hasSubMenu) => {
         if (state.showSubMenu)
             setState({ index: state.index, showSubMenu: state.showSubMenu, subMenuIndex: index, resetTopNav: !state.resetTopNav })

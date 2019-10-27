@@ -5,11 +5,10 @@ module.exports = {
         const user = req.user;
 
         if (req.isAuthenticated() && user) {
-            if (isAdmin(user.role))
-                res.redirect('/admin/posts')
+            if (RoleList.includes(user.role))
+                res.redirect(`/${user.role}`)
             else
-                res.redirect('/influenceurs');
-            // req.logout();
+                req.logout();
         } else {
             res.redirect('/login');
         }

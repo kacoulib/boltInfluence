@@ -71,12 +71,10 @@ const Index = ({ selectedMarqueAgence }) => {
     const [state, setState] = useState(selectedMarqueAgence)
 
     const onChange = (name, value) => {
-        console.log(name, value);
         setState(Object.assign({}, state, { [name]: value }))
     }
 
     const onSubmit = async () => {
-        console.log(state);
     }
 
     return (

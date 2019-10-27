@@ -31,8 +31,6 @@ const styles = {
 
 const Index = ({ datas, selectedInfluencer, selectInfluencer, loadMore }) => {
 
-
-    console.log(datas)
     const filters = [{ name: 'Active', status: 'active', nb: 3 }, { name: 'En cours', status: 'doing', nb: 3 }, { name: 'Finalisée', status: 'done', nb: 3 }, { name: 'Nouvelle', status: 'new', nb: '+' }];
 
     return (

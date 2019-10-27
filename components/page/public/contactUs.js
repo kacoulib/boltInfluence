@@ -131,7 +131,6 @@ const Contactus = (props) => {
             return setState({ ...state, errors })
 
         const res = await customRequest({ path: '/public/contact', state });
-        console.log(res)
     }
     return (
         <div id='contact-us'>

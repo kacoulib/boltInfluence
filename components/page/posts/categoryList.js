@@ -36,7 +36,6 @@ const Index = ({ fields, path, editIdenfier, titleIdentifier = 'title', title, s
     useEffect(() => {
         async function getData() {
             const tmp = await customRequest({ path });
-            console.log({ ...tmp })
             setState({ ...state, ...tmp })
         }
         getData()

@@ -38,8 +38,6 @@ const Index = ({ datas: { subscribedInfluencer, waitingInfluencer, subscribedMar
         }
     ]
 
-    // console.log()
-    // console.log()
     return (
         <Grid container alignItems='center' justify="center" style={styles.container} >
             {tmp.map((elem, i) => (

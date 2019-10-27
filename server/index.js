@@ -172,7 +172,6 @@ nextApp.prepare().then(async () => {
       url = URL_MAP[pathname],
       { user } = req,
       redirectUrl;
-
     // if (RoleList.includes(user.role)) {
     //   redirectUrl = isBusiness(user) ? `/marques${pathname}` : `/${user.role}${pathname}`;
     //   nextApp.render(req, res, redirectUrl);

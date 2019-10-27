@@ -115,12 +115,8 @@ const CustomerIndex = ({ categories = [], articlesLength, tags = [], faqsLength,
         influencersList: [],
         selectedInfluencer: null
     });
-    // console.log('---', router.query)
-    // console.log(state, buildFromArray(categories))
-    // console.log('props', props)
     // async function getData() {
     //     const { categories } = await customRequest({ path: '/admin/categories' });
-    //     // console.log(categories, buildFromArray(categories, 'title', '_id'))
     //     return categories;
     // }
     // getData()
@@ -304,9 +300,7 @@ CustomerIndex.getInitialProps = async ({ query, req }) => {
             data = await customRequest({ path: '/admin/posts' });
 
     } catch (err) {
-        console.log('err', err)
     }
-    // console.log("isServer", !!req)
     return data
 }
 

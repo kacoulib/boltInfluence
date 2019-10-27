@@ -11,6 +11,6 @@ const fakeUser = {
     address: '223 westview boulevard, 75000, Paris France',
 }
 
-const CustomerIndex = ({ user }) => (<WebKit selected={fakeUser} />)
+const CustomerIndex = ({ user }) => <WebKit user={user} />
 
 export default withAuth(CustomerIndex);

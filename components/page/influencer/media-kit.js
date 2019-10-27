@@ -26,7 +26,6 @@ const MediaKit = ({ user = {} }) => {
         { age: '57-64', percent: 25, color: 'orange' },
         { age: '65+', percent: 10, color: 'blue-light' },
     ]
-
     return (
         <>
             <div className='cover relative card-bg dots-white bottom' style={{ backgroundImage: `url(${user.src})` }}>

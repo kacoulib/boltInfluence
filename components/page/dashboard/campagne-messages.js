@@ -41,7 +41,6 @@ const Index = ({ selectedElem, setNavTitle }) => {
 
     const onSubmit = async () => {
 
-        console.log(state)
     };
     useEffect(() => setNavTitle && setNavTitle('L’Oréal'), [])
 
@@ -64,7 +63,7 @@ const Index = ({ selectedElem, setNavTitle }) => {
     const influencersList = [
         { _id: '5483755', firstName: 'Sam', lastName: 'Jones', picture: 'influencer_jones.png', date: '05-08-2019' }
     ]
-    console.log(selectedElem)
+
     return (
         <Grid container alignItems='center' justify="center">
             <Grid item container xs={12} sm={12} className='admin_campagne_header'>

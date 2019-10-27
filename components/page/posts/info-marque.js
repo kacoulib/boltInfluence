@@ -53,11 +53,9 @@ const Index = ({ selectedInfluencer }) => {
     const [state, setState] = useState({})
 
     const onChange = (name, value) => {
-        console.log(name, value)
         setState(Object.assign({}, state, { [name]: value }))
     };
     const onSubmit = async () => {
-        console.log(state)
     };
 
 

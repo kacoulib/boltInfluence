@@ -25,8 +25,7 @@ const styles = {
 }
 
 
-const Index = ({datas, selectedMarqueAgence, selectMarquesAgences, loadMore}) => {
-    console.log("selectedMarquesAgence", selectedMarqueAgence)
+const Index = ({ datas, selectedMarqueAgence, selectMarquesAgences, loadMore }) => {
     if (selectedMarqueAgence)
         return (<MarqueAgenceDetail selectedMarqueAgence={selectedMarqueAgence} />);
     return (

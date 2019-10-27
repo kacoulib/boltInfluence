@@ -36,7 +36,7 @@ const data = [
     }
 ]
 
-const Dashboard = ({ user }) => {
+const Dashboard = ({ user = {} }) => {
     const [state, setState] = useState({
         currentView: 0,
     })
@@ -75,7 +75,7 @@ const Dashboard = ({ user }) => {
         <>
             <div className='spacing'>
                 <ul>
-                    {plateforms.map(({ img, slug, plateformImg }, index) => (
+                    {plateforms && plateforms.map(({ img, slug, plateformImg }, index) => (
                         <li key={index} className={`${state.currentView == index ? 'active' : ''}`} onClick={() => onChange('currentView', index)}>
                             <div>
                                 <img src={img} />
@@ -88,8 +88,7 @@ const Dashboard = ({ user }) => {
             </div>
             <div className='spacing'>
                 <h2>Localisation de mon audience</h2>
-                <Choropleth data={choropleth
-                } />
+                <Choropleth data={choropleth} />
             </div>
             <div className='spacing'>
                 <h2>Appareil utilisé par mon audience</h2>
@@ -98,7 +97,7 @@ const Dashboard = ({ user }) => {
             <div className='spacing color-container'>
                 <h2>Total ventilé</h2>
                 <Grid container justify="space-around" className='white-color'>
-                    {stats.map(({ color, text, score }, index) => (
+                    {stats && stats.map(({ color, text, score }, index) => (
                         <Grid container justify="space-between" direction="column" item xs={4} key={index} className='influencer-color-container'>
                             <Grid justify="space-between" direction="column" className={`influencer-color ${color}`}>
                                 <Grid item><h3>{text}</h3></Grid>

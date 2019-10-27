@@ -12,8 +12,6 @@ const AsideComp = (props) => {
     });
     const { pathname } = useRouter()
 
-    // const path = window ? window.href.substring(window.href.lastIndexOf('/') + 1) : ''
-    console.log(pathname)
     return (
         <>
             <NavPanel

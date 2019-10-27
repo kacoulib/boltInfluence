@@ -87,7 +87,6 @@ const Index = ({ selected = defaultState, isEdit = false }) => {
         setState(Object.assign({}, state, { [name]: value }))
     };
     const onSubmit = async () => {
-        console.log(state)
         if (isEdit)
             editArticle(state)
         else
@@ -95,7 +94,6 @@ const Index = ({ selected = defaultState, isEdit = false }) => {
         if (!isEdit)
             setState(defaultState)
     };
-    // console.log(selected)
     return (
         <Grid container alignItems='center' justify="center" style={styles.container} >
             {/* <Grid item xs={12} sm={12}>

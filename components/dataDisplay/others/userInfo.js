@@ -1,14 +1,15 @@
 import Grid from '@material-ui/core/Grid';
-import { Link } from "../../../server/routes/next-routes";
+import Link from 'next/link';
+import { Influencer } from '../../../utils/variables/user'
 
 
 const navList = [
     { label: 'Contact', href: '/contact' },
     { label: 'Connexion', href: '/connexion' },
     { label: 'Paiement', href: '/paiement' },
-    { label: 'Tableau de bord ', href: '/dashboard' },
-    { label: 'Media kit', href: '/mediaKit' },
-    { label: 'Campagnes', href: '/campagnes' },
+    { label: 'Tableau de bord ', href: `/${Influencer}/dashboard` },
+    { label: 'Media kit', href: `/${Influencer}/mediakit` },
+    { label: 'Campagnes', href: `/${Influencer}/campagn` },
     { label: 'Notes / Appréciations', href: '/notes' },
 ]
 
@@ -19,8 +20,8 @@ const NavInfo = ({ color = '' }) => (
                 <div className='text-center'><h3>Information profil</h3></div>
                 <ul >
                     {navList.map((elem, index) => (
-                        <li>
-                            <Link href={elem.href}>{elem.label}</Link>
+                        <li key={index}>
+                            <Link href={elem.href}><a>{elem.label}</a></Link>
                         </li>
                     ))}
                 </ul>
