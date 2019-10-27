@@ -163,7 +163,7 @@ const HomeComp = ({ user }) => {
                             <h3>Nous sommes ravis de vous accueillir !</h3>
                             <UserInfo {...user} />
                             <div className='foot'>
-                                <Link href="/about">
+                                <Link href={`/${user.role}/informations`}>
                                     <a className='block'>Ouvrir mon profil</a>
                                 </Link>
                             </div>

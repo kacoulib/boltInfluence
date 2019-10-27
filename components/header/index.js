@@ -57,7 +57,7 @@ const displayMenuList = (list, i) => (
 	))
 )
 
-const Header = ({ user }) => (
+const Header = ({ user: { role = '/' } }) => (
 	<header id='header'>
 		<Grid container alignItems="center" justify="center">
 			<Grid container item sm={12} xs={12} direction="row" alignItems="center" justify="center" className='social-container-parent'>
@@ -71,7 +71,7 @@ const Header = ({ user }) => (
 			</Grid>
 			<Grid container item sm={12} xs={12} alignItems="center" justify="center" id='menu-container'>
 				<Grid item align="center" sm={1} xs={3} id='menu-left'>
-					<Link href={`/${user.role}`}><a title='home BoltInfluence'><img src={logo} id='logo' alt='Bolt influence logo' /></a></Link>
+					<Link href={`/${role}`}><a title='home BoltInfluence'><img src={logo} id='logo' alt='Bolt influence logo' /></a></Link>
 				</Grid>
 				<Grid item align="center" sm={10} xs={6}>
 					<Grid container alignItems="center">
@@ -106,7 +106,7 @@ Header.propTypes = {
 };
 
 Header.defaultProps = {
-	user: null,
+	user: {},
 };
 
 export default Header;

@@ -20,7 +20,7 @@ const CustomerIndex = ({ user }) => {
         loadMore: () => loadMore(requestName)
     })
     const data = setElemProps('Campagnes', 'campaigns')
-    return ('ok')
+
     return (
         <Campagne {...data} />
     )
