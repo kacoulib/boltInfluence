@@ -187,12 +187,28 @@ class UserClass {
       'city',
       'country',
       'postalCode',
-      'siret',
+      'bio',
       'companyEmail',
       'companyName',
       'companySize',
       'placeOfBirth',
       'dateOfBirth',
+
+      'haveChildren',
+      'siret',
+      'rib',
+      'bic',
+      'paypal',
+    ];
+  }
+
+  static protectedFields() {
+    return [
+      ...this.publicFields(),
+      'siret',
+      'rib',
+      'bic',
+      'paypal',
     ];
   }
 
@@ -313,17 +329,21 @@ class UserClass {
       .forEach(([key, value]) => {
         userDoc[key] = value;
       });
-    if (updates.influencer && updates.influencer.centersOfInterest) {
-      if (!Array.isArray(updates.influencer.centersOfInterest)) {
-        throw new Error('centersOfInterest must be an array')
+    if (updates.influencer) {
+      if (updates.influencer.centersOfInterest) {
+        if (!Array.isArray(updates.influencer.centersOfInterest)) {
+          throw new Error('centersOfInterest must be an array')
+        }
+        const ids = await Promise.all(
+          updates.influencer.centersOfInterest.map(coi => CenterOfInterest.getIdByName({
+            name: coi
+          }))
+        );
+        userDoc.influencer.centersOfInterest = ids;
       }
-      const ids = await Promise.all(
-        updates.influencer.centersOfInterest.map(coi => CenterOfInterest.getIdByName({
-          name: coi
-        }))
-      );
-      userDoc.influencer.centersOfInterest = ids;
+      userDoc.influencer.haveChildren = updates.influencer.haveChildren;
     }
+    // console.log(updates)
     await userDoc.save();
     const user = _.pick(userDoc.toObject(), this.publicFields());
     return { user };

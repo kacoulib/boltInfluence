@@ -33,13 +33,20 @@ router.put(
       city,
       country,
       postalCode,
+      haveChildren,
       siret,
+      bio,
       companyEmail,
       companyName,
       companySize,
       placeOfBirth,
       dateOfBirth,
     } = req.body;
+    let influencer = null;
+
+    if (haveChildren)
+      influencer = { haveChildren };
+
     const { user } = await User.updateBySlug({
       firstName,
       lastName,
@@ -49,7 +56,9 @@ router.put(
       city,
       country,
       postalCode,
+      influencer,
       siret,
+      bio,
       companyEmail,
       companyName,
       companySize,
