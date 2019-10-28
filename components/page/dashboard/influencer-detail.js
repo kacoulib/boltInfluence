@@ -7,6 +7,9 @@ import { choiceList } from '../../../utils/variables/general'
 import { userInfoFields, userAcountFields, userPaymentFields } from '../../formElement/fields/admin/influencer-detail'
 import Btn from '../../elements/btn'
 import TableComp from '../../dataDisplay/table'
+import FormValidator, { LeanForm } from '../../../lib/form/validator'
+import { editProfile } from '../../../lib/api/http/user';
+
 
 const cardContainer = {
     padding: '1rem',
@@ -28,12 +31,33 @@ const styles = {
 
 const Index = ({ user = {}, setNavTitle }) => {
 
-    const [state, setState] = useState(user)
+    const [state, setState] = useState({ ...user, ...user.influencer, errors: [] })
 
     const onChange = (name, value) => {
         setState(Object.assign({}, state, { [name]: value }))
     };
     const onSubmit = async () => {
+        let errors = [];
+        const fields = [userInfoFields, userAcountFields, userPaymentFields];
+
+        for (let index = 0; index < fields.length; index++) {
+            const element = FormValidator({ fields: fields[index], state });
+            errors.push(...element)
+        }
+
+
+        setState({ ...state, errors })
+        const data = LeanForm({ fields: [...userInfoFields, ...userAcountFields, ...userPaymentFields], state });
+        try {
+
+            const res = await editProfile(data);
+            console.log(data, fields, res)
+            if (errors.length)
+                return console.log(errors)
+        } catch (err) {
+            console.error(err)
+        }
+
     };
     useEffect(() => setNavTitle && setNavTitle(`${user.firstName} ${user.lastName}`), [])
 
@@ -100,7 +124,7 @@ const Index = ({ user = {}, setNavTitle }) => {
             </Grid>
             <Grid item xs={12}>
                 <div className='text-center btn-container half-width no-margin-bottom'>
-                    <Btn href="#contact-us" text="Mettre à jour" onClick={() => onSubmit()} />
+                    <Btn text="Mettre à jour" onClick={() => onSubmit()} />
                 </div>
             </Grid>
             <style jsx>{`

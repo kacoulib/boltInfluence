@@ -83,21 +83,19 @@ const styles = {
 };
 
 const RadioType = ({ classes, list, label, showLabel, labelPosition, value, onChange, name = '' }) => {
-    const handleChange = ({ target: { value } }) => {
-        onChange(name, value)
-    };
+    const handleChange = ({ target: { value } }) => onChange(name, value);
 
     return (
         <FormElementWrapper label={label} showLabel={showLabel} labelPosition={labelPosition}>
 
             <FormControl component="fieldset" className={classes.formControl}>
-                <RadioGroup onChange={handleChange} value={value} row>
+                <RadioGroup onChange={handleChange} value={value + ''} row>
                     {list && list.map((elem, key) => (
-                        <FormControlLabel key={key} value={elem.name}
+                        <FormControlLabel key={key} value={elem.value + ''}
                             control={
                                 <StyledRadio classes={{ root: classes.radio, checked: classes.checked }} />
                             }
-                            label={elem.value} />
+                            label={elem.name} />
                     )
                     )}
                 </RadioGroup>

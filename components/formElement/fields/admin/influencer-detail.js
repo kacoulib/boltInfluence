@@ -59,7 +59,7 @@ const userInfoFields = [
     },
     {
         label: "Code postal",
-        name: "zip",
+        name: "postalCode",
         type: 'input',
         required: true,
         // dimension: { ms: 2, xs: 4 },

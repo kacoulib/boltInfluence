@@ -51,7 +51,7 @@ const civilState = {
 const genderList = Object.keys(gender);
 const civilStateList = Object.keys(civilState);
 const civilityList = [{ name: gender.male, value: gender.male }, { name: gender.female, value: gender.female }];
-const choiceList = [{ name: 'Yes', value: 'yes' }, { name: 'No', value: 'no' }];
+const choiceList = [{ name: 'Oui', value: true }, { name: 'Non', value: false }];
 
 module.exports = {
   // Vars
