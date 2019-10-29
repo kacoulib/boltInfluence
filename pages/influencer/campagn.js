@@ -1,6 +1,9 @@
 import React from "react";
 import withAuth from '../../lib/withAuth';
-import Campagne from '../../components/page/dashboard/campagne';
+// import Campagne from '../../components/page/dashboard/campagne';
+import Campagn from '../../components/page/influencer/campagne';
+import NavBack from '../../components/page/navBack';
+
 
 
 const CustomerIndex = ({ user }) => {
@@ -25,5 +28,6 @@ const CustomerIndex = ({ user }) => {
         <Campagne {...data} />
     )
 }
+const CampagnComp = ({ user }) => <NavBack redirectUrl={`/${user.role}/informations`} title='Campagnes'><Campagn /></NavBack>
 
-export default withAuth(CustomerIndex, { showSideProfile: true });
+export default withAuth(CampagnComp, { showAside: false, showSideProfile: false });

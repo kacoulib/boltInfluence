@@ -83,7 +83,7 @@ const Accordion = (props) => {
             span {
                 position: absolute;
                 top: 0;
-                right: 0;
+                right: 1rem;
                 height: 100%;
             }
         `}</style>
@@ -146,9 +146,9 @@ const IndexComp = () => {
     return (
         <Grid container alignContent='center' alignItems='center'>
             <Grid container item xs={12}>
-                <Grid container item xs={2}>
+                <Grid container item xs={4}>
                 </Grid>
-                <Grid container item xs={10}>
+                <Grid container item xs={8}>
                     <div className='filter-container'>
                         <Filter onFilter={onFilter} categories={categories} />
                     </div>
@@ -231,6 +231,7 @@ const IndexComp = () => {
                 .campagn-list {
                     position: relative;
                     padding: 5px;
+                    text-align: center;
                 }
                 .campagn-list > div {
                     padding: 5px;

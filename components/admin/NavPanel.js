@@ -98,7 +98,7 @@ const NavPanel = ({ navList, index = 0, navTitle = null, resetNav, showSubMenu =
                     </div> : ''}
                 </Grid>}
                 <Grid item xs={12} sm={showNav ? 9 : 12} container style={showNav ? containerStyle : noNavContainerStyle} className={currentComp.contentClassName}>
-                    {/* {isFn(currentCompPage) ? currentCompPage() : currentCompPage} */}
+                    {isFn(currentCompPage) ? currentCompPage() : currentCompPage}
                 </Grid>
             </Grid>
             <style jsx>{`
