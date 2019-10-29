@@ -37,6 +37,71 @@ const isBrand = (user) => user && user.role === Brand;
 const isAgency = (user) => user && user.role === Agency;
 const isBusiness = (user) => user && BusinessRoleList.includes(user.role);
 
+const userProfileCompeleteFields = [
+  'firstName',
+  'lastName',
+  'email',
+  'slug',
+  'role',
+  'address',
+  'phone',
+  'city',
+  'country',
+  'postalCode',
+  'bio',
+  'companyEmail',
+  'companyName',
+  'dateOfBirth',
+  'placeOfBirth',
+  'categories',
+];
+const userPublicFields = [
+  '_id',
+  ...userProfileCompeleteFields,
+  'newsletter',
+  'notifications',
+  'status',
+  'role',
+  'influencer',
+  'brand',
+  'agency',
+  'companySize',
+
+  'facturePostalCode',
+  'factureAddress',
+  'factureCity',
+  'iban',
+  'haveChildren',
+  'siret',
+  'rib',
+  'bic',
+  'paypal',
+];
+const userProtectedFields = [
+  'siret',
+  'rib',
+  'bic',
+  'paypal',
+];
+
+const gender = {
+  male: 'Mr',
+  female: 'Mme'
+}
+
+const civilState = {
+  Single: 'Célibataire',
+  Married: 'Marié',
+  Pacs: 'Pacsé',
+}
+
+const civilStateList = Object.keys(civilState);
+const civilityChoiceList = civilStateList.map(e => ({ name: civilState[e], value: e }));
+const genderList = Object.keys(gender);
+const genderChoiceList = [{ name: gender.male, value: gender.male }, { name: gender.female, value: gender.female }];
+
+
+
 module.exports = {
   // Vars
   RoleList,
@@ -52,7 +117,13 @@ module.exports = {
   Active,
   Inactive,
   StatusList,
-
+  userPublicFields,
+  userProtectedFields,
+  userProfileCompeleteFields,
+  civilStateList,
+  civilityChoiceList,
+  genderList,
+  genderChoiceList,
   // Methods
   isAdmin,
   isInfluencer,

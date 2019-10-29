@@ -37,20 +37,6 @@ const codeToLanguage = Object.entries(languageToCode).reduce(
 );
 const languageList = Object.keys(languageToCode);
 const languageCodeList = Object.keys(codeToLanguage);
-
-const gender = {
-  male: 'Mr',
-  female: 'Mme'
-}
-
-const civilState = {
-  single: 'Célibataire',
-  married: 'Marié',
-  pacs: 'Pacsé',
-}
-const genderList = Object.keys(gender);
-const civilStateList = Object.keys(civilState);
-const civilityList = [{ name: gender.male, value: gender.male }, { name: gender.female, value: gender.female }];
 const choiceList = [{ name: 'Oui', value: true }, { name: 'Non', value: false }];
 
 module.exports = {
@@ -59,8 +45,5 @@ module.exports = {
   languageCodeList,
   languageToCode,
   codeToLanguage,
-  civilityList,
   choiceList,
-  genderList,
-  civilStateList
 };
