@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 
 const CampaignOffer = require('./CampaignOffer');
 const User = require('./User');
-const { languageCodeList, civilityList } = require('../../utils/variables/general');
+const { languageCodeList } = require('../../utils/variables/general');
 const { PaymentExecutionList } = require('../../utils/variables/payment');
-const { isInfluencer, isBrand, isAgency, StatusList, Active } = require('../../utils/variables/user');
+const { isInfluencer, isBrand, isAgency, StatusList, Active, genderChoiceList } = require('../../utils/variables/user');
 const generateSlug = require('../utils/slugify');
 
 const { Schema } = mongoose;
@@ -41,7 +41,7 @@ const mongoSchema = new Schema({
   pictures: [String],
   audienceGender: {
     type: String,
-    enum: civilityList.map((c) => c.value),
+    enum: genderChoiceList.map((c) => c.value),
     required: true,
   },
   audienceAge: {

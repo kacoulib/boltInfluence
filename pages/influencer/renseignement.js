@@ -1,18 +1,18 @@
 import Stepper from '../../components/dataDisplay/others/stepper'
 import FormGenerator from '../../components/formElement/generator'
 import SocialBtn from '../../components/elements/socialBtn'
-import { categories as categoryList, activities as activityList } from '../../utils/variables/user'
+import { categories as categoryList, activities as activityList, civilityChoiceList } from '../../utils/variables/user'
 import Ucfirst from '../../lib/ucfirst'
 import withAuth from '../../lib/withAuth';
 
-import FormValidator, { LeanForm } from '../../lib/form/validator'
+import { multiLeanForm, MultiFormValidation } from '../../lib/form/validator'
+import { editProfile } from '../../lib/api/http/user';
 
 import { Grid } from '@material-ui/core';
 
 import { useState } from "react";
 
-
-const fields = [
+const fields1 = [
     {
         label: "Ajouter une photo de profil",
         name: "picture",
@@ -21,14 +21,14 @@ const fields = [
     },
     {
         label: "Prénom",
-        name: "firstname",
+        name: "firstName",
         type: 'input',
         required: true,
         dimension: { ms: 2, xs: 4 },
     },
     {
         label: "Nom",
-        name: "lastname",
+        name: "lastName",
         type: 'input',
         required: true,
         dimension: { ms: 2, xs: 4 },
@@ -42,26 +42,26 @@ const fields = [
     },
     {
         label: "Lieu de naissance",
-        name: "place_of_born",
+        name: "placeOfBirth",
         type: 'input',
         required: true,
         dimension: { ms: 2, xs: 4 },
     },
     {
         label: "Date de naissance",
-        name: "birthday",
+        name: "dateOfBirth",
         type: 'dateYear',
         required: true,
         dimension: { ms: 2, xs: 4 },
     },
     {
         label: "Activity *",
-        name: "activity",
+        name: "civilState",
         type: 'radio',
         // dimension: { ms: 2, xs: 4 },
         required: true,
 
-        list: [{ value: 'Célibaltaire', name: 'single' }, { value: 'Pacsé', name: 'second marque' }, { value: 'Marié', name: 'married' }],
+        list: civilityChoiceList,
     },
 ]
 
@@ -75,27 +75,18 @@ const fields2 = [
     },
     {
         label: "Activity *",
-        name: "technology",
+        name: "categories",
         type: 'checkbox',
         required: true,
-        list: activityList,
+        list: categoryList,
     }]
 
 const fields3 = [{
     label: "Activity *",
-    name: "activity",
+    name: "interests",
     type: 'select',
     required: true,
-    list: [
-        { name: 'Salarié (non cadre)', value: 'salarie' },
-        { name: 'Cadre', value: 'cadre' },
-        { name: 'Entrepreneur/autoentrepreneur', value: 'entreprenor' },
-        { name: 'De profession libérale', value: 'liberal' },
-        { name: 'Profession des arts et spectacles', value: 'art' },
-        { name: 'Sans emploi', value: 'businessman' },
-        { name: 'Retraité', value: 'retiree' },
-        { name: 'Autre', value: 'other' },
-    ],
+    list: activityList,
 }]
 const settings = {
     // showLabel: true,
@@ -113,7 +104,7 @@ function getStepContent(state, onChange) {
         switch (step) {
             case 0:
                 return <FormGenerator
-                    fields={fields}
+                    fields={fields1}
                     state={state}
                     errors={state.errors}
                     onChange={onChange}
@@ -151,7 +142,7 @@ function getStepContent(state, onChange) {
     }
 }
 
-const RenseignementComp = () => {
+const RenseignementComp = ({ user }) => {
     const [state, setState] = useState({
         firstname: '',
         picture: '',
@@ -164,15 +155,34 @@ const RenseignementComp = () => {
         message: '',
         selectValue: '',
         sector: '',
+        ...user,
+        ...user.influencer,
         errors: []
     })
     const onChange = (name, value) => setState({ ...state, [name]: value })
-    const submit = () => console.log('submit')
-    const finish = () => {
-        const errors = FormValidator({ fields, state });
-        return !errors.length
-    }
+    const submit = async () => {
+        const fields = [fields1, fields2, fields3];
+        let errors = MultiFormValidation({ fields, state });
 
+        setState({ ...state, errors })
+        const data = multiLeanForm({ fields, state });
+
+
+        try {
+
+            const res = await editProfile(data);
+            console.log(data, fields, res)
+            if (errors.length)
+                return console.log(errors)
+        } catch (err) {
+            console.error(err)
+        }
+    }
+    const finish = () => {
+        // const errors = MultiFormValidation({ fields, state });
+        // return !errors.length
+        console.log(state)
+    }
     return (
         <div>
             <Stepper

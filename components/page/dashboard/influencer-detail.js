@@ -36,7 +36,7 @@ const Index = ({ user = {}, setNavTitle }) => {
     const onChange = (name, value) => {
         setState(Object.assign({}, state, { [name]: value }))
     };
-    const onSubmit = async () => {
+    const onSubmit = async (name = 'all') => {
         let errors = [];
         const fields = [userInfoFields, userAcountFields, userPaymentFields];
 
@@ -87,7 +87,7 @@ const Index = ({ user = {}, setNavTitle }) => {
                     settings={{ showLabel: { xs: 6 } }}
                 />
                 <div className='text-center btn-container half-width font-initial no-margin-bottom'>
-                    <Btn href="#contact-us" text="Changer de mot de passe" onClick={() => onSubmit()} />
+                    <Btn href="#contact-us" text="Changer de mot de passe" onClick={() => onSubmit('resetPass')} />
                     <div>
                         <a className='red-color italic tiny-text'>Supprimer compte</a>
                     </div>

@@ -110,7 +110,7 @@ const StepperComp = ({ steps, getStepContent, submit, finish }) => {
                                         <Btn
                                             text="Finaliser"
                                             style={{ minWidth: '50%' }}
-                                            onClick={finish}
+                                            onClick={submit}
                                         >
                                             {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                                         </Btn>

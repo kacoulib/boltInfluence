@@ -123,14 +123,14 @@ const userPaymentFields = [
     },
     {
         label: "Adresse de facturation",
-        name: "facturation_address",
+        name: "factureAddress",
         type: 'input',
         required: true,
         width: 6
     },
     {
         label: "Ville",
-        name: "facturation_city",
+        name: "factureCity",
         type: 'input',
         required: true,
         // dimension: { ms: 2, xs: 4 },
@@ -139,7 +139,7 @@ const userPaymentFields = [
     },
     {
         label: "Code postal",
-        name: "facturation_zip",
+        name: "facturePostalCode",
         type: 'input',
         required: true,
         // dimension: { ms: 2, xs: 4 },

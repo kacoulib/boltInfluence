@@ -16,8 +16,8 @@ const {
   StatusList,
   Active,
 } = require('../../utils/variables/user');
-const { languageCodeList, genderList, civilStateList } = require('../../utils/variables/general');
-const { isInfluencer, isBusiness, categoryList, activityList } = require('../../utils/variables/user');
+const { languageCodeList, } = require('../../utils/variables/general');
+const { userPublicFields, userProtectedFields, isBusiness, categoryList, activityList, civilStateList, genderList } = require('../../utils/variables/user');
 const generateSlug = require('../utils/slugify');
 const bcrypt = require('../utils/bcrypt');
 const {
@@ -139,6 +139,7 @@ const mongoSchema = new Schema({
   country: String,
   postalCode: String,
   siret: String,
+  iban: String,
   rib: String,
   bic: String,
   paypal: String,
@@ -146,6 +147,8 @@ const mongoSchema = new Schema({
   companyEmail: String,
   companyName: String,
   companyType: String,
+  factureCity: String,
+  facturePostalCode: String,
   companySize: {
     type: Number,
     min: 1,
@@ -169,47 +172,17 @@ const mongoSchema = new Schema({
 
 class UserClass {
   static publicFields() {
-    return [
-      '_id',
-      'firstName',
-      'lastName',
-      'email',
-      'slug',
-      'role',
-      'newsletter',
-      'notifications',
-      'status',
-      'role',
-      'influencer',
-      'brand',
-      'agency',
-      'address',
-      'city',
-      'country',
-      'postalCode',
-      'bio',
-      'companyEmail',
-      'companyName',
-      'companySize',
-      'placeOfBirth',
-      'dateOfBirth',
-
-      'haveChildren',
-      'siret',
-      'rib',
-      'bic',
-      'paypal',
-    ];
+    return userPublicFields;
   }
 
   static protectedFields() {
     return [
-      ...this.publicFields(),
-      'siret',
-      'rib',
-      'bic',
-      'paypal',
+      ...userPublicFields,
+      ...userProtectedFields,
     ];
+  }
+  static influencerFields() {
+    return ['haveChildren', 'deliveryAddress', 'interests', 'languages', 'gender', 'civilState', 'centersOfInterest', 'feedback', 'categories', 'interests']
   }
 
   /**
@@ -325,7 +298,7 @@ class UserClass {
       throw new Error('User not found');
     }
     Object.entries(updates)
-      .filter(([key, value]) => value !== undefined && !['influencer'].includes(key))
+      .filter(([key, value]) => value !== undefined && !['influencer', ...this.influencerFields()].includes(key))
       .forEach(([key, value]) => {
         userDoc[key] = value;
       });
@@ -341,9 +314,9 @@ class UserClass {
         );
         userDoc.influencer.centersOfInterest = ids;
       }
-      userDoc.influencer.haveChildren = updates.influencer.haveChildren;
     }
-    // console.log(updates)
+    this.influencerFields().map(e => updates[e] ? userDoc.influencer[e] = updates[e] : '')
+
     await userDoc.save();
     const user = _.pick(userDoc.toObject(), this.publicFields());
     return { user };

@@ -27,7 +27,7 @@ const User = require('./models/User');
 const { parse } = require('url')
 const logger = require('./logs');
 const { insertTemplates } = require('./models/EmailTemplate');
-const { RoleList, isBusiness } = require('../utils/variables/user')
+const { RoleList, isInfluencer, isBusiness, userProfileCompeleteFields } = require('../utils/variables/user')
 
 require('dotenv').config();
 
@@ -77,6 +77,16 @@ const URL_MAP = {
   '/login': '/public/login',
   '/my-books': '/customer/my-books',
 };
+
+const userProfilePercent = (user) => {
+  let count = 0;
+  if (!user)
+    return 0;
+
+  userProfileCompeleteFields.map(e => { count += user[e] ? 1 : 0; console.log(user[e] ? '' : `${e} = ${user[e]}`) });
+
+  return ((count / userProfileCompeleteFields.length) * 100)
+}
 
 const nextApp = next({ dev });
 const handle = nextRoutes.getRequestHandler(nextApp);
@@ -172,6 +182,11 @@ nextApp.prepare().then(async () => {
       url = URL_MAP[pathname],
       { user } = req,
       redirectUrl;
+    // if (isInfluencer(user)) {
+    //   if ((user.profilePercent = userProfilePercent(user)) < 70)
+    //     nextApp.render(req, res, '/influencer/renseignement');
+    //   return
+    // }
     // if (RoleList.includes(user.role)) {
     //   redirectUrl = isBusiness(user) ? `/marques${pathname}` : `/${user.role}${pathname}`;
     //   nextApp.render(req, res, redirectUrl);
