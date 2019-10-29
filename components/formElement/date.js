@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import moment from 'moment'
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types'
 import TextField from '@material-ui/core/TextField';
@@ -17,11 +18,12 @@ const names = [
     { label: 'MM', max: 2 },
     { label: 'AAAA', max: yearLength },
 ];
-const convertDateToState = (date) => {
+const convertDateToState = (raw) => {
+    const date = moment(raw);
     let ret = { 'JJ': null, 'MM': null, 'AAAA': null };
 
-    if (date instanceof Date)
-        ret = { 'JJ': date.getDate(), 'MM': date.getMonth(), 'AAAA': date.getFullYear() };
+    if (date)
+        ret = { 'JJ': date.format('DD'), 'MM': date.format('MM'), 'AAAA': date.format('gggg') };
 
     return ret
 }
@@ -35,10 +37,10 @@ const DateComp = ({ name, label, type, value, onChange, showLabel, unableUnderli
     useEffect(() => {
         let { JJ, MM, AAAA } = state,
             tmp = AAAA + '';
-
+        const date = moment({ year: AAAA, month: MM - 1, day: JJ }).format();
 
         if ((JJ && MM) && (AAAA && (tmp.length === yearLength)))
-            onChange(name, new Date(AAAA, JJ, MM));
+            onChange(name, date);
 
     }, [state.value, state.JJ, state.MM, state.AAAA]);
 
@@ -46,6 +48,7 @@ const DateComp = ({ name, label, type, value, onChange, showLabel, unableUnderli
         <FormElementWrapper label={label} showLabel={showLabel} labelPosition={labelPosition} icon={icon}>
             <Grid container>
                 {names.map((elem, index) => {
+
                     return (
                         <Grid item xs={4} key={index}>
                             <TextField
