@@ -4,4 +4,4 @@ import InfluencersDetail from '../../components/page/dashboard/influencer-detail
 
 const CustomerIndex = ({ user }) => (<InfluencersDetail user={user} />)
 
-export default withAuth(CustomerIndex);
+export default withAuth(CustomerIndex, { showSideProfile: true });

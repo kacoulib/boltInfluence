@@ -183,6 +183,8 @@ const RenseignementComp = ({ user }) => {
         // return !errors.length
         console.log(state)
     }
+
+    console.log(state)
     return (
         <div>
             <Stepper

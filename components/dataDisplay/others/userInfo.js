@@ -43,7 +43,7 @@ const NavInfo = ({ color = '' }) => (
         </Grid>
     </Grid>
 )
-const UserProfile = ({ slug, src, complete = 0 }) => (
+const UserProfile = ({ slug, src, profilePercent = 0 }) => (
     <Grid container item className='text-center'>
         <Grid item xs={12}>
             <h2>{slug}</h2>
@@ -54,7 +54,7 @@ const UserProfile = ({ slug, src, complete = 0 }) => (
             </div>
         </Grid>
         <Grid item xs={12}>
-            <p>Profil <span className='red-color'>{complete}%</span> Complete</p>
+            <p>Profil <span className='red-color'>{profilePercent}%</span> Complete</p>
         </Grid>
         <style jsx>{`
             img {
@@ -71,9 +71,7 @@ const UserProfile = ({ slug, src, complete = 0 }) => (
 )
 
 const fakeUser = {
-    name: 'Sam49',
     src: '../../../static/img/user.png',
-    complete: 80,
     size: 'small',
     // color: 'red'
 }

@@ -26,4 +26,4 @@ const CustomerIndex = ({ user }) => {
     )
 }
 
-export default withAuth(CustomerIndex);
+export default withAuth(CustomerIndex, { showSideProfile: true });

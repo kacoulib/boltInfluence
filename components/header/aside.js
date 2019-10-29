@@ -19,6 +19,7 @@ const AsideComp = (props) => {
                 showNav={state.showNav}
                 navList={InfluencerNav}
                 showSideProfile={props.showSideProfile}
+                user={props.user}
             >
                 {props.children}
             </NavPanel>
