@@ -446,7 +446,6 @@ table {
 
 #subMenuTitle {
     position: relative;
-    top: -.5rem;
     /* padding-bottom: .5rem; */
 }
 #subMenuTitle::before {
@@ -958,6 +957,12 @@ ul .list-spacing:last-of-type
     display:flex;
     justify-content: center;
     align-items: center;
+}
+.flex-same-width {
+    flex: 1 1 0px;
+}
+.space-between { 
+    justify-content: space-between; 
 }
 .user_bio {
     padding-left: 1rem;

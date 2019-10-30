@@ -183,7 +183,7 @@ const IndexComp = () => {
                             active={state.accordionIndex == 2} />
                     </Grid>
                 </Grid>
-                <Grid container item xs={8}>
+                <Grid container item xs={8} className='flex-center space-between'>
                     {filteredData && filteredData.map(({ name, marque, platforms }, index) => (
                         <div container item xs={4} key={index} className='container'>
                             <div className='campagn-list'>
@@ -214,7 +214,8 @@ const IndexComp = () => {
                     text-align: right;
                 }
                 .container {
-                    width: calc(33.33%);
+                    width: calc(33.33% - 5px);
+                    margin-bottom: 10px;
                 }
                 h2 {
                     font-size: 1.4rem;
@@ -230,7 +231,6 @@ const IndexComp = () => {
                 }
                 .campagn-list {
                     position: relative;
-                    padding: 5px;
                     text-align: center;
                 }
                 .campagn-list > div {

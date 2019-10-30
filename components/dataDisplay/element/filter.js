@@ -18,7 +18,7 @@ const FilterComp = ({ onFilter, data, categories }) => {
     return (
         <Grid container alignContent='center' alignItems='center'>
             <Grid container item xs={12} sm={12}>
-                <div className='container'>
+                <div className='container flex-center space-between'>
                     {categories && categories.map((e, i) => (
                         <div key={i} className='child'>
                             <Grid item container xs={12} sm={12} onClick={() => toggleCategory(e._id)}>
@@ -33,13 +33,10 @@ const FilterComp = ({ onFilter, data, categories }) => {
             </Grid>
             <style jsx>{`
                 .container {
-                    display: block;
                     width: 100%;
                 }
                 .child {
-                    display: inline-block;
                     width: calc(25% - 5px);
-                    padding: 0 5px;
                 }
                 .container .child:last-child {
                     padding-right: 0;
