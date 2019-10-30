@@ -28,6 +28,11 @@ const CustomerIndex = ({ user }) => {
         <Campagne {...data} />
     )
 }
-const CampagnComp = ({ user }) => <NavBack redirectUrl={`/${user.role}/informations`} title='Campagnes'><Campagn /></NavBack>
+const CampagnComp = ({ user }) => {
+    return (
+        <NavBack redirectUrl={`/${user.role}/informations`} title='Campagnes'>
+            <Campagn />
+        </NavBack>)
+}
 
 export default withAuth(CampagnComp, { showAside: false, showSideProfile: false });

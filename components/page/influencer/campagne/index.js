@@ -149,7 +149,7 @@ const IndexComp = () => {
                 <Grid container item xs={4}>
                 </Grid>
                 <Grid container item xs={8}>
-                    <div className='filter-container'>
+                    <div className='filter-container spacing'>
                         <Filter onFilter={onFilter} categories={categories} />
                     </div>
                 </Grid>
@@ -183,30 +183,37 @@ const IndexComp = () => {
                             active={state.accordionIndex == 2} />
                     </Grid>
                 </Grid>
-                <Grid container item xs={8} className='flex-center space-between'>
-                    {filteredData && filteredData.map(({ name, marque, platforms }, index) => (
-                        <div container item xs={4} key={index} className='container'>
-                            <div className='campagn-list'>
-                                <div>
-                                    <img src={'../../../../static/img/white-rectangle.jpg'} />
-                                    <div className='overlay'>
+                <Grid container item xs={8}>
+                    <div className='spacing'>
+                        <Grid container item xs={12} className='flex-center space-between'>
+                            {filteredData && filteredData.map(({ name, marque, platforms }, index) => (
+                                <div container item xs={4} key={index} className='container'>
+                                    <div className='campagn-list'>
                                         <div>
-                                            <h2>{name}</h2>
-                                            <h3>{marque}</h3>
+                                            <img src={'../../../../static/img/white-rectangle.jpg'} />
+                                            <div className='overlay'>
+                                                <div>
+                                                    <h2>{name}</h2>
+                                                    <h3>{marque}</h3>
+                                                </div>
+                                            </div>
+                                            <div className='footer-container'>
+                                                <div className='btn-container'><Btn onClick={handleSubmit} text='Postuler' /></div>
+
+                                                <footer><ListDisplay list={platforms} /></footer>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className='footer-container'>
-                                        <div className='btn-container'><Btn onClick={handleSubmit} text='Postuler' /></div>
-
-                                        <footer><ListDisplay list={platforms} /></footer>
-                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    ))}
+                            ))}
+                        </Grid>
+                    </div>
                 </Grid>
             </Grid>
             <style jsx>{`
+                .spacing {
+                    padding-right: 3rem;
+                }
                 .filter-container {
                     display: block;
                     width: 100%;

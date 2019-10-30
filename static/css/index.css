@@ -964,9 +964,6 @@ ul .list-spacing:last-of-type
 .space-between { 
     justify-content: space-between; 
 }
-.user_bio {
-    padding-left: 1rem;
-}
 .user_bio .container {
     background: #DEDEE8;
 }

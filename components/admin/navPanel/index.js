@@ -97,6 +97,7 @@ const NavPanel = (props) => {
             <style jsx>{`
                 .user-info {
                     padding-top: 5rem;
+                    padding-left: 2rem;
                 }
             `}</style>
         </div>
