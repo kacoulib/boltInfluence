@@ -1,8 +1,8 @@
 import React from "react";
-import withAuth from '../../lib/withAuth';
-// import Campagne from '../../components/page/dashboard/campagne';
-import Campagn from '../../components/page/influencer/campagne';
-import NavBack from '../../components/page/navBack';
+import withAuth from '../../../lib/withAuth';
+// import Campagne from '../../../components/page/dashboard/campagne';
+import Campagn from '../../../components/page/influencer/campagne';
+import NavBack from '../../../components/page/navBack';
 
 
 

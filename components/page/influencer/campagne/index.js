@@ -1,8 +1,10 @@
 import Grid from '@material-ui/core/Grid';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Filter from '../../../dataDisplay/element/filter'
 import Btn from '../../../elements/btn'
 import FormGenerator from '../../../formElement/generator'
+import { getCampagns } from '../../../../lib/api/http/user/influencer';
+import Link from 'next/link'
 
 const fields = [
     {
@@ -91,23 +93,23 @@ const Accordion = (props) => {
     )
 }
 
-const IndexComp = () => {
+const CampagnListComp = () => {
     const [state, setState] = useState({
         campagns: [
-            { name: '#Campagne', marque: 'Marque', category: ['Mode', 'Autres'], platforms: ['facebook', 'instagram', 'tiktok'] },
-            { name: '#Campagne', marque: 'Marque', category: ['Voyage', 'Maman', 'Autres'], platforms: ['facebook', 'instagram', 'tiktok'] },
-            { name: '#Campagne', marque: 'Marque', category: ['Mode', 'Voyage', 'Maman', 'Autres'], platforms: ['facebook', 'instagram', 'tiktok'] },
-            { name: '#Campagne', marque: 'Marque', category: ['Mode', 'Maman', 'Autres'], platforms: ['facebook', 'instagram', 'tiktok'] },
-            { name: '#Campagne', marque: 'Marque', category: ['Voyage', 'Maman', 'Autres'], platforms: ['facebook', 'instagram', 'tiktok'] },
-            { name: '#Campagne', marque: 'Marque', category: ['Mode', 'Maman',], platforms: ['facebook', 'instagram', 'tiktok'] },
-            { name: '#Campagne', marque: 'Marque', category: ['Mode', 'Voyage', 'Maman', 'Autres'], platforms: ['facebook', 'instagram', 'tiktok'] },
-            { name: '#Campagne', marque: 'Marque', category: ['Mode', 'Voyage', 'Autres'], platforms: ['facebook', 'instagram', 'tiktok'] },
+            { title: '#Campagne', marque: 'Marque', category: ['Mode', 'Autres'], platforms: ['facebook', 'instagram', 'tiktok'] },
+            // { title: '#Campagne', marque: 'Marque', category: ['Voyage', 'Maman', 'Autres'], platforms: ['facebook', 'instagram', 'tiktok'] },
+            // { title: '#Campagne', marque: 'Marque', category: ['Mode', 'Voyage', 'Maman', 'Autres'], platforms: ['facebook', 'instagram', 'tiktok'] },
+            // { title: '#Campagne', marque: 'Marque', category: ['Mode', 'Maman', 'Autres'], platforms: ['facebook', 'instagram', 'tiktok'] },
+            // { title: '#Campagne', marque: 'Marque', category: ['Voyage', 'Maman', 'Autres'], platforms: ['facebook', 'instagram', 'tiktok'] },
+            // { title: '#Campagne', marque: 'Marque', category: ['Mode', 'Maman',], platforms: ['facebook', 'instagram', 'tiktok'] },
+            // { title: '#Campagne', marque: 'Marque', category: ['Mode', 'Voyage', 'Maman', 'Autres'], platforms: ['facebook', 'instagram', 'tiktok'] },
+            // { title: '#Campagne', marque: 'Marque', category: ['Mode', 'Voyage', 'Autres'], platforms: ['facebook', 'instagram', 'tiktok'] },
         ],
         accordionIndex: 0,
         filterIndex: 0,
         activity: []
     })
-    const onChange = (name, value) => setState({ ...state, [name]: value })
+    const onChange = (title, value) => setState({ ...state, [title]: value })
 
     const onFilter = (index) => onChange('filterIndex', index);
 
@@ -139,9 +141,18 @@ const IndexComp = () => {
     let filteredData = null;
 
     if (currentCategory)
-        filteredData = state.campagns.filter(elem => elem.category.includes(currentCategory.title))
+        filteredData = state.campaigns.filter(elem => elem.category.includes(currentCategory.title))
     else
-        filteredData = state.campagns;
+        filteredData = state.campaigns;
+
+    useEffect(() => {
+        const setCamps = async () => {
+            const { campaigns = [] } = await getCampagns();
+            onChange('campaigns', campaigns)
+        }
+        setCamps()
+    }, [])
+    console.log(filteredData)
 
     return (
         <Grid container alignContent='center' alignItems='center'>
@@ -184,26 +195,29 @@ const IndexComp = () => {
                     </Grid>
                 </Grid>
                 <Grid container item xs={8}>
-                    <div className='spacing'>
+                    <div className='spacing fullwidth'>
                         <Grid container item xs={12} className='flex-center space-between'>
-                            {filteredData && filteredData.map(({ name, marque, platforms }, index) => (
+                            {filteredData && filteredData.map(({ slug, title, brand = {}, platforms }, index) => (
                                 <div container item xs={4} key={index} className='container'>
-                                    <div className='campagn-list'>
-                                        <div>
-                                            <img src={'../../../../static/img/white-rectangle.jpg'} />
-                                            <div className='overlay'>
+                                    <Link href="/influencer/campagn/[slug]" as={`/influencer/campagn/${slug}`}>
+                                        <a>
+                                            <div className='campagn-list'>
                                                 <div>
-                                                    <h2>{name}</h2>
-                                                    <h3>{marque}</h3>
+                                                    <img src={'../../../../static/img/white-rectangle.jpg'} />
+                                                    <div className='overlay'>
+                                                        <div>
+                                                            <h2>{title}</h2>
+                                                            <h3>{brand.name}</h3>
+                                                        </div>
+                                                    </div>
+                                                    <div className='footer-container'>
+                                                        <div className='btn-container'><Btn onClick={handleSubmit} text='Postuler' /></div>
+                                                        <footer><ListDisplay list={platforms} /></footer>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div className='footer-container'>
-                                                <div className='btn-container'><Btn onClick={handleSubmit} text='Postuler' /></div>
-
-                                                <footer><ListDisplay list={platforms} /></footer>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        </a>
+                                    </Link>
                                 </div>
                             ))}
                         </Grid>
@@ -263,4 +277,5 @@ const IndexComp = () => {
         </Grid>
     )
 }
-export default IndexComp
+
+export default CampagnListComp

@@ -17,6 +17,18 @@ router.use((req, res, next) => {
   next();
 });
 
+
+router.get('/campaigns', listCollection(Campaign.list.bind(Campaign)));
+
+router.get(
+  '/campaign/:slug',
+  handleErrors(async (req, res) => {
+    const { slug } = req.params;
+
+    const { campaign } = await Campaign.getBySlug({ slug, showOffers: true });
+    res.json(campaign);
+  }),
+);
 router.get('/campaignoffers', (req, res) =>
   listCollection((listingOptions) => {
     const { _id: user } = req.user;
