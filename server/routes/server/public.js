@@ -1,5 +1,6 @@
 const express = require('express');
 
+const Campaign = require('../../models/Campaign');
 const Article = require('../../models/Article');
 const Category = require('../../models/Category');
 const FAQ = require('../../models/FAQ');
@@ -34,6 +35,18 @@ module.exports = (nextApp) => {
 
       nextApp.render(req, res, '/contact/apropos', {
         ...faqs,
+      });
+    }),
+  );
+
+  router.get(
+    '/influencer/campagn/:slug',
+    handleErrors(async (req, res) => {
+      const { slug } = req.params;
+
+      const campaign = await Campaign.getBySlug({ slug, showOffers: true });
+      nextApp.render(req, res, '/influencer/campagn/[slug]', {
+        ...campaign,
       });
     }),
   );

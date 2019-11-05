@@ -14,7 +14,7 @@ const NavBackComp = ({ redirectUrl, title, children }) => (
                 </Grid>
             </Grid>
         </Grid>
-        <Grid item>
+        <Grid item xs={12} sm={12}>
             {children}
         </Grid>
     </Grid>
