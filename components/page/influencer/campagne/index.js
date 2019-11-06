@@ -211,7 +211,9 @@ const CampagnListComp = () => {
                                                         </div>
                                                     </div>
                                                     <div className='footer-container'>
-                                                        <div className='btn-container'><Btn onClick={handleSubmit} text='Postuler' /></div>
+                                                        <div className='btn-container'>
+                                                            <Link href="/influencer/campagn/apply/[slug]" as={`/influencer/campagn/apply/${slug}`}><a title='postuler' className='red-btn bold' >Postuler</a></Link>
+                                                        </div>
                                                         <footer><ListDisplay list={platforms} /></footer>
                                                     </div>
                                                 </div>

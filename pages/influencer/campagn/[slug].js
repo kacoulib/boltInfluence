@@ -3,7 +3,8 @@ import { Grid } from '@material-ui/core';
 import withAuth from '../../../lib/withAuth';
 import NavBack from '../../../components/page/navBack';
 import Tabs from '../../../components/dataDisplay/others/tabs';
-import Btn from '../../../components/elements/btn';
+import { BtnChild } from '../../../components/elements/btn';
+import Card, { TripleCard } from '../../../components/dataDisplay/element/Card';
 
 const Conditions = ({ }) => (
     <div>
@@ -38,6 +39,31 @@ const Conditions = ({ }) => (
     </div>
 )
 
+const submitStyle = {
+    minWidth: '17%'
+}
+
+const SubmitBtn = () => (
+    <BtnChild style={submitStyle}>
+        <div className='flex space-between'>
+            <img src={'../../../static/img/icon/white-arrow-down.png'} />
+            <div>Postulez</div>
+        </div>
+        <style jsx>{`
+            .flex {
+                min-width: 15%;
+            }
+            img, div div {
+                display: inline-block;
+                vertical-align: middle;
+            }
+            img {
+                transform: rotate(-90deg);
+            }
+        `}</style>
+    </BtnChild>
+)
+
 const CoverComp = ({ title, brand = {} }) => (
     <div className='cover'>
         <img src='../../../static/img/strawhat.jpg' />
@@ -46,10 +72,10 @@ const CoverComp = ({ title, brand = {} }) => (
             <p>{brand.name}</p>
         </div>
         <div className='subscribe'>
-            <Btn text='Postulez' />
+            <SubmitBtn />
         </div>
         <div className='socials'>
-            <Btn text='Postulez' />
+            <SubmitBtn />
         </div>
         <style jsx>{`
             .cover {
@@ -83,7 +109,7 @@ const CoverComp = ({ title, brand = {} }) => (
                 width: 100%;
             }
         `}</style>
-    </div>
+    </div >
 )
 
 const CampagnDetail = ({ user, query: { campaign = {} } }) => {
@@ -170,10 +196,57 @@ const CampagnDetail = ({ user, query: { campaign = {} } }) => {
                         </Tabs>
                     </div>
                 </div>
+                <div className='inspiration-card-container spacing text-center'>
+                    <Grid container xs={12}>
+                        <Grid container item xs={6}>
+                            <h3 className='full-bordered-head inline-block'>Les inspirations</h3>
+                        </Grid>
+                        <Grid container item xs={6}></Grid>
+                        <TripleCard src='../../../static/img/rectangle.png' borderColor='gray' badgeColor='red' />
+                    </Grid>
+                </div>
                 <div className='condition-container spacing'>
                     <Conditions />
                 </div>
+                <div className='reward-container spacing blue-bg white-color text-center'>
+                    <Grid container xs={12}>
+                        <Grid container item xs={6}></Grid>
+                        <Grid container item xs={6}>
+                            <h3 className='full-bordered-head inline-block auto'>Le reward</h3>
+                        </Grid>
+                    </Grid>
+                    <Grid container xs={12} alignItems="center">
+                        <Grid container item xs={6} >
+                            <Card src='../../../static/img/rectangle.png' borderColor='gray' badgeColor='red' />
+                        </Grid>
+                        <Grid container item xs={6}>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit, molestie sit amet pretium consectetur, mollis at risus. </p>
+                        </Grid>
+                    </Grid>
+                </div>
+
+                <div className='subscribe text-center double-padding black-bg white-color'>
+                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit, molestie sit amet pretium consectetur, mollis at risus.</div>
+                </div>
+                <div className='subscribe triple-padding text-center'>
+                    <SubmitBtn />
+                </div>
                 <style jsx>{`
+                    .spacing {
+                        padding: 0 1rem;
+                    }
+                    .inspiration-card-container {
+                        position: relative;
+                        padding-top: 2rem;
+                        padding-bottom: 5rem;
+                        z-index: 1;
+                    }
+                    .inspiration-card-container h3 {
+                        margin-bottom: 130px;
+                    }
+                    .reward-container {
+                        padding: 2.5rem 5rem 5rem;
+                    }
                     .condition-container {
                         background-color: #F4F3F8;
                     }
@@ -215,9 +288,6 @@ const CampagnDetail = ({ user, query: { campaign = {} } }) => {
                     }
                     .container .child:nth-child(3) .header div {
                         background-color: #DEDEE8;
-                    }
-                    .spacing {
-                        padding: 0 1rem;
                     }
                 `}</style>
             </div>

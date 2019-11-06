@@ -1033,6 +1033,14 @@ svg {
 .svg-path-fill-white path {
     fill: white;
 }
+.svg-g-fill-red g,
+.svg-path-fill-red path {
+    fill: #F13F4B;
+}
+.svg-g-fill-blue g,
+.svg-path-fill-blue path {
+    fill: #242B45;
+}
 .rotate-reverse {
     transform: rotate(180deg);
 }
@@ -1230,6 +1238,18 @@ header .triangle {
 }
 .red-bg {
     background-color: #F13F4B;
+}
+.black-bg {
+    background-color: black;
+}
+.one-padding {
+    padding: 1rem;
+}
+.double-padding {
+    padding: 2rem;
+}
+.triple-padding {
+    padding: 3rem;
 }
 .white-color {
     color: white;
