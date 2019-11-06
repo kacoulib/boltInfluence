@@ -40,12 +40,12 @@ const Conditions = ({ }) => (
 )
 
 const submitStyle = {
-    minWidth: '17%'
+    minWidth: '25%'
 }
 
 const SubmitBtn = () => (
     <BtnChild style={submitStyle}>
-        <div className='flex space-between'>
+        <div className='flex space-evenly'>
             <img src={'../../../static/img/icon/white-arrow-down.png'} />
             <div>Postulez</div>
         </div>
@@ -75,7 +75,11 @@ const CoverComp = ({ title, brand = {} }) => (
             <SubmitBtn />
         </div>
         <div className='socials'>
-            <SubmitBtn />
+            <ul>
+                <li><img src='../../../static/img/icon/big-facebook.png' /></li>
+                <li><img src='../../../static/img/icon/big-instagram.png' /></li>
+                <li><img src='../../../static/img/icon/big-tiktok.png' /></li>
+            </ul>
         </div>
         <style jsx>{`
             .cover {
@@ -99,6 +103,13 @@ const CoverComp = ({ title, brand = {} }) => (
                 bottom: 1rem;
                 text-align: right;
                 padding-right: 1rem;
+            }
+            .socials li {
+                display: inline-block;
+                margin-left: 2rem;
+            }
+            .socials img {
+                max-width: 30px;
             }
             .title div {
                 font-size: 2rem;

@@ -964,6 +964,12 @@ ul .list-spacing:last-of-type
 .space-between { 
     justify-content: space-between; 
 }
+.space-around { 
+    justify-content: space-around; 
+}
+.space-evenly { 
+    justify-content: space-evenly; 
+}
 .user_bio .container {
     background: #DEDEE8;
 }
