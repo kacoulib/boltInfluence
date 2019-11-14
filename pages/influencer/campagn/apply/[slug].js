@@ -2,67 +2,9 @@ import React, { useState } from "react";
 import { Grid } from '@material-ui/core';
 import withAuth from '../../../../lib/withAuth';
 import NavBack from '../../../../components/page/navBack';
-import Tabs from '../../../../components/dataDisplay/others/tabs';
-import { BtnChild } from '../../../../components/elements/btn';
-import Card, { TripleCard } from '../../../../components/dataDisplay/element/Card';
+import Btn from '../../../../components/elements/btn';
+import Card from '../../../../components/dataDisplay/element/Card';
 
-const Conditions = ({ }) => (
-    <div>
-        <div> <h3 className='full-bordered-head inline-block'>Les conditions</h3></div>
-        <Grid item container xs={12} sm={12} justify="center" alignItems="center" className='card-padding-right'>
-            <Grid item container xs={12} sm={12} justify="center" alignItems="center">
-                <Grid item xs={2} sm={1} >
-                    <span className='circle-dot'>1</span>
-                </Grid>
-                <Grid item xs={10} sm={11}>
-                    <p>Intesque eget lacus iaculis, sagittis arcu lacinia, consectetur velit. Nam id risus lectus</p>
-                </Grid>
-                <Grid item xs={2} sm={1} >
-                    <span className='circle-dot'>2</span>
-                </Grid>
-                <Grid item xs={10} sm={11}>
-                    <p>Intesque eget lacus iaculis, sagittis arcu lacinia, consectetur velit. Nam id risus lectus</p>
-                </Grid>
-                <Grid item xs={2} sm={1} >
-                    <span className='circle-dot'>3</span>
-                </Grid>
-                <Grid item xs={10} sm={11}>
-                    <p>Intesque eget lacus iaculis, sagittis arcu lacinia, consectetur velit. Nam id risus lectus</p>
-                </Grid>
-            </Grid>
-        </Grid>
-        <style jsx>{`
-            p {
-                margin: 2.5rem 0;
-            }
-        `}</style>
-    </div>
-)
-
-const submitStyle = {
-    minWidth: '17%'
-}
-
-const SubmitBtn = () => (
-    <BtnChild style={submitStyle}>
-        <div className='flex space-between'>
-            <img src={'../../../static/img/icon/white-arrow-down.png'} />
-            <div>Postulez</div>
-        </div>
-        <style jsx>{`
-            .flex {
-                min-width: 15%;
-            }
-            img, div div {
-                display: inline-block;
-                vertical-align: middle;
-            }
-            img {
-                transform: rotate(-90deg);
-            }
-        `}</style>
-    </BtnChild>
-)
 
 const CoverComp = ({ title, brand = {} }) => (
     <div className='cover'>
@@ -70,9 +12,6 @@ const CoverComp = ({ title, brand = {} }) => (
         <div className='title'>
             <div>#{title}</div>
             <p>{brand.name}</p>
-        </div>
-        <div className='subscribe'>
-            <SubmitBtn />
         </div>
         <div className='socials'>
             <ul>
@@ -90,12 +29,6 @@ const CoverComp = ({ title, brand = {} }) => (
                 left: 1rem;
                 top: 1rem;
                 font-size: 1.5rem;
-            }
-            .subscribe {
-                position: absolute;
-                width: 100%;
-                bottom: 25%;
-                text-align: center;
             }
             .socials {
                 position: absolute;
@@ -126,6 +59,7 @@ const CoverComp = ({ title, brand = {} }) => (
 const CampagnDetail = ({ user, query: { campaign = {} } }) => {
     const [state, setState] = useState({
         showMarqueDetail: true,
+        date: 'le 16 juin 2019 et le 14 juillet 2019',
         contents: [
             {
                 count: 2,
@@ -147,7 +81,6 @@ const CampagnDetail = ({ user, query: { campaign = {} } }) => {
             },
         ]
     })
-    const onChange = (name, value) => setState({ ...state, [name]: value })
     console.log(campaign)
 
     return (
@@ -156,92 +89,46 @@ const CampagnDetail = ({ user, query: { campaign = {} } }) => {
                 <div className='cover-container'>
                     <CoverComp {...campaign} />
                 </div>
-                <div className='tab-container'>
-                    <div className='spacing'>
-                        <Tabs>
-                            <div title='La campagne'>{campaign.description}</div>
-                            <div title='La marque'>{campaign.brand ? campaign.brand.name : ''}</div>
-                        </Tabs>
-                    </div>
+                <div className='spacing tab-container'>
+                    <h3 className='bordered-head'>Date limit de publication</h3>
+                    <p className='red-color'>Vous devrez publier entre {state.date}</p>
                 </div>
-                <div className='content-container blue-bg card-bg dots-blue-top right'>
-                    <div className='spacing'>
-                        <Tabs
-                            headerStyle={{ color: 'white' }}
-                        >
-                            <div title='Les Contenus'>
-                                <div className='container flex space-between'>
-                                    {
-                                        state.contents.map(({ count, title, text, socials }, index) => (
-                                            <div className='child' key={index}>
-                                                <Grid container item xs={12} justify="flex-end" className='fullheight text-center'>
-                                                    <Grid item xs={12}>
-                                                        <div className='header'>
-                                                            <div>{count}</div>
-                                                            <span>{title}</span>
-                                                        </div>
-                                                    </Grid>
-                                                    <Grid container item xs={12} alignItems="flex-start">
-                                                        <Grid item xs={12}>
-                                                            <div className='content'>{text}</div>
-                                                        </Grid>
-                                                    </Grid>
-                                                    <Grid container item xs={12} alignItems="flex-end">
-                                                        <Grid item xs={12}>
-                                                            <ul className='socials-container'>
-                                                                {socials && socials.map((elem, i) => (
-                                                                    <li key={i} className={`social ${elem}`}></li>
-                                                                ))}
-                                                            </ul>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
-                                            </div>
-                                        ))
-                                    }
-                                </div>
-                            </div>
-                            <div title='Les conditions'>
-                                sdfdsf
-                            </div>
-                        </Tabs>
-                    </div>
-                </div>
-                <div className='inspiration-card-container spacing text-center'>
-                    <Grid container xs={12}>
-                        <Grid container item xs={6}>
-                            <h3 className='full-bordered-head inline-block'>Les inspirations</h3>
+
+                <div className='inspiration-card-container spacing'>
+                    <h2 className='bordered-head'>Produits et récompenses</h2>
+                    <Grid container xs={12} className='text-center'>
+                        <Grid container item xs={12}>
+                            <Grid xs={6}>
+                                <Card src='../../../static/img/rectangle.png' borderColor='blue' badgeColor='blue' />
+                            </Grid>
+                            <Grid xs={6}>
+                                <h3 className='blue-color'>Produits Sojade</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit, molestie sit amet pretium consectetur, mollis at risus. </p>
+                            </Grid>
                         </Grid>
-                        <Grid container item xs={6}></Grid>
-                        <TripleCard src='../../../static/img/rectangle.png' borderColor='gray' badgeColor='red' />
-                    </Grid>
-                </div>
-                <div className='condition-container spacing'>
-                    <Conditions />
-                </div>
-                <div className='reward-container spacing blue-bg white-color text-center'>
-                    <Grid container xs={12}>
-                        <Grid container item xs={6}></Grid>
-                        <Grid container item xs={6}>
-                            <h3 className='full-bordered-head inline-block auto'>Le reward</h3>
-                        </Grid>
-                    </Grid>
-                    <Grid container xs={12} alignItems="center">
-                        <Grid container item xs={6} >
-                            <Card src='../../../static/img/rectangle.png' borderColor='gray' badgeColor='red' />
-                        </Grid>
-                        <Grid container item xs={6}>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit, molestie sit amet pretium consectetur, mollis at risus. </p>
+                        <Grid container item xs={12} >
+                            <Grid xs={6}>
+                                <h3 className='red-color'>Produits Sojade</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit, molestie sit amet pretium consectetur, mollis at risus. </p>
+                            </Grid>
+                            <Grid xs={6}>
+                                <Card src='../../../static/img/rectangle.png' borderColor='red' badgeColor='red' />
+                            </Grid>
                         </Grid>
                     </Grid>
                 </div>
 
-                <div className='subscribe text-center double-padding black-bg white-color'>
-                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ligula velit, molestie sit amet pretium consectetur, mollis at risus.</div>
+                <div className='subscribe text-center double-padding blue-bg white-color'>
+                    <div>Si la marque souhaite amet, consectetur adipiscing elit. Suspendisse ligula velit, molestie sit amet pretium consectetur, mollis at risus. Pellentesque eget lacus iaculis, sagittis arcu lacinia, consectetur 300€ velit. </div>
                 </div>
-                <div className='subscribe triple-padding text-center'>
-                    <SubmitBtn />
+                <div className='spacing'>
+                    <h2 className='bordered-head'>Ajoutez vos coordonnées d’expédition</h2>
+                    <div className='subscribe triple-padding text-center'>
+
+                        <Btn text='Finaliser' />
+                    </div>
                 </div>
+
                 <style jsx>{`
                     .spacing {
                         padding: 0 1rem;
@@ -250,6 +137,7 @@ const CampagnDetail = ({ user, query: { campaign = {} } }) => {
                         position: relative;
                         padding-top: 2rem;
                         padding-bottom: 5rem;
+                        background-color: #F4F3F8;
                         z-index: 1;
                     }
                     .inspiration-card-container h3 {

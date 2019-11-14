@@ -147,7 +147,6 @@ const CampagnDetail = ({ user, query: { campaign = {} } }) => {
             },
         ]
     })
-    const onChange = (name, value) => setState({ ...state, [name]: value })
     console.log(campaign)
 
     return (
